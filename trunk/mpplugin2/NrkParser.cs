@@ -269,6 +269,7 @@ namespace NrkBrowser
             }
             if (tab == "natur")
             {
+                //deprecated, bruker RSS feed for natur i stedet
                 query =
                     new Regex(
                         "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\" onclick=\"return true;\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?></a>.*?</div>.*?<div class=\"active\"><h2><a href=\"http://www1.nrk.no/nett-tv/natur/spill/verdi/(.*?)\" onclick=\"return true;\">(.*?)</a></h2>",

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using NrkBrowser;
 using NUnit.Framework;
@@ -19,7 +18,6 @@ namespace Tests
         [Test]
         public void TestHentKategorier()
         {
-            
             List<Item> categories = nrkParser.GetCategories();
             Assert.AreEqual(16, categories.Count);
             foreach (Item item in categories)
@@ -78,7 +76,6 @@ namespace Tests
                     default:
                         Assert.Fail("Kjenner ikke til kategorien");
                         break;
-                        
                 }
             }
         }
@@ -87,30 +84,120 @@ namespace Tests
         public void TestGetTopTabRSS()
         {
             List<Item> natur = nrkParser.GetTopTabRSS("NATUR");
-            foreach (Item item in natur)
+            sjekkTopTabRSSClips(natur);
+
+            List<Item> super = nrkParser.GetTopTabRSS("SUPER");
+            sjekkTopTabRSSClips(super);
+        }
+
+        private void sjekkTopTabRSSClips(List<Item> liste)
+        {
+            Assert.IsNotNull(liste, "Listen kan ikke være null");
+            Assert.IsTrue(liste.Count > 0, "Listen skal være større enn 0");
+            foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
                 Assert.IsNotNull(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotNull(c.Title, "Tittelen kan ikke være null");
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
-                
             }
         }
+
         [Test]
         public void TestGetForsiden()
         {
             List<Item> liste = nrkParser.GetForsiden();
+            Assert.AreEqual(22, liste.Count); //var 7 i denne listen den 6/9-08
             foreach (Item item in liste)
             {
-                Clip c = (Clip)item;
+                Clip c = (Clip) item;
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
                 Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
+                Assert.AreEqual(Clip.KlippType.KLIPP, c.Type, "Skal være av typen KLIPP");
+                Assert.IsNull(c.VerdiLink, "Klipp fra forsiden er ikke verdilinker");
+            }
+        }
+
+        [Test]
+        public void TestGetMestSettDenneUken()
+        {
+            List<Item> liste = nrkParser.GetMestSettDenneUken();
+            Assert.AreEqual(7, liste.Count); //var 7 i denne listen den 6/9-08
+            foreach (Item item in liste)
+            {
+                Clip c = (Clip) item;
+                Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
+                Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
+                Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
+                Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
                 Assert.AreEqual(Clip.KlippType.KLIPP, c.Type, "Skal være av typen KLIPP");
+                Assert.IsNotEmpty(c.AntallGangerVist, "Antall ganger vist skal være satt");
+                Assert.IsNull(c.VerdiLink, "Klipp fra mest sette er ikke verdilinker");
+            }
+        }
 
+        [Test]
+        public void TestGetAllPrograms()
+        {
+            List<Item> liste = nrkParser.GetAllPrograms();
+            Assert.AreEqual(309, liste.Count); //var 7 i denne listen den 6/9-08
+            foreach (Item item in liste)
+            {
+                Program program = (Program) item;
+                Assert.IsNotEmpty(program.ID, "ID'en kan ikke være null");
+                Assert.IsNotEmpty(program.Description, "Beskrivelsen kan ikke være null");
+                Assert.IsNotEmpty(program.Bilde, "Bilde kan ikke være null");
+                Assert.IsNotEmpty(program.Title, "Tittelen kan ikke være null");
+                Assert.IsFalse(program.Playable, "Klipp må være playable");
+            }
+        }
+
+        [Test]
+        public void TestGetTopTabber()
+        {
+            List<Item> liste = nrkParser.GetTopTabber("nyheter");
+            Assert.AreEqual(40, liste.Count); // 6/9-08
+            topTabTest(liste);
+
+            liste = nrkParser.GetTopTabber("ol");
+            Assert.AreEqual(34, liste.Count); //6/9-08
+            topTabTest(liste);
+
+            liste = nrkParser.GetTopTabber("sport");
+            Assert.AreEqual(27, liste.Count); //6/9-08
+            topTabTest(liste);
+
+            liste = nrkParser.GetTopTabber("natur");
+            Assert.AreEqual(58, liste.Count); //6/9-08
+            topTabTest(liste);
+        }
+
+        [Test]
+        public void TestA()
+        {
+            //nrkParser.GetTopTabRSS()
+        }
+
+        private void topTabTest(List<Item> liste)
+        {
+            Assert.IsNotNull(liste);
+            Assert.IsTrue(liste.Count > 0, "Listen skal være større enn 1");
+            foreach (Item item in liste)
+            {
+                Clip c = (Clip) item;
+                Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
+                Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
+                Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
+                Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
+                Assert.IsTrue(c.Playable, "Klipp må være playable");
+                Assert.AreEqual(Clip.KlippType.VERDI, c.Type, "Skal være av typen VERDI");
+                Assert.IsNull(c.AntallGangerVist, "Antall ganger vist skal være satt");
+                Assert.IsNotNull(c.VerdiLink, "VerdiLink må være satt på et klipp av type VERDI");
+                Assert.IsNotEmpty(c.VerdiLink, "VerdiLink må være satt på et klipp av type VERDI");
             }
         }
     }
