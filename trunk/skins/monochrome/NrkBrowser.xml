@@ -1,0 +1,14 @@
+<window>
+
+  <define>#header.label:NRK Nett-TV</define>
+
+  <id>40918376</id>
+  <defaultcontrol>50</defaultcontrol>
+  <allowoverlay>yes</allowoverlay>
+    <import>common.window.xml</import>
+
+    <!-- importing the default video facade view, with id 50 -->
+    <import>common.facade.video.xml</import>
+
+  </controls>
+</window>
