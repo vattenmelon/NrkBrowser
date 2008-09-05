@@ -1,0 +1,137 @@
+<Configuration>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Qualified:System.Text.RegularExpressions.Match">
+      <Item value="Groups" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Nrk.Clip+KlippType">
+      <Item value="VERDI" priority="0" />
+      <Item value="KLIPP" priority="0" />
+      <Item value="NATUR" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MediaPortal.GUI.Library.GUIFacadeControl">
+      <Item value="SetValue" priority="0" />
+      <Item value="ThumbnailView" priority="1" />
+      <Item value="ListView" priority="0" />
+      <Item value="FilmstripView" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.List&lt;Nrk.Item&gt;">
+      <Item value="Add" priority="3" />
+      <Item value="Count" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Text.RegularExpressions.MatchCollection">
+      <Item value="CopyTo" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@MediaPortal.Player.g_Player+MediaType">
+      <Item value="Video" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MediaPortal.Playlists.PlayListPlayer.IPlayer">
+      <Item value="PlayVideoStream" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System">
+      <Item value="Console" priority="5" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:NrkBrowser.NrkPlugin.Stream">
+      <Item value="ID" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Nrk.Clip">
+      <Item value="ID" priority="2" />
+      <Item value="Bilde" priority="1" />
+      <Item value="Title" priority="2" />
+      <Item value="VerdiLink" priority="1" />
+      <Item value="Klokkeslett" priority="1" />
+      <Item value="Description" priority="3" />
+      <Item value="Type" priority="2" />
+      <Item value="AntallGangerVist" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:string">
+      <Item value="Split" priority="1" />
+      <Item value="Remove" priority="0" />
+      <Item value="LastIndexOf" priority="0" />
+      <Item value="Replace" priority="0" />
+      <Item value="Length" priority="0" />
+      <Item value="EndsWith" priority="3" />
+      <Item value="Substring" priority="6" />
+      <Item value="ToLower" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MediaPortal.GUI.Library.GUIListControl">
+      <Item value="SelectedItem" priority="0" />
+      <Item value="SelectedListItem" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Nrk.Stream">
+      <Item value="Bilde" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Nrk.Item">
+      <Item value="ID" priority="5" />
+      <Item value="Description" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Console">
+      <Item value="WriteLine" priority="5" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@MediaPortal">
+      <Item value="Profile" priority="0" />
+      <Item value="Configuration" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Nrk.MenuItem">
+      <Item value="Description" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MediaPortal.GUI.Library.GUIListItem">
+      <Item value="Thumbnail" priority="0" />
+      <Item value="ThumbnailImage" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MediaPortal.GUI.Library.GUIImage">
+      <Item value="Width" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MediaPortal.Playlists.PlayListPlayer">
+      <Item value="g_Player" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@">
+      <Item value="GetMestSettDenneUken" priority="0" />
+      <Item value="ID" priority="3" />
+      <Item value="Bilde" priority="2" />
+      <Item value="GetTopTabber" priority="1" />
+      <Item value="GetAllPrograms" priority="0" />
+      <Item value="Title" priority="2" />
+      <Item value="Description" priority="2" />
+      <Item value="GetClipUrl" priority="2" />
+      <Item value="GetCategories" priority="0" />
+      <Item value="GetTopTabRSS" priority="1" />
+      <Item value="GetNyheter" priority="2" />
+      <Item value="Count" priority="0" />
+      <Item value="Klokkeslett" priority="1" />
+      <Item value="GetFolders" priority="1" />
+      <Item value="AntallGangerVist" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Nrk.NrkParser">
+      <Item value="GetNyheter" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <EditorManager>
+    <RecentFiles>
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:SettingsForm.designer.cs" caret="0" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:SettingsForm.cs" caret="0" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/d:Properties/f:AssemblyInfo.cs" caret="0" scrollPosition="0|0" />
+      <File id="309A3F5E-91A4-40C5-BAB8-527905FE85DF/f:TestApp.cs" caret="304" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:NrkPlugin.cs" caret="657" scrollPosition="0|14" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Nrk.cs" caret="25295" scrollPosition="0|603" />
+    </RecentFiles>
+  </EditorManager>
+  <FileStructureView>
+    <AutoScrollToSource>False</AutoScrollToSource>
+    <TrackCaretLocation>False</TrackCaretLocation>
+  </FileStructureView>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <ReFormatCode>
+    <ReorderMembers>False</ReorderMembers>
+    <OptimizeUsings>False</OptimizeUsings>
+    <RemoveRedundantThis>False</RemoveRedundantThis>
+    <ShortenReferences>False</ShortenReferences>
+  </ReFormatCode>
+  <SharedSolutionDisabledTemplatesManager>
+    <DisabledTemplates />
+  </SharedSolutionDisabledTemplatesManager>
+  <UserSolutionDisabledTemplatesManager>
+    <DisabledTemplates />
+  </UserSolutionDisabledTemplatesManager>
+</Configuration>
