@@ -2,10 +2,37 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NrkBrowser", "mpplugin2\NrkBrowser.csproj", "{2A20C160-A7E8-48CB-95A3-92F62CA6AB38}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testapplikasjon", "ConsoleApplication1\testapplikasjon.csproj", "{309A3F5E-91A4-40C5-BAB8-527905FE85DF}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02A15E94-804A-4E2F-BDD9-6981E3DC5DC2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "skins", "skins", "{96D7E999-175E-4670-B11A-75CADA2E29F8}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aeonwide", "aeonwide", "{6D4BA5EC-1F68-4F75-8039-36D4FD51FA7A}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		skins\aeonwide\NrkBrowser.xml = skins\aeonwide\NrkBrowser.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "monochrome", "monochrome", "{780957D9-9BE9-49CE-8E0C-0429A3AB5150}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 	ProjectSection(SolutionItems) = preProject
 		skins\monochrome\NrkBrowser.xml = skins\monochrome\NrkBrowser.xml
 	EndProjectSection
@@ -27,5 +54,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6D4BA5EC-1F68-4F75-8039-36D4FD51FA7A} = {96D7E999-175E-4670-B11A-75CADA2E29F8}
+		{780957D9-9BE9-49CE-8E0C-0429A3AB5150} = {96D7E999-175E-4670-B11A-75CADA2E29F8}
 	EndGlobalSection
 EndGlobal

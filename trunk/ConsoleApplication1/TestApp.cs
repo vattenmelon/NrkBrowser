@@ -1,30 +1,28 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Nrk;
+using NrkBrowser;
 
 namespace ConsoleApplication1
 {
-    class TestApp
+    internal class TestApp
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             NrkParser nrk = new NrkParser(900);
 
-            List<Item> clips = nrk.GetTopTabRSS("natur");
-            System.Console.WriteLine("Antall: " + clips.Count);
+            List<Item> clips = nrk.GetTopTabber("ol");
+            Console.WriteLine("Antall: " + clips.Count);
             foreach (Item clip in clips)
             {
                 Clip c = (Clip) clip;
-                System.Console.WriteLine("id: " + c.ID + ", title: " + c.Title + ", description: " + c.Description + ", bilde: " + c.Bilde);
-                System.Console.WriteLine("Klokkeslett: "+ c.Klokkeslett);
-                System.Console.WriteLine("videoUrl: " + nrk.GetClipUrl(c));
-                
-               
+                Console.WriteLine("id: " + c.ID + ", title: " + c.Title + ", description: " + c.Description +
+                                  ", bilde: " + c.Bilde);
+                Console.WriteLine("Klokkeslett: " + c.Klokkeslett);
+                Console.WriteLine("videoUrl: " + nrk.GetClipUrl(c));
             }
-            System.Console.WriteLine(nrk.GetClipUrl((Clip)clips[0]));
-            System.Console.WriteLine("Press enter to quit");
-            System.Console.Read();
+            Console.WriteLine(nrk.GetClipUrl((Clip) clips[0]));
+            Console.WriteLine("Press enter to quit");
+            Console.Read();
         }
     }
 }

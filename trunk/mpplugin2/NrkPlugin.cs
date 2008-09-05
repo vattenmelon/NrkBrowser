@@ -7,14 +7,14 @@
  * */
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using MediaPortal.Configuration;
+using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
 using MediaPortal.Player;
-using MediaPortal.Dialogs;
 using MediaPortal.Playlists;
 using MediaPortal.Profile;
-using Nrk;
-using System.Windows.Forms;
+using NrkBrowser;
 
 namespace NrkBrowser
 {
@@ -81,7 +81,7 @@ namespace NrkBrowser
         {
             //configuration
             SettingsForm form = new SettingsForm();
-            Settings settings = new Settings(Config.GetFile(Config.Dir.Config, NrkPlugin.configfile));
+            Settings settings = new Settings(Config.GetFile(Config.Dir.Config, configfile));
 
             int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
             if (speed < form.speedUpDown.Minimum)
@@ -161,7 +161,7 @@ namespace NrkBrowser
         public override bool Init()
         {
             bool result = Load(GUIGraphicsContext.Skin + @"\NrkBrowser.xml");
-            Settings settings = new Settings(Config.GetFile(Config.Dir.Config, NrkPlugin.configfile));
+            Settings settings = new Settings(Config.GetFile(Config.Dir.Config, configfile));
             int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
             _nrk = new NrkParser(speed);
             _active = new Stack<Item>();
@@ -222,10 +222,8 @@ namespace NrkBrowser
 
             if (selecteditem != null)
             {
-
                 if (!selecteditem.Bilde.Equals(""))
                 {
- 
                     GUIPropertyManager.SetProperty(PROGRAM_PICTURE, selecteditem.Bilde);
                 }
             }
@@ -233,7 +231,7 @@ namespace NrkBrowser
         }
 
         protected override void OnClicked(int controlId, GUIControl control,
-                                          MediaPortal.GUI.Library.Action.ActionType actionType)
+                                          Action.ActionType actionType)
         {
             if (control == facadeView) ItemSelected();
             base.OnClicked(controlId, control, actionType);
@@ -277,30 +275,30 @@ namespace NrkBrowser
                 items.Add(new MenuItem("all", "Alfabetisk liste"));
                 items.Add(new MenuItem("categories", "Kategorier"));
                 items.Add(new MenuItem("live", "Direktestrømmer"));
-                Nrk.MenuItem anbefalte = new Nrk.MenuItem("anbefalte", "Anbefalte programmer");
+                NrkBrowser.MenuItem anbefalte = new NrkBrowser.MenuItem("anbefalte", "Anbefalte programmer");
                 anbefalte.Description = "Anbefalte programmer fra forsiden akkurat nå";
                 items.Add(anbefalte);
-                Nrk.MenuItem mestSettUke = new Nrk.MenuItem("mestSettUke", "Mest sett denne uken");
+                NrkBrowser.MenuItem mestSettUke = new NrkBrowser.MenuItem("mestSettUke", "Mest sett denne uken");
                 mestSettUke.Description = "De mest populære klippene denne uken!";
                 items.Add(mestSettUke);
 
-                Nrk.MenuItem nyheter = new Nrk.MenuItem("nyheter", "Nyheter");
+                NrkBrowser.MenuItem nyheter = new NrkBrowser.MenuItem("nyheter", "Nyheter");
                 nyheter.Description = "De siste nyhetsklippene";
                 items.Add(nyheter);
 
-                Nrk.MenuItem sport = new Nrk.MenuItem("sport", "Sport");
+                NrkBrowser.MenuItem sport = new NrkBrowser.MenuItem("sport", "Sport");
                 sport.Description = "De siste sportsklippene";
                 items.Add(sport);
 
-                Nrk.MenuItem natur = new Nrk.MenuItem("natur", "Natur");
+                NrkBrowser.MenuItem natur = new NrkBrowser.MenuItem("natur", "Natur");
                 natur.Description = "De siste naturklippene";
                 items.Add(natur);
 
-                Nrk.MenuItem super = new Nrk.MenuItem("super", "Super");
+                NrkBrowser.MenuItem super = new NrkBrowser.MenuItem("super", "Super");
                 super.Description = "De siste klippene fra super";
                 items.Add(super);
 
-                Nrk.MenuItem ol = new Nrk.MenuItem("ol", "OL Beijing 2008");
+                NrkBrowser.MenuItem ol = new NrkBrowser.MenuItem("ol", "OL Beijing 2008");
                 ol.Description = "De siste klippene fra OL i Beijing";
                 items.Add(ol);
 
@@ -552,8 +550,8 @@ namespace NrkBrowser
         {
             //  Log.Info(PLUGIN_NAME + "Showing error: " + message);
             GUIDialogNotify dlg =
-                (GUIDialogNotify) GUIWindowManager.GetWindow((int) GUIWindow.Window.WINDOW_DIALOG_NOTIFY);
-            dlg.SetHeading("Nrk Browser");
+                (GUIDialogNotify) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_NOTIFY);
+            dlg.SetHeading("NrkBrowser Browser");
             dlg.SetText(message);
             dlg.DoModal(GUIWindowManager.ActiveWindow);
         }
