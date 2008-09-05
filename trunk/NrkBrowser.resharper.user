@@ -27,15 +27,15 @@
     <ItemStatistics item="Qualified:MediaPortal.Playlists.PlayListPlayer.IPlayer">
       <Item value="PlayVideoStream" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:@System">
-      <Item value="Console" priority="5" />
+    <ItemStatistics item="Qualified:Nrk.NrkParser">
+      <Item value="GetNyheter" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:NrkBrowser.NrkPlugin.Stream">
       <Item value="ID" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Nrk.Clip">
       <Item value="ID" priority="2" />
-      <Item value="Bilde" priority="1" />
+      <Item value="Bilde" priority="2" />
       <Item value="Title" priority="2" />
       <Item value="VerdiLink" priority="1" />
       <Item value="Klokkeslett" priority="1" />
@@ -44,13 +44,14 @@
       <Item value="AntallGangerVist" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:string">
+      <Item value="Equals" priority="1" />
       <Item value="Split" priority="1" />
       <Item value="Remove" priority="0" />
       <Item value="LastIndexOf" priority="0" />
-      <Item value="Replace" priority="0" />
+      <Item value="Replace" priority="2" />
       <Item value="Length" priority="0" />
-      <Item value="EndsWith" priority="3" />
-      <Item value="Substring" priority="6" />
+      <Item value="EndsWith" priority="4" />
+      <Item value="Substring" priority="7" />
       <Item value="ToLower" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:MediaPortal.GUI.Library.GUIListControl">
@@ -61,8 +62,8 @@
       <Item value="Bilde" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Nrk.Item">
+      <Item value="Description" priority="5" />
       <Item value="ID" priority="5" />
-      <Item value="Description" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Console">
       <Item value="WriteLine" priority="5" />
@@ -88,21 +89,21 @@
       <Item value="GetMestSettDenneUken" priority="0" />
       <Item value="ID" priority="3" />
       <Item value="Bilde" priority="2" />
-      <Item value="GetTopTabber" priority="1" />
+      <Item value="GetTopTabber" priority="2" />
       <Item value="GetAllPrograms" priority="0" />
       <Item value="Title" priority="2" />
-      <Item value="Description" priority="2" />
+      <Item value="AntallGangerVist" priority="0" />
       <Item value="GetClipUrl" priority="2" />
       <Item value="GetCategories" priority="0" />
       <Item value="GetTopTabRSS" priority="1" />
       <Item value="GetNyheter" priority="2" />
-      <Item value="Count" priority="0" />
+      <Item value="Description" priority="2" />
       <Item value="Klokkeslett" priority="1" />
+      <Item value="Count" priority="0" />
       <Item value="GetFolders" priority="1" />
-      <Item value="AntallGangerVist" priority="0" />
     </ItemStatistics>
-    <ItemStatistics item="Qualified:Nrk.NrkParser">
-      <Item value="GetNyheter" priority="0" />
+    <ItemStatistics item="Qualified:@System">
+      <Item value="Console" priority="5" />
     </ItemStatistics>
   </CompletionStatisticsManager>
   <EditorManager>
@@ -110,9 +111,19 @@
       <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:SettingsForm.designer.cs" caret="0" scrollPosition="0|0" />
       <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:SettingsForm.cs" caret="0" scrollPosition="0|0" />
       <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/d:Properties/f:AssemblyInfo.cs" caret="0" scrollPosition="0|0" />
-      <File id="309A3F5E-91A4-40C5-BAB8-527905FE85DF/f:TestApp.cs" caret="304" scrollPosition="0|0" />
-      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:NrkPlugin.cs" caret="657" scrollPosition="0|14" />
-      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Nrk.cs" caret="25295" scrollPosition="0|603" />
+      <File id="780957D9-9BE9-49CE-8E0C-0429A3AB5150/f:NrkBrowser.xml" caret="719" scrollPosition="0|0" />
+      <File id="6D4BA5EC-1F68-4F75-8039-36D4FD51FA7A/f:NrkBrowser.xml" caret="0" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Item.cs" caret="110" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Program.cs" caret="336" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Clip.cs" caret="759" scrollPosition="0|4" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Stream.cs" caret="326" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Folder.cs" caret="159" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Category.cs" caret="236" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:MenuItem.cs" caret="233" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:NrkPlugin.cs" caret="9516" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Nrk.cs" caret="25975" scrollPosition="0|3" />
+      <File id="309A3F5E-91A4-40C5-BAB8-527905FE85DF/f:TestApp.cs" caret="249" scrollPosition="0|0" />
+      <File id="526E3060-B4C4-43DA-918F-94FAAA1E0A59/f:NrkBrowserTest.cs" caret="167" scrollPosition="0|0" />
     </RecentFiles>
   </EditorManager>
   <FileStructureView>
@@ -124,9 +135,9 @@
   </NAntValidationSettings>
   <ReFormatCode>
     <ReorderMembers>False</ReorderMembers>
-    <OptimizeUsings>False</OptimizeUsings>
+    <OptimizeUsings>True</OptimizeUsings>
     <RemoveRedundantThis>False</RemoveRedundantThis>
-    <ShortenReferences>False</ShortenReferences>
+    <ShortenReferences>True</ShortenReferences>
   </ReFormatCode>
   <SharedSolutionDisabledTemplatesManager>
     <DisabledTemplates />
