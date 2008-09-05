@@ -21,23 +21,18 @@ namespace NrkBrowser
     public class NrkPlugin : GUIWindow, ISetupForm
     {
         public const string PLUGIN_NAME = "NrkBrowser";
+        public const string PROGRAM_PICTURE = "#picture";
+        public const string PROGRAM_DESCRIPTION = "#description";
         private string streamPrefix = "mms://straumV.nrk.no/nrk_tv_webvid";
         protected string _suffix = "_l";
 
         [SkinControlAttribute(50)] protected GUIFacadeControl facadeView = null;
 
-        //Kunne ikke avgjøre om jeg skulle bruke default xml'en eller endre..endrer man på xml'en må man endre for alle skins.
-        // [SkinControlAttribute(58)]
-        // protected GUITextScrollUpControl descriptionLabel = null;
-
-        // [SkinControlAttribute(24)]
-        // protected GUIImage logo = null;
-
         protected NrkParser _nrk = null;
         protected Stack<Item> _active = null;
 
         protected bool _osdPlayer = true;
-        
+
 
         private static string configfile = "NrkBrowserSettings.xml";
 
@@ -91,12 +86,12 @@ namespace NrkBrowser
             int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
             if (speed < form.speedUpDown.Minimum)
             {
-                speed = (int)form.speedUpDown.Minimum;
+                speed = (int) form.speedUpDown.Minimum;
                 settings.SetValue("NrkBrowser", "speed", speed);
             }
             if (speed > form.speedUpDown.Maximum)
             {
-                speed = (int)form.speedUpDown.Maximum;
+                speed = (int) form.speedUpDown.Maximum;
                 settings.SetValue("NrkBrowser", "speed", speed);
             }
             form.speedUpDown.Value = speed;
@@ -110,11 +105,11 @@ namespace NrkBrowser
             DialogResult res = form.ShowDialog();
             if (res == DialogResult.OK)
             {
-                speed = (int)form.speedUpDown.Value;
+                speed = (int) form.speedUpDown.Value;
                 settings.SetValue("NrkBrowser", "speed", speed);
                 osd = form.osdPlayerCheckbox.Checked;
                 settings.SetValueAsBool("NrkBrowser", "osdPlayer", osd);
-                quality = (string)form.liveStreamQualityCombo.Items[form.liveStreamQualityCombo.SelectedIndex];
+                quality = (string) form.liveStreamQualityCombo.Items[form.liveStreamQualityCombo.SelectedIndex];
                 settings.SetValue("NrkBrowser", "liveStreamQuality", quality);
             }
         }
@@ -179,6 +174,8 @@ namespace NrkBrowser
             qualityMap["High"] = "_h";
 
             _suffix = qualityMap[quality];
+
+
             return result;
         }
 
@@ -192,7 +189,6 @@ namespace NrkBrowser
             {
                 Activate(_active.Pop());
             }
-            // logo.FileName = GUIGraphicsContext.Skin + @"\media\nrk_logo.jpg";
         }
 
         protected override void OnPreviousWindow()
@@ -210,28 +206,27 @@ namespace NrkBrowser
         public override void Process()
         {
             Item selecteditem = (Item) facadeView.SelectedListItem.TVTag;
-            //GUIPropertyManager.SetProperty("#header.image", GUIGraphicsContext.Skin + @"\media\nrk_logo.jpg");
 
-            GUIPropertyManager.SetProperty("#selecteditem", selecteditem.Description);
-            if (selecteditem.ID == "all" || selecteditem.ID == "categories" || selecteditem.ID == "anbefalte" || selecteditem.ID == "live" || selecteditem.ID == "mestSettUke" || selecteditem is Category)
+            GUIPropertyManager.SetProperty(PROGRAM_DESCRIPTION, selecteditem.Description);
+
+            if (selecteditem.Description == null || selecteditem.Description.Equals(""))
             {
-                GUIPropertyManager.SetProperty("#header.hover", "");
+                GUIPropertyManager.SetProperty(PROGRAM_DESCRIPTION, " ");
+            }
+
+            if (selecteditem.ID == "all" || selecteditem.ID == "categories" || selecteditem.ID == "anbefalte" ||
+                selecteditem.ID == "live" || selecteditem.ID == "mestSettUke" || selecteditem is Category)
+            {
+                GUIPropertyManager.SetProperty(PROGRAM_PICTURE, "");
             }
 
             if (selecteditem != null)
             {
-//                if (selecteditem is Category)
-//                {
-//                    //       logo.FileName = GUIGraphicsContext.Skin + @"\media\nrk_logo.jpg";
-//                    //descriptionLabel.Label = "";
-//                }
 
                 if (!selecteditem.Bilde.Equals(""))
                 {
-                    // logo.Visible = true;
-                    // descriptionLabel.Label = selecteditem.Description;
-                    // logo.FileName = selecteditem.Bilde;
-                    GUIPropertyManager.SetProperty("#header.hover", selecteditem.Bilde);                 
+ 
+                    GUIPropertyManager.SetProperty(PROGRAM_PICTURE, selecteditem.Bilde);
                 }
             }
             base.Process();
@@ -272,7 +267,7 @@ namespace NrkBrowser
             Activate(selecteditem);
         }
 
- 
+
         protected void Activate(Item item)
         {
             GUIPropertyManager.SetProperty("#itemcount", "");
@@ -315,14 +310,13 @@ namespace NrkBrowser
 
             if (item is Clip)
             {
-                //logo.Visible = false;
-                PlayClip((Clip)item);
+                PlayClip((Clip) item);
                 return;
             }
 
             if (item is Stream)
             {
-                PlayStream((Stream)item);
+                PlayStream((Stream) item);
                 return;
             }
 
@@ -391,7 +385,6 @@ namespace NrkBrowser
 
             if (item.ID == "live")
             {
-                
                 List<Item> items = new List<Item>();
                 items.Add(new Stream(streamPrefix + "03" + _suffix, "NRK 1"));
                 items.Add(new Stream(streamPrefix + "04" + _suffix, "NRK 2"));
@@ -404,7 +397,6 @@ namespace NrkBrowser
 
             if (item.ID == "liveall")
             {
-               
                 List<Item> items = new List<Item>();
                 for (int i = 0; i < 10; i++)
                 {
@@ -416,23 +408,23 @@ namespace NrkBrowser
 
             if (item is Category)
             {
-                UpdateList(_nrk.GetPrograms((Category)item));
+                UpdateList(_nrk.GetPrograms((Category) item));
             }
             if (item is Program)
             {
-                List<Item> items = _nrk.GetClips((Program)item);
-                items.AddRange(_nrk.GetFolders((Program)item));
+                List<Item> items = _nrk.GetClips((Program) item);
+                items.AddRange(_nrk.GetFolders((Program) item));
                 UpdateList(items);
             }
             if (item is Folder)
             {
-                List<Item> items = _nrk.GetClips((Folder)item);
-                items.AddRange(_nrk.GetFolders((Folder)item));
+                List<Item> items = _nrk.GetClips((Folder) item);
+                items.AddRange(_nrk.GetFolders((Folder) item));
                 UpdateList(items);
                 GUIPropertyManager.SetProperty("#itemcount", String.Format("{0} Klipp", items.Count));
             }
         }
-     
+
         protected void PlayClip(Clip item)
         {
             string url = _nrk.GetClipUrl(item);
@@ -454,7 +446,7 @@ namespace NrkBrowser
             Log.Info(PLUGIN_NAME + " PlayStream " + item.ID);
             PlayUrl(item.ID, item.Title);
         }
- 
+
         protected void PlayUrlWithMplayer(string url, string title)
         {
             Log.Info(string.Format("{0}: PlayUrlWithMplayer(url, title): {1}, {2}", PLUGIN_NAME, url, title));
@@ -471,17 +463,16 @@ namespace NrkBrowser
                 g_Player.ShowFullScreenWindow();
                 g_Player.FullScreen = true;
             }
-
         }
 
         protected void PlayUrl(string url, string title)
         {
             Log.Info(PLUGIN_NAME + "PlayUrl");
-  
+
             PlayListType type;
             if (url.EndsWith(".wmv")) type = PlayListType.PLAYLIST_VIDEO_TEMP;
             else if (url.EndsWith(".wma")) type = PlayListType.PLAYLIST_RADIO_STREAMS;
-            //FIXME: Hangs on some audio streams...
+                //FIXME: Hangs on some audio streams...
             else if (url.EndsWith("_h")) type = PlayListType.PLAYLIST_VIDEO_TEMP; //det er en av live streamene
             else
             {
@@ -497,13 +488,13 @@ namespace NrkBrowser
 
             if (_osdPlayer)
             {
-              playOk = playWithOsd(url, title, type);
+                playOk = playWithOsd(url, title, type);
             }
             else
             {
                 playOk = playWithoutOsd(url, title, type);
             }
-            
+
             if (!playOk)
             {
                 if (_osdPlayer)
@@ -514,7 +505,7 @@ namespace NrkBrowser
                 {
                     ShowError("Avspilling feilet");
                 }
-                
+
                 Log.Info(PLUGIN_NAME + " Playing failed");
             }
             else
@@ -527,7 +518,7 @@ namespace NrkBrowser
                 }
             }
         }
-        
+
         private bool playWithOsd(String url, String title, PlayListType type)
         {
             //g_Player.Init();
@@ -539,10 +530,11 @@ namespace NrkBrowser
             }
             else
             {
-               playOk = g_Player.PlayAudioStream(url, false);
+                playOk = g_Player.PlayAudioStream(url, false);
             }
             return playOk;
         }
+
         private bool playWithoutOsd(String url, String title, PlayListType type)
         {
             Log.Info(PLUGIN_NAME + " Trying to play without Osd (PlayListPlayer): " + url);

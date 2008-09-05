@@ -5,8 +5,33 @@
   <id>40918376</id>
   <defaultcontrol>50</defaultcontrol>
   <allowoverlay>yes</allowoverlay>
+  <controls>
     <import>common.window.xml</import>
-
+    <control>
+      <type>image</type>
+      <description>movie poster</description>
+      <id>1</id>
+      <posX>30</posX>
+      <posY>315</posY>
+      <width>245</width>
+      <height>140</height>
+      <visible>yes</visible>
+      <texture>#picture</texture>
+    </control>
+    <control>
+      <description>textarea</description>
+      <type>textboxscrollup</type>
+      <id>141</id>
+      <posX>310</posX>
+      <posY>650</posY>
+      <width>650</width>
+      <height>94</height>
+      <font>font12</font>
+      <textcolor>ffffffff</textcolor>
+      <label>#description</label>
+      <visible>yes</visible>
+    </control>
+   
     <!-- importing the default video facade view, with id 50 -->
     <import>common.facade.video.xml</import>
 
