@@ -56,6 +56,7 @@ namespace NrkBrowser
             MatchCollection result = query.Matches(data);
             foreach (Match x in result)
             {
+                //TODO: 6/9, hvorfor er denne her egentlig?
                 if (x.Groups[2].Value != "Plusspakken")
                 {
                     categories.Add(new Category(x.Groups[1].Value, x.Groups[2].Value));
@@ -76,7 +77,7 @@ namespace NrkBrowser
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
-            int bildeTeller = 0;
+            
             Log.Info(NrkPlugin.PLUGIN_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
@@ -84,7 +85,7 @@ namespace NrkBrowser
                 c.Description = x.Groups[3].Value;
                 c.Bilde = x.Groups[1].Value;
                 clips.Add(c);
-                bildeTeller++;
+                
             }
 
             return clips;
@@ -102,7 +103,7 @@ namespace NrkBrowser
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
-            int bildeTeller = 0;
+            
             Log.Info(NrkPlugin.PLUGIN_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
@@ -111,7 +112,7 @@ namespace NrkBrowser
                 c.Description = String.Format("Klipp vist {0} ganger denne uken.", c.AntallGangerVist);
                 c.Bilde = x.Groups[1].Value;
                 clips.Add(c);
-                bildeTeller++;
+               
             }
 
             return clips;
@@ -285,7 +286,6 @@ namespace NrkBrowser
             }
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
-            int bildeTeller = 0;
             Log.Info(NrkPlugin.PLUGIN_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
@@ -297,7 +297,6 @@ namespace NrkBrowser
                 c.Type = Clip.KlippType.VERDI;
                 c.VerdiLink = tab;
                 clips.Add(c);
-                bildeTeller++;
             }
 
             return clips;
@@ -536,70 +535,6 @@ namespace NrkBrowser
             response.Close();
             readStream.Close();
             return ret;
-        }
-
-        /* Test function.
-         * Will simply call the different functions and print out the result
-         */
-
-        public static void Main()
-        {
-            NrkParser nrk = new NrkParser(900);
-
-            List<Item> clips = nrk.GetForsiden();
-            foreach (Item clip in clips)
-            {
-                Console.WriteLine(clip.ID);
-            }
-
-            /*  List<Item> categories = nrk.GetCategories();
-            foreach (Item category in categories)
-            {
-                System.Console.WriteLine(category.ID + " " + category.Title);
-            }
-            System.Console.WriteLine();
-
-            List<Item> programs = nrk.GetPrograms((Category)categories[1]);
-            foreach (Program program in programs)
-            {
-                System.Console.WriteLine(program.ID + " " + program.Title);
-            }
-            System.Console.WriteLine();
-
-            List<Item> clips = nrk.GetClips((Program)programs[0]);//list episodes
-            foreach (Clip clip in clips)
-            {
-                System.Console.WriteLine(clip.ID + " " + clip.Title);
-            }
-            System.Console.WriteLine();
-
-            List<Item> folders = nrk.GetFolders((Program)programs[0]);//list folders (ie. 2006, january etc)
-            foreach (Folder folder in folders)
-            {
-                System.Console.WriteLine(folder.ID + " " + folder.Title);
-            }
-            System.Console.WriteLine();
-
-            clips = nrk.GetClips((Folder)folders[1]);//list episodes
-            foreach (Clip clip in clips)
-            {
-                System.Console.WriteLine(clip.ID + " " + clip.Title);
-            }
-            System.Console.WriteLine();
-
-            string url = nrk.GetClipUrl((Clip)clips[0]);
-            System.Console.WriteLine(url);
-
-            programs = nrk.GetAllPrograms();//alphabetical list
-            foreach (Program program in programs)
-            {
-                System.Console.WriteLine(program.ID + " " + program.Title);
-            }
-            System.Console.WriteLine();
-            */
-
-            Console.WriteLine("Press enter to quit");
-            Console.Read();
         }
     }
 }
