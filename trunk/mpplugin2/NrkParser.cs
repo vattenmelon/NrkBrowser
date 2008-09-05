@@ -19,6 +19,7 @@ namespace NrkBrowser
 {
     public class NrkParser
     {
+        public const string RSS_CLIPURL_PREFIX = "http://pd.nrk.no/nett-tv-stream/stream.ashx?id=";
         private static string BASE_URL = "http://www1.nrk.no/";
         private static string MAIN_URL = BASE_URL + "nett-tv/";
         private static string CATEGORY_URL = MAIN_URL + "tema/";
@@ -491,7 +492,7 @@ namespace NrkBrowser
             else if (clip.Type == Clip.KlippType.RSS)
             {
                 Log.Debug(NrkPlugin.PLUGIN_NAME + ": Clip type is RSS");
-                return "http://pd.nrk.no/nett-tv-stream/stream.ashx?id=" + clip.ID;
+                return RSS_CLIPURL_PREFIX + clip.ID;
             }
             else
             {

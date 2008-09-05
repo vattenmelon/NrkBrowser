@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NrkBrowser;
 using NUnit.Framework;
@@ -177,9 +178,56 @@ namespace Tests
         }
 
         [Test]
-        public void TestA()
+        public void TestGetClipUrlFraNyheterITopTab()
         {
-            //nrkParser.GetTopTabRSS()
+            List<Item> liste = nrkParser.GetTopTabber("nyheter");
+            foreach (Item item in liste)
+            {
+                Clip c = (Clip) item;
+                string clipUrl = nrkParser.GetClipUrl(c);
+                Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
+                Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
+                Assert.IsTrue(clipUrl.ToLower().StartsWith("mms://"));
+                Assert.IsTrue(clipUrl.ToLower().EndsWith(".wmv"));
+            }
+        }
+
+        [Test]
+        public void TestGetClipUrlFraNaturIRSSFeed()
+        {
+            List<Item> liste = nrkParser.GetTopTabRSS("natur");
+            foreach (Item item in liste)
+            {
+                Clip c = (Clip)item;
+                string clipUrl = nrkParser.GetClipUrl(c);
+                Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
+                Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
+                Assert.IsTrue(clipUrl.ToLower().StartsWith(NrkParser.RSS_CLIPURL_PREFIX));
+            }
+        }
+
+        [Test]
+        public void TestHentProgrammer()
+        {
+            List<Item> categories = nrkParser.GetCategories();
+            foreach (Item item in categories)
+            {
+                Category k = (Category) item;
+                if (k.Title.Equals("Barn"))
+                {
+                    List<Item> programmer = nrkParser.GetPrograms(k);
+                    foreach (Item item1 in programmer)
+                    {
+                        Program p = (Program) item1;
+                        Assert.IsNotNull(p.ID, "ID skal ikke være null på et program");
+                        Assert.IsNotNull(p.Title, "Title skal ikke være null på et program");
+                        Assert.IsNotNull(p.Bilde, "Bilde skal ikke være null på et program");
+                        Assert.IsNotNull(p.Description, "Beskrivelse skal ikke være null på et program");
+                        Assert.IsFalse(p.Playable, "Et program skal ikke være playable");
+                    }
+                }
+
+            }
         }
 
         private void topTabTest(List<Item> liste)
