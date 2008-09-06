@@ -319,7 +319,6 @@ namespace NrkBrowser
 
                 NrkBrowser.MenuItem sok = new NrkBrowser.MenuItem("sok", "Søk i alle programmer");
                 sok.Description = "Søk i alle programmer";
-                sok.Bilde = "nrkbeijing.jpg";
                 items.Add(sok);
 
                 UpdateList(items);
