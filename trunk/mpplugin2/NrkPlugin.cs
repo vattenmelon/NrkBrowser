@@ -248,6 +248,33 @@ namespace NrkBrowser
             Activate(selecteditem);
         }
 
+        private bool GetUserInputString(ref string sString)
+        {
+            VirtualKeyboard keyBoard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
+            keyBoard.Reset();
+            keyBoard.IsSearchKeyboard = true;
+            keyBoard.Text = sString;
+            keyBoard.DoModal(GetID); // show it...
+            if (keyBoard.IsConfirmed) sString = keyBoard.Text;
+            return keyBoard.IsConfirmed;
+        }
+
+        public void  search()
+        {
+            List<Item> matchingItems = new List<Item>();
+            List<Item> alleItems = _nrk.GetAllPrograms();
+            String keyword = String.Empty;
+            GetUserInputString(ref keyword);
+            keyword = keyword.ToLower();
+            foreach (Item item in alleItems)
+            {
+                if (item.Title.ToLower().Contains(keyword) || item.Description.ToLower().Contains(keyword))
+                   {
+                       matchingItems.Add(item);
+                   }
+            }
+            UpdateList(matchingItems);
+        }
 
         protected void Activate(Item item)
         {
@@ -290,6 +317,11 @@ namespace NrkBrowser
                 ol.Bilde = "nrkbeijing.jpg";
                 items.Add(ol);
 
+                NrkBrowser.MenuItem sok = new NrkBrowser.MenuItem("sok", "Søk i alle programmer");
+                sok.Description = "Søk i alle programmer";
+                sok.Bilde = "nrkbeijing.jpg";
+                items.Add(sok);
+
                 UpdateList(items);
                 return;
             }
@@ -312,6 +344,12 @@ namespace NrkBrowser
             {
                 List<Item> items = _nrk.GetForsiden();
                 UpdateList(items);
+                return;
+            }
+
+            if (item.ID == "sok")
+            {
+                search();
                 return;
             }
 
