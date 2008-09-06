@@ -161,19 +161,15 @@ namespace Tests
         public void TestGetTopTabber()
         {
             List<Item> liste = nrkParser.GetTopTabber("nyheter");
-            Assert.AreEqual(40, liste.Count); // 6/9-08
             topTabTest(liste);
 
             liste = nrkParser.GetTopTabber("ol");
-            Assert.AreEqual(34, liste.Count); //6/9-08
             topTabTest(liste);
 
             liste = nrkParser.GetTopTabber("sport");
-            Assert.AreEqual(27, liste.Count); //6/9-08
             topTabTest(liste);
 
             liste = nrkParser.GetTopTabber("natur");
-            Assert.AreEqual(58, liste.Count); //6/9-08
             topTabTest(liste);
         }
 

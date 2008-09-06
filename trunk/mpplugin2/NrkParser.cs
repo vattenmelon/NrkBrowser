@@ -24,7 +24,6 @@ namespace NrkBrowser
         private static string MAIN_URL = BASE_URL + "nett-tv/";
         private static string CATEGORY_URL = MAIN_URL + "tema/";
         private static string PROGRAM_URL = MAIN_URL + "prosjekt/";
-        private static string SETTINGS_URL = MAIN_URL + "innstillinger/";
         private static string CLIP_URL = MAIN_URL + "klipp/";
         private static string FOLDER_URL = MAIN_URL + "kategori/";
 
@@ -77,7 +76,7 @@ namespace NrkBrowser
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
-            
+
             Log.Info(NrkPlugin.PLUGIN_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
@@ -85,7 +84,6 @@ namespace NrkBrowser
                 c.Description = x.Groups[3].Value;
                 c.Bilde = x.Groups[1].Value;
                 clips.Add(c);
-                
             }
 
             return clips;
@@ -103,7 +101,7 @@ namespace NrkBrowser
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
-            
+
             Log.Info(NrkPlugin.PLUGIN_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
@@ -112,7 +110,6 @@ namespace NrkBrowser
                 c.Description = String.Format("Klipp vist {0} ganger denne uken.", c.AntallGangerVist);
                 c.Bilde = x.Groups[1].Value;
                 clips.Add(c);
-               
             }
 
             return clips;
@@ -194,11 +191,11 @@ namespace NrkBrowser
 //                                            loMediaContent.height = nin.Attributes["height"].Value;
 //                                            loMediaContent.width = nin.Attributes["width"].Value;
                                         }
-                                        catch (Exception)
+                                        catch (Exception e)
                                         {
+                                            Log.Error("catccccccccccched exception: " + e.Message);
                                         }
                                         ;
-
                                         break;
                                     case "media:description":
 
@@ -306,7 +303,7 @@ namespace NrkBrowser
         {
             try
             {
-                string temp = "";
+                string temp;
 
                 temp = bildeUrl.Substring(bildeUrl.LastIndexOf("/nsps_upload") + 13);
                 string[] tab = temp.Split('_');
@@ -366,7 +363,7 @@ namespace NrkBrowser
             int teller = 0;
             foreach (Match x in matches2)
             {
-                ((Program) programs[teller]).Description = x.Groups[3].Value;
+                programs[teller].Description = x.Groups[3].Value;
                 teller++;
             }
             return programs;

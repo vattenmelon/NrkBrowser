@@ -7,6 +7,8 @@
  * */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Net;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
 using MediaPortal.Dialogs;
@@ -35,25 +37,6 @@ namespace NrkBrowser
 
 
         private static string configfile = "NrkBrowserSettings.xml";
-
-        public class MenuItem : Item
-        {
-            public MenuItem(string id, string title) : base(id, title)
-            {
-            }
-        }
-
-        public class Stream : Item
-        {
-            public Stream(string id, string title) : base(id, title)
-            {
-            }
-
-            public override bool Playable
-            {
-                get { return true; }
-            }
-        }
 
         public NrkPlugin()
         {
@@ -284,22 +267,27 @@ namespace NrkBrowser
 
                 NrkBrowser.MenuItem nyheter = new NrkBrowser.MenuItem("nyheter", "Nyheter");
                 nyheter.Description = "De siste nyhetsklippene";
+                nyheter.Bilde = "nrknyheter.jpg";
                 items.Add(nyheter);
 
                 NrkBrowser.MenuItem sport = new NrkBrowser.MenuItem("sport", "Sport");
                 sport.Description = "De siste sportsklippene";
+                sport.Bilde = "nrksport.jpg";
                 items.Add(sport);
 
                 NrkBrowser.MenuItem natur = new NrkBrowser.MenuItem("natur", "Natur");
                 natur.Description = "De siste naturklippene";
+                natur.Bilde = "nrknatur.jpg";
                 items.Add(natur);
 
                 NrkBrowser.MenuItem super = new NrkBrowser.MenuItem("super", "Super");
                 super.Description = "De siste klippene fra super";
+                super.Bilde = "nrksuper.jpg";
                 items.Add(super);
 
                 NrkBrowser.MenuItem ol = new NrkBrowser.MenuItem("ol", "OL Beijing 2008");
                 ol.Description = "De siste klippene fra OL i Beijing";
+                ol.Bilde = "nrkbeijing.jpg";
                 items.Add(ol);
 
                 UpdateList(items);
@@ -427,6 +415,8 @@ namespace NrkBrowser
         {
             string url = _nrk.GetClipUrl(item);
             Log.Info(PLUGIN_NAME + " PlayClip " + url);
+            
+            
             if (item.Type == Clip.KlippType.RSS)
             {
                 Log.Info(PLUGIN_NAME + " TYPE IS NATUR, PLAYING WITH MPLAYER");
@@ -545,6 +535,7 @@ namespace NrkBrowser
             playlistPlayer.CurrentPlaylistType = type;
             return playlistPlayer.Play(0);
         }
+
 
         private void ShowError(string message)
         {
