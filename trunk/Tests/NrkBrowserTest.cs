@@ -124,14 +124,15 @@ namespace Tests
         }
 
         [Test]
-        public void TestGetMestSettDenneUken()
+        public void TestGetMestSette()
         {
-            List<Item> liste = nrkParser.GetMestSettDenneUken();
+            List<Item> liste = nrkParser.GetMestSette(31);
             Assert.IsNotNull(liste);
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
             foreach (Item item in liste)
             {
-                Clip c = (Clip) item;
+                
+                Clip c = (Clip)item;
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");

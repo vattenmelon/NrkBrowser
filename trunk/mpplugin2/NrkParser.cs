@@ -89,11 +89,12 @@ namespace NrkBrowser
             return clips;
         }
 
-        public List<Item> GetMestSettDenneUken()
+        public List<Item> GetMestSette(int dager)
         {
-            Log.Info(NrkPlugin.PLUGIN_NAME + ": GetMestSettDenneUken()");
+            Log.Info(NrkPlugin.PLUGIN_NAME + ": GetMestSettDenneMaaneden()");
             string data;
-            data = FetchUrl(MAIN_URL);
+            String url = String.Format("http://www1.nrk.no/nett-tv/ml/topp12.aspx?dager={0}&_=", dager);
+            data = FetchUrl(url);
 
             Regex query =
                 new Regex(

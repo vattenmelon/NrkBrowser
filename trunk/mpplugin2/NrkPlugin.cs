@@ -7,8 +7,6 @@
  * */
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Net;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
 using MediaPortal.Dialogs;
@@ -16,7 +14,6 @@ using MediaPortal.GUI.Library;
 using MediaPortal.Player;
 using MediaPortal.Playlists;
 using MediaPortal.Profile;
-using NrkBrowser;
 
 namespace NrkBrowser
 {
@@ -198,7 +195,7 @@ namespace NrkBrowser
             }
 
             if (selecteditem.ID == "all" || selecteditem.ID == "categories" || selecteditem.ID == "anbefalte" ||
-                selecteditem.ID == "live" || selecteditem.ID == "mestSettUke" || selecteditem is Category)
+                selecteditem.ID == "live" || selecteditem.ID == "mestSett" || selecteditem.ID == "sok" || selecteditem is Category)
             {
                 GUIPropertyManager.SetProperty(PROGRAM_PICTURE, "");
             }
@@ -250,7 +247,8 @@ namespace NrkBrowser
 
         private bool GetUserInputString(ref string sString)
         {
-            VirtualKeyboard keyBoard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_VIRTUAL_KEYBOARD);
+            VirtualKeyboard keyBoard =
+                (VirtualKeyboard) GUIWindowManager.GetWindow((int) Window.WINDOW_VIRTUAL_KEYBOARD);
             keyBoard.Reset();
             keyBoard.IsSearchKeyboard = true;
             keyBoard.Text = sString;
@@ -259,7 +257,7 @@ namespace NrkBrowser
             return keyBoard.IsConfirmed;
         }
 
-        public void  search()
+        public void search()
         {
             List<Item> matchingItems = new List<Item>();
             List<Item> alleItems = _nrk.GetAllPrograms();
@@ -269,9 +267,9 @@ namespace NrkBrowser
             foreach (Item item in alleItems)
             {
                 if (item.Title.ToLower().Contains(keyword) || item.Description.ToLower().Contains(keyword))
-                   {
-                       matchingItems.Add(item);
-                   }
+                {
+                    matchingItems.Add(item);
+                }
             }
             UpdateList(matchingItems);
         }
@@ -285,39 +283,41 @@ namespace NrkBrowser
                 items.Add(new MenuItem("all", "Alfabetisk liste"));
                 items.Add(new MenuItem("categories", "Kategorier"));
                 items.Add(new MenuItem("live", "Direktestrømmer"));
-                NrkBrowser.MenuItem anbefalte = new NrkBrowser.MenuItem("anbefalte", "Anbefalte programmer");
+                MenuItem anbefalte = new MenuItem("anbefalte", "Anbefalte programmer");
                 anbefalte.Description = "Anbefalte programmer fra forsiden akkurat nå";
                 items.Add(anbefalte);
-                NrkBrowser.MenuItem mestSettUke = new NrkBrowser.MenuItem("mestSettUke", "Mest sett denne uken");
-                mestSettUke.Description = "De mest populære klippene denne uken!";
-                items.Add(mestSettUke);
 
-                NrkBrowser.MenuItem nyheter = new NrkBrowser.MenuItem("nyheter", "Nyheter");
+                MenuItem mestSett = new MenuItem("mestSett", "Mest sett");
+                mestSett.Description = "De mest populære klippene!";
+                items.Add(mestSett);
+
+
+                MenuItem nyheter = new MenuItem("nyheter", "Nyheter");
                 nyheter.Description = "De siste nyhetsklippene";
                 nyheter.Bilde = "nrknyheter.jpg";
                 items.Add(nyheter);
 
-                NrkBrowser.MenuItem sport = new NrkBrowser.MenuItem("sport", "Sport");
+                MenuItem sport = new MenuItem("sport", "Sport");
                 sport.Description = "De siste sportsklippene";
                 sport.Bilde = "nrksport.jpg";
                 items.Add(sport);
 
-                NrkBrowser.MenuItem natur = new NrkBrowser.MenuItem("natur", "Natur");
+                MenuItem natur = new MenuItem("natur", "Natur");
                 natur.Description = "De siste naturklippene";
                 natur.Bilde = "nrknatur.jpg";
                 items.Add(natur);
 
-                NrkBrowser.MenuItem super = new NrkBrowser.MenuItem("super", "Super");
+                MenuItem super = new MenuItem("super", "Super");
                 super.Description = "De siste klippene fra super";
                 super.Bilde = "nrksuper.jpg";
                 items.Add(super);
 
-                NrkBrowser.MenuItem ol = new NrkBrowser.MenuItem("ol", "OL Beijing 2008");
+                MenuItem ol = new MenuItem("ol", "OL Beijing 2008");
                 ol.Description = "De siste klippene fra OL i Beijing";
                 ol.Bilde = "nrkbeijing.jpg";
                 items.Add(ol);
 
-                NrkBrowser.MenuItem sok = new NrkBrowser.MenuItem("sok", "Søk i alle programmer");
+                MenuItem sok = new MenuItem("sok", "Søk i alle programmer");
                 sok.Description = "Søk i alle programmer";
                 items.Add(sok);
 
@@ -337,6 +337,14 @@ namespace NrkBrowser
                 return;
             }
 
+            //push var her tidligere
+
+            if (item.ID == "sok")
+            {
+                search();
+                return;
+            }
+
             _active.Push(item);
 
             if (item.ID == "anbefalte")
@@ -346,15 +354,42 @@ namespace NrkBrowser
                 return;
             }
 
-            if (item.ID == "sok")
+            if (item.ID == "mestSett")
             {
-                search();
+                List<Item> items = new List<Item>(3);
+                MenuItem mestSettUke = new MenuItem("mestSettUke", "Mest sett denne uken");
+                mestSettUke.Description = "De mest populære klippene denne uken!";
+                items.Add(mestSettUke);
+
+                MenuItem mestSettMaaned = new MenuItem("mestSettMaaned", "Mest sett denne måneden");
+                mestSettMaaned.Description = "De mest populære klippene denne måneden!";
+                items.Add(mestSettMaaned);
+
+                MenuItem mestSettTotalt = new MenuItem("mestSettTotalt", "Mest sett totalt");
+                mestSettTotalt.Description = "De mest populære klippene!";
+                items.Add(mestSettTotalt);
+
+                UpdateList(items);
                 return;
             }
 
             if (item.ID == "mestSettUke")
             {
-                List<Item> items = _nrk.GetMestSettDenneUken();
+                List<Item> items = _nrk.GetMestSette(7);
+                UpdateList(items);
+                return;
+            }
+
+            if (item.ID == "mestSettMaaned")
+            {
+                List<Item> items = _nrk.GetMestSette(31);
+                UpdateList(items);
+                return;
+            }
+
+            if (item.ID == "mestSettTotalt")
+            {
+                List<Item> items = _nrk.GetMestSette(3650);
                 UpdateList(items);
                 return;
             }
@@ -452,8 +487,8 @@ namespace NrkBrowser
         {
             string url = _nrk.GetClipUrl(item);
             Log.Info(PLUGIN_NAME + " PlayClip " + url);
-            
-            
+
+
             if (item.Type == Clip.KlippType.RSS)
             {
                 Log.Info(PLUGIN_NAME + " TYPE IS NATUR, PLAYING WITH MPLAYER");
