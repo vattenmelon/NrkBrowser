@@ -108,7 +108,8 @@ namespace Tests
         public void TestGetForsiden()
         {
             List<Item> liste = nrkParser.GetForsiden();
-            Assert.AreEqual(22, liste.Count); //var 7 i denne listen den 6/9-08
+            Assert.IsNotNull(liste);
+            Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
@@ -126,7 +127,8 @@ namespace Tests
         public void TestGetMestSettDenneUken()
         {
             List<Item> liste = nrkParser.GetMestSettDenneUken();
-            Assert.AreEqual(7, liste.Count); //var 7 i denne listen den 6/9-08
+            Assert.IsNotNull(liste);
+            Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
