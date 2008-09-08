@@ -63,41 +63,35 @@ namespace NrkBrowser
             Regex query = new Regex(regexQuery, RegexOptions.Singleline);
             List<Item> categories = new List<Item>();
             MatchCollection result = query.Matches(data);
-            Console.WriteLine("matches: " + result.Count);
-            Console.WriteLine("-------------------");
+            int teller = 1;
             foreach (Match x in result)
             {
                 String link = x.Groups[1].Value;
                 String type = x.Groups[2].Value;
-                String title = x.Groups[3].Value;
+                String title = string.Format("{0}: {1}", teller, x.Groups[3].Value);
                 String description = x.Groups[4].Value;
 
                 String id = link.Substring(x.Groups[1].Value.LastIndexOf("/", x.Groups[1].Value.Length) + 1);
-//                Console.WriteLine("id: " + id);
-//                Console.WriteLine("Link..: " + x.Groups[1].Value);
-//                Console.WriteLine("Type..: " + x.Groups[2].Value);
-//                Console.WriteLine("Title.: " + x.Groups[3].Value);
-//                Console.WriteLine("Desc..: " + x.Groups[4].Value);
 
-                if (x.Groups[2].Value.Equals("video-index") || x.Groups[2].Value.Equals("audio-index"))
+                if (type.Equals("video-index") || type.Equals("audio-index"))
                 {
                     Clip c = new Clip(id, title);
                     c.Description = x.Groups[4].Value;
                     c.Type = Clip.KlippType.INDEX;
                     categories.Add(c);
                 }
-                else if (x.Groups[2].Value.Equals("video"))
+                else if (type.Equals("video"))
                 {
                     Clip c = new Clip(id, title);
                     c.Description = x.Groups[4].Value;
                     categories.Add(c);
                 }
-                else if (x.Groups[2].Value.Equals("project"))
+                else if (type.Equals("project"))
                 {
                     Program p = new Program(id, title, description, "");
                     categories.Add(p);
                 }
-                else if (x.Groups[2].Value.Equals("folder"))
+                else if (type.Equals("folder"))
                 {
                     Folder f = new Folder(id, title);
                     f.Description = x.Groups[4].Value;
@@ -107,6 +101,7 @@ namespace NrkBrowser
                 {
                     Log.Error(NrkPlugin.PLUGIN_NAME + ": unsupported type: " + x.Groups[2].Value);
                 }
+                teller++;
                 
             }
             return categories;

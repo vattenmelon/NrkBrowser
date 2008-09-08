@@ -29,6 +29,7 @@ namespace NrkBrowser
 
         protected NrkParser _nrk = null;
         protected Stack<Item> _active = null;
+        private List<Item> matchingItems = new List<Item>();
 
         protected bool _osdPlayer = true;
 
@@ -167,6 +168,12 @@ namespace NrkBrowser
             }
             else
             {
+                //for å forhindre at keyboardet kommer opp når man går tilbake fra videovisning til søkresultatsida.
+                if (_active.Peek().ID.Equals("sok"))
+                {
+                    UpdateList(matchingItems);
+                    return;
+                }
                 Activate(_active.Pop());
             }
         }
@@ -179,7 +186,17 @@ namespace NrkBrowser
                 return;
             }
             _active.Pop(); //we do not want to show the active item again
-            if (_active.Count > 0) Activate(_active.Pop());
+          
+            if (_active.Count > 0)
+            {
+                //for å forhindre at keyboardet kommer opp når man "browser bakover" til søkeresultatsida
+                if (_active.Peek().ID.Equals("sok"))
+                {
+                    UpdateList(matchingItems);
+                    return;
+                }
+                Activate(_active.Pop());
+            }
             else Activate(null);
         }
 
@@ -258,12 +275,12 @@ namespace NrkBrowser
         }
 
         public void search()
-        {
-             
+        { 
             String keyword = String.Empty;
             GetUserInputString(ref keyword);
             keyword = keyword.ToLower();
-            List<Item> matchingItems = _nrk.GetSearchHits(keyword);
+            matchingItems.Clear();
+            matchingItems = _nrk.GetSearchHits(keyword);
             UpdateList(matchingItems);
         }
 
@@ -331,14 +348,13 @@ namespace NrkBrowser
             }
 
             //push var her tidligere
+            _active.Push(item);
 
             if (item.ID == "sok")
             {
                 search();
                 return;
             }
-
-            _active.Push(item);
 
             if (item.ID == "anbefalte")
             {
