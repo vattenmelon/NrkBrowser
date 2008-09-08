@@ -116,7 +116,6 @@ namespace NrkBrowser
 
             foreach (Match x in result)
             {
-                Console.WriteLine(x);
                 //TODO: 6/9, hvorfor er denne her egentlig?
                 if (x.Groups[2].Value != "Plusspakken")
                 {
