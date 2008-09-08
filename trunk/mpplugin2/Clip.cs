@@ -3,6 +3,8 @@
  * Created: 5. september 2008
  */
 
+using System;
+
 namespace NrkBrowser
 {
     public class Clip : Item
@@ -12,11 +14,13 @@ namespace NrkBrowser
             KLIPP = 0,
             VERDI = 1,
             RSS = 2,
+            INDEX = 3,
         }
 
         private string verdiLink;
         private string antallGangerVist;
         private string klokkeslett;
+        private Double startTime;
         // sier noe om hvilken måte man finner klipplinken
         private KlippType type = KlippType.KLIPP;
 
@@ -40,6 +44,12 @@ namespace NrkBrowser
         {
             get { return verdiLink; }
             set { this.verdiLink = value; }
+        }
+
+        public Double StartTime
+        {
+            get { return startTime; }
+            set { this.startTime = value; }
         }
 
         public string Klokkeslett

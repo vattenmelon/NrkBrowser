@@ -259,18 +259,11 @@ namespace NrkBrowser
 
         public void search()
         {
-            List<Item> matchingItems = new List<Item>();
-            List<Item> alleItems = _nrk.GetAllPrograms();
+             
             String keyword = String.Empty;
             GetUserInputString(ref keyword);
             keyword = keyword.ToLower();
-            foreach (Item item in alleItems)
-            {
-                if (item.Title.ToLower().Contains(keyword) || item.Description.ToLower().Contains(keyword))
-                {
-                    matchingItems.Add(item);
-                }
-            }
+            List<Item> matchingItems = _nrk.GetSearchHits(keyword);
             UpdateList(matchingItems);
         }
 
@@ -486,6 +479,11 @@ namespace NrkBrowser
         protected void PlayClip(Clip item)
         {
             string url = _nrk.GetClipUrl(item);
+            if (url == null)
+            {
+                ShowError("Kunne ikke spille av klipp");
+                return;
+            }
             Log.Info(PLUGIN_NAME + " PlayClip " + url);
 
 
@@ -497,14 +495,14 @@ namespace NrkBrowser
             }
             else
             {
-                PlayUrl(url, item.Title);
+                PlayUrl(url, item.Title, item.StartTime);
             }
         }
 
         protected void PlayStream(Stream item)
         {
             Log.Info(PLUGIN_NAME + " PlayStream " + item.ID);
-            PlayUrl(item.ID, item.Title);
+            PlayUrl(item.ID, item.Title, 0);
         }
 
         protected void PlayUrlWithMplayer(string url, string title)
@@ -525,7 +523,7 @@ namespace NrkBrowser
             }
         }
 
-        protected void PlayUrl(string url, string title)
+        protected void PlayUrl(string url, string title, double startTime)
         {
             Log.Info(PLUGIN_NAME + "PlayUrl");
 
@@ -548,7 +546,7 @@ namespace NrkBrowser
 
             if (_osdPlayer)
             {
-                playOk = playWithOsd(url, title, type);
+                playOk = playWithOsd(url, title, type, startTime);
             }
             else
             {
@@ -578,8 +576,8 @@ namespace NrkBrowser
                 }
             }
         }
-
-        private bool playWithOsd(String url, String title, PlayListType type)
+      
+        private bool playWithOsd(String url, String title, PlayListType type, double startTime)
         {
             //g_Player.Init();
             Log.Info(PLUGIN_NAME + " Trying to play with Osd (g_Player): " + url);
@@ -587,10 +585,19 @@ namespace NrkBrowser
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
                 playOk = g_Player.PlayVideoStream(url, title);
+                if (startTime != 0)
+                {
+                    g_Player.SeekAbsolute(startTime);
+                }
+                
             }
             else
             {
                 playOk = g_Player.PlayAudioStream(url, false);
+                if (startTime != 0)
+                {
+                    g_Player.SeekAbsolute(startTime);
+                }
             }
             return playOk;
         }

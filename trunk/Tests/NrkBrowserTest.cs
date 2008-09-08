@@ -148,7 +148,6 @@ namespace Tests
         public void TestGetAllPrograms()
         {
             List<Item> liste = nrkParser.GetAllPrograms();
-            Assert.AreEqual(309, liste.Count); //var 7 i denne listen den 6/9-08
             foreach (Item item in liste)
             {
                 Program program = (Program) item;
@@ -227,6 +226,12 @@ namespace Tests
                 }
 
             }
+        }
+        [Test]
+        public void TestGetSearchHits()
+        {
+           List<Item> liste = nrkParser.GetSearchHits("Norge");
+           Assert.AreEqual(25, liste.Count);
         }
 
         private void topTabTest(List<Item> liste)

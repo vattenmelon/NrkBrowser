@@ -26,6 +26,8 @@ namespace NrkBrowser
         private static string PROGRAM_URL = MAIN_URL + "prosjekt/";
         private static string CLIP_URL = MAIN_URL + "klipp/";
         private static string FOLDER_URL = MAIN_URL + "kategori/";
+        private static string SOK_URL = MAIN_URL + "sok/";
+        private static string INDEX_URL = MAIN_URL + "indeks/";
 
 
         private CookieContainer _jar;
@@ -47,14 +49,79 @@ namespace NrkBrowser
             }
         }
 
+        public List<Item> GetSearchHits(String keyword)
+        {
+            string urlToFetch = String.Format(SOK_URL + keyword);
+            string data = FetchUrl(urlToFetch);
+
+            string regexQuery = "<li id=\"ctl00_ucSearch_ResultList_SearchResultRepeater.*?\">.*?";
+            regexQuery += "<a href=\"(.*?)\" id=\".*?\" style=\".*?\" title=\".*?\" class=\"(.*?)\">(.*?)</a>.*?";
+            regexQuery += "<div.*?>(.*?)</div>.*?";
+            regexQuery += "</li>";
+
+            //Console.WriteLine(regexQuery);
+            Regex query = new Regex(regexQuery, RegexOptions.Singleline);
+            List<Item> categories = new List<Item>();
+            MatchCollection result = query.Matches(data);
+            Console.WriteLine("matches: " + result.Count);
+            Console.WriteLine("-------------------");
+            foreach (Match x in result)
+            {
+                String link = x.Groups[1].Value;
+                String type = x.Groups[2].Value;
+                String title = x.Groups[3].Value;
+                String description = x.Groups[4].Value;
+
+                String id = link.Substring(x.Groups[1].Value.LastIndexOf("/", x.Groups[1].Value.Length) + 1);
+//                Console.WriteLine("id: " + id);
+//                Console.WriteLine("Link..: " + x.Groups[1].Value);
+//                Console.WriteLine("Type..: " + x.Groups[2].Value);
+//                Console.WriteLine("Title.: " + x.Groups[3].Value);
+//                Console.WriteLine("Desc..: " + x.Groups[4].Value);
+
+                if (x.Groups[2].Value.Equals("video-index") || x.Groups[2].Value.Equals("audio-index"))
+                {
+                    Clip c = new Clip(id, title);
+                    c.Description = x.Groups[4].Value;
+                    c.Type = Clip.KlippType.INDEX;
+                    categories.Add(c);
+                }
+                else if (x.Groups[2].Value.Equals("video"))
+                {
+                    Clip c = new Clip(id, title);
+                    c.Description = x.Groups[4].Value;
+                    categories.Add(c);
+                }
+                else if (x.Groups[2].Value.Equals("project"))
+                {
+                    Program p = new Program(id, title, description, "");
+                    categories.Add(p);
+                }
+                else if (x.Groups[2].Value.Equals("folder"))
+                {
+                    Folder f = new Folder(id, title);
+                    f.Description = x.Groups[4].Value;
+                    categories.Add(f);
+                }
+                else
+                {
+                    Log.Error(NrkPlugin.PLUGIN_NAME + ": unsupported type: " + x.Groups[2].Value);
+                }
+                
+            }
+            return categories;
+        }
+
         public List<Item> GetCategories()
         {
             List<Item> categories = new List<Item>();
             string data = FetchUrl(MAIN_URL);
             Regex query = new Regex("<a href=\"/nett-tv/tema/(\\w*).*?>(.*?)</a>");
             MatchCollection result = query.Matches(data);
+
             foreach (Match x in result)
             {
+                Console.WriteLine(x);
                 //TODO: 6/9, hvorfor er denne her egentlig?
                 if (x.Groups[2].Value != "Plusspakken")
                 {
@@ -461,7 +528,16 @@ namespace NrkBrowser
                 string data = FetchUrl(CLIP_URL + clip.ID);
                 query = new Regex("<param name=\"FileName\" value=\"(.*?)\" />", RegexOptions.IgnoreCase);
                 MatchCollection result = query.Matches(data);
-                string urlToFetch = result[0].Groups[1].Value;
+                string urlToFetch;
+                try
+                {
+                    urlToFetch = result[0].Groups[1].Value;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("feilet: " + e.Message);
+                    return null;
+                }
                 string urldata = FetchUrl(urlToFetch);
                 Log.Debug(NrkPlugin.PLUGIN_NAME + ": " + urldata);
                 query = new Regex("<ref href=\"(.*?)\" />");
@@ -491,6 +567,26 @@ namespace NrkBrowser
                 Log.Debug(NrkPlugin.PLUGIN_NAME + ": Clip type is RSS");
                 return RSS_CLIPURL_PREFIX + clip.ID;
             }
+            else if (clip.Type == Clip.KlippType.INDEX)
+            {
+                Log.Debug(NrkPlugin.PLUGIN_NAME + ": Clip type is INDEX");
+                string data = FetchUrl(INDEX_URL + clip.ID);
+                query = new Regex("<param name=\"FileName\" value=\"(.*?)\" />", RegexOptions.IgnoreCase);
+                MatchCollection result = query.Matches(data);
+                string urlToFetch = result[0].Groups[1].Value;
+                urlToFetch = urlToFetch.Replace("amp;", ""); //noen ganger er det amper der..som må bort
+                string urldata = FetchUrl(urlToFetch);
+                Log.Debug(NrkPlugin.PLUGIN_NAME + ": " + urldata);
+                query = new Regex("<starttime value=\"(.*?)\" />.*?<ref href=\"(.*?)\" />", RegexOptions.Singleline);
+                MatchCollection movie_url = query.Matches(urldata);
+                //skip any advertisement
+                
+                string str_startTime = movie_url[0].Groups[1].Value;
+                Double dStartTime = Double.Parse(str_startTime);
+                clip.StartTime = dStartTime;
+                return movie_url[0].Groups[2].Value;
+
+            }
             else
             {
                 //clip.Type == Clip.KlippType.VERDI;
@@ -514,6 +610,7 @@ namespace NrkBrowser
         {
             Log.Info(NrkPlugin.PLUGIN_NAME + ": FetchUrl(String): " + url);
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
+            //Console.WriteLine("address: " + request.Address);
             request.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)";
             request.CookieContainer = _jar;
             // Set some reasonable limits on resources used by this request
