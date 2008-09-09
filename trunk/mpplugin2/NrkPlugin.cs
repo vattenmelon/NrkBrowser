@@ -274,13 +274,33 @@ namespace NrkBrowser
             return keyBoard.IsConfirmed;
         }
 
+        public void search(SearchItem item)
+        {
+            matchingItems = _nrk.GetSearchHits(item.Keyword, item.IndexPage + 1);
+            
+            if (matchingItems.Count == 25)
+            {
+                SearchItem nextPage = new SearchItem("nextPage", "Neste side", item.IndexPage + 1);
+                nextPage.Description = "Se de neste 25 treffene";
+                nextPage.Keyword = item.Keyword;
+                matchingItems.Add(nextPage);
+            }
+            UpdateList(matchingItems);
+        }
         public void search()
         { 
             String keyword = String.Empty;
             GetUserInputString(ref keyword);
             keyword = keyword.ToLower();
             matchingItems.Clear();
-            matchingItems = _nrk.GetSearchHits(keyword);
+            matchingItems = _nrk.GetSearchHits(keyword, 0);
+            if (matchingItems.Count == 25)
+            {
+                SearchItem nextPage = new SearchItem("nextPage", "Neste side", 0);
+                nextPage.Description = "Se de neste 25 treffene";
+                nextPage.Keyword = keyword;
+                matchingItems.Add(nextPage);
+            }
             UpdateList(matchingItems);
         }
 
@@ -353,6 +373,12 @@ namespace NrkBrowser
             if (item.ID == "sok")
             {
                 search();
+                return;
+            }
+            if (item.ID == "nextPage")
+            {
+                SearchItem sItem = (SearchItem) item;
+                search(sItem);
                 return;
             }
 

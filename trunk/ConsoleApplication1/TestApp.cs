@@ -10,7 +10,7 @@ namespace ConsoleApplication1
         {
             NrkParser nrk = new NrkParser(900);
 
-            List<Item> clips = nrk.GetSearchHits("norge");
+            List<Item> clips = nrk.GetSearchHits("norge", 1);
             Console.WriteLine("Antall: " + clips.Count);
             foreach (Item clip in clips)
             {

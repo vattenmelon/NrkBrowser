@@ -26,7 +26,7 @@ namespace NrkBrowser
         private static string PROGRAM_URL = MAIN_URL + "prosjekt/";
         private static string CLIP_URL = MAIN_URL + "klipp/";
         private static string FOLDER_URL = MAIN_URL + "kategori/";
-        private static string SOK_URL = MAIN_URL + "sok/";
+        private static string SOK_URL_BEFORE = "http://www.nrk.no/nett-tv/DynamiskLaster.aspx?SearchResultList$search:{0}|sort:dato|page:{1}";
         private static string INDEX_URL = MAIN_URL + "indeks/";
 
 
@@ -49,21 +49,23 @@ namespace NrkBrowser
             }
         }
 
-        public List<Item> GetSearchHits(String keyword)
+        public List<Item> GetSearchHits(String keyword, int page)
         {
-            string urlToFetch = String.Format(SOK_URL + keyword);
+
+            String urlToFetch = String.Format(SOK_URL_BEFORE, keyword, page + 1);
             string data = FetchUrl(urlToFetch);
 
-            string regexQuery = "<li id=\"ctl00_ucSearch_ResultList_SearchResultRepeater.*?\">.*?";
+            string regexQuery = "<li id=\"ctl00.*?\">.*?";
             regexQuery += "<a href=\"(.*?)\" id=\".*?\" style=\".*?\" title=\".*?\" class=\"(.*?)\">(.*?)</a>.*?";
             regexQuery += "<div.*?>(.*?)</div>.*?";
             regexQuery += "</li>";
 
-            //Console.WriteLine(regexQuery);
             Regex query = new Regex(regexQuery, RegexOptions.Singleline);
             List<Item> categories = new List<Item>();
             MatchCollection result = query.Matches(data);
-            int teller = 1;
+            int teller = 1+(page*25);
+            
+            Console.WriteLine("matches: " + result.Count);
             foreach (Match x in result)
             {
                 String link = x.Groups[1].Value;
@@ -80,7 +82,7 @@ namespace NrkBrowser
                     c.Type = Clip.KlippType.INDEX;
                     categories.Add(c);
                 }
-                else if (type.Equals("video"))
+                else if (type.Equals("video") || type.Equals("audio"))
                 {
                     Clip c = new Clip(id, title);
                     c.Description = x.Groups[4].Value;
@@ -99,6 +101,7 @@ namespace NrkBrowser
                 }
                 else
                 {
+                    Console.WriteLine("feil: " + type);
                     Log.Error(NrkPlugin.PLUGIN_NAME + ": unsupported type: " + x.Groups[2].Value);
                 }
                 teller++;
