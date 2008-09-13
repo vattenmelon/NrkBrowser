@@ -107,12 +107,15 @@ namespace Tests
         [Test]
         public void TestGetForsiden()
         {
-            List<Item> liste = nrkParser.GetForsiden();
+            List<Item> liste = nrkParser.GetAnbefaltePaaForsiden();
             Assert.IsNotNull(liste);
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
+            Console.WriteLine(liste.Count);
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
+                Console.WriteLine("type: "+c.Type);
+                Console.WriteLine("title: " + c.Title);
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");

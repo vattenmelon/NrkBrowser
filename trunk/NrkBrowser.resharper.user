@@ -64,12 +64,12 @@
       <Item value="StartTime" priority="2" />
       <Item value="ID" priority="1" />
       <Item value="Bilde" priority="0" />
-      <Item value="Title" priority="1" />
+      <Item value="Title" priority="2" />
       <Item value="VerdiLink" priority="2" />
       <Item value="Klokkeslett" priority="1" />
       <Item value="Playable" priority="1" />
       <Item value="Description" priority="1" />
-      <Item value="Type" priority="4" />
+      <Item value="Type" priority="5" />
       <Item value="AntallGangerVist" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:NrkBrowser.SearchItem">
@@ -170,7 +170,7 @@
     <ItemStatistics item="Qualified:System.Collections.Generic.List&lt;NrkBrowser.Item&gt;">
       <Item value="Clear" priority="0" />
       <Item value="Add" priority="4" />
-      <Item value="Count" priority="7" />
+      <Item value="Count" priority="8" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@Nrk.Clip+KlippType">
       <Item value="VERDI" priority="0" />
@@ -200,19 +200,19 @@
       <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:SettingsForm.designer.cs" caret="0" scrollPosition="0|0" />
       <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:SettingsForm.cs" caret="0" scrollPosition="0|0" />
       <File id="6D4BA5EC-1F68-4F75-8039-36D4FD51FA7A/d:UnknownPath/f:NrkBrowser.xml" caret="0" scrollPosition="0|0" />
+      <File id="309A3F5E-91A4-40C5-BAB8-527905FE85DF/f:TestApp.cs" caret="0" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Item.cs" caret="0" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Category.cs" caret="0" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Program.cs" caret="0" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Folder.cs" caret="0" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Clip.cs" caret="0" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:MenuItem.cs" caret="0" scrollPosition="0|0" />
       <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Stream.cs" caret="0" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:NrkParser.cs" caret="0" scrollPosition="0|0" />
       <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/d:Properties/f:AssemblyInfo.cs" caret="0" scrollPosition="0|0" />
-      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:MenuItem.cs" caret="116" scrollPosition="0|0" />
-      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Category.cs" caret="236" scrollPosition="0|0" />
-      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Folder.cs" caret="131" scrollPosition="0|0" />
-      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Program.cs" caret="336" scrollPosition="0|0" />
-      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Item.cs" caret="400" scrollPosition="0|18" />
-      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:Clip.cs" caret="917" scrollPosition="0|18" />
-      <File id="309A3F5E-91A4-40C5-BAB8-527905FE85DF/f:TestApp.cs" caret="310" scrollPosition="0|0" />
-      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:SearchItem.cs" caret="331" scrollPosition="0|0" />
-      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:NrkPlugin.cs" caret="10369" scrollPosition="0|268" />
-      <File id="526E3060-B4C4-43DA-918F-94FAAA1E0A59/f:NrkBrowserTest.cs" caret="9462" scrollPosition="0|216" />
-      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:NrkParser.cs" caret="977" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:SearchItem.cs" caret="0" scrollPosition="0|0" />
+      <File id="2A20C160-A7E8-48CB-95A3-92F62CA6AB38/f:NrkPlugin.cs" caret="10369" scrollPosition="0|283" />
+      <File id="526E3060-B4C4-43DA-918F-94FAAA1E0A59/f:NrkBrowserTest.cs" caret="3789" scrollPosition="0|91" />
     </RecentFiles>
   </EditorManager>
   <FileStructureView>

@@ -128,9 +128,9 @@ namespace NrkBrowser
             return categories;
         }
 
-        public List<Item> GetForsiden()
+        public List<Item> GetAnbefaltePaaForsiden()
         {
-            Log.Info(NrkPlugin.PLUGIN_NAME + ": GetForsiden()");
+            Log.Info(NrkPlugin.PLUGIN_NAME + ": GetAnbefaltePaaForsiden()");
             string data;
             data = FetchUrl(MAIN_URL);
 

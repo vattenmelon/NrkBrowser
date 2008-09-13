@@ -4,6 +4,8 @@
  * Loosely based on an anonymous (and slightly outdated) NRK parser in python for Myth-tv, 
  * please email me if you are the author :)
  * 
+ * Modified by Vattenmelon
+ * 
  * */
 using System;
 using System.Collections.Generic;
@@ -55,7 +57,7 @@ namespace NrkBrowser
 
         public string Author()
         {
-            return "Terje Wiesener <wiesener@samfundet.no>";
+            return "Terje Wiesener <wiesener@samfundet.no> / Vattenmelon";
         }
 
         public void ShowPlugin()
@@ -384,7 +386,7 @@ namespace NrkBrowser
 
             if (item.ID == "anbefalte")
             {
-                List<Item> items = _nrk.GetForsiden();
+                List<Item> items = _nrk.GetAnbefaltePaaForsiden();
                 UpdateList(items);
                 return;
             }
