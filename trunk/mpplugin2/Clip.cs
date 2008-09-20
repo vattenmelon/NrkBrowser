@@ -17,9 +17,9 @@ namespace NrkBrowser
             INDEX = 3,
         }
 
-        private string verdiLink;
-        private string antallGangerVist;
-        private string klokkeslett;
+        private string verdiLink = string.Empty;
+        private string antallGangerVist = string.Empty;
+        private string klokkeslett = string.Empty;
         private Double startTime;
         // sier noe om hvilken måte man finner klipplinken
         private KlippType type = KlippType.KLIPP;

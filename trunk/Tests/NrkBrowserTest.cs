@@ -91,6 +91,7 @@ namespace Tests
             sjekkTopTabRSSClips(super);
         }
 
+
         private void sjekkTopTabRSSClips(List<Item> liste)
         {
             Assert.IsNotNull(liste, "Listen kan ikke være null");
@@ -102,6 +103,13 @@ namespace Tests
                 Assert.IsNotNull(c.Title, "Tittelen kan ikke være null");
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
             }
+        }
+
+        [Test]
+        public void test1()
+        {
+            List<Item> super = nrkParser.GetTopTabber("natur");
+            topTabTest(super);
         }
 
         [Test]
@@ -122,7 +130,7 @@ namespace Tests
                 Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
                 Assert.AreEqual(Clip.KlippType.KLIPP, c.Type, "Skal være av typen KLIPP");
-                Assert.IsNull(c.VerdiLink, "Klipp fra forsiden er ikke verdilinker");
+                Assert.IsEmpty(c.VerdiLink, "Klipp fra forsiden er ikke verdilinker");
             }
         }
 
@@ -143,7 +151,7 @@ namespace Tests
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
                 Assert.AreEqual(Clip.KlippType.KLIPP, c.Type, "Skal være av typen KLIPP");
                 Assert.IsNotEmpty(c.AntallGangerVist, "Antall ganger vist skal være satt");
-                Assert.IsNull(c.VerdiLink, "Klipp fra mest sette er ikke verdilinker");
+                Assert.IsEmpty(c.VerdiLink, "Klipp fra mest sette er ikke verdilinker");
             }
         }
 
@@ -181,15 +189,34 @@ namespace Tests
         [Test]
         public void TestGetClipUrlFraNyheterITopTab()
         {
-            List<Item> liste = nrkParser.GetTopTabber("nyheter");
+            List<Item> liste = nrkParser.GetTopTabRSS("nyheter");
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
                 string clipUrl = nrkParser.GetClipUrl(c);
+                Console.WriteLine(c.Title + ", " + c.ID);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
-                Assert.IsTrue(clipUrl.ToLower().StartsWith("mms://"));
-                Assert.IsTrue(clipUrl.ToLower().EndsWith(".wmv"));
+                Assert.IsFalse(clipUrl.ToLower().StartsWith("mms://"));
+                Assert.IsFalse(clipUrl.ToLower().EndsWith(".wmv"));
+                Assert.IsTrue(clipUrl.ToLower().StartsWith("http://"));
+            }
+        }
+
+        [Test]
+        public void TestGetClipUrlFraSportITopTab()
+        {
+            List<Item> liste = nrkParser.GetTopTabRSS("sport");
+            foreach (Item item in liste)
+            {
+                Clip c = (Clip)item;
+                string clipUrl = nrkParser.GetClipUrl(c);
+                Console.WriteLine(c.Title + ", " + c.ID);
+                Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
+                Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
+                Assert.IsFalse(clipUrl.ToLower().StartsWith("mms://"));
+                Assert.IsFalse(clipUrl.ToLower().EndsWith(".wmv"));
+                Assert.IsTrue(clipUrl.ToLower().StartsWith("http://"));
             }
         }
 
@@ -242,6 +269,35 @@ namespace Tests
             Assert.AreNotEqual(liste[0].ID, listeSide2[0].ID, "Skal ikke være like");
         }
 
+        [Test]
+        public void TestDB()
+        {
+            FavoritesUtil db = FavoritesUtil.getDatabase("NrkBrowserTest.db3");
+            Assert.IsNotNull(db);
+            List<Clip> fav = db.getFavoriteVideos();
+            Assert.AreEqual(0, fav.Count, "Skal ikke ha noen favoritter nå.");
+            List<Item> liste = nrkParser.GetTopTabRSS("natur");
+            Clip c = (Clip) liste[0];
+            Assert.IsTrue(db.addFavoriteVideo(c));
+            fav = db.getFavoriteVideos();
+            Assert.AreEqual(1, fav.Count, "Skal ha en favoritt nå.");
+            Clip clipFraDB = fav[0];
+            Assert.AreEqual(c.Title, clipFraDB.Title);
+            Assert.AreEqual(c.Description, clipFraDB.Description);
+            Assert.AreEqual(c.ID, clipFraDB.ID);
+            Assert.AreEqual(c.Bilde, clipFraDB.Bilde);
+            Assert.AreEqual(c.AntallGangerVist, clipFraDB.AntallGangerVist);
+            Assert.AreEqual(c.Klokkeslett, clipFraDB.Klokkeslett);
+            Assert.AreEqual(c.VerdiLink, clipFraDB.VerdiLink);
+            Assert.IsFalse(db.addFavoriteVideo(c));
+            fav = db.getFavoriteVideos();
+            Assert.AreEqual(1, fav.Count, "Skal fortsatt ha en favoritt nå.");
+            Assert.IsTrue(db.removeFavoriteVideo(clipFraDB));
+            fav = db.getFavoriteVideos();
+            Assert.AreEqual(0, fav.Count, "Skal ikke ha noen favoritter nå.");
+
+        }
+
         private void topTabTest(List<Item> liste)
         {
             Assert.IsNotNull(liste);
@@ -255,7 +311,7 @@ namespace Tests
                 Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
                 Assert.AreEqual(Clip.KlippType.VERDI, c.Type, "Skal være av typen VERDI");
-                Assert.IsNull(c.AntallGangerVist, "Antall ganger vist skal være satt");
+                Assert.IsEmpty(c.AntallGangerVist, "Antall ganger vist skal ikke være satt");
                 Assert.IsNotNull(c.VerdiLink, "VerdiLink må være satt på et klipp av type VERDI");
                 Assert.IsNotEmpty(c.VerdiLink, "VerdiLink må være satt på et klipp av type VERDI");
             }

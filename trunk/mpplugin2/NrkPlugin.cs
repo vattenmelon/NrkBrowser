@@ -188,7 +188,7 @@ namespace NrkBrowser
                 return;
             }
             _active.Pop(); //we do not want to show the active item again
-          
+
             if (_active.Count > 0)
             {
                 //for å forhindre at keyboardet kommer opp når man "browser bakover" til søkeresultatsida
@@ -214,7 +214,8 @@ namespace NrkBrowser
             }
 
             if (selecteditem.ID == "all" || selecteditem.ID == "categories" || selecteditem.ID == "anbefalte" ||
-                selecteditem.ID == "live" || selecteditem.ID == "mestSett" || selecteditem.ID == "sok" || selecteditem is Category)
+                selecteditem.ID == "live" || selecteditem.ID == "mestSett" || selecteditem.ID == "sok" ||
+                selecteditem is Category)
             {
                 GUIPropertyManager.SetProperty(PROGRAM_PICTURE, "");
             }
@@ -279,7 +280,7 @@ namespace NrkBrowser
         public void search(SearchItem item)
         {
             matchingItems = _nrk.GetSearchHits(item.Keyword, item.IndexPage + 1);
-            
+
             if (matchingItems.Count == 25)
             {
                 SearchItem nextPage = new SearchItem("nextPage", "Neste side", item.IndexPage + 1);
@@ -289,12 +290,18 @@ namespace NrkBrowser
             }
             UpdateList(matchingItems);
         }
+
         public void search()
-        { 
+        {
             String keyword = String.Empty;
             GetUserInputString(ref keyword);
             keyword = keyword.ToLower();
             matchingItems.Clear();
+            search(keyword);
+        }
+
+        private void search(String keyword)
+        {
             matchingItems = _nrk.GetSearchHits(keyword, 0);
             if (matchingItems.Count == 25)
             {
@@ -433,14 +440,14 @@ namespace NrkBrowser
 
             if (item.ID == "nyheter")
             {
-                List<Item> items = _nrk.GetTopTabber("nyheter");
+                List<Item> items = _nrk.GetTopTabRSS("nyheter");
                 UpdateList(items);
                 return;
             }
 
             if (item.ID == "sport")
             {
-                List<Item> items = _nrk.GetTopTabber("sport");
+                List<Item> items = _nrk.GetTopTabRSS("sport");
                 UpdateList(items);
                 return;
             }
@@ -599,15 +606,22 @@ namespace NrkBrowser
 
             if (!playOk)
             {
+                string message = String.Empty;
+                //if contains geoblokk
                 if (_osdPlayer)
                 {
-                    ShowError("Avspilling feilet, prøv å slå av osd player/vmr 9 for webstreams");
+                    message = "Avspilling feilet, prøv å slå av osd player/vmr 9 for webstreams";
                 }
                 else
                 {
-                    ShowError("Avspilling feilet");
+                    message = "Avspilling feilet";
                 }
-
+                if (url.Contains("geoblokk"))
+                {
+                    message = "Avspilling feilet";
+                    message += "Valgt klipp er kun tilgjengelig i Norge. (Chosen clip is only available in Norway)";
+                }
+                ShowError(message);
                 Log.Info(PLUGIN_NAME + " Playing failed");
             }
             else
@@ -620,7 +634,7 @@ namespace NrkBrowser
                 }
             }
         }
-      
+
         private bool playWithOsd(String url, String title, PlayListType type, double startTime)
         {
             //g_Player.Init();
@@ -633,7 +647,6 @@ namespace NrkBrowser
                 {
                     g_Player.SeekAbsolute(startTime);
                 }
-                
             }
             else
             {
@@ -665,9 +678,42 @@ namespace NrkBrowser
             //  Log.Info(PLUGIN_NAME + "Showing error: " + message);
             GUIDialogNotify dlg =
                 (GUIDialogNotify) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_NOTIFY);
-            dlg.SetHeading("NrkBrowser Browser");
+            dlg.SetHeading("NrkBrowser");
             dlg.SetText(message);
             dlg.DoModal(GUIWindowManager.ActiveWindow);
+        }
+
+        protected override void OnShowContextMenu()
+        {
+            Item item = (Item) facadeView.SelectedListItem.TVTag;
+
+            GUIDialogMenu dlgMenu = (GUIDialogMenu) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_MENU);
+            if (dlgMenu != null)
+            {
+                dlgMenu.Reset();
+                dlgMenu.SetHeading("NRK Browser");
+                dlgMenu.Add("Legg til i favoritter");
+                dlgMenu.Add("Bruk valgt som søkeord");
+                dlgMenu.DoModal(GetWindowId());
+
+                if (dlgMenu.SelectedLabel == -1) // Nothing was selected
+                {
+                    return; 
+                }
+                if (dlgMenu.SelectedLabel == 0)
+                {
+                    addToFavourites(item);
+                }
+                else if (dlgMenu.SelectedLabel == 1)
+                {
+                    search(item.Title);
+                }
+            }
+        }
+
+        private void addToFavourites(Item item)
+        {
+            ShowError("legg til favoritter: " + item.Title);
         }
     }
 }

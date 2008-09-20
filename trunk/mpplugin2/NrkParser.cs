@@ -300,15 +300,26 @@ namespace NrkBrowser
                             break;
                     }
                 }
-                //372980 is the id for the short natur-vignett, and we do not want it in list
-                //381994 is the for the super vignett
-                if (loRssItem.ID != "372980" && loRssItem.ID != "381994")
+
+                if (isNotShortVignett(loRssItem))
                 {
                     loRssItem.Type = Clip.KlippType.RSS;
                     clips.Add(loRssItem);
                 }
             }
             return clips;
+        }
+
+        /**
+         * Metode som sjekker om clippet er en vignett
+         */
+        private static bool isNotShortVignett(Clip loRssItem)
+        {
+            //372980 is the id for the short natur-vignett, and we do not want it in list
+            //381994 is the for the super vignett
+            //410330 is the nyheter vignett
+            //410335 is the sport vignett
+            return loRssItem.ID != "372980" && loRssItem.ID != "381994" && loRssItem.ID != "410330" && loRssItem.ID != "410335";
         }
 
         public List<Item> GetTopTabber(String tab)
@@ -346,6 +357,8 @@ namespace NrkBrowser
                         "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\" onclick=\"return true;\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?></a>.*?</div>.*?<div class=\"active\"><h2><a href=\"http://www1.nrk.no/nett-tv/ol/spill/verdi/(.*?)\" onclick=\"return true;\">(.*?)</a></h2>",
                         RegexOptions.Singleline);
             }
+
+
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
             Log.Info(NrkPlugin.PLUGIN_NAME + ": Matches {0}", matches.Count);
