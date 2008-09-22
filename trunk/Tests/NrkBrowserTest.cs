@@ -176,9 +176,6 @@ namespace Tests
             List<Item> liste = nrkParser.GetTopTabber("nyheter");
             topTabTest(liste);
 
-            liste = nrkParser.GetTopTabber("ol");
-            topTabTest(liste);
-
             liste = nrkParser.GetTopTabber("sport");
             topTabTest(liste);
 

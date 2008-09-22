@@ -351,11 +351,6 @@ namespace NrkBrowser
                 super.Bilde = "nrksuper.jpg";
                 items.Add(super);
 
-                MenuItem ol = new MenuItem("ol", "OL Beijing 2008");
-                ol.Description = "De siste klippene fra OL i Beijing";
-                ol.Bilde = "nrkbeijing.jpg";
-                items.Add(ol);
-
                 MenuItem sok = new MenuItem("sok", "Søk i alle programmer");
                 sok.Description = "Søk i alle programmer";
                 items.Add(sok);
@@ -461,12 +456,6 @@ namespace NrkBrowser
             if (item.ID == "super")
             {
                 List<Item> items = _nrk.GetTopTabRSS("super");
-                UpdateList(items);
-                return;
-            }
-            if (item.ID == "ol")
-            {
-                List<Item> items = _nrk.GetTopTabber("ol");
                 UpdateList(items);
                 return;
             }
