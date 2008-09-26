@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using NrkBrowser;
 using NUnit.Framework;
 
@@ -108,8 +109,8 @@ namespace Tests
         [Test]
         public void test1()
         {
-            List<Item> super = nrkParser.GetTopTabber("natur");
-            topTabTest(super);
+            //            List<Item> super = nrkParser.GetTopTabber("natur");
+            //            topTabTest(super);
         }
 
         [Test]
@@ -171,7 +172,7 @@ namespace Tests
         }
 
         [Test]
-        public void TestGetTopTabber()
+        public void TestGetTopTabberMedParameter()
         {
             List<Item> liste = nrkParser.GetTopTabber("nyheter");
             topTabTest(liste);
@@ -181,6 +182,21 @@ namespace Tests
 
             liste = nrkParser.GetTopTabber("natur");
             topTabTest(liste);
+        }
+
+        [Test]
+        public void TestGetTopTabber()
+        {
+            List<Item> liste = nrkParser.GetTopTabber();
+            Assert.IsNotNull(liste);
+            Assert.IsNotEmpty(liste);
+            Console.Out.WriteLine("treff:");
+//            foreach (Item item in liste)
+//            {
+//                Console.Out.WriteLine(item.ID + ", " + item.Title);
+//                Console.Out.WriteLine("-------------------------------------------");
+//            }
+            
         }
 
         [Test]

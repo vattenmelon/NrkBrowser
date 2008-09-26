@@ -1,6 +1,7 @@
 /*
  * Created by: Erling Reizer
  * Created: 14. september 2008
+ * Code heavily cut 'n pasted from the onlinevideos plugin by gregmac
  */
 
 using System;
@@ -17,21 +18,24 @@ namespace NrkBrowser
     {
         private static string DB_FILENAME = "NrkBrowser.db3";
         private SQLiteClient sqlClient;
+        private static int schemaVersion = 2;
 
         private static FavoritesUtil database;
 
         private FavoritesUtil(String fileName)
         {
-            bool dbExists;
+            
             try
             {
+                bool dbExists;
                 // Open database
                 try
                 {
                     Directory.CreateDirectory("database");
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Log.Error("Something wrong happened.." + e.Message);
                 }
                 dbExists = File.Exists(Config.GetFile(Config.Dir.Database, fileName));
                 sqlClient = new SQLiteClient(Config.GetFile(Config.Dir.Database, fileName));
@@ -42,6 +46,10 @@ namespace NrkBrowser
                 {
                     CreateTables();
                 }
+                else
+                {
+                    checkIfUpdateOfSchemaIsNeccessary();
+                }
             }
             catch (SQLiteException ex)
             {
@@ -49,6 +57,37 @@ namespace NrkBrowser
             }
         }
 
+        private void checkIfUpdateOfSchemaIsNeccessary()
+        {
+            Log.Info("checkIfUpdateOfSchemaIsNeccessary()");
+            SQLiteResultSet rs = sqlClient.Execute("select * from VERSION");
+            for (int iRow = 0; iRow < rs.Rows.Count; iRow++)
+            {
+                int version = Int32.Parse(DatabaseUtility.Get(rs, iRow, "VERSION"));
+                if (version < schemaVersion)
+                {
+                    Log.Info(String.Format("Schemaversion is {0}, while this version of the plugin requires version: {1}", version, schemaVersion));
+                    updateSchemaVersion(version);
+                }
+                else{
+                    Log.Info(String.Format("Schemaversion is up to date!( version {0})", version));
+                }
+            }
+        }
+        private void updateSchemaVersion(int version)
+        {
+            Log.Info("updateSchemaVersion(int): " + version);
+            if (version == 1)
+            {
+                sqlClient.Execute("ALTER TABLE FAVORITTER ADD TYPE text");
+                sqlClient.Execute("UPDATE FAVORITTER SET TYPE = 'KLIPP'");
+                sqlClient.Execute("UPDATE VERSION SET VERSION = 2 WHERE VERSION = 1");
+            }
+            else
+            {
+                Log.Error("UNKNOWN VERSION: " + version);
+            }
+        }
         public void Dispose()
         {
             if (sqlClient != null)
@@ -59,6 +98,11 @@ namespace NrkBrowser
             }
         }
 
+        /// <summary>
+        /// Call this method to get an instance of the database 
+        /// </summary>
+        /// <param name="fileName">The database to use. If called with null a default database will be used</param>
+        /// <returns>Instance of the database</returns>
         public static FavoritesUtil getDatabase(String fileName)
         {
             if (fileName == null || fileName.Equals(string.Empty))
@@ -78,19 +122,22 @@ namespace NrkBrowser
             {
                 return;
             }
-            try
-            { 
-                sqlClient.Execute(
-                    "CREATE TABLE FAVORITTER(AUTO_ID integer primary key autoincrement, TITLE text,ID text,DESC text,BILDE text, VERDILINK text, ANTVIST text, KLOKKE text)\n");
-            }
-            catch (Exception e)
-            {
-                Log.Info(e.ToString());
-            }
+
+            sqlClient.Execute(
+                "CREATE TABLE FAVORITTER(AUTO_ID integer primary key autoincrement, TITLE text,ID text,DESC text,BILDE text, VERDILINK text, ANTVIST text, KLOKKE text, TYPE text)\n");
+
+            sqlClient.Execute("CREATE TABLE VERSION(VERSION integer primary key)");
+            sqlClient.Execute(String.Format("insert into VERSION(VERSION)VALUES({0})", schemaVersion));
         }
 
+        /// <summary>
+        /// Adds a clip to the favourites database 
+        /// </summary>
+        /// <param name="clip">The clip to add</param>
+        /// <returns>true if clip was added, false if not</returns>
         public bool addFavoriteVideo(Clip clip)
         {
+            Log.Debug(NrkPlugin.PLUGIN_NAME + "addFavoriteVideo(Clip) " + clip);
             //check if the video is already in the favorite list
             String sql = string.Format("select ID from FAVORITTER where ID='{0}'", clip.ID);
             SQLiteResultSet resultSet = sqlClient.Execute(sql);
@@ -99,38 +146,37 @@ namespace NrkBrowser
                 Log.Info("Clip already existed as favorite!");
                 return false;
             }
-            Log.Info("inserting favorite:");
-            Log.Info("desc:" + clip.Description);
-            Log.Info("image:" + clip.Bilde);
-//      Log.Info("tags:"+foVideo.Tags);
-            Log.Info("title:" + clip.Title);
-//      Log.Info("url"+foVideo.VideoUrl);
-
-//      DatabaseUtility.RemoveInvalidChars(ref clip.Description);
-//      DatabaseUtility.RemoveInvalidChars(ref foVideo.ImageUrl);
-//      DatabaseUtility.RemoveInvalidChars(ref foVideo.Tags);
-//      DatabaseUtility.RemoveInvalidChars(ref foVideo.Title);
-//      DatabaseUtility.RemoveInvalidChars(ref foVideo.VideoUrl);
+            Log.Debug("inserting favorite:");
+            Log.Debug("desc:" + clip.Description);
+            Log.Debug("image:" + clip.Bilde);
+            Log.Debug("title:" + clip.Title);
 
             string sqlInsert =
-                string.Format("insert into FAVORITTER(TITLE,ID,DESC,BILDE,VERDILINK, ANTVIST, KLOKKE)VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", clip.Title,
-                              clip.ID, clip.Description, clip.Bilde, clip.VerdiLink, clip.AntallGangerVist, clip.Klokkeslett);
+                string.Format(
+                    "insert into FAVORITTER(TITLE,ID,DESC,BILDE,VERDILINK, ANTVIST, KLOKKE, TYPE)VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')",
+                    clip.Title,
+                    clip.ID, clip.Description, clip.Bilde, clip.VerdiLink, clip.AntallGangerVist, clip.Klokkeslett, clip.Type);
             sqlClient.Execute(sqlInsert);
             if (sqlClient.ChangedRows() > 0)
             {
-                Log.Info("Favorite {0} inserted successfully into database", clip.Title);
+                Log.Debug("Favorite [{0}] inserted successfully into database", clip);
                 return true;
             }
             else
             {
-                Log.Info("Favorite {0} failed to insert into database", clip.Title);
+                Log.Debug("Favorite [{0}] failed to insert into database", clip);
                 return false;
             }
         }
 
-
+        /// <summary>
+        /// Tries to remove the given clip from the favourites database
+        /// </summary>
+        /// <param name="clip">The clip to remove</param>
+        /// <returns>true if clip was removed from database, false if not</returns>
         public bool removeFavoriteVideo(Clip clip)
         {
+            Log.Debug(NrkPlugin.PLUGIN_NAME + "removeFavoriteVideo(Clip) " + clip);
             String lsSQL = string.Format("delete from FAVORITTER where ID='{0}' ", clip.ID);
             sqlClient.Execute(lsSQL);
             if (sqlClient.ChangedRows() > 0)
@@ -143,19 +189,14 @@ namespace NrkBrowser
             }
         }
 
-
-//    public List<GUIOnlineVideos.VideoInfo> getAllFavoriteVideos()
-//    {
-//    	return getFavoriteVideos(false,null);
-//    }
-//    public List<GUIOnlineVideos.VideoInfo> getSiteFavoriteVideos(String fsSiteId){
-//    	return getFavoriteVideos(true,fsSiteId);
-//    }
+        /// <summary>
+        /// Returns a list of the favourite clips
+        /// </summary>
+        /// <returns></returns>
         public List<Clip> getFavoriteVideos()
         {
-            //createFavorite("Default2");
+            Log.Debug(NrkPlugin.PLUGIN_NAME + "getFavoriteVideos()");
             string lsSQL = string.Format("select * from FAVORITTER");
-
             SQLiteResultSet resultSet = sqlClient.Execute(lsSQL);
 
             List<Clip> favorittListe = new List<Clip>();
@@ -171,25 +212,15 @@ namespace NrkBrowser
                 clip.VerdiLink = DatabaseUtility.Get(resultSet, iRow, "VERDILINK");
                 clip.AntallGangerVist = DatabaseUtility.Get(resultSet, iRow, "ANTVIST");
                 clip.Klokkeslett = DatabaseUtility.Get(resultSet, iRow, "KLOKKE");
-                Log.Info("Pulled {0} out of the database", clip.Title);
+                Clip.KlippType type = (Clip.KlippType) Enum.Parse(typeof(Clip.KlippType), DatabaseUtility.Get(resultSet, iRow, "TYPE"));
+                clip.Type = type;
+                Log.Debug("Pulled {0} out of the database", clip.Title);
                 favorittListe.Add(clip);
             }
             return favorittListe;
         }
 
         /*
-  public string [] getSiteIDs(){
-      string lsSQL = "select distinct VDO_SITE_ID from favorite_videos";
-      SQLiteResultSet loResultSet = sqlClient.Execute(lsSQL);
-      string [] siteIdList = new string[loResultSet.Rows.Count];
-       for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
-      {
-          siteIdList[iRow] = DatabaseUtility.Get(loResultSet,iRow,"VDO_SITE_ID");
-    	 		
-       }
-       return siteIdList;
-    	
-  }
     
    public List<GUIOnlineVideos.VideoInfo> searchFavoriteVideos(String fsQuery){
     	
@@ -222,37 +253,5 @@ namespace NrkBrowser
       return loFavoriteList;
   }
 */
-        /*
-    public List<GUIOnlineVideos.FavoriteVideos> getSiteFavoriteVideos(GUIOnlineVideos.Site foSite)
-    {
-      List<YahooVideo> loFavoriteList = new List<YahooVideo>();
-      string lsSQL = String.Format("select FAVORITE_ID from FAVORITE where FAVORITE_NM='{0}'", fsFavoriteNm.Replace("'", "''"));
-      SQLiteResultSet loResultSet = sqlClient.Execute(lsSQL);
-
-      string lsFavID = (String)loResultSet.GetColumn(0)[0];
-      lsSQL = string.Format("select SONG_NM,SONG_ID,ARTIST_NM,ARTIST_ID,COUNTRY from FAVORITE_VIDEOS where FAVORITE_ID={0}", lsFavID);
-      loResultSet = sqlClient.Execute(lsSQL);
-
-      foreach (ArrayList loRow in loResultSet.RowsList)
-      {
-        YahooVideo loVideo = new YahooVideo();
-        IEnumerator en = loRow.GetEnumerator();
-        en.MoveNext();
-        loVideo.songName = (String)en.Current;
-        en.MoveNext();
-        loVideo.songId = (String)en.Current;
-        en.MoveNext();
-        loVideo.artistName = (String)en.Current;
-        en.MoveNext();
-        loVideo.artistId = (String)en.Current;
-        en.MoveNext();
-        loVideo.countryId = (String)en.Current;
-        loFavoriteList.Add(loVideo);
-
-      }
-
-      return loFavoriteList;
-    }
-    */
     }
 }

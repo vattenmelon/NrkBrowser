@@ -70,7 +70,7 @@ namespace NrkBrowser
             {
                 String link = x.Groups[1].Value;
                 String type = x.Groups[2].Value;
-                String title = string.Format("{0}: {1}", teller, x.Groups[3].Value);
+                String title = string.Format("{0}", x.Groups[3].Value);
                 String description = x.Groups[4].Value;
 
                 String id = link.Substring(x.Groups[1].Value.LastIndexOf("/", x.Groups[1].Value.Length) + 1);
@@ -178,6 +178,30 @@ namespace NrkBrowser
             }
 
             return clips;
+        }
+
+        public List<Item> GetTopTabber()
+        {
+            //virker ikke ennå
+            Log.Info(NrkPlugin.PLUGIN_NAME + ": GetTopTabber()");
+            string data;
+            data = FetchUrl(MAIN_URL);
+            Console.WriteLine(data);
+            Regex query =
+                new Regex(
+                    "<li><a href=\"/nett-tv(.*?)\"><span>(.*?)</span></a></li>",
+                    RegexOptions.Singleline);
+            MatchCollection matches = query.Matches(data);
+            List<Item> items = new List<Item>();
+
+            Log.Info(NrkPlugin.PLUGIN_NAME + ": Matches {0}", matches.Count);
+            foreach (Match x in matches)
+            {
+                MenuItem item = new MenuItem(x.Groups[1].Value, x.Groups[2].Value);
+                items.Add(item);
+            }
+
+            return items;
         }
 
         public List<Item> GetTopTabRSS(string site)

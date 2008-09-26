@@ -32,6 +32,7 @@ namespace NrkBrowser
         protected NrkParser _nrk = null;
         protected Stack<Item> _active = null;
         private List<Item> matchingItems = new List<Item>();
+        private MenuItem favoritter; //used so we can se if option to remove favorite should be shown
 
         protected bool _osdPlayer = true;
 
@@ -204,6 +205,11 @@ namespace NrkBrowser
 
         public override void Process()
         {
+            if (facadeView.SelectedListItem == null)
+            {
+                base.Process();
+                return;
+            }
             Item selecteditem = (Item) facadeView.SelectedListItem.TVTag;
 
             GUIPropertyManager.SetProperty(PROGRAM_DESCRIPTION, selecteditem.Description);
@@ -355,6 +361,10 @@ namespace NrkBrowser
                 sok.Description = "Søk i alle programmer";
                 items.Add(sok);
 
+                favoritter = new MenuItem("favoritter", "Favoritter");
+                favoritter.Description = "Se dine favoritter";
+                items.Add(favoritter);
+
                 UpdateList(items);
                 return;
             }
@@ -374,6 +384,11 @@ namespace NrkBrowser
             //push var her tidligere
             _active.Push(item);
 
+            if (item.ID == "favoritter")
+            {
+                FillStackWithFavourites();
+                return;
+            }
             if (item.ID == "sok")
             {
                 search();
@@ -516,27 +531,33 @@ namespace NrkBrowser
             }
         }
 
+        /// <summary>
+        /// Method that fills the menu with favourites
+        /// </summary>
+        private void FillStackWithFavourites()
+        {
+            Log.Debug(PLUGIN_NAME + "FillStackWithFavourites()");
+            List<Clip> clips = FavoritesUtil.getDatabase(null).getFavoriteVideos();
+            List<Item> items = new List<Item>(clips.Count);
+            foreach (Clip clip in clips)
+            {
+                Item it = (Item)clip;
+                items.Add(it);
+            }
+            UpdateList(items);
+        }
+
         protected void PlayClip(Clip item)
         {
+            Log.Info(PLUGIN_NAME + " PlayClip " + item);
             string url = _nrk.GetClipUrl(item);
             if (url == null)
             {
-                ShowError("Kunne ikke spille av klipp");
+                ShowMessageBox("Kunne ikke spille av klipp");
                 return;
             }
-            Log.Info(PLUGIN_NAME + " PlayClip " + url);
-
-
-            if (item.Type == Clip.KlippType.RSS)
-            {
-                Log.Info(PLUGIN_NAME + " TYPE IS NATUR, PLAYING WITH MPLAYER");
-                //play with mplayer 
-                PlayUrlWithMplayer(url, item.Title);
-            }
-            else
-            {
-                PlayUrl(url, item.Title, item.StartTime);
-            }
+            Log.Info(PLUGIN_NAME + " PlayClip, url is: " + url);
+            PlayUrl(url, item.Title, item.StartTime);
         }
 
         protected void PlayStream(Stream item)
@@ -545,6 +566,11 @@ namespace NrkBrowser
             PlayUrl(item.ID, item.Title, 0);
         }
 
+        /// <summary>
+        /// Method used to force usage of mplayer when playing
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="title"></param>
         protected void PlayUrlWithMplayer(string url, string title)
         {
             Log.Info(string.Format("{0}: PlayUrlWithMplayer(url, title): {1}, {2}", PLUGIN_NAME, url, title));
@@ -553,7 +579,7 @@ namespace NrkBrowser
 
             if (!playOk)
             {
-                ShowError("Avspilling feilet");
+                ShowMessageBox("Avspilling feilet");
             }
             else
             {
@@ -563,10 +589,16 @@ namespace NrkBrowser
             }
         }
 
+        /// <summary>
+        /// Plays the URL
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="title"></param>
+        /// <param name="startTime"></param>
         protected void PlayUrl(string url, string title, double startTime)
         {
             Log.Info(PLUGIN_NAME + "PlayUrl");
-
+            
             PlayListType type;
             if (url.EndsWith(".wmv")) type = PlayListType.PLAYLIST_VIDEO_TEMP;
             else if (url.EndsWith(".wma")) type = PlayListType.PLAYLIST_RADIO_STREAMS;
@@ -574,14 +606,8 @@ namespace NrkBrowser
             else if (url.EndsWith("_h")) type = PlayListType.PLAYLIST_VIDEO_TEMP; //det er en av live streamene
             else
             {
-                //TODO: had to remove this because flash files doesn't have an extension
-//                Log.Info(PLUGIN_NAME + " Unknown clip type " + url);
-//                ShowError("Unknown clip type, please contact author");
-//                return;
-                Log.Info(PLUGIN_NAME + ": Unknown clip type, set as video");
                 type = PlayListType.PLAYLIST_VIDEO_TEMP;
             }
-
             bool playOk = false;
 
             if (_osdPlayer)
@@ -610,7 +636,7 @@ namespace NrkBrowser
                     message = "Avspilling feilet";
                     message += "Valgt klipp er kun tilgjengelig i Norge. (Chosen clip is only available in Norway)";
                 }
-                ShowError(message);
+                ShowMessageBox(message);
                 Log.Info(PLUGIN_NAME + " Playing failed");
             }
             else
@@ -624,11 +650,19 @@ namespace NrkBrowser
             }
         }
 
+        /// <summary>
+        /// Plays the url with the g_Player. It gives OSD
+        /// </summary>
+        /// <param name="url">The url of the video or audio file to play</param>
+        /// <param name="title"></param>
+        /// <param name="type">The Type of the clip to play, audio or video</param>
+        /// <param name="startTime">From where in the clip we will start play</param>
+        /// <returns></returns>
         private bool playWithOsd(String url, String title, PlayListType type, double startTime)
         {
             //g_Player.Init();
             Log.Info(PLUGIN_NAME + " Trying to play with Osd (g_Player): " + url);
-            bool playOk = false;
+            bool playOk;
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
                 playOk = g_Player.PlayVideoStream(url, title);
@@ -648,6 +682,13 @@ namespace NrkBrowser
             return playOk;
         }
 
+        /// <summary>
+        /// Plays the url with the playlistplayer. It gives no OSD but may be more reliable.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="title"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private bool playWithoutOsd(String url, String title, PlayListType type)
         {
             Log.Info(PLUGIN_NAME + " Trying to play without Osd (PlayListPlayer): " + url);
@@ -661,8 +702,11 @@ namespace NrkBrowser
             return playlistPlayer.Play(0);
         }
 
-
-        private void ShowError(string message)
+        /// <summary>
+        /// Shows an messagebox with the given message.
+        /// </summary>
+        /// <param name="message">Message to show</param>
+        private void ShowMessageBox(string message)
         {
             //  Log.Info(PLUGIN_NAME + "Showing error: " + message);
             GUIDialogNotify dlg =
@@ -681,13 +725,20 @@ namespace NrkBrowser
             {
                 dlgMenu.Reset();
                 dlgMenu.SetHeading("NRK Browser");
-                dlgMenu.Add("Legg til i favoritter");
+                if (!_active.Contains(favoritter))
+                {
+                    dlgMenu.Add("Legg til i favoritter");
+                }
+                if (_active.Contains(favoritter))
+                {
+                    dlgMenu.Add("Fjern favoritt");
+                }
                 dlgMenu.Add("Bruk valgt som søkeord");
                 dlgMenu.DoModal(GetWindowId());
 
                 if (dlgMenu.SelectedLabel == -1) // Nothing was selected
                 {
-                    return; 
+                    return;
                 }
                 if (dlgMenu.SelectedLabel == 0)
                 {
@@ -697,12 +748,46 @@ namespace NrkBrowser
                 {
                     search(item.Title);
                 }
+                else if (dlgMenu.SelectedLabel == 2)
+                {
+                    removeFavourite(item);
+                }
             }
         }
 
+        /// <summary>
+        /// Adds an item to favourites
+        /// </summary>
+        /// <param name="item"></param>
         private void addToFavourites(Item item)
         {
-            ShowError("legg til favoritter: " + item.Title);
+            Log.Debug(PLUGIN_NAME + ": addToFavourites: " + item);
+            FavoritesUtil db = FavoritesUtil.getDatabase(null);
+            Clip c = (Clip) item;
+            if(!db.addFavoriteVideo(c))
+            {
+                ShowMessageBox("Favoritt kunne ikke bli lagt til");
+            }
+        }
+
+        /// <summary>
+        /// Removes an item from favourites
+        /// </summary>
+        /// <param name="item"></param>
+        private void removeFavourite(Item item)
+        {
+            Log.Debug(PLUGIN_NAME + ": removeFavourite: " + item);
+            FavoritesUtil db = FavoritesUtil.getDatabase(null);
+            Clip c = (Clip) item;
+            if(!db.removeFavoriteVideo(c))
+            {
+                ShowMessageBox("Favoritt kunne ikke fjernes");
+            }
+            else
+            {
+                //must remove removed item from list..do so by refreshing the whole favouriteslist
+                FillStackWithFavourites();
+            }
         }
     }
 }
