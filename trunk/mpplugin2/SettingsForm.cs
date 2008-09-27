@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace NrkBrowser
 {
-  public partial class SettingsForm : Form
-  {
-    public SettingsForm()
+    public partial class SettingsForm : Form
     {
-      InitializeComponent();
+        public SettingsForm()
+        {
+            InitializeComponent();
+        }
+
+        public TextBox NameTextbox
+        {
+            get { return nameTextbox; }
+            set { nameTextbox = value; }
+        }
     }
-  }
 }

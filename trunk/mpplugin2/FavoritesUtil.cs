@@ -18,7 +18,10 @@ namespace NrkBrowser
     {
         private static string DB_FILENAME = "NrkBrowser.db3";
         private SQLiteClient sqlClient;
-        private static int schemaVersion = 2;
+        private static int schemaVersion = 3;
+
+        private static string DISCRIMINATOR_CLIP = "clip";
+        private static string DISCRIMINATOR_PROGRAM = "program";
 
         private static FavoritesUtil database;
 
@@ -77,11 +80,20 @@ namespace NrkBrowser
         private void updateSchemaVersion(int version)
         {
             Log.Info("updateSchemaVersion(int): " + version);
-            if (version == 1)
+            if (version < 2)
             {
                 sqlClient.Execute("ALTER TABLE FAVORITTER ADD TYPE text");
                 sqlClient.Execute("UPDATE FAVORITTER SET TYPE = 'KLIPP'");
                 sqlClient.Execute("UPDATE VERSION SET VERSION = 2 WHERE VERSION = 1");
+                version = 2;
+
+            }
+            if (version < 3)
+            {
+                sqlClient.Execute("ALTER TABLE FAVORITTER ADD DISCRIMINATOR text");
+                sqlClient.Execute(String.Format("UPDATE FAVORITTER SET DISCRIMINATOR = '{0}'", DISCRIMINATOR_CLIP));
+                sqlClient.Execute("UPDATE VERSION SET VERSION = 3 WHERE VERSION = 2");
+                version = 3;
             }
             else
             {
@@ -124,7 +136,7 @@ namespace NrkBrowser
             }
 
             sqlClient.Execute(
-                "CREATE TABLE FAVORITTER(AUTO_ID integer primary key autoincrement, TITLE text,ID text,DESC text,BILDE text, VERDILINK text, ANTVIST text, KLOKKE text, TYPE text)\n");
+                "CREATE TABLE FAVORITTER(AUTO_ID integer primary key autoincrement, TITLE text,ID text,DESC text,BILDE text, VERDILINK text, ANTVIST text, KLOKKE text, TYPE text, DISCRIMINATOR text)\n");
 
             sqlClient.Execute("CREATE TABLE VERSION(VERSION integer primary key)");
             sqlClient.Execute(String.Format("insert into VERSION(VERSION)VALUES({0})", schemaVersion));
@@ -134,8 +146,9 @@ namespace NrkBrowser
         /// Adds a clip to the favourites database 
         /// </summary>
         /// <param name="clip">The clip to add</param>
+        /// <param name="message">Reference to string wich will get detailed errormessage in case of an error</param>
         /// <returns>true if clip was added, false if not</returns>
-        public bool addFavoriteVideo(Clip clip)
+        public bool addFavoriteVideo(Clip clip, ref string message)
         {
             Log.Debug(NrkPlugin.PLUGIN_NAME + "addFavoriteVideo(Clip) " + clip);
             //check if the video is already in the favorite list
@@ -144,6 +157,7 @@ namespace NrkBrowser
             if (resultSet.Rows.Count > 0)
             {
                 Log.Info("Clip already existed as favorite!");
+                message = "Clip already existed as favorite!";
                 return false;
             }
             Log.Debug("inserting favorite:");
@@ -153,9 +167,9 @@ namespace NrkBrowser
 
             string sqlInsert =
                 string.Format(
-                    "insert into FAVORITTER(TITLE,ID,DESC,BILDE,VERDILINK, ANTVIST, KLOKKE, TYPE)VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')",
+                    "insert into FAVORITTER(TITLE,ID,DESC,BILDE,VERDILINK, ANTVIST, KLOKKE, TYPE, DISCRIMINATOR)VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
                     clip.Title,
-                    clip.ID, clip.Description, clip.Bilde, clip.VerdiLink, clip.AntallGangerVist, clip.Klokkeslett, clip.Type);
+                    clip.ID, clip.Description, clip.Bilde, clip.VerdiLink, clip.AntallGangerVist, clip.Klokkeslett, clip.Type, DISCRIMINATOR_CLIP);
             sqlClient.Execute(sqlInsert);
             if (sqlClient.ChangedRows() > 0)
             {
@@ -165,6 +179,47 @@ namespace NrkBrowser
             else
             {
                 Log.Debug("Favorite [{0}] failed to insert into database", clip);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Adds a program to the favourites database 
+        /// </summary>
+        /// <param name="program">The program to add</param>
+        /// <param name="message">Reference to string wich will get detailed errormessage in case of an error</param>
+        /// <returns>true if program was added, false if not</returns>
+        public bool addFavoriteProgram(Program program, ref string message)
+        {
+            Log.Debug(NrkPlugin.PLUGIN_NAME + "addFavoriteProgram(Program) " + program);
+            //check if the video is already in the favorite list
+            String sql = string.Format("select ID from FAVORITTER where ID='{0}'", program.ID);
+            SQLiteResultSet resultSet = sqlClient.Execute(sql);
+            if (resultSet.Rows.Count > 0)
+            {
+                Log.Info("Program already existed as favorite!");
+                message = "Program already existed as favorite!";
+                return false;
+            }
+            Log.Debug("inserting favorite:");
+            Log.Debug("desc:" + program.Description);
+            Log.Debug("image:" + program.Bilde);
+            Log.Debug("title:" + program.Title);
+
+            string sqlInsert =
+                string.Format(
+                    "insert into FAVORITTER(TITLE,ID,DESC,BILDE,VERDILINK, ANTVIST, KLOKKE, TYPE, DISCRIMINATOR)VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
+                    program.Title,
+                    program.ID, program.Description, program.Bilde, "", "", "", "", DISCRIMINATOR_PROGRAM);
+            sqlClient.Execute(sqlInsert);
+            if (sqlClient.ChangedRows() > 0)
+            {
+                Log.Debug("Favorite [{0}] inserted successfully into database", program);
+                return true;
+            }
+            else
+            {
+                Log.Debug("Favorite [{0}] failed to insert into database", program);
                 return false;
             }
         }
@@ -190,34 +245,71 @@ namespace NrkBrowser
         }
 
         /// <summary>
-        /// Returns a list of the favourite clips
+        /// Returns a list of the favourite items (clips or programs)
         /// </summary>
         /// <returns></returns>
-        public List<Clip> getFavoriteVideos()
+        public List<Item> getFavoriteVideos()
         {
             Log.Debug(NrkPlugin.PLUGIN_NAME + "getFavoriteVideos()");
             string lsSQL = string.Format("select * from FAVORITTER");
             SQLiteResultSet resultSet = sqlClient.Execute(lsSQL);
 
-            List<Clip> favorittListe = new List<Clip>();
+            List<Item> favorittListe = new List<Item>();
             if (resultSet.Rows.Count == 0) return favorittListe;
 
             for (int iRow = 0; iRow < resultSet.Rows.Count; iRow++)
             {
-                Clip clip = new Clip("", "");
-                clip.Description = DatabaseUtility.Get(resultSet, iRow, "DESC");
-                clip.Title = DatabaseUtility.Get(resultSet, iRow, "TITLE");
-                clip.Bilde = DatabaseUtility.Get(resultSet, iRow, "BILDE");
-                clip.ID = DatabaseUtility.Get(resultSet, iRow, "ID");
-                clip.VerdiLink = DatabaseUtility.Get(resultSet, iRow, "VERDILINK");
-                clip.AntallGangerVist = DatabaseUtility.Get(resultSet, iRow, "ANTVIST");
-                clip.Klokkeslett = DatabaseUtility.Get(resultSet, iRow, "KLOKKE");
-                Clip.KlippType type = (Clip.KlippType) Enum.Parse(typeof(Clip.KlippType), DatabaseUtility.Get(resultSet, iRow, "TYPE"));
-                clip.Type = type;
-                Log.Debug("Pulled {0} out of the database", clip.Title);
-                favorittListe.Add(clip);
+                if (DatabaseUtility.Get(resultSet, iRow, "DISCRIMINATOR") == "clip")
+                {
+                    Clip clip = createClip(iRow, resultSet);
+                    favorittListe.Add(clip);
+                }
+                if (DatabaseUtility.Get(resultSet, iRow, "DISCRIMINATOR") == "program")
+                {
+                    Program program = createProgram(iRow, resultSet);
+                    favorittListe.Add(program); 
+                }
+                
             }
+            Log.Debug("{0}: Returned list of {1} favourites", NrkPlugin.PLUGIN_NAME, resultSet.Rows.Count);
             return favorittListe;
+        }
+
+        /// <summary>
+        /// Helpermethod to create a clip from a row in the resultset
+        /// </summary>
+        /// <param name="iRow"></param>
+        /// <param name="resultSet"></param>
+        /// <returns></returns>
+        private static Clip createClip(int iRow, SQLiteResultSet resultSet)
+        {
+            Clip clip = new Clip("", "");
+            clip.Description = DatabaseUtility.Get(resultSet, iRow, "DESC");
+            clip.Title = DatabaseUtility.Get(resultSet, iRow, "TITLE");
+            clip.Bilde = DatabaseUtility.Get(resultSet, iRow, "BILDE");
+            clip.ID = DatabaseUtility.Get(resultSet, iRow, "ID");
+            clip.VerdiLink = DatabaseUtility.Get(resultSet, iRow, "VERDILINK");
+            clip.AntallGangerVist = DatabaseUtility.Get(resultSet, iRow, "ANTVIST");
+            clip.Klokkeslett = DatabaseUtility.Get(resultSet, iRow, "KLOKKE");
+            Clip.KlippType type = (Clip.KlippType) Enum.Parse(typeof(Clip.KlippType), DatabaseUtility.Get(resultSet, iRow, "TYPE"));
+            clip.Type = type;
+            return clip;
+        }
+
+        /// <summary>
+        /// Helpermethod to create a program from a row in the resultset
+        /// </summary>
+        /// <param name="iRow"></param>
+        /// <param name="resultSet"></param>
+        /// <returns></returns>
+        private static Program createProgram(int iRow, SQLiteResultSet resultSet)
+        {
+            Program program = new Program("", "", "", "");
+            program.Description = DatabaseUtility.Get(resultSet, iRow, "DESC");
+            program.Title = DatabaseUtility.Get(resultSet, iRow, "TITLE");
+            program.Bilde = DatabaseUtility.Get(resultSet, iRow, "BILDE");
+            program.ID = DatabaseUtility.Get(resultSet, iRow, "ID");
+            return program;
         }
 
         /*

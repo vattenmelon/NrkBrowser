@@ -182,6 +182,23 @@ namespace Tests
 
             liste = nrkParser.GetTopTabber("natur");
             topTabTest(liste);
+
+        }
+
+        [Test]
+        public void TestTopTabbDirekte()
+        {
+            List<Item> liste = nrkParser.GetTopTabber("direkte");
+            Assert.IsNotEmpty(liste);
+            Console.Out.WriteLine("count: " + liste.Count);
+//            foreach (Item item in liste)
+//            {
+//                Console.Out.WriteLine(item);
+//                Console.Out.WriteLine("id: "+item.ID);
+//                Console.Out.WriteLine("title: " +item.Title);
+//                Console.Out.WriteLine("description: "+item.Description);
+//                Console.Out.WriteLine("bilde: " + item.Bilde);
+//            }
         }
 
         [Test]
@@ -287,14 +304,15 @@ namespace Tests
         {
             FavoritesUtil db = FavoritesUtil.getDatabase("NrkBrowserTest.db3");
             Assert.IsNotNull(db);
-            List<Clip> fav = db.getFavoriteVideos();
+            List<Item> fav = db.getFavoriteVideos();
             Assert.AreEqual(0, fav.Count, "Skal ikke ha noen favoritter nå.");
             List<Item> liste = nrkParser.GetTopTabRSS("natur");
             Clip c = (Clip) liste[0];
-            Assert.IsTrue(db.addFavoriteVideo(c));
+            string message = "";
+            Assert.IsTrue(db.addFavoriteVideo(c, ref message));
             fav = db.getFavoriteVideos();
             Assert.AreEqual(1, fav.Count, "Skal ha en favoritt nå.");
-            Clip clipFraDB = fav[0];
+            Clip clipFraDB = (Clip) fav[0];
             Assert.AreEqual(c.Title, clipFraDB.Title);
             Assert.AreEqual(c.Description, clipFraDB.Description);
             Assert.AreEqual(c.ID, clipFraDB.ID);
@@ -302,7 +320,7 @@ namespace Tests
             Assert.AreEqual(c.AntallGangerVist, clipFraDB.AntallGangerVist);
             Assert.AreEqual(c.Klokkeslett, clipFraDB.Klokkeslett);
             Assert.AreEqual(c.VerdiLink, clipFraDB.VerdiLink);
-            Assert.IsFalse(db.addFavoriteVideo(c));
+            Assert.IsFalse(db.addFavoriteVideo(c, ref message));
             fav = db.getFavoriteVideos();
             Assert.AreEqual(1, fav.Count, "Skal fortsatt ha en favoritt nå.");
             Assert.IsTrue(db.removeFavoriteVideo(clipFraDB));

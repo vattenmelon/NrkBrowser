@@ -38,6 +38,8 @@
         this.label1 = new System.Windows.Forms.Label();
         this.liveStreamQualityCombo = new System.Windows.Forms.ComboBox();
         this.header = new System.Windows.Forms.Label();
+        this.nameLabel = new System.Windows.Forms.Label();
+        this.nameTextbox = new System.Windows.Forms.TextBox();
         ((System.ComponentModel.ISupportInitialize)(this.speedUpDown)).BeginInit();
         this.SuspendLayout();
         // 
@@ -159,11 +161,29 @@
         this.header.TabIndex = 9;
         this.header.Text = "NRK Browser";
         // 
+        // nameLabel
+        // 
+        this.nameLabel.AutoSize = true;
+        this.nameLabel.Location = new System.Drawing.Point(11, 150);
+        this.nameLabel.Name = "nameLabel";
+        this.nameLabel.Size = new System.Drawing.Size(65, 13);
+        this.nameLabel.TabIndex = 10;
+        this.nameLabel.Text = "Plugin name";
+        // 
+        // nameTextbox
+        // 
+        this.nameTextbox.Location = new System.Drawing.Point(120, 143);
+        this.nameTextbox.Name = "nameTextbox";
+        this.nameTextbox.Size = new System.Drawing.Size(100, 20);
+        this.nameTextbox.TabIndex = 11;
+        // 
         // SettingsForm
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.ClientSize = new System.Drawing.Size(451, 214);
+        this.Controls.Add(this.nameTextbox);
+        this.Controls.Add(this.nameLabel);
         this.Controls.Add(this.header);
         this.Controls.Add(this.liveStreamQualityCombo);
         this.Controls.Add(this.label1);
@@ -195,5 +215,7 @@
     private System.Windows.Forms.Label label1;
     public System.Windows.Forms.ComboBox liveStreamQualityCombo;
       private System.Windows.Forms.Label header;
+      private System.Windows.Forms.Label nameLabel;
+      private System.Windows.Forms.TextBox nameTextbox;
   }
 }

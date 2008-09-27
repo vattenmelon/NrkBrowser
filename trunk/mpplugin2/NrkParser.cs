@@ -354,6 +354,7 @@ namespace NrkBrowser
             Regex query = null;
             if (tab == "sport")
             {
+                //deprecated, bruker RSS feed istedet
                 query =
                     new Regex(
                         "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\" onclick=\"return true;\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?></a>.*?</div>.*?<div class=\"active\"><h2><a href=\"http://www1.nrk.no/nett-tv/sport/spill/verdi/(.*?)\" onclick=\"return true;\">(.*?)</a></h2>",
@@ -361,6 +362,7 @@ namespace NrkBrowser
             }
             if (tab == "nyheter")
             {
+                //deprecated, bruker RSS feed istedet
                 query =
                     new Regex(
                         "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\" onclick=\"return true;\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?></a>.*?</div>.*?<div class=\"active\"><h2><a href=\"http://www1.nrk.no/nett-tv/nyheter/spill/verdi/(.*?)\" onclick=\"return true;\">(.*?)</a></h2>",
@@ -368,13 +370,22 @@ namespace NrkBrowser
             }
             if (tab == "natur")
             {
-                //deprecated, bruker RSS feed for natur i stedet
+                //deprecated, bruker RSS feed istedet
                 query =
                     new Regex(
                         "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\" onclick=\"return true;\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?></a>.*?</div>.*?<div class=\"active\"><h2><a href=\"http://www1.nrk.no/nett-tv/natur/spill/verdi/(.*?)\" onclick=\"return true;\">(.*?)</a></h2>",
                         RegexOptions.Singleline);
             }
- 
+            
+            if (tab == "direkte")
+            {
+                //XXX not ready for primetime yet.
+                query =
+                    new Regex(
+                        "<div class=\"img-left\">.*?<a href=\"/nett-tv/klipp/(.*?)\" title=\"(.*?)\" style=\".*?\"><img class=\"info\" src=\"http://www1.nrk.no/nett-tv/data/stillbilder/Kommer.jpg\" alt=\"Kommer\" /><img src=\"(.*?)\" .*? /></a>.*?</div>",
+                        RegexOptions.Singleline);
+            }
+
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
             Log.Info(NrkPlugin.PLUGIN_NAME + ": Matches {0}", matches.Count);

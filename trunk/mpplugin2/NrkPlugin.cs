@@ -21,11 +21,22 @@ namespace NrkBrowser
 {
     public class NrkPlugin : GUIWindow, ISetupForm
     {
+        /// <summary>
+        /// This name is used in logs
+        /// </summary>
         public const string PLUGIN_NAME = "NrkBrowser";
+
         public const string PROGRAM_PICTURE = "#picture";
         public const string PROGRAM_DESCRIPTION = "#description";
         private string streamPrefix = "mms://straumV.nrk.no/nrk_tv_webvid";
         protected string _suffix = "_l";
+
+        /// <summary>
+        /// This is the name of the plugin as it appears in MediaPortal gui. Note: the name specified here will
+        /// be shown in the plugins list in the configuration, while in the gui inside mediaportal it will use the name
+        /// specified in the configuration, or the default name. 
+        /// </summary>
+        private string pluginName = PLUGIN_NAME;
 
         [SkinControlAttribute(50)] protected GUIFacadeControl facadeView = null;
 
@@ -48,7 +59,7 @@ namespace NrkBrowser
 
         public string PluginName()
         {
-            return "My NRK";
+            return pluginName;
         }
 
         public string Description()
@@ -86,6 +97,9 @@ namespace NrkBrowser
             string quality = settings.GetValueAsString("NrkBrowser", "liveStreamQuality", "Low");
             form.liveStreamQualityCombo.SelectedIndex = form.liveStreamQualityCombo.Items.IndexOf(quality);
 
+            pluginName = settings.GetValueAsString("NrkBrowser", "pluginName", "My Nrk");
+            form.NameTextbox.Text = pluginName;
+
             DialogResult res = form.ShowDialog();
             if (res == DialogResult.OK)
             {
@@ -95,6 +109,8 @@ namespace NrkBrowser
                 settings.SetValueAsBool("NrkBrowser", "osdPlayer", osd);
                 quality = (string) form.liveStreamQualityCombo.Items[form.liveStreamQualityCombo.SelectedIndex];
                 settings.SetValue("NrkBrowser", "liveStreamQuality", quality);
+                pluginName = form.NameTextbox.Text;
+                settings.SetValue("NrkBrowser", "pluginName", pluginName);
             }
         }
 
@@ -151,6 +167,7 @@ namespace NrkBrowser
             _active = new Stack<Item>();
             _osdPlayer = settings.GetValueAsBool("NrkBrowser", "osdPlayer", false);
             String quality = settings.GetValueAsString("NrkBrowser", "liveStreamQuality", "Low");
+            pluginName = settings.GetValueAsString("NrkBrowser", "pluginName", "My Nrk");
 
             Dictionary<String, String> qualityMap = new Dictionary<string, string>();
             qualityMap["Low"] = "_l";
@@ -226,16 +243,26 @@ namespace NrkBrowser
                 GUIPropertyManager.SetProperty(PROGRAM_PICTURE, "");
             }
 
-            if (selecteditem != null)
+            if (!selecteditem.Bilde.Equals("") || erFavoritt())
             {
-                if (!selecteditem.Bilde.Equals(""))
-                {
-                    GUIPropertyManager.SetProperty(PROGRAM_PICTURE, selecteditem.Bilde);
-                }
+                GUIPropertyManager.SetProperty(PROGRAM_PICTURE, selecteditem.Bilde);
             }
+
             base.Process();
         }
 
+        private bool erFavoritt()
+        {
+            if (_active.Count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return _active.Peek() == favoritter;   
+            }
+            
+        }
         protected override void OnClicked(int controlId, GUIControl control,
                                           Action.ActionType actionType)
         {
@@ -357,8 +384,8 @@ namespace NrkBrowser
                 super.Bilde = "nrksuper.jpg";
                 items.Add(super);
 
-                MenuItem sok = new MenuItem("sok", "Søk i alle programmer");
-                sok.Description = "Søk i alle programmer";
+                MenuItem sok = new MenuItem("sok", "Søk");
+                sok.Description = "Søk i arkivet";
                 items.Add(sok);
 
                 favoritter = new MenuItem("favoritter", "Favoritter");
@@ -537,13 +564,7 @@ namespace NrkBrowser
         private void FillStackWithFavourites()
         {
             Log.Debug(PLUGIN_NAME + "FillStackWithFavourites()");
-            List<Clip> clips = FavoritesUtil.getDatabase(null).getFavoriteVideos();
-            List<Item> items = new List<Item>(clips.Count);
-            foreach (Clip clip in clips)
-            {
-                Item it = (Item)clip;
-                items.Add(it);
-            }
+            List<Item> items = FavoritesUtil.getDatabase(null).getFavoriteVideos();
             UpdateList(items);
         }
 
@@ -598,7 +619,7 @@ namespace NrkBrowser
         protected void PlayUrl(string url, string title, double startTime)
         {
             Log.Info(PLUGIN_NAME + "PlayUrl");
-            
+
             PlayListType type;
             if (url.EndsWith(".wmv")) type = PlayListType.PLAYLIST_VIDEO_TEMP;
             else if (url.EndsWith(".wma")) type = PlayListType.PLAYLIST_RADIO_STREAMS;
@@ -687,18 +708,20 @@ namespace NrkBrowser
         /// </summary>
         /// <param name="url"></param>
         /// <param name="title"></param>
-        /// <param name="type"></param>
+        /// <param name="pType"></param>
         /// <returns></returns>
-        private bool playWithoutOsd(String url, String title, PlayListType type)
+        private bool playWithoutOsd(String url, String title, PlayListType pType)
         {
             Log.Info(PLUGIN_NAME + " Trying to play without Osd (PlayListPlayer): " + url);
+            Log.Debug("Title is: " + title);
+            Log.Debug("Type of clip is: " + pType);
             PlayListPlayer playlistPlayer = PlayListPlayer.SingletonPlayer;
             playlistPlayer.RepeatPlaylist = false;
-            PlayList playlist = playlistPlayer.GetPlaylist(type);
+            PlayList playlist = playlistPlayer.GetPlaylist(pType);
             playlist.Clear();
             PlayListItem toPlay = new PlayListItem(title, url);
             playlist.Add(toPlay);
-            playlistPlayer.CurrentPlaylistType = type;
+            playlistPlayer.CurrentPlaylistType = pType;
             return playlistPlayer.Play(0);
         }
 
@@ -740,15 +763,15 @@ namespace NrkBrowser
                 {
                     return;
                 }
-                if (dlgMenu.SelectedLabel == 0)
+                if (dlgMenu.SelectedLabelText == "Legg til i favoritter")
                 {
                     addToFavourites(item);
                 }
-                else if (dlgMenu.SelectedLabel == 1)
+                else if (dlgMenu.SelectedLabelText == "Bruk valgt som søkeord")
                 {
                     search(item.Title);
                 }
-                else if (dlgMenu.SelectedLabel == 2)
+                else if (dlgMenu.SelectedLabelText == "Fjern favoritt")
                 {
                     removeFavourite(item);
                 }
@@ -763,10 +786,27 @@ namespace NrkBrowser
         {
             Log.Debug(PLUGIN_NAME + ": addToFavourites: " + item);
             FavoritesUtil db = FavoritesUtil.getDatabase(null);
-            Clip c = (Clip) item;
-            if(!db.addFavoriteVideo(c))
+            if (item is Clip)
             {
-                ShowMessageBox("Favoritt kunne ikke bli lagt til");
+                Clip c = (Clip) item;
+                String message = "";
+                if (!db.addFavoriteVideo(c, ref message))
+                {
+                    ShowMessageBox("Favoritt kunne ikke bli lagt til: " + message);
+                }
+            }
+            else if (item is Program)
+            {
+                Program p = (Program) item;
+                String message = "";
+                if (!db.addFavoriteProgram(p, ref message))
+                {
+                    ShowMessageBox("Favoritt kunne ikke bli lagt til: " + message);
+                }
+            }
+            else
+            {
+                ShowMessageBox("Kun klipp eller program kan legges til som favoritt");
             }
         }
 
@@ -779,7 +819,7 @@ namespace NrkBrowser
             Log.Debug(PLUGIN_NAME + ": removeFavourite: " + item);
             FavoritesUtil db = FavoritesUtil.getDatabase(null);
             Clip c = (Clip) item;
-            if(!db.removeFavoriteVideo(c))
+            if (!db.removeFavoriteVideo(c))
             {
                 ShowMessageBox("Favoritt kunne ikke fjernes");
             }
