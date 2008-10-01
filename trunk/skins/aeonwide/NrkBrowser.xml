@@ -20,7 +20,7 @@
       <posy>0</posy>
       <width>1366</width>
       <height>768</height>
-      <imagepath>movies</imagepath>
+      <imagepath>tv</imagepath>
       <timeperimage>60000</timeperimage>
       <fadetime>800</fadetime>
       <loop>yes</loop>
