@@ -90,6 +90,21 @@ namespace NrkBrowser
             sjekkTopTabRSSClips(super);
         }
 
+        [Test]
+        public void TestGetTopTabRSSUSA08()
+        {
+            List<Item> usa08 = nrkParser.GetTopTabRSS("USA08");
+            sjekkTopTabRSSClips(usa08);
+        }
+
+        [Test]
+        [ExpectedException(typeof (NullReferenceException))]
+        public void TestGetTopTabRSSSomIkkeFinnes()
+        {
+            List<Item> ol = nrkParser.GetTopTabRSS("dennefinnesikke");
+            sjekkTopTabRSSClips(ol);
+        }
+
 
         private void sjekkTopTabRSSClips(List<Item> liste)
         {
@@ -102,13 +117,6 @@ namespace NrkBrowser
                 Assert.IsNotNull(c.Title, "Tittelen kan ikke være null");
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
             }
-        }
-
-        [Test]
-        public void test1()
-        {
-            //            List<Item> super = nrkParser.GetTopTabber("natur");
-            //            topTabTest(super);
         }
 
         [Test]
