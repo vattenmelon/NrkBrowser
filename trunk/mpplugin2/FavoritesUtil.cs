@@ -245,6 +245,26 @@ namespace NrkBrowser
         }
 
         /// <summary>
+        /// Tries to remove the given program from the favourites database
+        /// </summary>
+        /// <param name="program">The program to remove</param>
+        /// <returns>true if program was removed from database, false if not</returns>
+        public bool removeFavoriteProgram(Program program)
+        {
+            Log.Debug(NrkPlugin.PLUGIN_NAME + "removeFavoriteProgram(Program) " + program);
+            String lsSQL = string.Format("delete from FAVORITTER where ID='{0}' ", program.ID);
+            sqlClient.Execute(lsSQL);
+            if (sqlClient.ChangedRows() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Returns a list of the favourite items (clips or programs)
         /// </summary>
         /// <returns></returns>

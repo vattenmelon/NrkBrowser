@@ -59,8 +59,8 @@
       <type>label</type>
       <description>Number of Files Label</description>
       <id>1</id>
-      <posX>550</posX>
-      <posY>145</posY>
+      <posX>550</posX><!-- 550 -->
+      <posY>618</posY><!-- 145 -->
       <label>#itemcount</label>
     </control>
     <control>
@@ -97,10 +97,10 @@
     <control>
       <id>1</id>
       <type>image</type>
-      <posX>961</posX>
+      <posX>945</posX> <!-- 961 -->
       <posY>241</posY>
-      <width>327</width>
-      <height>246</height>
+      <width>370</width> <!-- 327 -->
+      <height>211</height><!-- 246 -->
       <texture>#picture</texture>
     </control>
 

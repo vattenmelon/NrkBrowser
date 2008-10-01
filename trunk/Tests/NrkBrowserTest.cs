@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using NrkBrowser;
 using NUnit.Framework;
 
-namespace Tests
+namespace NrkBrowser
 {
     [TestFixture]
     public class NrkBrowserTest
@@ -123,7 +121,7 @@ namespace Tests
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
-                Console.WriteLine("type: "+c.Type);
+                Console.WriteLine("type: " + c.Type);
                 Console.WriteLine("title: " + c.Title);
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
@@ -143,8 +141,7 @@ namespace Tests
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
             foreach (Item item in liste)
             {
-                
-                Clip c = (Clip)item;
+                Clip c = (Clip) item;
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
@@ -182,7 +179,6 @@ namespace Tests
 
             liste = nrkParser.GetTopTabber("natur");
             topTabTest(liste);
-
         }
 
         [Test]
@@ -213,7 +209,6 @@ namespace Tests
 //                Console.Out.WriteLine(item.ID + ", " + item.Title);
 //                Console.Out.WriteLine("-------------------------------------------");
 //            }
-            
         }
 
         [Test]
@@ -239,7 +234,7 @@ namespace Tests
             List<Item> liste = nrkParser.GetTopTabRSS("sport");
             foreach (Item item in liste)
             {
-                Clip c = (Clip)item;
+                Clip c = (Clip) item;
                 string clipUrl = nrkParser.GetClipUrl(c);
                 Console.WriteLine(c.Title + ", " + c.ID);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
@@ -256,7 +251,7 @@ namespace Tests
             List<Item> liste = nrkParser.GetTopTabRSS("natur");
             foreach (Item item in liste)
             {
-                Clip c = (Clip)item;
+                Clip c = (Clip) item;
                 string clipUrl = nrkParser.GetClipUrl(c);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
@@ -284,9 +279,9 @@ namespace Tests
                         Assert.IsFalse(p.Playable, "Et program skal ikke være playable");
                     }
                 }
-
             }
         }
+
         [Test]
         public void TestGetSearchHits()
         {
@@ -300,7 +295,7 @@ namespace Tests
         }
 
         [Test]
-        public void TestDB()
+        public void TestDBLeggTilFjernKlipp()
         {
             FavoritesUtil db = FavoritesUtil.getDatabase("NrkBrowserTest.db3");
             Assert.IsNotNull(db);
@@ -326,7 +321,41 @@ namespace Tests
             Assert.IsTrue(db.removeFavoriteVideo(clipFraDB));
             fav = db.getFavoriteVideos();
             Assert.AreEqual(0, fav.Count, "Skal ikke ha noen favoritter nå.");
+        }
 
+        [Test]
+        public void TestDBLeggTilFjernProgram()
+        {
+            FavoritesUtil db = FavoritesUtil.getDatabase("NrkBrowserTest.db3");
+            Assert.IsNotNull(db);
+            List<Item> fav = db.getFavoriteVideos();
+            Assert.AreEqual(0, fav.Count, "Skal ikke ha noen favoritter nå.");
+            List<Item> liste = nrkParser.GetAllPrograms();
+            Program p = null;
+            foreach (Item item in liste)
+            {
+                if (item.Title == "Autofil")
+                {
+                    p = (Program) item;
+                    break;
+                }
+            }
+
+            string message = "";
+            Assert.IsTrue(db.addFavoriteProgram(p, ref message));
+            fav = db.getFavoriteVideos();
+            Assert.AreEqual(1, fav.Count, "Skal ha en favoritt nå.");
+            Program programFraDB = (Program) fav[0];
+            Assert.AreEqual(p.Title, programFraDB.Title);
+            Assert.AreEqual(p.Description.Trim(), programFraDB.Description);
+            Assert.AreEqual(p.ID, programFraDB.ID);
+            Assert.AreEqual(p.Bilde, programFraDB.Bilde);
+            Assert.IsFalse(db.addFavoriteProgram(p, ref message));
+            fav = db.getFavoriteVideos();
+            Assert.AreEqual(1, fav.Count, "Skal fortsatt ha en favoritt nå.");
+            Assert.IsTrue(db.removeFavoriteProgram(programFraDB));
+            fav = db.getFavoriteVideos();
+            Assert.AreEqual(0, fav.Count, "Skal ikke ha noen favoritter nå.");
         }
 
         private void topTabTest(List<Item> liste)

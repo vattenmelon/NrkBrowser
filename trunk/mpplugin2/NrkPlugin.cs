@@ -259,10 +259,10 @@ namespace NrkBrowser
             }
             else
             {
-                return _active.Peek() == favoritter;   
+                return _active.Peek() == favoritter;
             }
-            
         }
+
         protected override void OnClicked(int controlId, GUIControl control,
                                           Action.ActionType actionType)
         {
@@ -546,15 +546,24 @@ namespace NrkBrowser
             if (item is Program)
             {
                 List<Item> items = _nrk.GetClips((Program) item);
+                if (items.Count > 0)
+                {
+                    //fordi jeg kun vil vise antall klipp
+                    GUIPropertyManager.SetProperty("#itemcount", String.Format("{0} Klipp", items.Count));
+                }
                 items.AddRange(_nrk.GetFolders((Program) item));
                 UpdateList(items);
             }
             if (item is Folder)
             {
                 List<Item> items = _nrk.GetClips((Folder) item);
+                if (items.Count > 0)
+                {
+                    GUIPropertyManager.SetProperty("#itemcount", String.Format("{0} Klipp", items.Count));
+                }
                 items.AddRange(_nrk.GetFolders((Folder) item));
                 UpdateList(items);
-                GUIPropertyManager.SetProperty("#itemcount", String.Format("{0} Klipp", items.Count));
+                
             }
         }
 
@@ -818,8 +827,23 @@ namespace NrkBrowser
         {
             Log.Debug(PLUGIN_NAME + ": removeFavourite: " + item);
             FavoritesUtil db = FavoritesUtil.getDatabase(null);
-            Clip c = (Clip) item;
-            if (!db.removeFavoriteVideo(c))
+            bool removedSuccessFully = false;
+            if (item is Clip)
+            {
+                Clip c = (Clip) item;
+                removedSuccessFully = db.removeFavoriteVideo(c);
+            }
+            else if (item is Program)
+            {
+                Program p = (Program) item;
+                removedSuccessFully = db.removeFavoriteProgram(p);
+            }
+            else
+            {
+                Log.Error("Item to remove from favourite is neither Clip nor Program, this should never happen.");
+            }
+
+            if (!removedSuccessFully)
             {
                 ShowMessageBox("Favoritt kunne ikke fjernes");
             }
