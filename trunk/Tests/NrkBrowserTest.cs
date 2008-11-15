@@ -366,6 +366,25 @@ namespace NrkBrowser
             Assert.AreEqual(0, fav.Count, "Skal ikke ha noen favoritter nå.");
         }
 
+        [Test]
+        public void TestConvertToDouble()
+        {
+            double d1 = NrkUtils.convertToDouble("00:00:01");
+            Assert.AreEqual(1, d1, "Skal være likt");
+            d1 = NrkUtils.convertToDouble("00:00:02");
+            Assert.AreEqual(2, d1, "Skal være likt");
+            d1 = NrkUtils.convertToDouble("00:00:20");
+            Assert.AreEqual(20, d1, "Skal være likt");
+            d1 = NrkUtils.convertToDouble("00:01:00");
+            Assert.AreEqual(60, d1, "Skal være likt");
+            d1 = NrkUtils.convertToDouble("00:10:10");
+            Assert.AreEqual(610, d1, "Skal være likt");
+            d1 = NrkUtils.convertToDouble("01:00:00");
+            Assert.AreEqual(3600, d1, "Skal være likt");
+            d1 = NrkUtils.convertToDouble("10:10:10");
+            Assert.AreEqual(36610, d1, "Skal være likt");
+        }
+
         private void topTabTest(List<Item> liste)
         {
             Assert.IsNotNull(liste);

@@ -644,7 +644,7 @@ namespace NrkBrowser
             string str_startTime = movie_url[0].Groups[1].Value;
             Log.Debug(NrkPlugin.PLUGIN_NAME + ": Starttime er: " + str_startTime);
             //må gjøre string representasjon på formen: 00:27:38, om til en double
-            Double dStartTime = convertToDouble(str_startTime);
+            Double dStartTime = NrkUtils.convertToDouble(str_startTime);
             //Double dStartTime = Double.Parse(str_startTime);
 
             clip.StartTime = dStartTime;
@@ -670,18 +670,7 @@ namespace NrkBrowser
             return movie_url[0].Groups[1].Value;
         }
 
-        //Metode som gjør om string på formen 00:27:38 (hh:mm:ss) til double
-        private double convertToDouble(string time)
-        {
-            Log.Debug("convertTouDouble(String): " + time);
-            String[] array = time.Split(':');
-            double hours = Double.Parse(array[0]);
-            double minutes = Double.Parse(array[1]);
-            double seconds = Double.Parse(array[2]);
-            double totalSeconds = seconds + minutes*60 + hours*60*60;
-            Log.Debug("convertTouDouble(String): returns: " + totalSeconds + " seconds");
-            return totalSeconds;
-        }
+
 
         private string FetchUrl(string url)
         {
