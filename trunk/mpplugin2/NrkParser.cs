@@ -558,7 +558,6 @@ namespace NrkBrowser
         {
             Log.Debug("{0}: GetClipUrl(Clip): {1}", NrkPlugin.PLUGIN_NAME, clip);
 
-            //Regex query;
             if (clip.Type == Clip.KlippType.KLIPP)
             {
                 return behandleDefaultKlipp(clip);
