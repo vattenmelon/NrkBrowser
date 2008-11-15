@@ -303,6 +303,17 @@ namespace NrkBrowser
         }
 
         [Test]
+        public void TestSearchForNyttLivForCommodore64()
+        {
+            List<Item> liste = nrkParser.GetSearchHits("Nytt liv for Commodore 64", 0);
+            Assert.AreEqual(1, liste.Count);
+            Clip c = (Clip) liste[0];
+            String klippUrl =  nrkParser.GetClipUrl(c);
+            Assert.AreEqual("mms://straumOD.nrk.no/n/Lydverket/2008-04-16/Lydverket_16_04_08_1000_358373_20080416_231000.wmv", klippUrl, "KlippURL er blitt endret...denne testen er mest nyttig for å finne endringer hos nrk.");
+            Assert.AreEqual(1658, c.StartTime, "Starttiden for klippet har endret seg.");    
+        }
+
+        [Test]
         public void TestDBLeggTilFjernKlipp()
         {
             FavoritesUtil db = FavoritesUtil.getDatabase("NrkBrowserTest.db3");
