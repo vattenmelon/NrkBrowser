@@ -14,6 +14,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using MediaPortal.GUI.Library;
+using MediaPortal.Utils.Time;
 
 namespace NrkBrowser
 {
@@ -561,86 +562,125 @@ namespace NrkBrowser
             Regex query;
             if (clip.Type == Clip.KlippType.KLIPP)
             {
-                Log.Debug(NrkPlugin.PLUGIN_NAME + ": Clip type is KLIPP");
-                string data = FetchUrl(CLIP_URL + clip.ID);
-                query = new Regex("<param name=\"FileName\" value=\"(.*?)\" />", RegexOptions.IgnoreCase);
-                MatchCollection result = query.Matches(data);
-                string urlToFetch;
-                try
-                {
-                    urlToFetch = result[0].Groups[1].Value;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("feilet: " + e.Message);
-                    return null;
-                }
-                string urldata = FetchUrl(urlToFetch);
-                Log.Debug(NrkPlugin.PLUGIN_NAME + ": " + urldata);
-                query = new Regex("<ref href=\"(.*?)\" />");
-                MatchCollection movie_url = query.Matches(urldata);
-
-                //Usikker på en del av logikken for å hente ut url her. Ikke sikker på hvorfor
-                //det var en try/catch
-                //skip any advertisement
-                try
-                {
-                    string url1 = movie_url[1].Groups[1].Value;
-                    if (url1.ToLower().EndsWith(".gif"))
-                    {
-                        Log.Debug(NrkPlugin.PLUGIN_NAME + ": Kan ikke spille av: " + url1 + ", prøver annet treff.");
-                        //vi kan ikke spille av fullt.gif, returnerer samme som i catch'en.
-                        return movie_url[0].Groups[1].Value;
-                    }
-                    return url1;
-                }
-                catch
-                {
-                    return movie_url[0].Groups[1].Value;
-                }
+                return behandleDefaultKlipp(clip);
             }
             else if (clip.Type == Clip.KlippType.RSS)
             {
-                Log.Debug(NrkPlugin.PLUGIN_NAME + ": Clip type is RSS");
-                return RSS_CLIPURL_PREFIX + clip.ID;
+                return behandleRSSKlipp(clip);
             }
             else if (clip.Type == Clip.KlippType.INDEX)
             {
-                Log.Debug(NrkPlugin.PLUGIN_NAME + ": Clip type is INDEX");
-                string data = FetchUrl(INDEX_URL + clip.ID);
-                query = new Regex("<param name=\"FileName\" value=\"(.*?)\" />", RegexOptions.IgnoreCase);
-                MatchCollection result = query.Matches(data);
-                string urlToFetch = result[0].Groups[1].Value;
-                urlToFetch = urlToFetch.Replace("amp;", ""); //noen ganger er det amper der..som må bort
-                string urldata = FetchUrl(urlToFetch);
-                Log.Debug(NrkPlugin.PLUGIN_NAME + ": " + urldata);
-                query = new Regex("<starttime value=\"(.*?)\" />.*?<ref href=\"(.*?)\" />", RegexOptions.Singleline);
-                MatchCollection movie_url = query.Matches(urldata);
-                //skip any advertisement
-                
-                string str_startTime = movie_url[0].Groups[1].Value;
-                Double dStartTime = Double.Parse(str_startTime);
-                clip.StartTime = dStartTime;
-                return movie_url[0].Groups[2].Value;
-
+                return behandleIndexKlipp(clip);
             }
             else
             {
-                //clip.Type == Clip.KlippType.VERDI;
-                Log.Info(NrkPlugin.PLUGIN_NAME + ": Fetching verdi url");
-                string data = FetchUrl(MAIN_URL + clip.VerdiLink + "/spill/verdi/" + clip.ID);
-                //ser ut som om det er det samme om det står nyheter, sport osv før spill
-                query = new Regex("<param name=\"Filename\" value=\"(.*?)\" />", RegexOptions.IgnoreCase);
-                MatchCollection result = query.Matches(data);
-                string urlToFetch = result[0].Groups[1].Value;
-                urlToFetch = urlToFetch.Replace("amp;", ""); //noen ganger er det amper der..som må bort
-                string urldata = FetchUrl(urlToFetch);
-                Log.Debug(NrkPlugin.PLUGIN_NAME + ": " + urldata);
-                query = new Regex("<ref href=\"(.*?)\" />");
-                MatchCollection movie_url = query.Matches(urldata);
-                //skip any advertisement
+                return behandleVerdiKlipp(clip);
+            }
+        }
+
+        private string behandleDefaultKlipp(Clip clip)
+        {
+            Regex query;
+            Log.Debug(NrkPlugin.PLUGIN_NAME + ": Clip type is KLIPP");
+            string data = FetchUrl(CLIP_URL + clip.ID);
+            query = new Regex("<param name=\"FileName\" value=\"(.*?)\" />", RegexOptions.IgnoreCase);
+            MatchCollection result = query.Matches(data);
+            string urlToFetch;
+            try
+            {
+                urlToFetch = result[0].Groups[1].Value;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("feilet: " + e.Message);
+                return null;
+            }
+            string urldata = FetchUrl(urlToFetch);
+            Log.Debug(NrkPlugin.PLUGIN_NAME + ": " + urldata);
+            query = new Regex("<ref href=\"(.*?)\" />");
+            MatchCollection movie_url = query.Matches(urldata);
+
+            //Usikker på en del av logikken for å hente ut url her. Ikke sikker på hvorfor
+            //det var en try/catch
+            //skip any advertisement
+            try
+            {
+                string url1 = movie_url[1].Groups[1].Value;
+                if (url1.ToLower().EndsWith(".gif"))
+                {
+                    Log.Debug(NrkPlugin.PLUGIN_NAME + ": Kan ikke spille av: " + url1 + ", prøver annet treff.");
+                    //vi kan ikke spille av fullt.gif, returnerer samme som i catch'en.
+                    return movie_url[0].Groups[1].Value;
+                }
+                return url1;
+            }
+            catch
+            {
                 return movie_url[0].Groups[1].Value;
             }
+        }
+
+        private static string behandleRSSKlipp(Clip clip)
+        {
+            Log.Debug(NrkPlugin.PLUGIN_NAME + ": Clip type is RSS");
+            return RSS_CLIPURL_PREFIX + clip.ID;
+        }
+
+        private string behandleIndexKlipp(Clip clip)
+        {
+            Regex query;
+            Log.Debug(NrkPlugin.PLUGIN_NAME + ": Clip type is INDEX");
+            string data = FetchUrl(INDEX_URL + clip.ID);
+            query = new Regex("<param name=\"FileName\" value=\"(.*?)\" />", RegexOptions.IgnoreCase);
+            MatchCollection result = query.Matches(data);
+            string urlToFetch = result[0].Groups[1].Value;
+            urlToFetch = urlToFetch.Replace("amp;", ""); //noen ganger er det amper der..som må bort
+            string urldata = FetchUrl(urlToFetch);
+            Log.Debug(NrkPlugin.PLUGIN_NAME + ": " + urldata);
+            query = new Regex("<starttime value=\"(.*?)\" />.*?<ref href=\"(.*?)\" />", RegexOptions.Singleline);
+            MatchCollection movie_url = query.Matches(urldata);
+            //skip any advertisement
+                
+            string str_startTime = movie_url[0].Groups[1].Value;
+            Log.Debug(NrkPlugin.PLUGIN_NAME + ": Starttime er: " + str_startTime);
+            //må gjøre string representasjon på formen: 00:27:38, om til en double
+            Double dStartTime = convertToDouble(str_startTime);
+            //Double dStartTime = Double.Parse(str_startTime);
+
+            clip.StartTime = dStartTime;
+            return movie_url[0].Groups[2].Value;
+        }
+        
+        private string behandleVerdiKlipp(Clip clip)
+        {
+            Regex query;
+            //clip.Type == Clip.KlippType.VERDI;
+            Log.Info(NrkPlugin.PLUGIN_NAME + ": Fetching verdi url");
+            string data = FetchUrl(MAIN_URL + clip.VerdiLink + "/spill/verdi/" + clip.ID);
+            //ser ut som om det er det samme om det står nyheter, sport osv før spill
+            query = new Regex("<param name=\"Filename\" value=\"(.*?)\" />", RegexOptions.IgnoreCase);
+            MatchCollection result = query.Matches(data);
+            string urlToFetch = result[0].Groups[1].Value;
+            urlToFetch = urlToFetch.Replace("amp;", ""); //noen ganger er det amper der..som må bort
+            string urldata = FetchUrl(urlToFetch);
+            Log.Debug(NrkPlugin.PLUGIN_NAME + ": " + urldata);
+            query = new Regex("<ref href=\"(.*?)\" />");
+            MatchCollection movie_url = query.Matches(urldata);
+            //skip any advertisement
+            return movie_url[0].Groups[1].Value;
+        }
+
+        //Metode som gjør om string på formen 00:27:38 (hh:mm:ss) til double
+        private double convertToDouble(string time)
+        {
+            Log.Debug("convertTouDouble(String): " + time);
+            String[] array = time.Split(':');
+            double hours = Double.Parse(array[0]);
+            double minutes = Double.Parse(array[1]);
+            double seconds = Double.Parse(array[2]);
+            double totalSeconds = seconds + minutes*60 + hours*60*60;
+            Log.Debug("convertTouDouble(String): returns: " + totalSeconds + " seconds");
+            return totalSeconds;
         }
 
         private string FetchUrl(string url)
