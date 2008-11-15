@@ -14,7 +14,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using MediaPortal.GUI.Library;
-using MediaPortal.Utils.Time;
 
 namespace NrkBrowser
 {

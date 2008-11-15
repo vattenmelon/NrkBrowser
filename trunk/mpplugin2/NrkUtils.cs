@@ -1,8 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using MediaPortal.GUI.Library;
-
+/*
+ * Created by: Vattenmelon 
+ * Created: 15. november 2008
+ */
 namespace NrkBrowser
 {
    public class NrkUtils
