@@ -597,29 +597,6 @@ namespace NrkBrowser
         }
 
         /// <summary>
-        /// Method used to force usage of mplayer when playing
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="title"></param>
-        protected void PlayUrlWithMplayer(string url, string title)
-        {
-            Log.Info(string.Format("{0}: PlayUrlWithMplayer(url, title): {1}, {2}", PLUGIN_NAME, url, title));
-            //&txe=.flv is needed by .mplayer for some reason, .mplayer ensures that mplayer plugin plays it
-            bool playOk = g_Player.Play(url + "&txe=.flv.mplayer");
-
-            if (!playOk)
-            {
-                ShowMessageBox("Avspilling feilet");
-            }
-            else
-            {
-                Log.Info(PLUGIN_NAME + " Playing OK, switching to fullscreen");
-                g_Player.ShowFullScreenWindow();
-                g_Player.FullScreen = true;
-            }
-        }
-
-        /// <summary>
         /// Plays the URL
         /// </summary>
         /// <param name="url"></param>
