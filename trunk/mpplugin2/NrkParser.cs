@@ -643,8 +643,6 @@ namespace NrkBrowser
             Log.Debug(NrkPlugin.PLUGIN_NAME + ": Starttime er: " + str_startTime);
             //må gjøre string representasjon på formen: 00:27:38, om til en double
             Double dStartTime = NrkUtils.convertToDouble(str_startTime);
-            //Double dStartTime = Double.Parse(str_startTime);
-
             clip.StartTime = dStartTime;
             return movie_url[0].Groups[2].Value;
         }
