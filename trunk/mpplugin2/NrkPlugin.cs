@@ -646,7 +646,7 @@ namespace NrkBrowser
             }
             else
             {
-                playOk = playWithoutOsd(url, title, type);
+                playOk = playWithoutOsd(url, title, type, startTime);
             }
 
             if (!playOk)
@@ -718,12 +718,14 @@ namespace NrkBrowser
         /// <param name="url"></param>
         /// <param name="title"></param>
         /// <param name="pType"></param>
-        /// <returns></returns>
-        private bool playWithoutOsd(String url, String title, PlayListType pType)
+        /// <param name="startTime"></param>
+        /// <returns>True if playing of clip is successfully, false if not</returns>
+        private bool playWithoutOsd(String url, String title, PlayListType pType, double startTime)
         {
             Log.Info(PLUGIN_NAME + " Trying to play without Osd (PlayListPlayer): " + url);
             Log.Debug("Title is: " + title);
             Log.Debug("Type of clip is: " + pType);
+            Log.Debug("Starttime of clip is: " + pType);
             PlayListPlayer playlistPlayer = PlayListPlayer.SingletonPlayer;
             playlistPlayer.RepeatPlaylist = false;
             PlayList playlist = playlistPlayer.GetPlaylist(pType);
@@ -731,7 +733,12 @@ namespace NrkBrowser
             PlayListItem toPlay = new PlayListItem(title, url);
             playlist.Add(toPlay);
             playlistPlayer.CurrentPlaylistType = pType;
-            return playlistPlayer.Play(0);
+            bool playIsOk = playlistPlayer.Play(0);
+            if (playIsOk && startTime != 0)
+            {
+                playlistPlayer.g_Player.SeekAbsolute(startTime);
+            }
+            return playIsOk;
         }
 
         /// <summary>
