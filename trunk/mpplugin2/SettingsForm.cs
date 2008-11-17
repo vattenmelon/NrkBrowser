@@ -14,5 +14,11 @@ namespace NrkBrowser
             get { return nameTextbox; }
             set { nameTextbox = value; }
         }
+
+        public Label LabelVersionVerdi
+        {
+            get { return labelVersionVerdi; }
+            set { labelVersionVerdi = value; }
+        }
     }
 }

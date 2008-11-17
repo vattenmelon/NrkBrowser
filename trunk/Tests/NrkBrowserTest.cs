@@ -189,21 +189,21 @@ namespace NrkBrowser
             topTabTest(liste);
         }
 
-        [Test]
-        public void TestTopTabbDirekte()
-        {
-            List<Item> liste = nrkParser.GetTopTabber("direkte");
-            Assert.IsNotEmpty(liste);
-            Console.Out.WriteLine("count: " + liste.Count);
-//            foreach (Item item in liste)
-//            {
-//                Console.Out.WriteLine(item);
-//                Console.Out.WriteLine("id: "+item.ID);
-//                Console.Out.WriteLine("title: " +item.Title);
-//                Console.Out.WriteLine("description: "+item.Description);
-//                Console.Out.WriteLine("bilde: " + item.Bilde);
-//            }
-        }
+//        [Test]
+//        public void TestTopTabbDirekte()
+//        {
+//            List<Item> liste = nrkParser.GetTopTabber("direkte");
+//            Assert.IsNotEmpty(liste);
+//            Console.Out.WriteLine("count: " + liste.Count);
+////            foreach (Item item in liste)
+////            {
+////                Console.Out.WriteLine(item);
+////                Console.Out.WriteLine("id: "+item.ID);
+////                Console.Out.WriteLine("title: " +item.Title);
+////                Console.Out.WriteLine("description: "+item.Description);
+////                Console.Out.WriteLine("bilde: " + item.Bilde);
+////            }
+//        }
 
         [Test]
         public void TestGetTopTabber()

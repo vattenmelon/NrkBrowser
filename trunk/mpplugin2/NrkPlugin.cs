@@ -74,10 +74,20 @@ namespace NrkBrowser
 
         public void ShowPlugin()
         {
+            String appVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+//            Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            Log.Debug(NrkPlugin.PLUGIN_NAME + ": version: " + appVersion);
+//            Log.Debug("major: " + v.Major);
+//            Log.Debug("majorrevison: " + v.MajorRevision);
+//            Log.Debug("build: " + v.Build);
+//            Log.Debug("revision: " + v.Revision);
+//            Log.Debug("minor: " + v.Minor);
+//            Log.Debug("minorrevision: " + v.MinorRevision);
             //configuration
             SettingsForm form = new SettingsForm();
-            Settings settings = new Settings(Config.GetFile(Config.Dir.Config, configfile));
+            form.LabelVersionVerdi.Text = appVersion;
 
+            Settings settings = new Settings(Config.GetFile(Config.Dir.Config, configfile));
             int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
             if (speed < form.speedUpDown.Minimum)
             {
@@ -91,9 +101,6 @@ namespace NrkBrowser
             }
             form.speedUpDown.Value = speed;
 
-            bool osd = settings.GetValueAsBool("NrkBrowser", "osdPlayer", false);
-            form.osdPlayerCheckbox.Checked = osd;
-
             string quality = settings.GetValueAsString("NrkBrowser", "liveStreamQuality", "Low");
             form.liveStreamQualityCombo.SelectedIndex = form.liveStreamQualityCombo.Items.IndexOf(quality);
 
@@ -105,8 +112,6 @@ namespace NrkBrowser
             {
                 speed = (int) form.speedUpDown.Value;
                 settings.SetValue("NrkBrowser", "speed", speed);
-                osd = form.osdPlayerCheckbox.Checked;
-                settings.SetValueAsBool("NrkBrowser", "osdPlayer", osd);
                 quality = (string) form.liveStreamQualityCombo.Items[form.liveStreamQualityCombo.SelectedIndex];
                 settings.SetValue("NrkBrowser", "liveStreamQuality", quality);
                 pluginName = form.NameTextbox.Text;
@@ -160,12 +165,17 @@ namespace NrkBrowser
 
         public override bool Init()
         {
+
+            using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml")))
+            {
+                _osdPlayer = xmlreader.GetValueAsBool("general", "usevrm9forwebstreams", true);
+            }
+
             bool result = Load(GUIGraphicsContext.Skin + @"\NrkBrowser.xml");
             Settings settings = new Settings(Config.GetFile(Config.Dir.Config, configfile));
             int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
             _nrk = new NrkParser(speed);
             _active = new Stack<Item>();
-            _osdPlayer = settings.GetValueAsBool("NrkBrowser", "osdPlayer", false);
             String quality = settings.GetValueAsString("NrkBrowser", "liveStreamQuality", "Low");
             pluginName = settings.GetValueAsString("NrkBrowser", "pluginName", "My Nrk");
 
@@ -623,7 +633,7 @@ namespace NrkBrowser
             }
             else
             {
-                playOk = playWithoutOsd(url, title, type, startTime);
+                playOk = playWithoutOsd(url, title, type, startTime); 
             }
 
             if (!playOk)
@@ -669,6 +679,9 @@ namespace NrkBrowser
         {
             //g_Player.Init();
             Log.Info(PLUGIN_NAME + " Trying to play with Osd (g_Player): " + url);
+            Log.Debug("Title is: " + title);
+            Log.Debug("Type of clip is: " + type);
+            Log.Debug("Starttime of clip is: " + startTime); 
             bool playOk;
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
@@ -690,7 +703,7 @@ namespace NrkBrowser
         }
 
         /// <summary>
-        /// Plays the url with the playlistplayer. It gives no OSD but may be more reliable.
+        /// Plays the url without osd. It gives no OSD but may be more reliable.
         /// </summary>
         /// <param name="url"></param>
         /// <param name="title"></param>
@@ -702,18 +715,12 @@ namespace NrkBrowser
             Log.Info(PLUGIN_NAME + " Trying to play without Osd (PlayListPlayer): " + url);
             Log.Debug("Title is: " + title);
             Log.Debug("Type of clip is: " + pType);
-            Log.Debug("Starttime of clip is: " + pType);
-            PlayListPlayer playlistPlayer = PlayListPlayer.SingletonPlayer;
-            playlistPlayer.RepeatPlaylist = false;
-            PlayList playlist = playlistPlayer.GetPlaylist(pType);
-            playlist.Clear();
-            PlayListItem toPlay = new PlayListItem(title, url);
-            playlist.Add(toPlay);
-            playlistPlayer.CurrentPlaylistType = pType;
-            bool playIsOk = playlistPlayer.Play(0);
+            Log.Debug("Starttime of clip is: " + startTime); 
+            bool playIsOk = g_Player.Play(url);
+            
             if (playIsOk && startTime != 0)
             {
-                playlistPlayer.g_Player.SeekAbsolute(startTime);
+                g_Player.SeekAbsolute(startTime);
             }
             return playIsOk;
         }
