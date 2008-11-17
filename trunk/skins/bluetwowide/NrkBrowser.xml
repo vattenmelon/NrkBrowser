@@ -11,10 +11,10 @@
       <type>image</type>
       <description>movie poster</description>
       <id>1</id>
-      <posX>30</posX>
+      <posX>50</posX>
       <posY>315</posY>
-      <width>245</width>
-      <height>140</height>
+      <width>300</width>
+      <height>171</height>
       <visible>yes</visible>
       <texture>#picture</texture>
     </control>
@@ -22,7 +22,7 @@
       <description>textarea</description>
       <type>textboxscrollup</type>
       <id>141</id>
-      <posX>310</posX>
+      <posX>400</posX>
       <posY>625</posY>
       <width>700</width>
       <height>110</height>
@@ -31,9 +31,6 @@
       <label>#description</label>
       <visible>yes</visible>
     </control>
-
-
-
         <control>
         <description>composite control consisting of a list control and a thumbnail panel</description>
         <type>facadeview</type>
@@ -43,7 +40,7 @@
           <type>listcontrol</type>
           <id>50</id>
           <scrollOffset>2</scrollOffset>
-      		<height>500</height>
+     	  <height>550</height> 		
         </control>
         <control>
           <description>Thumbnail Panel</description>
