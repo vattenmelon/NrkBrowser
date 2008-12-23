@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace NrkBrowser
 {
     [TestFixture]
-    public class NrkBrowserTest
+    public class NrkParserTest
     {
         private NrkParser nrkParser;
 
@@ -308,93 +308,13 @@ namespace NrkBrowser
             List<Item> liste = nrkParser.GetSearchHits("Nytt liv for Commodore 64", 0);
             Assert.AreEqual(1, liste.Count);
             Clip c = (Clip) liste[0];
-            String klippUrl =  nrkParser.GetClipUrl(c);
-            Assert.AreEqual("mms://straumOD.nrk.no/n/Lydverket/2008-04-16/Lydverket_16_04_08_1000_358373_20080416_231000.wmv", klippUrl, "KlippURL er blitt endret...denne testen er mest nyttig for å finne endringer hos nrk.");
-            Assert.AreEqual(1658, c.StartTime, "Starttiden for klippet har endret seg.");    
+            String klippUrl = nrkParser.GetClipUrl(c);
+            Assert.AreEqual(
+                "mms://straumOD.nrk.no/n/Lydverket/2008-04-16/Lydverket_16_04_08_1000_358373_20080416_231000.wmv",
+                klippUrl, "KlippURL er blitt endret...denne testen er mest nyttig for å finne endringer hos nrk.");
+            Assert.AreEqual(1658, c.StartTime, "Starttiden for klippet har endret seg.");
         }
 
-        [Test]
-        public void TestDBLeggTilFjernKlipp()
-        {
-            FavoritesUtil db = FavoritesUtil.getDatabase("NrkBrowserTest.db3");
-            Assert.IsNotNull(db);
-            List<Item> fav = db.getFavoriteVideos();
-            Assert.AreEqual(0, fav.Count, "Skal ikke ha noen favoritter nå.");
-            List<Item> liste = nrkParser.GetTopTabRSS("natur");
-            Clip c = (Clip) liste[0];
-            string message = "";
-            Assert.IsTrue(db.addFavoriteVideo(c, ref message));
-            fav = db.getFavoriteVideos();
-            Assert.AreEqual(1, fav.Count, "Skal ha en favoritt nå.");
-            Clip clipFraDB = (Clip) fav[0];
-            Assert.AreEqual(c.Title, clipFraDB.Title);
-            Assert.AreEqual(c.Description, clipFraDB.Description);
-            Assert.AreEqual(c.ID, clipFraDB.ID);
-            Assert.AreEqual(c.Bilde, clipFraDB.Bilde);
-            Assert.AreEqual(c.AntallGangerVist, clipFraDB.AntallGangerVist);
-            Assert.AreEqual(c.Klokkeslett, clipFraDB.Klokkeslett);
-            Assert.AreEqual(c.VerdiLink, clipFraDB.VerdiLink);
-            Assert.IsFalse(db.addFavoriteVideo(c, ref message));
-            fav = db.getFavoriteVideos();
-            Assert.AreEqual(1, fav.Count, "Skal fortsatt ha en favoritt nå.");
-            Assert.IsTrue(db.removeFavoriteVideo(clipFraDB));
-            fav = db.getFavoriteVideos();
-            Assert.AreEqual(0, fav.Count, "Skal ikke ha noen favoritter nå.");
-        }
-
-        [Test]
-        public void TestDBLeggTilFjernProgram()
-        {
-            FavoritesUtil db = FavoritesUtil.getDatabase("NrkBrowserTest.db3");
-            Assert.IsNotNull(db);
-            List<Item> fav = db.getFavoriteVideos();
-            Assert.AreEqual(0, fav.Count, "Skal ikke ha noen favoritter nå.");
-            List<Item> liste = nrkParser.GetAllPrograms();
-            Program p = null;
-            foreach (Item item in liste)
-            {
-                if (item.Title == "Autofil")
-                {
-                    p = (Program) item;
-                    break;
-                }
-            }
-
-            string message = "";
-            Assert.IsTrue(db.addFavoriteProgram(p, ref message));
-            fav = db.getFavoriteVideos();
-            Assert.AreEqual(1, fav.Count, "Skal ha en favoritt nå.");
-            Program programFraDB = (Program) fav[0];
-            Assert.AreEqual(p.Title, programFraDB.Title);
-            Assert.AreEqual(p.Description.Trim(), programFraDB.Description);
-            Assert.AreEqual(p.ID, programFraDB.ID);
-            Assert.AreEqual(p.Bilde, programFraDB.Bilde);
-            Assert.IsFalse(db.addFavoriteProgram(p, ref message));
-            fav = db.getFavoriteVideos();
-            Assert.AreEqual(1, fav.Count, "Skal fortsatt ha en favoritt nå.");
-            Assert.IsTrue(db.removeFavoriteProgram(programFraDB));
-            fav = db.getFavoriteVideos();
-            Assert.AreEqual(0, fav.Count, "Skal ikke ha noen favoritter nå.");
-        }
-
-        [Test]
-        public void TestConvertToDouble()
-        {
-            double d1 = NrkUtils.convertToDouble("00:00:01");
-            Assert.AreEqual(1, d1, "Skal være likt");
-            d1 = NrkUtils.convertToDouble("00:00:02");
-            Assert.AreEqual(2, d1, "Skal være likt");
-            d1 = NrkUtils.convertToDouble("00:00:20");
-            Assert.AreEqual(20, d1, "Skal være likt");
-            d1 = NrkUtils.convertToDouble("00:01:00");
-            Assert.AreEqual(60, d1, "Skal være likt");
-            d1 = NrkUtils.convertToDouble("00:10:10");
-            Assert.AreEqual(610, d1, "Skal være likt");
-            d1 = NrkUtils.convertToDouble("01:00:00");
-            Assert.AreEqual(3600, d1, "Skal være likt");
-            d1 = NrkUtils.convertToDouble("10:10:10");
-            Assert.AreEqual(36610, d1, "Skal være likt");
-        }
 
         private void topTabTest(List<Item> liste)
         {

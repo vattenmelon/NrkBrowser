@@ -331,39 +331,5 @@ namespace NrkBrowser
             program.ID = DatabaseUtility.Get(resultSet, iRow, "ID");
             return program;
         }
-
-        /*
-    
-   public List<GUIOnlineVideos.VideoInfo> searchFavoriteVideos(String fsQuery){
-    	
-    //createFavorite("Default2");
-    string lsSQL;
-    //if(!fbLimitBySite){
-      lsSQL = string.Format("select * from favorite_videos where VDO_NM like '%{0}%' or VDO_DESC like '%{0}%' or VDO_TAGS like '%{0}%'",fsQuery);
-    //}else{
-      //lsSQL = string.Format("select * from favorite_videos where VDO_SITE_ID='{0}'",fsSiteId);
-    //}
-    SQLiteResultSet loResultSet = sqlClient.Execute(lsSQL);
-    List<GUIOnlineVideos.VideoInfo> loFavoriteList = new List<GUIOnlineVideos.VideoInfo>();
-    if (loResultSet.Rows.Count == 0) return loFavoriteList ;
-      
-      for (int iRow = 0; iRow < loResultSet.Rows.Count; iRow++)
-      {
-          GUIOnlineVideos.VideoInfo video = new GUIOnlineVideos.FavoriteVideoInfo();
-          video.Description = DatabaseUtility.Get(loResultSet, iRow, "VDO_DESC");
-          video.ImageUrl = DatabaseUtility.Get(loResultSet, iRow, "VDO_IMG_URL");
-          video.Length = DatabaseUtility.Get(loResultSet, iRow, "VDO_LENGTH");
-          video.Tags = DatabaseUtility.Get(loResultSet, iRow, "VDO_TAGS");
-          video.Title = DatabaseUtility.Get(loResultSet, iRow, "VDO_NM");
-          video.VideoUrl = DatabaseUtility.Get(loResultSet,iRow,"VDO_URL");
-          video.SiteID = DatabaseUtility.Get(loResultSet,iRow,"VDO_SITE_ID");
-        	
-          Log.Info("Pulled {0} out of the database",video.Title);
-          loFavoriteList.Add(video);
-        	
-      }
-      return loFavoriteList;
-  }
-*/
     }
 }

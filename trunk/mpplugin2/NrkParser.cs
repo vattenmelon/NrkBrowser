@@ -26,7 +26,10 @@ namespace NrkBrowser
         private static string PROGRAM_URL = MAIN_URL + "prosjekt/";
         private static string CLIP_URL = MAIN_URL + "klipp/";
         private static string FOLDER_URL = MAIN_URL + "kategori/";
-        private static string SOK_URL_BEFORE = "http://www.nrk.no/nett-tv/DynamiskLaster.aspx?SearchResultList$search:{0}|sort:dato|page:{1}";
+
+        private static string SOK_URL_BEFORE =
+            "http://www.nrk.no/nett-tv/DynamiskLaster.aspx?SearchResultList$search:{0}|sort:dato|page:{1}";
+
         private static string INDEX_URL = MAIN_URL + "indeks/";
 
 
@@ -51,7 +54,6 @@ namespace NrkBrowser
 
         public List<Item> GetSearchHits(String keyword, int page)
         {
-
             String urlToFetch = String.Format(SOK_URL_BEFORE, keyword, page + 1);
             string data = FetchUrl(urlToFetch);
 
@@ -63,8 +65,8 @@ namespace NrkBrowser
             Regex query = new Regex(regexQuery, RegexOptions.Singleline);
             List<Item> categories = new List<Item>();
             MatchCollection result = query.Matches(data);
-            int teller = 1+(page*25);
-            
+            int teller = 1 + (page*25);
+
             Console.WriteLine("matches: " + result.Count);
             foreach (Match x in result)
             {
@@ -105,7 +107,6 @@ namespace NrkBrowser
                     Log.Error(NrkPlugin.PLUGIN_NAME + ": unsupported type: " + x.Groups[2].Value);
                 }
                 teller++;
-                
             }
             return categories;
         }
@@ -207,7 +208,7 @@ namespace NrkBrowser
         public List<Item> GetTopTabRSS(string site)
         {
             List<Item> clips = new List<Item>();
-            //natur clips uses flash
+            //natur clips uses flash...but we love flash ;)
             XmlDocument doc = new XmlDocument();
             XmlTextReader reader = new XmlTextReader("http://www1.nrk.no/nett-tv/MediaRss.ashx?loop=" + site);
             doc.Load(reader);
@@ -216,114 +217,16 @@ namespace NrkBrowser
             XmlNode root = doc.SelectSingleNode("//rss/channel/item", expr);
             XmlNodeList nodeList;
             nodeList = root.SelectNodes("//rss/channel/item");
-            Clip loRssItem;
-            //GUIListItem loListItem;
 
             int itemCount = 0;
-            foreach (XmlNode chileNode in nodeList)
+            foreach (XmlNode childNode in nodeList)
             {
                 if (itemCount >= 100)
                 {
                     break;
                 }
                 itemCount++;
-                loRssItem = new Clip("", "");
-
-                for (int i = 0; i < chileNode.ChildNodes.Count; i++)
-                {
-                    XmlNode n = chileNode.ChildNodes[i];
-
-                    switch (n.Name)
-                    {
-                        case "title":
-                            loRssItem.Title = n.InnerText;
-                            break;
-                        case "link":
-
-                            break;
-                        case "guid":
-                            loRssItem.ID = n.InnerText;
-                            break;
-                        case "pubDate":
-
-                            break;
-                        case "description":
-                            loRssItem.Description = n.InnerText;
-                            break;
-                        case "author":
-
-                            break;
-                        case "exInfo:image":
-
-                            break;
-                        case "exInfo:gameID":
-
-                            break;
-                        case "feedburner:origLink":
-
-                            break;
-                        case "media:group":
-
-                            for (int j = 0; j < n.ChildNodes.Count; j++)
-                            {
-                                XmlNode nin = n.ChildNodes[j];
-                                switch (nin.Name)
-                                {
-                                    case "media:content":
-//                                        loMediaContent = new MediaContent();
-                                        try
-                                        {
-//                                            loMediaContent.url = nin.Attributes["url"].Value;
-//                                            loMediaContent.type = nin.Attributes["type"].Value;
-//                                            loMediaContent.medium = nin.Attributes["medium"].Value;
-//                                            loMediaContent.duration = nin.Attributes["duration"].Value;
-//                                            loMediaContent.height = nin.Attributes["height"].Value;
-//                                            loMediaContent.width = nin.Attributes["width"].Value;
-                                        }
-                                        catch (Exception e)
-                                        {
-                                            Log.Error("catccccccccccched exception: " + e.Message);
-                                        }
-                                        ;
-                                        break;
-                                    case "media:description":
-
-                                        break;
-                                    case "media:thumbnail":
-
-                                        break;
-                                    case "media:title":
-
-                                        break;
-                                }
-                            }
-                            break;
-
-                        case "media:description":
-//                            loRssItem.mediaDescription = n.InnerText;
-                            break;
-                        case "media:thumbnail":
-//                            loRssItem.mediaThumbnail = n.Attributes["url"].Value;
-                            break;
-                        case "media:title":
-//                            loRssItem.mediaTitle = n.InnerText;
-                            break;
-                        case "enclosure":
-                            // loRssItem.ID = n.InnerText;
-                            //loRssItem.ID = n.Attributes["url"].Value;
-//                            if (n.Attributes["duration"] != null)
-//                            {
-//                                loRssItem.enclosureDuration = n.Attributes["duration"].Value;
-//                            }
-
-                            break;
-                        case "media:category":
-                            //  loRssItem.mediaCategory = n.InnerText;
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                Clip loRssItem = CreateClipFromChildNode(childNode);
 
                 if (isNotShortVignett(loRssItem))
                 {
@@ -334,16 +237,122 @@ namespace NrkBrowser
             return clips;
         }
 
+        private static Clip CreateClipFromChildNode(XmlNode childNode)
+        {
+            Clip loRssItem;
+            loRssItem = new Clip("", "");
+
+            for (int i = 0; i < childNode.ChildNodes.Count; i++)
+            {
+                XmlNode n = childNode.ChildNodes[i];
+
+                switch (n.Name)
+                {
+                    case "title":
+                        loRssItem.Title = n.InnerText;
+                        break;
+                    case "link":
+
+                        break;
+                    case "guid":
+                        loRssItem.ID = n.InnerText;
+                        break;
+                    case "pubDate":
+
+                        break;
+                    case "description":
+                        loRssItem.Description = n.InnerText;
+                        break;
+                    case "author":
+
+                        break;
+                    case "exInfo:image":
+
+                        break;
+                    case "exInfo:gameID":
+
+                        break;
+                    case "feedburner:origLink":
+
+                        break;
+                    case "media:group":
+
+                        for (int j = 0; j < n.ChildNodes.Count; j++)
+                        {
+                            XmlNode nin = n.ChildNodes[j];
+                            switch (nin.Name)
+                            {
+                                case "media:content":
+//                                        loMediaContent = new MediaContent();
+                                    try
+                                    {
+//                                            loMediaContent.url = nin.Attributes["url"].Value;
+//                                            loMediaContent.type = nin.Attributes["type"].Value;
+//                                            loMediaContent.medium = nin.Attributes["medium"].Value;
+//                                            loMediaContent.duration = nin.Attributes["duration"].Value;
+//                                            loMediaContent.height = nin.Attributes["height"].Value;
+//                                            loMediaContent.width = nin.Attributes["width"].Value;
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Log.Error("catccccccccccched exception: " + e.Message);
+                                    }
+                                    ;
+                                    break;
+                                case "media:description":
+
+                                    break;
+                                case "media:thumbnail":
+
+                                    break;
+                                case "media:title":
+
+                                    break;
+                            }
+                        }
+                        break;
+
+                    case "media:description":
+//                            loRssItem.mediaDescription = n.InnerText;
+                        break;
+                    case "media:thumbnail":
+//                            loRssItem.mediaThumbnail = n.Attributes["url"].Value;
+                        break;
+                    case "media:title":
+//                            loRssItem.mediaTitle = n.InnerText;
+                        break;
+                    case "enclosure":
+                        // loRssItem.ID = n.InnerText;
+                        //loRssItem.ID = n.Attributes["url"].Value;
+//                            if (n.Attributes["duration"] != null)
+//                            {
+//                                loRssItem.enclosureDuration = n.Attributes["duration"].Value;
+//                            }
+
+                        break;
+                    case "media:category":
+                        //  loRssItem.mediaCategory = n.InnerText;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return loRssItem;
+        }
+
         /**
          * Metode som sjekker om clippet er en vignett
          */
+
         private static bool isNotShortVignett(Clip loRssItem)
         {
             //372980 is the id for the short natur-vignett, and we do not want it in list
             //381994 is the for the super vignett
             //410330 is the nyheter vignett
             //410335 is the sport vignett
-            return loRssItem.ID != "372980" && loRssItem.ID != "381994" && loRssItem.ID != "410330" && loRssItem.ID != "410335";
+            return
+                loRssItem.ID != "372980" && loRssItem.ID != "381994" && loRssItem.ID != "410330" &&
+                loRssItem.ID != "410335";
         }
 
         public List<Item> GetTopTabber(String tab)
@@ -376,7 +385,7 @@ namespace NrkBrowser
                         "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\" onclick=\"return true;\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?></a>.*?</div>.*?<div class=\"active\"><h2><a href=\"http://www1.nrk.no/nett-tv/natur/spill/verdi/(.*?)\" onclick=\"return true;\">(.*?)</a></h2>",
                         RegexOptions.Singleline);
             }
-            
+
             if (tab == "direkte")
             {
                 //XXX not ready for primetime yet.
@@ -638,7 +647,7 @@ namespace NrkBrowser
             query = new Regex("<starttime value=\"(.*?)\" />.*?<ref href=\"(.*?)\" />", RegexOptions.Singleline);
             MatchCollection movie_url = query.Matches(urldata);
             //skip any advertisement
-                
+
             string str_startTime = movie_url[0].Groups[1].Value;
             Log.Debug(NrkPlugin.PLUGIN_NAME + ": Starttime er: " + str_startTime);
             //må gjøre string representasjon på formen: 00:27:38, om til en double
@@ -646,7 +655,7 @@ namespace NrkBrowser
             clip.StartTime = dStartTime;
             return movie_url[0].Groups[2].Value;
         }
-        
+
         private string behandleVerdiKlipp(Clip clip)
         {
             Regex query;
@@ -665,7 +674,6 @@ namespace NrkBrowser
             //skip any advertisement
             return movie_url[0].Groups[1].Value;
         }
-
 
 
         private string FetchUrl(string url)

@@ -9,6 +9,7 @@
  * */
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
 using MediaPortal.Dialogs;
@@ -25,11 +26,15 @@ namespace NrkBrowser
         /// This name is used in logs
         /// </summary>
         public const string PLUGIN_NAME = "NrkBrowser";
-
-        public const string PROGRAM_PICTURE = "#picture";
-        public const string PROGRAM_DESCRIPTION = "#description";
+        
+        private static string PICTURE_DIR = string.Format(@"{0}\media\nrkbrowser\", GUIGraphicsContext.Skin);
         private string streamPrefix = "mms://straumV.nrk.no/nrk_tv_webvid";
         protected string _suffix = "_l";
+
+        //Properties that can be accessed in gui
+        public const string PROGRAM_PICTURE = "#picture";
+        public const string PROGRAM_DESCRIPTION = "#description";
+        public const string CLIP_COUNT = "#clipcount";
 
         /// <summary>
         /// This is the name of the plugin as it appears in MediaPortal gui. Note: the name specified here will
@@ -49,7 +54,7 @@ namespace NrkBrowser
 
 
         private static string configfile = "NrkBrowserSettings.xml";
-
+       
         public NrkPlugin()
         {
             GetID = 40918376;
@@ -74,9 +79,9 @@ namespace NrkBrowser
 
         public void ShowPlugin()
         {
-            String appVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            String appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 //            Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            Log.Debug(NrkPlugin.PLUGIN_NAME + ": version: " + appVersion);
+            Log.Debug(PLUGIN_NAME + ": version: " + appVersion);
 //            Log.Debug("major: " + v.Major);
 //            Log.Debug("majorrevison: " + v.MajorRevision);
 //            Log.Debug("build: " + v.Build);
@@ -157,7 +162,7 @@ namespace NrkBrowser
             strButtonText = PluginName();
             strButtonImage = String.Empty;
             strButtonImageFocus = String.Empty;
-            strPictureImage = GUIGraphicsContext.Skin + @"\media\hover_my_nrk.png";
+            strPictureImage = GUIGraphicsContext.Skin + @"\media\hover_my tv.png";
             return true;
         }
 
@@ -165,8 +170,8 @@ namespace NrkBrowser
 
         public override bool Init()
         {
-
-            using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml")))
+            Log.Debug(string.Format("{0}: Init()", PLUGIN_NAME));
+            using (Settings xmlreader = new Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml")))
             {
                 _osdPlayer = xmlreader.GetValueAsBool("general", "usevrm9forwebstreams", true);
             }
@@ -174,7 +179,6 @@ namespace NrkBrowser
             bool result = Load(GUIGraphicsContext.Skin + @"\NrkBrowser.xml");
             Settings settings = new Settings(Config.GetFile(Config.Dir.Config, configfile));
             int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
-            _nrk = new NrkParser(speed);
             _active = new Stack<Item>();
             String quality = settings.GetValueAsString("NrkBrowser", "liveStreamQuality", "Low");
             pluginName = settings.GetValueAsString("NrkBrowser", "pluginName", "My Nrk");
@@ -185,7 +189,6 @@ namespace NrkBrowser
             qualityMap["High"] = "_h";
 
             _suffix = qualityMap[quality];
-
 
             return result;
         }
@@ -230,8 +233,36 @@ namespace NrkBrowser
             else Activate(null);
         }
 
+        public override bool OnMessage(GUIMessage message)
+        {
+            Log.Debug(string.Format("{0}: onMessage()", PLUGIN_NAME));
+            switch (message.Message)
+            {
+                case GUIMessage.MessageType.GUI_MSG_WINDOW_INIT:
+                    {
+                        Log.Debug(string.Format("{0}: onMessage() with MessageType: [{1}]", PLUGIN_NAME, "GUI_MSG_WINDOW_INIT"));
+//                        base.OnMessage(message); //code here runs every time the window is displayed 
+                        GUIPropertyManager.SetProperty("#currentmodule", PLUGIN_NAME);
+                        
+                        if (_nrk == null)
+                        {
+                            using (WaitCursor cursor = new WaitCursor())
+                            {
+                                Log.Info("Parser is null, getting speed-cookie and creates parser.");
+                                Settings settings = new Settings(Config.GetFile(Config.Dir.Config, configfile));
+                                int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
+                                _nrk = new NrkParser(speed);
+                            }
+                        }
+                        break;
+                    }
+            }
+            return base.OnMessage(message);
+        }
+
         public override void Process()
         {
+            
             if (facadeView.SelectedListItem == null)
             {
                 base.Process();
@@ -250,7 +281,8 @@ namespace NrkBrowser
                 selecteditem.ID == "live" || selecteditem.ID == "mestSett" || selecteditem.ID == "sok" ||
                 selecteditem is Category)
             {
-                GUIPropertyManager.SetProperty(PROGRAM_PICTURE, "");
+//                GUIPropertyManager.SetProperty(PROGRAM_PICTURE, "");
+                GUIPropertyManager.SetProperty(PROGRAM_PICTURE, "http://fil.nrk.no/contentfile/web/bgimages/special/nettv/bakgrunn_nett_tv.jpg");
             }
 
             if (!selecteditem.Bilde.Equals("") || erFavoritt())
@@ -358,7 +390,8 @@ namespace NrkBrowser
 
         protected void Activate(Item item)
         {
-            GUIPropertyManager.SetProperty("#itemcount", "");
+            GUIPropertyManager.SetProperty(CLIP_COUNT, " ");
+        
             if (item == null)
             {
                 List<Item> items = new List<Item>();
@@ -376,22 +409,22 @@ namespace NrkBrowser
 
                 MenuItem nyheter = new MenuItem("nyheter", "Nyheter");
                 nyheter.Description = "De siste nyhetsklippene";
-                nyheter.Bilde = "nrknyheter.jpg";
+                nyheter.Bilde = PICTURE_DIR + "nrknyheter.jpg";
                 items.Add(nyheter);
 
                 MenuItem sport = new MenuItem("sport", "Sport");
                 sport.Description = "De siste sportsklippene";
-                sport.Bilde = "nrksport.jpg";
+                sport.Bilde = PICTURE_DIR + "nrksport.jpg";
                 items.Add(sport);
 
                 MenuItem natur = new MenuItem("natur", "Natur");
                 natur.Description = "De siste naturklippene";
-                natur.Bilde = "nrknatur.jpg";
+                natur.Bilde = PICTURE_DIR + "nrknatur.jpg";
                 items.Add(natur);
 
                 MenuItem super = new MenuItem("super", "Super");
                 super.Description = "De siste klippene fra super";
-                super.Bilde = "nrksuper.jpg";
+                super.Bilde = PICTURE_DIR + "nrksuper.jpg";
                 items.Add(super);
 
                 MenuItem sok = new MenuItem("sok", "Søk");
@@ -442,6 +475,7 @@ namespace NrkBrowser
             {
                 List<Item> items = _nrk.GetAnbefaltePaaForsiden();
                 UpdateList(items);
+                setClipCount(items);
                 return;
             }
 
@@ -468,6 +502,7 @@ namespace NrkBrowser
             {
                 List<Item> items = _nrk.GetMestSette(7);
                 UpdateList(items);
+                setClipCount(items);
                 return;
             }
 
@@ -475,6 +510,7 @@ namespace NrkBrowser
             {
                 List<Item> items = _nrk.GetMestSette(31);
                 UpdateList(items);
+                setClipCount(items);
                 return;
             }
 
@@ -482,6 +518,7 @@ namespace NrkBrowser
             {
                 List<Item> items = _nrk.GetMestSette(3650);
                 UpdateList(items);
+                setClipCount(items);
                 return;
             }
 
@@ -489,6 +526,7 @@ namespace NrkBrowser
             {
                 List<Item> items = _nrk.GetTopTabRSS("nyheter");
                 UpdateList(items);
+                setClipCount(items);
                 return;
             }
 
@@ -496,12 +534,14 @@ namespace NrkBrowser
             {
                 List<Item> items = _nrk.GetTopTabRSS("sport");
                 UpdateList(items);
+                setClipCount(items);
                 return;
             }
             if (item.ID == "natur")
             {
                 List<Item> items = _nrk.GetTopTabRSS("natur");
                 UpdateList(items);
+                setClipCount(items);
                 return;
             }
 
@@ -509,6 +549,7 @@ namespace NrkBrowser
             {
                 List<Item> items = _nrk.GetTopTabRSS("super");
                 UpdateList(items);
+                setClipCount(items);
                 return;
             }
 
@@ -556,24 +597,27 @@ namespace NrkBrowser
             if (item is Program)
             {
                 List<Item> items = _nrk.GetClips((Program) item);
-                if (items.Count > 0)
-                {
-                    //fordi jeg kun vil vise antall klipp
-                    GUIPropertyManager.SetProperty("#itemcount", String.Format("{0} Klipp", items.Count));
-                }
+                setClipCount(items);
                 items.AddRange(_nrk.GetFolders((Program) item));
                 UpdateList(items);
             }
             if (item is Folder)
             {
                 List<Item> items = _nrk.GetClips((Folder) item);
-                if (items.Count > 0)
-                {
-                    GUIPropertyManager.SetProperty("#itemcount", String.Format("{0} Klipp", items.Count));
-                }
+                setClipCount(items);
                 items.AddRange(_nrk.GetFolders((Folder) item));
                 UpdateList(items);
-                
+            }
+        }
+
+        private static void setClipCount(List<Item> items)
+        {
+            if (items != null)
+            {
+                if (items.Count > 0)
+                {
+                    GUIPropertyManager.SetProperty(CLIP_COUNT, String.Format("{0} Klipp", items.Count));
+                }
             }
         }
 
@@ -633,7 +677,7 @@ namespace NrkBrowser
             }
             else
             {
-                playOk = playWithoutOsd(url, title, type, startTime); 
+                playOk = playWithoutOsd(url, title, type, startTime);
             }
 
             if (!playOk)
@@ -681,7 +725,7 @@ namespace NrkBrowser
             Log.Info(PLUGIN_NAME + " Trying to play with Osd (g_Player): " + url);
             Log.Debug("Title is: " + title);
             Log.Debug("Type of clip is: " + type);
-            Log.Debug("Starttime of clip is: " + startTime); 
+            Log.Debug("Starttime of clip is: " + startTime);
             bool playOk;
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
@@ -715,9 +759,9 @@ namespace NrkBrowser
             Log.Info(PLUGIN_NAME + " Trying to play without Osd (PlayListPlayer): " + url);
             Log.Debug("Title is: " + title);
             Log.Debug("Type of clip is: " + pType);
-            Log.Debug("Starttime of clip is: " + startTime); 
+            Log.Debug("Starttime of clip is: " + startTime);
             bool playIsOk = g_Player.Play(url);
-            
+
             if (playIsOk && startTime != 0)
             {
                 g_Player.SeekAbsolute(startTime);
@@ -757,6 +801,8 @@ namespace NrkBrowser
                     dlgMenu.Add("Fjern favoritt");
                 }
                 dlgMenu.Add("Bruk valgt som søkeord");
+                dlgMenu.Add("Kvalitet");
+//                dlgMenu.Add("Se etter ny versjon");
                 dlgMenu.DoModal(GetWindowId());
 
                 if (dlgMenu.SelectedLabel == -1) // Nothing was selected
@@ -775,7 +821,111 @@ namespace NrkBrowser
                 {
                     removeFavourite(item);
                 }
+                else if (dlgMenu.SelectedLabelText == "Kvalitet")
+                {
+                    openQualityMenu(dlgMenu);
+                }
+//                else if (dlgMenu.SelectedLabelText == "Se etter ny versjon")
+//                {
+//                    String nyVer = String.Empty;
+//                    if (newVersionAvailable(ref nyVer))
+//                    {
+//                        ShowMessageBox(string.Format("Ny versjon er tilgjengelig (ver. {0}), last ned fra mediaportal forumet.", nyVer));
+//                    }
+//                    else
+//                    {
+//                        ShowMessageBox("Ingen nyere versjon tilgjengelig.");
+//                    }
+//                }
+               
             }
+        }
+
+//        public static bool newVersionAvailable(ref String nyVer)
+//        {
+//            Log.Info("Checking for new version of plugin");
+//            String availableVersion = GetNewestAvailableVersion();
+//            nyVer = availableVersion;
+//            String thisVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+//            String[] splittedAvailable = availableVersion.Split('.');
+//            String[] splittedThis = thisVersion.Split('.');
+//            if (Int32.Parse(splittedAvailable[0]) > Int32.Parse(splittedThis[0]))
+//            {
+//                return true;
+//            }
+//            else if (Int32.Parse(splittedAvailable[1]) > Int32.Parse(splittedThis[1]))
+//            {
+//                return true;
+//            }
+//            else if (Int32.Parse(splittedAvailable[2]) > Int32.Parse(splittedThis[2]))
+//            {
+//                return true;
+//            }
+//            return false;
+//        }
+//
+//        private static string GetNewestAvailableVersion()
+//        {
+//            System.Net.ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(trustAllCertificates);
+//            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("someurl/ver.txt");
+//            request.UserAgent = string.Format("NrkBrowser Updater(plugin-version: {0})", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+//            // Set some reasonable limits on resources used by this request
+//            request.MaximumAutomaticRedirections = 4;
+//            request.MaximumResponseHeadersLength = 4;
+//            NetworkCredential nc = new NetworkCredential("updateUser", "update");
+//            request.Credentials = nc;
+//            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+//
+//            // Get the stream associated with the response.
+//            System.IO.Stream receiveStream = response.GetResponseStream();
+//
+//            // Pipes the stream to a higher level stream reader with the required encoding format. 
+//            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
+//
+//            string ret = readStream.ReadToEnd();
+//            Log.Info("Newest version of plugin is: " + ret);
+//            response.Close();
+//            readStream.Close();
+//            return ret;
+//        }
+//
+//        private static bool trustAllCertificates(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+//        {
+//            return true;
+//        }
+
+        protected void openQualityMenu(GUIDialogMenu dlgMenu)
+        {
+                dlgMenu.Reset();
+                dlgMenu.SetHeading("Velg kvalitet");
+                GUIListItem lowQuality = new GUIListItem("Lav kvalitet");
+                lowQuality.ItemId = 1;
+                GUIListItem mediumQuality = new GUIListItem("Middels kvalitet");
+                mediumQuality.ItemId = 2;
+                GUIListItem highQuality = new GUIListItem("Høy kvalitet");
+                highQuality.ItemId = 3;
+                dlgMenu.Add(lowQuality);
+                dlgMenu.Add(mediumQuality);
+                dlgMenu.Add(highQuality);
+                dlgMenu.DoModal(GetWindowId());
+                if (dlgMenu.SelectedId == lowQuality.ItemId)
+                {
+                    int speed = 400;
+                    Log.Info(string.Format("{0}: Changing bitrate to {1}", PLUGIN_NAME, speed));
+                    _nrk = new NrkParser(speed);
+                }
+                else if (dlgMenu.SelectedId == mediumQuality.ItemId)
+                {
+                    int speed = 1000;
+                    Log.Info(string.Format("{0}: Changing bitrate to {1}", PLUGIN_NAME, speed));
+                    _nrk = new NrkParser(speed);
+                }
+                else if (dlgMenu.SelectedId == highQuality.ItemId)
+                {
+                    int speed = 10000;
+                    Log.Info(string.Format("{0}: Changing bitrate to {1}", PLUGIN_NAME, speed));
+                    _nrk = new NrkParser(speed);
+                }
         }
 
         /// <summary>
