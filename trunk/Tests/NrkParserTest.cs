@@ -98,10 +98,10 @@ namespace NrkBrowser
         }
 
         [Test]
-        [ExpectedException(typeof (NullReferenceException))]
         public void TestGetTopTabRSSSomIkkeFinnes()
         {
-            List<Item> ol = nrkParser.GetTopTabRSS("dennefinnesikke");
+            //behaviour has changed, earlier this gave nullreference exception, now it returns NYHETER list.
+            List<Item> ol = nrkParser.GetTopTabRSS("denne finnes ikke");
             sjekkTopTabRSSClips(ol);
         }
 
@@ -147,8 +147,10 @@ namespace NrkBrowser
             List<Item> liste = nrkParser.GetMestSette(31);
             Assert.IsNotNull(liste);
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
+            Assert.AreEqual(liste.Count, 12, "Listen skal ha 12 oppførsler");
             foreach (Item item in liste)
             {
+               
                 Clip c = (Clip) item;
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
@@ -309,8 +311,10 @@ namespace NrkBrowser
             Assert.AreEqual(1, liste.Count);
             Clip c = (Clip) liste[0];
             String klippUrl = nrkParser.GetClipUrl(c);
+            Console.WriteLine(klippUrl);
+            string expectedUrl = "mms://straumod.nrk.no/disk03/Lydverket/2008-04-16/Lydverket_16_04_08_1000_358373_20080416_231000.wmv";
             Assert.AreEqual(
-                "mms://straumOD.nrk.no/n/Lydverket/2008-04-16/Lydverket_16_04_08_1000_358373_20080416_231000.wmv",
+                expectedUrl,
                 klippUrl, "KlippURL er blitt endret...denne testen er mest nyttig for å finne endringer hos nrk.");
             Assert.AreEqual(1658, c.StartTime, "Starttiden for klippet har endret seg.");
         }

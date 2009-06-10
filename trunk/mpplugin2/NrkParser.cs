@@ -160,15 +160,16 @@ namespace NrkBrowser
             string data;
             String url = String.Format("http://www1.nrk.no/nett-tv/ml/topp12.aspx?dager={0}&_=", dager);
             data = FetchUrl(url);
-
+            Console.WriteLine(data);
             Regex query =
                 new Regex(
-                    "<div class=\"img-left\" style=\"width: 150px;\"><a href=\"/nett-tv/klipp/.*?\" title=\".*?\"><img src=\"(.*?)\" alt=\"\" title=\"\" longdesc=\"\" height=\"85\" width=\"150\" /></a></div><h2><a href=\"/nett-tv/klipp/.*?\" title=\".*?\">.*?</a></h2><p><a href=\"/nett-tv/klipp/.*?\" title=\".*?\">Publisert .*?</a><br /><a href=\"/nett-tv/klipp/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger</a>",
+                    "<a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\">.*?</a></h2><p><a href=\".*?/nett-tv/klipp/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></p>",
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
 
             Log.Info(NrkPlugin.PLUGIN_NAME + ": Matches {0}", matches.Count);
+            Console.WriteLine("matches: " + matches.Count);
             foreach (Match x in matches)
             {
                 Clip c = new Clip(x.Groups[2].Value, x.Groups[3].Value);
