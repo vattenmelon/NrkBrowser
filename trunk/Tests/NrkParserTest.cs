@@ -147,7 +147,7 @@ namespace NrkBrowser
             List<Item> liste = nrkParser.GetMestSette(31);
             Assert.IsNotNull(liste);
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
-            Assert.AreEqual(liste.Count, 12, "Listen skal ha 12 oppførsler");
+            Assert.AreEqual(liste.Count, 8, "Listen skal ha 8 oppførsler");
             foreach (Item item in liste)
             {
                
@@ -155,12 +155,18 @@ namespace NrkBrowser
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
+                Assert.IsTrue(ErBildeFil(c.Bilde));
                 Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
                 Assert.AreEqual(Clip.KlippType.KLIPP, c.Type, "Skal være av typen KLIPP");
                 Assert.IsNotEmpty(c.AntallGangerVist, "Antall ganger vist skal være satt");
                 Assert.IsEmpty(c.VerdiLink, "Klipp fra mest sette er ikke verdilinker");
             }
+        }
+
+        private static bool ErBildeFil(String filename)
+        {
+            return filename.EndsWith(".jpg") || filename.EndsWith(".JPG") || filename.EndsWith(".png") || filename.EndsWith(".PNG");
         }
 
         [Test]
