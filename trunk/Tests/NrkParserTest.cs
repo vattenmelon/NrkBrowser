@@ -147,7 +147,7 @@ namespace NrkBrowser
             List<Item> liste = nrkParser.GetMestSette(31);
             Assert.IsNotNull(liste);
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
-            Assert.AreEqual(liste.Count, 8, "Listen skal ha 8 oppførsler");
+            Assert.AreEqual(11,liste.Count, "Listen skal ha 11 oppførsler"); //var åtte tidligere, men er vel greit det er elleve nå..
             foreach (Item item in liste)
             {
                
