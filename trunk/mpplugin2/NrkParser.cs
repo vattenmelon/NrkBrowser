@@ -161,9 +161,10 @@ namespace NrkBrowser
             String url = String.Format("http://www1.nrk.no/nett-tv/ml/topp12.aspx?dager={0}&_=", dager);
             data = FetchUrl(url);
             Console.WriteLine(data);
+            //"<a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\">.*?</a></h2><p><a href=\".*?/nett-tv/klipp/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></p>",
             Regex query =
                 new Regex(
-                    "<a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\">.*?</a></h2><p><a href=\".*?/nett-tv/klipp/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></p>",
+                    "<a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\">.*?</a></h2><p><a href=\".*?/nett-tv/(.*?)/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></p>",
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
@@ -172,15 +173,21 @@ namespace NrkBrowser
             Console.WriteLine("matches: " + matches.Count);
             foreach (Match x in matches)
             {
-                Clip c = new Clip(x.Groups[2].Value, x.Groups[3].Value);
-                c.AntallGangerVist = x.Groups[4].Value;
+                Clip c = new Clip(x.Groups[3].Value, x.Groups[4].Value);
+                c.AntallGangerVist = x.Groups[5].Value;
                 c.Description = String.Format("Klipp vist {0} ganger denne uken.", c.AntallGangerVist);
                 c.Bilde = x.Groups[1].Value;
+                if (x.Groups[2].Value.Trim().ToLower().Equals("indeks"))
+                {
+                    c.Type = Clip.KlippType.INDEX;
+                }
                 clips.Add(c);
             }
 
             return clips;
         }
+
+
 
         public List<Item> GetTopTabber()
         {

@@ -147,21 +147,27 @@ namespace NrkBrowser
             List<Item> liste = nrkParser.GetMestSette(31);
             Assert.IsNotNull(liste);
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
-            Assert.AreEqual(11,liste.Count, "Listen skal ha 11 oppførsler"); //var åtte tidligere, men er vel greit det er elleve nå..
+            Assert.AreEqual(12,liste.Count, "Listen skal ha 12 oppførsler"); 
             foreach (Item item in liste)
             {
                
                 Clip c = (Clip) item;
+                Console.WriteLine(c.ID);
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
                 Assert.IsTrue(ErBildeFil(c.Bilde));
                 Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
-                Assert.AreEqual(Clip.KlippType.KLIPP, c.Type, "Skal være av typen KLIPP");
+                Assert.IsTrue(erEntenKlippEllerIndexType(c), "Klipp skal være enten av type Klipp eller Index");
                 Assert.IsNotEmpty(c.AntallGangerVist, "Antall ganger vist skal være satt");
                 Assert.IsEmpty(c.VerdiLink, "Klipp fra mest sette er ikke verdilinker");
             }
+        }
+
+        private static bool erEntenKlippEllerIndexType(Clip c)
+        {
+            return c.Type == Clip.KlippType.KLIPP || c.Type == Clip.KlippType.INDEX;
         }
 
         private static bool ErBildeFil(String filename)
