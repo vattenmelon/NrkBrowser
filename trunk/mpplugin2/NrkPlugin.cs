@@ -93,6 +93,40 @@ namespace NrkBrowser
             form.LabelVersionVerdi.Text = appVersion;
 
             Settings settings = new Settings(Config.GetFile(Config.Dir.Config, configfile));
+            int speed = initSpeedSettings(form, settings);
+
+            string quality = initLiveStreamQuality(form, settings);
+
+            pluginName = settings.GetValueAsString("NrkBrowser", "pluginName", "My Nrk");
+            form.NameTextbox.Text = pluginName;
+
+            DialogResult res = form.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                SaveSettings(form, settings);
+            }
+        }
+
+        private void SaveSettings(SettingsForm form, Settings settings)
+        {
+            Log.Debug(NrkPlugin.PLUGIN_NAME + ": SaveSettings");
+            int speed = (int) form.speedUpDown.Value;
+            settings.SetValue("NrkBrowser", "speed", speed);
+            string quality = (string) form.liveStreamQualityCombo.Items[form.liveStreamQualityCombo.SelectedIndex];
+            settings.SetValue("NrkBrowser", "liveStreamQuality", quality);
+            pluginName = form.NameTextbox.Text;
+            settings.SetValue("NrkBrowser", "pluginName", pluginName);
+        }
+
+        private static string initLiveStreamQuality(SettingsForm form, Settings settings)
+        {
+            string quality = settings.GetValueAsString("NrkBrowser", "liveStreamQuality", "Low");
+            form.liveStreamQualityCombo.SelectedIndex = form.liveStreamQualityCombo.Items.IndexOf(quality);
+            return quality;
+        }
+
+        private static int initSpeedSettings(SettingsForm form, Settings settings)
+        {
             int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
             if (speed < form.speedUpDown.Minimum)
             {
@@ -105,23 +139,7 @@ namespace NrkBrowser
                 settings.SetValue("NrkBrowser", "speed", speed);
             }
             form.speedUpDown.Value = speed;
-
-            string quality = settings.GetValueAsString("NrkBrowser", "liveStreamQuality", "Low");
-            form.liveStreamQualityCombo.SelectedIndex = form.liveStreamQualityCombo.Items.IndexOf(quality);
-
-            pluginName = settings.GetValueAsString("NrkBrowser", "pluginName", "My Nrk");
-            form.NameTextbox.Text = pluginName;
-
-            DialogResult res = form.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                speed = (int) form.speedUpDown.Value;
-                settings.SetValue("NrkBrowser", "speed", speed);
-                quality = (string) form.liveStreamQualityCombo.Items[form.liveStreamQualityCombo.SelectedIndex];
-                settings.SetValue("NrkBrowser", "liveStreamQuality", quality);
-                pluginName = form.NameTextbox.Text;
-                settings.SetValue("NrkBrowser", "pluginName", pluginName);
-            }
+            return speed;
         }
 
         public bool CanEnable()
@@ -481,19 +499,7 @@ namespace NrkBrowser
 
             if (item.ID == "mestSett")
             {
-                List<Item> items = new List<Item>(3);
-                MenuItem mestSettUke = new MenuItem("mestSettUke", "Mest sett denne uken");
-                mestSettUke.Description = "De mest populære klippene denne uken!";
-                items.Add(mestSettUke);
-
-                MenuItem mestSettMaaned = new MenuItem("mestSettMaaned", "Mest sett denne måneden");
-                mestSettMaaned.Description = "De mest populære klippene denne måneden!";
-                items.Add(mestSettMaaned);
-
-                MenuItem mestSettTotalt = new MenuItem("mestSettTotalt", "Mest sett totalt");
-                mestSettTotalt.Description = "De mest populære klippene!";
-                items.Add(mestSettTotalt);
-
+                List<Item> items = CreateMestSetteListItems();
                 UpdateList(items);
                 return;
             }
@@ -501,55 +507,48 @@ namespace NrkBrowser
             if (item.ID == "mestSettUke")
             {
                 List<Item> items = _nrk.GetMestSette(7);
-                UpdateList(items);
-                setClipCount(items);
+                UpdateListAndSetClipCount(items);
                 return;
             }
 
             if (item.ID == "mestSettMaaned")
             {
                 List<Item> items = _nrk.GetMestSette(31);
-                UpdateList(items);
-                setClipCount(items);
+                UpdateListAndSetClipCount(items);
                 return;
             }
 
             if (item.ID == "mestSettTotalt")
             {
                 List<Item> items = _nrk.GetMestSette(3650);
-                UpdateList(items);
-                setClipCount(items);
+                UpdateListAndSetClipCount(items);
                 return;
             }
 
             if (item.ID == "nyheter")
             {
                 List<Item> items = _nrk.GetTopTabRSS("nyheter");
-                UpdateList(items);
-                setClipCount(items);
+                UpdateListAndSetClipCount(items);
                 return;
             }
 
             if (item.ID == "sport")
             {
                 List<Item> items = _nrk.GetTopTabRSS("sport");
-                UpdateList(items);
-                setClipCount(items);
+                UpdateListAndSetClipCount(items);
                 return;
             }
             if (item.ID == "natur")
             {
                 List<Item> items = _nrk.GetTopTabRSS("natur");
-                UpdateList(items);
-                setClipCount(items);
+                UpdateListAndSetClipCount(items);
                 return;
             }
 
             if (item.ID == "super")
             {
                 List<Item> items = _nrk.GetTopTabRSS("super");
-                UpdateList(items);
-                setClipCount(items);
+                UpdateListAndSetClipCount(items);
                 return;
             }
 
@@ -608,6 +607,29 @@ namespace NrkBrowser
                 items.AddRange(_nrk.GetFolders((Folder) item));
                 UpdateList(items);
             }
+        }
+
+        public static List<Item> CreateMestSetteListItems()
+        {
+            List<Item> items = new List<Item>(3);
+            MenuItem mestSettUke = new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_UKE, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_UKE);
+            mestSettUke.Description = NrkConstants.MENU_ITEM_DESCRIPTION_MEST_SETTE_UKE;
+            items.Add(mestSettUke);
+
+            MenuItem mestSettMaaned = new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_MAANED, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_MAANED);
+            mestSettMaaned.Description = NrkConstants.MENU_ITEM_DESCRIPTION_MEST_SETTE_MAANED;
+            items.Add(mestSettMaaned);
+
+            MenuItem mestSettTotalt = new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_TOTALT, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_TOTALT);
+            mestSettTotalt.Description = NrkConstants.MENU_ITEM_DESCRIPTION_MEST_SETTE_TOTALT;
+            items.Add(mestSettTotalt);
+            return items;
+        }
+
+        private void UpdateListAndSetClipCount(List<Item> items)
+        {
+            UpdateList(items);
+            setClipCount(items);
         }
 
         private static void setClipCount(List<Item> items)

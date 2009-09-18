@@ -57,6 +57,7 @@
     <Compile Include="Folder.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="MenuItem.cs" />
+    <Compile Include="NrkConstants.cs" />
     <Compile Include="NrkParser.cs" />
     <Compile Include="NrkPlugin.cs" />
     <Compile Include="NrkUtils.cs" />
