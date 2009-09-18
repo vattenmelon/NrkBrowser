@@ -152,7 +152,6 @@ namespace NrkBrowser
             {
                
                 Clip c = (Clip) item;
-                Console.WriteLine(c.ID);
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
