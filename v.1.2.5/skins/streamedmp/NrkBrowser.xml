@@ -1,0 +1,99 @@
+<window>
+	<define>#header.label:NRK Nett-TV</define>
+	<define>#header.hover:hover_my tv series.png</define>
+	<id>40918376</id>
+	<defaultcontrol>50</defaultcontrol>
+	<allowoverlay>yes</allowoverlay>
+	<controls>
+		<import>common.window.xml</import>
+		<control>
+			<type>label</type>
+			<description>Top Title</description>
+			<id>6</id>
+			<posX>493</posX>
+			<posY>13</posY>
+			<width>350</width>
+			<font>mediastream12c</font>
+			<align>right</align>
+			<visible>yes</visible>
+			<label>#header.label</label>
+			<animation effect="slide" start="-514,0" end="0,0"
+				tween="quadratic" time="300" delay="0">
+				WindowOpen
+			</animation>
+		</control>
+		<control>
+			<type>image</type>
+			<description>BG</description>
+			<id>0</id>
+			<width>1280</width>
+			<height>720</height>
+			<animation effect="fade" time="400" delay="0">
+				WindowOpen
+			</animation>
+		</control>
+		<control>
+			<description>movies background image</description>
+			<type>image</type>
+			<id>0</id>
+			<posX>0</posX>
+			<posY>0</posY>
+			<width>1280</width>
+			<height>720</height>
+			<texture>#header.hover</texture>
+			<animation effect="fade" time="400" delay="0">
+				WindowOpen
+			</animation>
+		</control>
+		<control>
+			<description>music overlay image</description>
+			<type>image</type>
+			<id>0</id>
+			<posX>0</posX>
+			<posY>0</posY>
+			<width>1280</width>
+			<height>720</height>
+			<texture>mainoverlay.png</texture>
+		</control>
+		<control>
+			<type>image</type>
+			<description>movie poster</description>
+			<id>1</id>
+			<posX>50</posX>
+			<posY>315</posY>
+			<width>300</width>
+			<height>171</height>
+			<visible>yes</visible>
+			<texture>#picture</texture>
+		</control>
+		<control>
+			<description>textarea</description>
+			<type>textboxscrollup</type>
+			<id>141</id>
+			<posX>50</posX>
+			<posY>500</posY>
+			<width>600</width>
+			<height>150</height>
+			<font>mediastream11</font>
+			<textcolor>ffffffff</textcolor>
+			<label>#description</label>
+			<visible>yes</visible>
+		</control>
+		<control>
+			<description>TV Show Title</description>
+			<type>label</type>
+			<id>0</id>
+			<posX>50</posX>
+			<posY>250</posY>
+			<width>850</width>
+			<font>mediastream16tc</font>
+			<label>#selecteditem</label>
+			<textcolor>ffFFFFFF</textcolor>
+		</control>
+		<!-- importing the default video facade view, with id 50 -->
+		<import>common.facade.video.xml</import>
+		<import>common.window.xml</import>
+		<import>common.time.xml</import>
+		<import>common.overlays.xml</import>
+	</controls>
+</window>
