@@ -39,8 +39,9 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="XmlRSSTest.cs" />
     <Compile Include="DBTests.cs" />
-    <Compile Include="NrkParserTest.cs" />
+    <Compile Include="NrkParserIntegrationTest.cs" />
     <Compile Include="NrkPluginTest.cs" />
     <Compile Include="UtilsTest.cs" />
   </ItemGroup>

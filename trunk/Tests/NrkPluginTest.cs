@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using NrkBrowser.Domain;
 using NUnit.Framework;
 
 namespace NrkBrowser
@@ -65,6 +66,14 @@ namespace NrkBrowser
             Assert.IsTrue(funnet2);
             Assert.IsTrue(funnet3);
         }
+/*
+        [Test]
+        public void testGetTopTabs()
+        {
+           nrkPlugin.Init();
+           List<Item> liste = nrkPlugin.GetTabItems();
+           Assert.AreEqual(1, liste.Count, "Skal være et i lista");
+        } */
 
 //        [Test]
 //        public void checkForNewVersionTest()

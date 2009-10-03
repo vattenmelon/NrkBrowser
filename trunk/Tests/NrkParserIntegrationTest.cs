@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using NrkBrowser.Domain;
 using NUnit.Framework;
 
 namespace NrkBrowser
 {
     [TestFixture]
-    public class NrkParserTest
+    public class NrkParserIntegrationTest
     {
         private NrkParser nrkParser;
 
@@ -80,44 +81,6 @@ namespace NrkBrowser
             }
         }
 
-        [Test]
-        public void TestGetTopTabRSS()
-        {
-            List<Item> natur = nrkParser.GetTopTabRSS("NATUR");
-            sjekkTopTabRSSClips(natur);
-
-            List<Item> super = nrkParser.GetTopTabRSS("SUPER");
-            sjekkTopTabRSSClips(super);
-        }
-
-        [Test]
-        public void TestGetTopTabRSSUSA08()
-        {
-            List<Item> usa08 = nrkParser.GetTopTabRSS("USA08");
-            sjekkTopTabRSSClips(usa08);
-        }
-
-        [Test]
-        public void TestGetTopTabRSSSomIkkeFinnes()
-        {
-            //behaviour has changed, earlier this gave nullreference exception, now it returns NYHETER list.
-            List<Item> ol = nrkParser.GetTopTabRSS("denne finnes ikke");
-            sjekkTopTabRSSClips(ol);
-        }
-
-
-        private void sjekkTopTabRSSClips(List<Item> liste)
-        {
-            Assert.IsNotNull(liste, "Listen kan ikke være null");
-            Assert.IsTrue(liste.Count > 0, "Listen skal være større enn 0");
-            foreach (Item item in liste)
-            {
-                Clip c = (Clip) item;
-                Assert.IsNotNull(c.ID, "ID'en kan ikke være null");
-                Assert.IsNotNull(c.Title, "Tittelen kan ikke være null");
-                Assert.IsTrue(c.Playable, "Klipp må være playable");
-            }
-        }
 
         [Test]
         public void TestGetForsiden()
@@ -131,6 +94,8 @@ namespace NrkBrowser
                 Clip c = (Clip) item;
                 Console.WriteLine("type: " + c.Type);
                 Console.WriteLine("title: " + c.Title);
+                String directLink = nrkParser.GetClipUrl(c);
+                isMMSVideoStream(directLink);
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
@@ -139,6 +104,11 @@ namespace NrkBrowser
                 Assert.AreEqual(Clip.KlippType.KLIPP, c.Type, "Skal være av typen KLIPP");
                 Assert.IsEmpty(c.VerdiLink, "Klipp fra forsiden er ikke verdilinker");
             }
+        }
+
+        private static void isMMSVideoStream(String directLink)
+        {
+            Assert.IsTrue(directLink.ToLower().StartsWith("mms://"), "Videostreamer skal starte med mms://");
         }
 
         [Test]
@@ -189,34 +159,24 @@ namespace NrkBrowser
             }
         }
 
+
         [Test]
-        public void TestGetTopTabberMedParameter()
+        public void TestTopTabbDirekte()
         {
-            List<Item> liste = nrkParser.GetTopTabber("nyheter");
-            topTabTest(liste);
-
-            liste = nrkParser.GetTopTabber("sport");
-            topTabTest(liste);
-
-            liste = nrkParser.GetTopTabber("natur");
-            topTabTest(liste);
+            List<Item> liste = nrkParser.GetDirektePage("direkte");
+            Assert.IsNotEmpty(liste);
+            Console.Out.WriteLine("count: " + liste.Count);
+            Assert.AreEqual(3, liste.Count, "Skal være tre  alltid på direktelinker");
+            foreach (Item item in liste)
+            {
+                Clip clip = (Clip) item;
+                Assert.AreEqual(Clip.KlippType.DIREKTE, clip.Type);
+                Console.Out.WriteLine("id: "+clip.ID);
+                Console.Out.WriteLine("title: " +clip.Title);
+                Console.Out.WriteLine("description: "+clip.Description);
+                Console.Out.WriteLine("bilde: " + clip.Bilde);
+            }
         }
-
-//        [Test]
-//        public void TestTopTabbDirekte()
-//        {
-//            List<Item> liste = nrkParser.GetTopTabber("direkte");
-//            Assert.IsNotEmpty(liste);
-//            Console.Out.WriteLine("count: " + liste.Count);
-////            foreach (Item item in liste)
-////            {
-////                Console.Out.WriteLine(item);
-////                Console.Out.WriteLine("id: "+item.ID);
-////                Console.Out.WriteLine("title: " +item.Title);
-////                Console.Out.WriteLine("description: "+item.Description);
-////                Console.Out.WriteLine("bilde: " + item.Bilde);
-////            }
-//        }
 
         [Test]
         public void TestGetTopTabber()
@@ -224,12 +184,42 @@ namespace NrkBrowser
             List<Item> liste = nrkParser.GetTopTabber();
             Assert.IsNotNull(liste);
             Assert.IsNotEmpty(liste);
-            Console.Out.WriteLine("treff:");
-//            foreach (Item item in liste)
-//            {
-//                Console.Out.WriteLine(item.ID + ", " + item.Title);
-//                Console.Out.WriteLine("-------------------------------------------");
-//            }
+            Assert.AreEqual(7, liste.Count, "Skal være syv oppførsler i lista");
+           foreach (Item item in liste)
+            {
+                Console.WriteLine("id: " + item.ID);
+                Assert.IsNotNull(item.ID);
+                Console.WriteLine("title: " + item.Title);
+                Assert.IsNotNull(item.Title);
+                Console.Out.WriteLine("-------------------------------------------");
+            } 
+        }
+        [Test]
+        public void TestGetTopTabs()
+        {
+            List<Item> liste = nrkParser.GetTopTabContent("valg");
+            Assert.IsNotEmpty(liste);
+
+            foreach (Item item in liste)
+            {
+                Clip c = (Clip) item;
+                Console.WriteLine("id: " + c.ID);
+                Assert.IsNotNull(c.ID);
+                Console.WriteLine("title: " + c.Title);
+                Assert.IsNotNull(c.Title);
+                try
+                {
+                    Console.WriteLine("link: " + nrkParser.GetClipUrl(c));
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("Kunne ikke finne url: "+ e.GetBaseException());
+                }
+                Console.WriteLine("bilde: " + c.Bilde);
+                Console.WriteLine("desc: " + c.Description);
+                Assert.IsNotNull(c.Bilde);
+                Console.WriteLine("--------------------------");
+            } 
         }
 
         [Test]
@@ -330,24 +320,5 @@ namespace NrkBrowser
             Assert.AreEqual(1658, c.StartTime, "Starttiden for klippet har endret seg.");
         }
 
-
-        private void topTabTest(List<Item> liste)
-        {
-            Assert.IsNotNull(liste);
-            Assert.IsTrue(liste.Count > 0, "Listen skal være større enn 1");
-            foreach (Item item in liste)
-            {
-                Clip c = (Clip) item;
-                Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
-                Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
-                Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
-                Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
-                Assert.IsTrue(c.Playable, "Klipp må være playable");
-                Assert.AreEqual(Clip.KlippType.VERDI, c.Type, "Skal være av typen VERDI");
-                Assert.IsEmpty(c.AntallGangerVist, "Antall ganger vist skal ikke være satt");
-                Assert.IsNotNull(c.VerdiLink, "VerdiLink må være satt på et klipp av type VERDI");
-                Assert.IsNotEmpty(c.VerdiLink, "VerdiLink må være satt på et klipp av type VERDI");
-            }
-        }
     }
 }

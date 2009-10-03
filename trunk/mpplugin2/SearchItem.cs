@@ -3,7 +3,7 @@
  * Created: 9. september 2008
  */
 
-namespace NrkBrowser
+namespace NrkBrowser.Domain
 {
     public class SearchItem : Item
     {

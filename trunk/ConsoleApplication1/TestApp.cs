@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NrkBrowser;
+using NrkBrowser.Domain;
 
 namespace ConsoleApplication1
 {

@@ -3,7 +3,7 @@
  * Created: 5. september 2008
  */
 
-namespace NrkBrowser
+namespace NrkBrowser.Domain
 {
     public class Stream : Item
     {

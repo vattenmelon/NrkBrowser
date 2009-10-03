@@ -5,7 +5,7 @@
 
 using System;
 
-namespace NrkBrowser
+namespace NrkBrowser.Domain
 {
     public class Clip : Item
     {
@@ -15,6 +15,7 @@ namespace NrkBrowser
             VERDI = 1,
             RSS = 2,
             INDEX = 3,
+            DIREKTE = 4
         }
 
         private string verdiLink = string.Empty;

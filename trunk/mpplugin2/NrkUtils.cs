@@ -24,5 +24,33 @@ namespace NrkBrowser
             Log.Debug("convertTouDouble(String): returns: " + totalSeconds + " seconds");
             return totalSeconds;
         }
+
+       public static string parseKlokkeSlettFraBilde(string bildeUrl)
+       {
+           try
+           {
+               string temp;
+
+               temp = bildeUrl.Substring(bildeUrl.LastIndexOf("/nsps_upload") + 13);
+               string[] tab = temp.Split('_');
+               string time = tab[3];
+               if (time.Length == 1)
+               {
+                   time = "0" + time;
+               }
+               string minutt = tab[4];
+               if (minutt.Length == 1)
+               {
+                   minutt = "0" + minutt;
+               }
+               return time + ":" + minutt + " " + tab[2] + "/" + tab[1] + "-" + tab[0];
+           }
+           catch (Exception)
+           {
+               Log.Info(NrkConstants.PLUGIN_NAME +
+                        ": Could not parse date from image filename, but that is fine...just returning a blank string");
+               return "";
+           }
+       }
     }
 }
