@@ -333,6 +333,8 @@ namespace NrkBrowser
                 {
                     listitem.IconImage = GUIGraphicsContext.Skin + @"\media\defaultVideo.png";
                     listitem.IconImageBig = GUIGraphicsContext.Skin + @"\media\defaultVideo.png";
+                    
+                    
                 }
                 else
                 {
@@ -681,8 +683,8 @@ namespace NrkBrowser
             Log.Info(NrkConstants.PLUGIN_NAME + "PlayUrl");
 
             PlayListType type;
-            if (url.EndsWith(".wmv")) type = PlayListType.PLAYLIST_VIDEO_TEMP;
-            else if (url.EndsWith(".wma")) type = PlayListType.PLAYLIST_RADIO_STREAMS;
+            if (url.EndsWith(".wmv")){ type = PlayListType.PLAYLIST_VIDEO_TEMP;}
+            else if (url.EndsWith(".wma") || url.ToLower().EndsWith(".mp3")){ type = PlayListType.PLAYLIST_RADIO_STREAMS;}
                 //FIXME: Hangs on some audio streams...
             else if (url.EndsWith("_h")) type = PlayListType.PLAYLIST_VIDEO_TEMP; //det er en av live streamene
             else
@@ -812,6 +814,14 @@ namespace NrkBrowser
             {
                 dlgMenu.Reset();
                 dlgMenu.SetHeading("NRK Browser");
+                if (item is Clip)
+                {
+                    Clip cl = (Clip) item;
+                    if (cl.TilhoerendeProsjekt > 0)
+                    {
+                        dlgMenu.Add("Se tidligere programmer");
+                    }
+                }
                 if (!_active.Contains(favoritter))
                 {
                     dlgMenu.Add("Legg til i favoritter");
@@ -828,6 +838,14 @@ namespace NrkBrowser
                 if (dlgMenu.SelectedLabel == -1) // Nothing was selected
                 {
                     return;
+                }
+                if (dlgMenu.SelectedLabelText == "Se tidligere programmer")
+                {
+                    Clip cl = (Clip) item;
+                    List<Item> items = _nrk.GetClipsTilhoerendeSammeProgram(cl);
+                    items.AddRange(_nrk.GetFolders(cl));
+                    UpdateList(items);
+                   
                 }
                 if (dlgMenu.SelectedLabelText == "Legg til i favoritter")
                 {

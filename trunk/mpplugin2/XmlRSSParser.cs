@@ -4,48 +4,54 @@ using System.Xml;
 using MediaPortal.ServiceImplementations;
 using NrkBrowser.Domain;
 
-namespace NrkBrowser.RSS
+namespace NrkBrowser.Xml
 {
-    public class XmlRSSParser
+    public class XmlRSSParser : XmlParser
     {
-        private string section;
-        private string siteurl;
-        public XmlRSSParser(String siteurl, String section)
+ 
+        public XmlRSSParser(string siteurl, string section)
         {
-            this.section = section;
-            this.siteurl = siteurl;
+            base.url = siteurl + section;
         }
+
 
         public List<Item> getClips()
         {
-            List<Item> clips = new List<Item>();
-            XmlDocument doc = new XmlDocument();
-            XmlTextReader reader = new XmlTextReader(siteurl + section);
-            doc.Load(reader);
-            XmlNamespaceManager expr = new XmlNamespaceManager(doc.NameTable);
-            expr.AddNamespace("media", "http://search.yahoo.com/mrss");
-            XmlNode root = doc.SelectSingleNode("//rss/channel/item", expr);
-            XmlNodeList nodeList;
-            nodeList = root.SelectNodes("//rss/channel/item");
+            LoadXmlDocument();
+            XmlNodeList nodeList = GetNodeList();
 
+            List<Item> clips = new List<Item>();
             int itemCount = 0;
             foreach (XmlNode childNode in nodeList)
             {
-                if (itemCount >= 100)
-                {
-                    break;
-                }
-                itemCount++;
                 Clip loRssItem = CreateClipFromChildNode(childNode);
-
                 if (NrkParser.isNotShortVignett(loRssItem))
                 {
                     loRssItem.Type = Clip.KlippType.RSS;
                     clips.Add(loRssItem);
                 }
+                
+                itemCount++;
+                if (isItemCount100orOver(itemCount))
+                {
+                    Log.Info(string.Format("{0}: Over 100 clips in document, breaking.", NrkConstants.PLUGIN_NAME));
+                    break;
+                }
+                
             }
             return clips;
         }
+        
+        private static bool isItemCount100orOver(int itemCount)
+        {
+            return itemCount >= 100;
+        }
+
+        private XmlNodeList GetNodeList()
+        {
+            return doc.SelectNodes("//rss/channel/item");
+        }
+
         private static Clip CreateClipFromChildNode(XmlNode childNode)
         {
             Clip loRssItem;

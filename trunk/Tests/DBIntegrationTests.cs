@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace NrkBrowser
 {
     [TestFixture]
-    public class DBTests
+    public class DBIntegrationTests
     {
         private NrkParser nrkParser;
 

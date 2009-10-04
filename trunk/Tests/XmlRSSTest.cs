@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using NrkBrowser.Domain;
 using NUnit.Framework;
 
-namespace NrkBrowser.RSS
+namespace NrkBrowser.Xml
 {
     [TestFixture]
-    public class XMLRSSTest
+    public class XMLRSSIntegrationTest
     {
 
         [Test]

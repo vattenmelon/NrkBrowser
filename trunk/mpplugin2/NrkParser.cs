@@ -16,7 +16,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using MediaPortal.GUI.Library;
 using NrkBrowser.Domain;
-using NrkBrowser.RSS;
+using NrkBrowser.Xml;
 
 namespace NrkBrowser
 {
@@ -31,6 +31,7 @@ namespace NrkBrowser
         private static string CLIP_URL = MAIN_URL + "klipp/";
         private static string DIREKTE_URL = MAIN_URL + "direkte/";
         private static string FOLDER_URL = MAIN_URL + "kategori/";
+        
 
         private static string SOK_URL_BEFORE =
             "http://www.nrk.no/nett-tv/DynamiskLaster.aspx?SearchResultList$search:{0}|sort:dato|page:{1}";
@@ -76,11 +77,7 @@ namespace NrkBrowser
 
             foreach (Match x in result)
             {
-                //TODO: 6/9, hvorfor er denne her egentlig?
-                if (x.Groups[2].Value != "Plusspakken")
-                {
-                    categories.Add(new Category(x.Groups[1].Value, x.Groups[2].Value));
-                }
+              categories.Add(new Category(x.Groups[1].Value, x.Groups[2].Value));
             }
             return categories;
         }
@@ -93,7 +90,7 @@ namespace NrkBrowser
 
             Regex query =
                 new Regex(
-                    "<div class=\"img-left\" style=\"width: 100px;\">.*?<a href=\".*?\" title=\".*?\"><img src=\"(.*?)\" width=\"100\" height=\"57\" alt=\".*?\" title=\".*?\".*?></a>.*?</div>.*?<div class=\"intro-element-content\"><h2><a href=\"/nett-tv/klipp/(.*?)\" title=\"(.*?)\">(.*?)</a></h2>",
+                    "<div class=\"img-left\" style=\"width: 100px;\">.*?<a href=\".*?\" title=\".*?\"><img src=\"(.*?)\" width=\"100\" height=\"57\" alt=\".*?\" title=\".*?\".*?></a>.*?</div>.*?<div class=\"intro-element-content\"><h2><a href=\"/nett-tv/klipp/(.*?)\" title=\"(.*?)\">(.*?)</a></h2>.*?<a href=\"/nett-tv/prosjekt/(.*?)\">",
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
@@ -102,6 +99,7 @@ namespace NrkBrowser
             foreach (Match x in matches)
             {
                 Clip c = new Clip(x.Groups[2].Value, x.Groups[4].Value);
+                c.TilhoerendeProsjekt = Int32.Parse(x.Groups[5].Value);
                 c.Description = x.Groups[3].Value;
                 c.Bilde = x.Groups[1].Value;
                 clips.Add(c);
@@ -112,7 +110,7 @@ namespace NrkBrowser
 
         public List<Item> GetMestSette(int dager)
         {
-            Log.Info(NrkConstants.PLUGIN_NAME + ": GetMestSettDenneMaaneden()");
+            Log.Info(string.Format("{0}: GetMestSettDenneMaaneden()", NrkConstants.PLUGIN_NAME));
             string data;
             String url = String.Format("http://www1.nrk.no/nett-tv/ml/topp12.aspx?dager={0}&_=", dager);
             data = FetchUrl(url);
@@ -321,9 +319,9 @@ namespace NrkBrowser
             return programs;
         }
 
-        public List<Item> GetFolders(Program program)
+        private List<Item> GetFolders(int id)
         {
-            string data = FetchUrl(PROGRAM_URL + program.ID);
+            string data = FetchUrl(PROGRAM_URL + id);
             Regex query =
                 new Regex(
                     "<a id=\".*?\" href=\"/nett-tv/kategori/(.*?)\".*?title=\"(.*?)\".*?class=\"icon-(.*?)-black\".*?>(.*?)</a>");
@@ -334,27 +332,33 @@ namespace NrkBrowser
                 folders.Add(new Folder(x.Groups[1].Value, x.Groups[2].Value));
             }
             return folders;
+        }
+
+/*        public List<Item> GetFolders<T>(T notPlayableItem) where T : NotPlayable
+        {
+            return GetFolders(int.Parse(notPlayableItem.ID))
+        }
+        */
+        public List<Item> GetFolders(Program program)
+        {
+            return GetFolders(int.Parse(program.ID));
         }
 
         public List<Item> GetFolders(Folder folder)
         {
-            string data = FetchUrl(FOLDER_URL + folder.ID);
-            Regex query =
-                new Regex(
-                    "<a id=\".*?\" href=\"/nett-tv/kategori/(.*?)\".*?title=\"(.*?)\".*?class=\"icon-(.*?)-black\".*?>(.*?)</a>");
-            MatchCollection matches = query.Matches(data);
-            List<Item> folders = new List<Item>();
-            foreach (Match x in matches)
-            {
-                folders.Add(new Folder(x.Groups[1].Value, x.Groups[2].Value));
-            }
-            return folders;
+            return GetFolders(int.Parse(folder.ID));
         }
 
-        public List<Item> GetClips(Program program)
+        public List<Item> GetFolders(Clip cl)
         {
-            Log.Info("{0}: GetClips(Program): {1}", NrkConstants.PLUGIN_NAME, program);
-            string data = FetchUrl(PROGRAM_URL + program.ID);
+            return GetFolders(cl.TilhoerendeProsjekt);
+        }
+
+
+        private List<Item> GetClips(int id)
+        {
+            Log.Info("{0}: GetClips(int): {1}", NrkConstants.PLUGIN_NAME, id);
+            string data = FetchUrl(PROGRAM_URL + id);
             List<Item> clips = new List<Item>();
             Regex query =
                 new Regex("<a href=\"/nett-tv/klipp/(.*?)\"\\s+title=\"(.*?)\"\\s+class=\"(.*?)\".*?>(.*?)</a>");
@@ -365,6 +369,16 @@ namespace NrkBrowser
             }
 
             return clips;
+        }
+        public List<Item> GetClips(Program program)
+        {
+            Log.Info("{0}: GetClips(Program): {1}", NrkConstants.PLUGIN_NAME, program);
+            return GetClips(Int32.Parse(program.ID));
+        }
+
+        public List<Item> GetClipsTilhoerendeSammeProgram(Clip c)
+        {
+            return GetClips(c.TilhoerendeProsjekt);
         }
 
         public List<Item> GetClips(Folder folder)
@@ -390,7 +404,7 @@ namespace NrkBrowser
 
             if (clip.Type == Clip.KlippType.KLIPP)
             {
-                return GetClipUrlForKlipp(clip);
+                return GetClipUrlAndPutStartTimeForKlipp(clip);
             }
             else if (clip.Type == Clip.KlippType.DIREKTE)
             {
@@ -422,18 +436,6 @@ namespace NrkBrowser
         {
             Log.Debug(NrkConstants.PLUGIN_NAME + ": Clip type is: " + clip.Type);
             string data = FetchUrl(DIREKTE_URL + clip.ID);
-            return getUrl(data);
-        }
-
-        private string GetClipUrlForKlipp(Clip clip)
-        {
-            Log.Debug(NrkConstants.PLUGIN_NAME + ": Clip type is: " + clip.Type);
-            string data = FetchUrl(CLIP_URL + clip.ID);
-            return getUrl(data);
-        }
-
-        private string getUrl(string data)
-        {
             Regex query;
             query = new Regex("<param name=\"FileName\" value=\"(.*?)\" />", RegexOptions.IgnoreCase);
             MatchCollection result = query.Matches(data);
@@ -465,7 +467,7 @@ namespace NrkBrowser
                     //vi kan ikke spille av fullt.gif, returnerer samme som i catch'en.
                     urlToReturn = movie_url[0].Groups[1].Value;
                 }
-                
+
             }
             catch
             {
@@ -476,6 +478,20 @@ namespace NrkBrowser
                 urlToReturn = getDirectLinkWithTicket(urlToReturn);
             }
             return urlToReturn;
+        }
+
+        private string GetClipUrlAndPutStartTimeForKlipp(Clip clip)
+        {
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": Clip type is: " + clip.Type);
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": Parsing xml: " + string.Format(NrkConstants.URL_GET_MEDIAXML, clip.ID, Speed));
+            XmlKlippParser xmlKlippParser = new XmlKlippParser(string.Format(NrkConstants.URL_GET_MEDIAXML, clip.ID, Speed));
+            string url = xmlKlippParser.GetUrl();
+            clip.StartTime = xmlKlippParser.GetStartTimeOfClip();
+            if (urlIsQTicketEnabled(url))
+            {
+                url = getDirectLinkWithTicket(url);
+            }
+            return url;
         }
 
         /// <summary>
@@ -568,5 +584,7 @@ namespace NrkBrowser
             readStream.Close();
             return ret;
         }
+
+
     }
 }

@@ -130,5 +130,10 @@ namespace NrkBrowser
         {
             get { return "http://www1.nrk.no/nett-tv/MediaRss.ashx?loop="; }
         }
+
+        public static string URL_GET_MEDIAXML
+        {
+            get { return "http://www1.nrk.no/nett-tv/silverlight/getmediaxml.ashx?id={0}&hastighet={1}"; }
+        }
     }
 }

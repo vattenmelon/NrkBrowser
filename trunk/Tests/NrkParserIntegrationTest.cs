@@ -97,6 +97,7 @@ namespace NrkBrowser
                 String directLink = nrkParser.GetClipUrl(c);
                 isMMSVideoStream(directLink);
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
+                Assert.IsNotNull(c.TilhoerendeProsjekt, "Tilhørende prosjekt skal være satt");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
                 Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
@@ -155,7 +156,7 @@ namespace NrkBrowser
                 Assert.IsNotEmpty(program.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(program.Bilde, "Bilde kan ikke være null");
                 Assert.IsNotEmpty(program.Title, "Tittelen kan ikke være null");
-                Assert.IsFalse(program.Playable, "Klipp må være playable");
+                Assert.IsFalse(program.Playable, "Program skal ikke være spillbare");
             }
         }
 

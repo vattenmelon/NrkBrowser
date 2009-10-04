@@ -24,6 +24,13 @@ namespace NrkBrowser.Domain
         private Double startTime;
         // sier noe om hvilken måte man finner klipplinken
         private KlippType type = KlippType.KLIPP;
+        private int tilhoerendeProsjekt;
+
+        public int TilhoerendeProsjekt
+        {
+            get { return tilhoerendeProsjekt; }
+            set { tilhoerendeProsjekt = value; }
+        }
 
         public Clip(string id, string title)
             : base(id, title)

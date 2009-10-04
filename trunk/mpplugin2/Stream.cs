@@ -12,9 +12,5 @@ namespace NrkBrowser.Domain
         {
         }
 
-        public override bool Playable
-        {
-            get { return true; }
-        }
     }
 }
