@@ -9,6 +9,7 @@
  * */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
@@ -19,6 +20,7 @@ using MediaPortal.Playlists;
 using MediaPortal.Profile;
 using NrkBrowser.Domain;
 using MenuItem=NrkBrowser.Domain.MenuItem;
+using Stream=NrkBrowser.Domain.Stream;
 
 namespace NrkBrowser
 {
@@ -39,10 +41,11 @@ namespace NrkBrowser
 
         [SkinControlAttribute(50)] protected GUIFacadeControl facadeView = null;
 
-        protected NrkParser _nrk = null;
-        protected Stack<Item> _active = null;
+        protected NrkParser nrkParser = null;
+        protected Stack<Item> activeStack = null;
         private List<Item> matchingItems = new List<Item>();
         private MenuItem favoritter; //used so we can se if option to remove favorite should be shown
+        private bool _workerCompleted = false;
 
         protected bool _osdPlayer = true;
 
@@ -188,7 +191,7 @@ namespace NrkBrowser
             bool result = Load(string.Format(@"{0}\{1}", GUIGraphicsContext.Skin, NrkConstants.SKIN_FILENAME));
             Settings settings = new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.CONFIG_FILE));
             int speed = settings.GetValueAsInt(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_SPEED, 2048);
-            _active = new Stack<Item>();
+            activeStack = new Stack<Item>();
             String quality = settings.GetValueAsString(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_LIVE_STREAM_QUALITY, "Low");
             pluginName = settings.GetValueAsString(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_PLUGIN_NAME, "My Nrk");
 
@@ -204,42 +207,74 @@ namespace NrkBrowser
 
         protected override void OnPageLoad()
         {
-            if (_active.Count == 0)
+            if (activeStack.Count == 0)
             {
                 Activate(null);
             }
             else
             {
                 //for å forhindre at keyboardet kommer opp når man går tilbake fra videovisning til søkresultatsida.
-                if (_active.Peek().ID.Equals("sok"))
+                if (activeStack.Peek().ID.Equals("sok"))
                 {
                     UpdateList(matchingItems);
                     return;
                 }
-                Activate(_active.Pop());
+                Item lAct = activeStack.Pop();
+                Activate(activeStack.Pop());
+                setItemAsSelectedItemInListView(lAct);
             }
         }
 
         protected override void OnPreviousWindow()
         {
-            if (_active.Count <= 0)
+            
+           if (erIHovedMeny())
             {
                 base.OnPreviousWindow();
                 return;
             }
-            _active.Pop(); //we do not want to show the active item again
+            
+            Item lAct = activeStack.Pop(); //we do not want to show the active item again
 
-            if (_active.Count > 0)
+            if (harItemsIMenyStacken())
             {
                 //for å forhindre at keyboardet kommer opp når man "browser bakover" til søkeresultatsida
-                if (_active.Peek().ID.Equals("sok"))
+                if (activeStack.Peek().ID.Equals("sok"))
                 {
                     UpdateList(matchingItems);
                     return;
                 }
-                Activate(_active.Pop());
+                Activate(activeStack.Pop());
             }
-            else Activate(null);
+            else
+            {
+                Activate(null);
+            }
+            setItemAsSelectedItemInListView(lAct);
+        }
+
+        private bool harItemsIMenyStacken()
+        {
+            return activeStack.Count > 0;
+        }
+
+        private bool erIHovedMeny()
+        {
+            return activeStack.Count <= 0;
+        }
+
+        private void setItemAsSelectedItemInListView(Item item)
+        {
+            int indexCounter = 0;
+            foreach (GUIListItem guiListItem in this.facadeView.ListView.ListItems)
+            {
+                if (guiListItem.Label == item.Title)
+                {
+                    this.facadeView.SelectedListItemIndex = indexCounter; 
+                    break;
+                }
+                indexCounter++;
+            }
         }
 
         public override bool OnMessage(GUIMessage message)
@@ -253,14 +288,14 @@ namespace NrkBrowser
 //                        base.OnMessage(message); //code here runs every time the window is displayed 
                         GUIPropertyManager.SetProperty("#currentmodule", NrkConstants.PLUGIN_NAME);
                         
-                        if (_nrk == null)
+                        if (nrkParser == null)
                         {
                             using (WaitCursor cursor = new WaitCursor())
                             {
                                 Log.Info("Parser is null, getting speed-cookie and creates parser.");
                                 Settings settings = new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.CONFIG_FILE));
                                 int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
-                                _nrk = new NrkParser(speed);
+                                nrkParser = new NrkParser(speed);
                             }
                         }
                         break;
@@ -290,7 +325,6 @@ namespace NrkBrowser
                 selecteditem.ID == "live" || selecteditem.ID == "mestSett" || selecteditem.ID == "sok" || selecteditem.ID == "liveAlternate" ||
                 selecteditem is Category)
             {
-//                GUIPropertyManager.SetProperty(PROGRAM_PICTURE, "");
                 GUIPropertyManager.SetProperty(NrkConstants.GUI_PROPERTY_PROGRAM_PICTURE, NrkConstants.DEFAULT_PICTURE);
             }
 
@@ -304,13 +338,13 @@ namespace NrkBrowser
 
         private bool erFavoritt()
         {
-            if (_active.Count == 0)
+            if (activeStack.Count == 0)
             {
                 return false;
             }
             else
             {
-                return _active.Peek() == favoritter;
+                return activeStack.Peek() == favoritter;
             }
         }
 
@@ -365,16 +399,17 @@ namespace NrkBrowser
 
         public void search(SearchItem item)
         {
-            matchingItems = _nrk.GetSearchHits(item.Keyword, item.IndexPage + 1);
+            matchingItems = nrkParser.GetSearchHits(item.Keyword, item.IndexPage + 1);
+            createViewNextPageSearchItemIfNecessary(item.Keyword, item.IndexPage + 1);
+            UpdateList(matchingItems);
+        }
 
+        private void createViewNextPageSearchItemIfNecessary(String keyword, int indexPage)
+        {
             if (matchingItems.Count == 25)
             {
-                SearchItem nextPage = new SearchItem("nextPage", "Neste side", item.IndexPage + 1);
-                nextPage.Description = "Se de neste 25 treffene";
-                nextPage.Keyword = item.Keyword;
-                matchingItems.Add(nextPage);
+                createNextPageSearchItem(keyword, indexPage);
             }
-            UpdateList(matchingItems);
         }
 
         public void search()
@@ -388,15 +423,17 @@ namespace NrkBrowser
 
         private void search(String keyword)
         {
-            matchingItems = _nrk.GetSearchHits(keyword, 0);
-            if (matchingItems.Count == 25)
-            {
-                SearchItem nextPage = new SearchItem("nextPage", "Neste side", 0);
-                nextPage.Description = "Se de neste 25 treffene";
-                nextPage.Keyword = keyword;
-                matchingItems.Add(nextPage);
-            }
+            matchingItems = nrkParser.GetSearchHits(keyword, 0);
+            createViewNextPageSearchItemIfNecessary(keyword, 0);
             UpdateList(matchingItems);
+        }
+
+        private void createNextPageSearchItem(string keyword, int indexPage)
+        {
+            SearchItem nextPage = new SearchItem(NrkConstants.SEARCH_NEXTPAGE_ID, NrkConstants.SEARCH_NEXTPAGE_TITLE, indexPage);
+            nextPage.Description = NrkConstants.SEARCH_NEXTPAGE_DESCRIPTION;
+            nextPage.Keyword = keyword;
+            matchingItems.Add(nextPage);
         }
 
         protected void Activate(Item item)
@@ -405,53 +442,11 @@ namespace NrkBrowser
         
             if (item == null)
             {
-                List<Item> items = new List<Item>();
-                items.Add(new MenuItem("all", "Alfabetisk liste"));
-                items.Add(new MenuItem("categories", "Kategorier"));
-                items.Add(new MenuItem("live", "Direktestrømmer"));
-                MenuItem anbefalte = new MenuItem("anbefalte", "Anbefalte programmer");
-                anbefalte.Description = "Anbefalte programmer fra forsiden akkurat nå";
-                items.Add(anbefalte);
-
-                MenuItem mestSett = new MenuItem("mestSett", "Mest sett");
-                mestSett.Description = "De mest populære klippene!";
-                items.Add(mestSett);
-
-
-                MenuItem nyheter = new MenuItem("nyheter", "Nyheter");
-                nyheter.Description = "De siste nyhetsklippene";
-                nyheter.Bilde = PICTURE_DIR + "nrknyheter.jpg";
-                items.Add(nyheter);
-
-                MenuItem sport = new MenuItem("sport", "Sport");
-                sport.Description = "De siste sportsklippene";
-                sport.Bilde = PICTURE_DIR + "nrksport.jpg";
-                items.Add(sport);
-
-                MenuItem natur = new MenuItem("natur", "Natur");
-                natur.Description = "De siste naturklippene";
-                natur.Bilde = PICTURE_DIR + "nrknatur.jpg";
-                items.Add(natur);
-
-                MenuItem super = new MenuItem("super", "Super");
-                super.Description = "De siste klippene fra super";
-                super.Bilde = PICTURE_DIR + "nrksuper.jpg";
-                items.Add(super);
-         
-                List<Item> tabItems = GetTabItems();
-                items.AddRange(tabItems);
-
-                MenuItem sok = new MenuItem("sok", "Søk");
-                sok.Description = "Søk i arkivet";
-                items.Add(sok);
-
-                favoritter = new MenuItem("favoritter", "Favoritter");
-                favoritter.Description = "Se dine favoritter";
-                items.Add(favoritter);
-
-                UpdateList(items);
+                UpdateList(CreateInitialMenuItems());
                 return;
             }
+
+            activeStack.Push(item);
 
             if (item is Clip)
             {
@@ -465,9 +460,6 @@ namespace NrkBrowser
                 return;
             }
 
-            //push var her tidligere
-            _active.Push(item);
-
             if (item.ID == "favoritter")
             {
                 FillStackWithFavourites();
@@ -480,124 +472,177 @@ namespace NrkBrowser
             }
             if (item.ID == "nextPage")
             {
-                SearchItem sItem = (SearchItem) item;
-                search(sItem);
+                search((SearchItem) item);
                 return;
             }
 
             if (item.ID == "anbefalte")
             {
-                List<Item> items = _nrk.GetAnbefaltePaaForsiden();
-                UpdateList(items);
-                setClipCount(items);
+                UpdateList(nrkParser.GetAnbefaltePaaForsiden());
+                setClipCount(nrkParser.GetAnbefaltePaaForsiden());
                 return;
             }
 
             if (item.ID == "mestSett")
             {
-                List<Item> items = CreateMestSetteListItems();
-                UpdateList(items);
+                UpdateList(CreateMestSetteListItems());
                 return;
             }
 
             if (item.ID == "mestSettUke")
             {
-                List<Item> items = _nrk.GetMestSette(7);
-                UpdateListAndSetClipCount(items);
+                UpdateListAndSetClipCount(nrkParser.GetMestSette(7));
                 return;
             }
 
             if (item.ID == "mestSettMaaned")
             {
-                List<Item> items = _nrk.GetMestSette(31);
-                UpdateListAndSetClipCount(items);
+                UpdateListAndSetClipCount(nrkParser.GetMestSette(31));
                 return;
             }
 
             if (item.ID == "mestSettTotalt")
             {
-                List<Item> items = _nrk.GetMestSette(3650);
-                UpdateListAndSetClipCount(items);
+                UpdateListAndSetClipCount(nrkParser.GetMestSette(3650));
                 return;
             }
 
             if (item.ID == "nyheter" || item.ID == "sport" || item.ID == "natur" || item.ID == "super")
             {
-                List<Item> items = _nrk.GetTopTabRSS(item.ID);
-                UpdateListAndSetClipCount(items);
+                UpdateListAndSetClipCount(nrkParser.GetTopTabRSS(item.ID));
                 return;
             }
 
             if (item.ID == "categories")
             {
-                List<Item> items = _nrk.GetCategories();
-                UpdateList(items);
+                UpdateList(nrkParser.GetCategories());
                 return;
             }
 
             if (item.ID == "all")
             {
-                List<Item> items = _nrk.GetAllPrograms();
-                UpdateList(items);
+                UpdateList(nrkParser.GetAllPrograms());
                 return;
             }
 
             if (item.ID == "live")
             {
-                List<Item> items = _nrk.GetDirektePage("direkte");
-                items.Add(new MenuItem("liveAlternate", "Alternative linker"));
-                UpdateList(items);
+                UpdateList(CreateLiveMenuItems());
                 return;
             }
             if (item.ID == "liveAlternate")
             {
-                List<Item> items = new List<Item>();
-                items.Add(new Stream(NrkConstants.STREAM_PREFIX + "03" + _suffix, "NRK 1"));
-                items.Add(new Stream(NrkConstants.STREAM_PREFIX + "04" + _suffix, "NRK 2"));
-                items.Add(new Stream(NrkConstants.STREAM_PREFIX + "05" + _suffix, "NRK Alltid Nyheter"));
-                items.Add(new Stream(NrkConstants.STREAM_PREFIX + "08" + _suffix, "Testkanal (innhold varierer)"));
-                items.Add(new MenuItem("liveall", "Velg strøm manuelt"));
-                UpdateList(items);
+                UpdateList(CreateLiveAlternateMenuItems());
                 return;
             }
 
             if (item.ID == "liveall")
             {
-                List<Item> items = new List<Item>();
-                for (int i = 0; i < 10; i++)
-                {
-                    items.Add(new Stream(NrkConstants.STREAM_PREFIX + i.ToString("D2") + _suffix, "Strøm " + i));
-                }
-                UpdateList(items);
+                UpdateList(CreateLiveAlternateAllMenuItems());
                 return;
             }
             if (item is AutogeneratedMenuItem)
             {
-                UpdateList(_nrk.GetTopTabContent(item.ID));
+                UpdateList(nrkParser.GetTopTabContent(item.ID));
             }
             if (item is Category)
             {
-                UpdateList(_nrk.GetPrograms((Category) item));
+                UpdateList(nrkParser.GetPrograms((Category) item));
             }
             if (item is Program)
             {
-                List<Item> items = _nrk.GetClips((Program) item);
+                List<Item> items = nrkParser.GetClips((Program) item);
                 setClipCount(items);
-                items.AddRange(_nrk.GetFolders((Program) item));
+                items.AddRange(nrkParser.GetFolders((Program) item));
                 UpdateList(items);
             }
             if (item is Folder)
             {
-                List<Item> items = _nrk.GetClips((Folder) item);
+                List<Item> items = nrkParser.GetClips((Folder) item);
                 setClipCount(items);
-                items.AddRange(_nrk.GetFolders((Folder) item));
+                items.AddRange(nrkParser.GetFolders((Folder) item));
                 UpdateList(items);
             }
         }
 
+        private List<Item> CreateInitialMenuItems()
+        {
+            List<Item> items = new List<Item>();
+            items.Add(new MenuItem("all", "Alfabetisk liste"));
+            items.Add(new MenuItem("categories", "Kategorier"));
+            items.Add(new MenuItem("live", "Direktestrømmer"));
+            MenuItem anbefalte = new MenuItem("anbefalte", "Anbefalte programmer");
+            anbefalte.Description = "Anbefalte programmer fra forsiden akkurat nå";
+            items.Add(anbefalte);
+
+            MenuItem mestSett = new MenuItem("mestSett", "Mest sett");
+            mestSett.Description = "De mest populære klippene!";
+            items.Add(mestSett);
+
+            MenuItem nyheter = new MenuItem("nyheter", "Nyheter");
+            nyheter.Description = "De siste nyhetsklippene";
+            nyheter.Bilde = PICTURE_DIR + "nrknyheter.jpg";
+            items.Add(nyheter);
+
+            MenuItem sport = new MenuItem("sport", "Sport");
+            sport.Description = "De siste sportsklippene";
+            sport.Bilde = PICTURE_DIR + "nrksport.jpg";
+            items.Add(sport);
+
+            MenuItem natur = new MenuItem("natur", "Natur");
+            natur.Description = "De siste naturklippene";
+            natur.Bilde = PICTURE_DIR + "nrknatur.jpg";
+            items.Add(natur);
+
+            MenuItem super = new MenuItem("super", "Super");
+            super.Description = "De siste klippene fra super";
+            super.Bilde = PICTURE_DIR + "nrksuper.jpg";
+            items.Add(super);
+         
+            List<Item> tabItems = GetTabItems();
+            items.AddRange(tabItems);
+
+            MenuItem sok = new MenuItem("sok", "Søk");
+            sok.Description = "Søk i arkivet";
+            items.Add(sok);
+
+            favoritter = new MenuItem(NrkConstants.MENU_ITEM_ID_FAVOURITES, NrkConstants.MENU_ITEM_TITLE_FAVOURITES);
+            favoritter.Description = NrkConstants.MENU_ITEM_DESCRIPTION_FAVOURITES;
+            items.Add(favoritter);
+            return items;
+        }
+
+        private List<Item> CreateLiveMenuItems()
+        {
+            List<Item> items = nrkParser.GetDirektePage("direkte");
+            items.Add(new MenuItem("liveAlternate", "Alternative linker"));
+            return items;
+        }
+
+        private List<Item> CreateLiveAlternateAllMenuItems()
+        {
+            List<Item> items = new List<Item>();
+            for (int i = 0; i < 10; i++)
+            {
+                items.Add(new Stream(NrkConstants.STREAM_PREFIX + i.ToString("D2") + _suffix, "Strøm " + i));
+            }
+            return items;
+        }
+
+        private List<Item> CreateLiveAlternateMenuItems()
+        {
+            List<Item> items = new List<Item>();
+            items.Add(new Stream(NrkConstants.STREAM_PREFIX + "03" + _suffix, "NRK 1"));
+            items.Add(new Stream(NrkConstants.STREAM_PREFIX + "04" + _suffix, "NRK 2"));
+            items.Add(new Stream(NrkConstants.STREAM_PREFIX + "05" + _suffix, "NRK Alltid Nyheter"));
+            items.Add(new Stream(NrkConstants.STREAM_PREFIX + "08" + _suffix, "Testkanal (innhold varierer)"));
+            items.Add(new MenuItem("liveall", "Velg strøm manuelt"));
+            return items;
+        }
+
         public List<Item> GetTabItems()
         {
-           List<Item> menuItems = _nrk.GetTopTabber();
+           List<Item> menuItems = nrkParser.GetTopTabber();
             menuItems.RemoveAll(delegate(Item item)
                                     {
                                         return
@@ -649,21 +694,22 @@ namespace NrkBrowser
         private void FillStackWithFavourites()
         {
             Log.Debug(NrkConstants.PLUGIN_NAME + "FillStackWithFavourites()");
-            List<Item> items = FavoritesUtil.getDatabase(null).getFavoriteVideos();
+            List<Item> items = FavoritesUtil.getDatabase().getFavoriteVideos();
             UpdateList(items);
         }
 
         protected void PlayClip(Clip item)
         {
-            Log.Info(NrkConstants.PLUGIN_NAME + " PlayClip " + item);
-            string url = _nrk.GetClipUrl(item);
+            Log.Info(string.Format("{0} PlayClip {1}", NrkConstants.PLUGIN_NAME, item));
+            string url = nrkParser.GetClipUrl(item);
             if (url == null)
             {
-                ShowMessageBox("Kunne ikke spille av klipp");
+                ShowMessageBox(NrkConstants.PLAYBACK_FAILED_URL_WAS_NULL);
                 return;
             }
             Log.Info(NrkConstants.PLUGIN_NAME + " PlayClip, url is: " + url);
             PlayUrl(url, item.Title, item.StartTime);
+            
         }
 
         protected void PlayStream(Stream item)
@@ -680,57 +726,114 @@ namespace NrkBrowser
         /// <param name="startTime"></param>
         protected void PlayUrl(string url, string title, double startTime)
         {
-            Log.Info(NrkConstants.PLUGIN_NAME + "PlayUrl");
+            GUIWaitCursor.Init();
+            GUIWaitCursor.Show();
+            _workerCompleted = false;
+            BackgroundWorker worker = new BackgroundWorker();
+            PlayArgs pArgs = new PlayArgs();
+            pArgs.url = url;
+            pArgs.title = title;
+            pArgs.startTime = startTime;
+            worker.DoWork += new DoWorkEventHandler(PlayMethodDelegate);
+            worker.RunWorkerAsync(pArgs);
+            //worker.IsBusy prøv å bruke denne istedetfor _workercompleted
+            while (_workerCompleted == false) GUIWindowManager.Process();
+            GUIWaitCursor.Hide();
 
+            
+        
+        }
+        private class PlayArgs
+        {
+            public string url;
+            public string title;
+            public double startTime;
+        }
+        private void PlayMethodDelegate(object sender, DoWorkEventArgs e)
+        {
+            Log.Info(string.Format("{0}: PlayMethodDelegate", NrkConstants.PLUGIN_NAME));
+            PlayArgs pArgs = (PlayArgs) e.Argument;
+            
             PlayListType type;
-            if (url.EndsWith(".wmv")){ type = PlayListType.PLAYLIST_VIDEO_TEMP;}
-            else if (url.EndsWith(".wma") || url.ToLower().EndsWith(".mp3")){ type = PlayListType.PLAYLIST_RADIO_STREAMS;}
-                //FIXME: Hangs on some audio streams...
-            else if (url.EndsWith("_h")) type = PlayListType.PLAYLIST_VIDEO_TEMP; //det er en av live streamene
+            if (isWMVVideo(pArgs))
+            {
+                type = PlayListType.PLAYLIST_VIDEO_TEMP;
+            }
+            else if (isWMAorMP3Audio(pArgs))
+            {
+                type = PlayListType.PLAYLIST_RADIO_STREAMS;
+            }
+            else if (isLiveStream(pArgs)) type = PlayListType.PLAYLIST_VIDEO_TEMP; //det er en av live streamene
             else
             {
+                Log.Info(string.Format("Couldn't determine playlist type for: {0}", pArgs.url));
                 type = PlayListType.PLAYLIST_VIDEO_TEMP;
             }
             bool playOk = false;
 
             if (_osdPlayer)
             {
-                playOk = playWithOsd(url, title, type, startTime);
+                playOk = playWithOsd(pArgs.url, pArgs.title, type, pArgs.startTime);
             }
             else
             {
-                playOk = playWithoutOsd(url, title, type, startTime);
+                playOk = playWithoutOsd(pArgs.url, pArgs.title, type, pArgs.startTime);
             }
 
             if (!playOk)
             {
-                string message = String.Empty;
-                //if contains geoblokk
-                if (_osdPlayer)
-                {
-                    message = "Avspilling feilet, prøv å slå av osd player/vmr 9 for webstreams";
-                }
-                else
-                {
-                    message = "Avspilling feilet";
-                }
-                if (url.Contains("geoblokk"))
-                {
-                    message = "Avspilling feilet";
-                    message += "Valgt klipp er kun tilgjengelig i Norge. (Chosen clip is only available in Norway)";
-                }
-                ShowMessageBox(message);
-                Log.Info(NrkConstants.PLUGIN_NAME + " Playing failed");
+                ifPlaybackFailed(pArgs);
             }
             else
             {
-                if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
-                {
-                    Log.Info(NrkConstants.PLUGIN_NAME + " Playing OK, switching to fullscreen");
-                    g_Player.ShowFullScreenWindow();
-                    g_Player.FullScreen = true;
-                }
+                ifPlayBackSucceded(type);
             }
+            _workerCompleted = true;
+        }
+
+        private static void ifPlayBackSucceded(PlayListType type)
+        {
+            if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
+            {
+                Log.Info(NrkConstants.PLUGIN_NAME + " Playing OK, switching to fullscreen");
+                g_Player.ShowFullScreenWindow();
+                g_Player.FullScreen = true;
+            }
+        }
+
+        private void ifPlaybackFailed(PlayArgs pArgs)
+        {
+            string message = String.Empty;
+            if (_osdPlayer)
+            {
+                message = NrkConstants.PLAYBACK_FAILED_TRY_DISABLING_VMR9;
+            }
+            else
+            {
+                message = NrkConstants.PLAYBACK_FAILED_GENERIC;
+            }
+            if (pArgs.url.Contains("geoblokk"))
+            {
+                message = NrkConstants.PLAYBACK_FAILED_GENERIC;
+                message += NrkConstants.PLAYBACK_FAILED_GEOBLOCKED_TO_NORWAY;
+            }
+            ShowMessageBox(message);
+            Log.Info(NrkConstants.PLUGIN_NAME + " Playing failed");
+        }
+
+        private static bool isLiveStream(PlayArgs pArgs)
+        {
+            return pArgs.url.ToLower().EndsWith("_h");
+        }
+
+        private static bool isWMVVideo(PlayArgs pArgs)
+        {
+            return pArgs.url.ToLower().EndsWith(".wmv");
+        }
+
+        private static bool isWMAorMP3Audio(PlayArgs pArgs)
+        {
+            return pArgs.url.ToLower().EndsWith(".wma") || pArgs.url.ToLower().EndsWith(".mp3");
         }
 
         /// <summary>
@@ -800,7 +903,7 @@ namespace NrkBrowser
             //  Log.Info(NrkConstants.PLUGIN_NAME + "Showing error: " + message);
             GUIDialogNotify dlg =
                 (GUIDialogNotify) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_NOTIFY);
-            dlg.SetHeading("NrkBrowser");
+            dlg.SetHeading(NrkConstants.MESSAGE_BOX_HEADER_TEXT);
             dlg.SetText(message);
             dlg.DoModal(GUIWindowManager.ActiveWindow);
         }
@@ -813,134 +916,83 @@ namespace NrkBrowser
             if (dlgMenu != null)
             {
                 dlgMenu.Reset();
-                dlgMenu.SetHeading("NRK Browser");
+                dlgMenu.SetHeading(NrkConstants.CONTEXTMENU_HEADER_TEXT);
                 if (item is Clip)
                 {
                     Clip cl = (Clip) item;
                     if (cl.TilhoerendeProsjekt > 0)
                     {
-                        dlgMenu.Add("Se tidligere programmer");
+                        dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER);
                     }
                 }
-                if (!_active.Contains(favoritter))
+                if (!activeStack.Contains(favoritter))
                 {
-                    dlgMenu.Add("Legg til i favoritter");
+                    dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_LEGG_TIL_I_FAVORITTER);
                 }
-                if (_active.Contains(favoritter))
+                if (activeStack.Contains(favoritter))
                 {
-                    dlgMenu.Add("Fjern favoritt");
+                    dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_FJERN_FAVORITT);
                 }
-                dlgMenu.Add("Bruk valgt som søkeord");
-                dlgMenu.Add("Kvalitet");
-//                dlgMenu.Add("Se etter ny versjon");
+                dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_BRUK_VALGT_SOM_SOEKEORD);
+                dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_KVALITET);
+                dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION);
                 dlgMenu.DoModal(GetWindowId());
 
                 if (dlgMenu.SelectedLabel == -1) // Nothing was selected
                 {
                     return;
                 }
-                if (dlgMenu.SelectedLabelText == "Se tidligere programmer")
+
+                if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER)
                 {
                     Clip cl = (Clip) item;
-                    List<Item> items = _nrk.GetClipsTilhoerendeSammeProgram(cl);
-                    items.AddRange(_nrk.GetFolders(cl));
+                    List<Item> items = nrkParser.GetClipsTilhoerendeSammeProgram(cl);
+                    items.AddRange(nrkParser.GetFolders(cl));
+                    activeStack.Push(item);
                     UpdateList(items);
                    
                 }
-                if (dlgMenu.SelectedLabelText == "Legg til i favoritter")
+                if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_LEGG_TIL_I_FAVORITTER)
                 {
                     addToFavourites(item);
                 }
-                else if (dlgMenu.SelectedLabelText == "Bruk valgt som søkeord")
+                else if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_BRUK_VALGT_SOM_SOEKEORD)
                 {
                     search(item.Title);
                 }
-                else if (dlgMenu.SelectedLabelText == "Fjern favoritt")
+                else if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_FJERN_FAVORITT)
                 {
                     removeFavourite(item);
                 }
-                else if (dlgMenu.SelectedLabelText == "Kvalitet")
+                else if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_KVALITET)
                 {
                     openQualityMenu(dlgMenu);
                 }
-//                else if (dlgMenu.SelectedLabelText == "Se etter ny versjon")
-//                {
-//                    String nyVer = String.Empty;
-//                    if (newVersionAvailable(ref nyVer))
-//                    {
-//                        ShowMessageBox(string.Format("Ny versjon er tilgjengelig (ver. {0}), last ned fra mediaportal forumet.", nyVer));
-//                    }
-//                    else
-//                    {
-//                        ShowMessageBox("Ingen nyere versjon tilgjengelig.");
-//                    }
-//                }
+                else if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION)
+                {
+                    String nyVer = String.Empty;
+                    if (VersionChecker.newVersionAvailable(ref nyVer))
+                    {
+                        ShowMessageBox(string.Format(NrkConstants.NEW_VERSION_IS_AVAILABLE, nyVer));
+                    }
+                    else
+                    {
+                        ShowMessageBox(NrkConstants.NEW_VERSION_IS_NOT_AVAILABLE);
+                    }
+                }
                
             }
         }
 
-//        public static bool newVersionAvailable(ref String nyVer)
-//        {
-//            Log.Info("Checking for new version of plugin");
-//            String availableVersion = GetNewestAvailableVersion();
-//            nyVer = availableVersion;
-//            String thisVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-//            String[] splittedAvailable = availableVersion.Split('.');
-//            String[] splittedThis = thisVersion.Split('.');
-//            if (Int32.Parse(splittedAvailable[0]) > Int32.Parse(splittedThis[0]))
-//            {
-//                return true;
-//            }
-//            else if (Int32.Parse(splittedAvailable[1]) > Int32.Parse(splittedThis[1]))
-//            {
-//                return true;
-//            }
-//            else if (Int32.Parse(splittedAvailable[2]) > Int32.Parse(splittedThis[2]))
-//            {
-//                return true;
-//            }
-//            return false;
-//        }
-//
-//        private static string GetNewestAvailableVersion()
-//        {
-//            System.Net.ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(trustAllCertificates);
-//            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("someurl/ver.txt");
-//            request.UserAgent = string.Format("NrkBrowser Updater(plugin-version: {0})", Assembly.GetExecutingAssembly().GetName().Version.ToString());
-//            // Set some reasonable limits on resources used by this request
-//            request.MaximumAutomaticRedirections = 4;
-//            request.MaximumResponseHeadersLength = 4;
-//            NetworkCredential nc = new NetworkCredential("updateUser", "update");
-//            request.Credentials = nc;
-//            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-//
-//            // Get the stream associated with the response.
-//            System.IO.Stream receiveStream = response.GetResponseStream();
-//
-//            // Pipes the stream to a higher level stream reader with the required encoding format. 
-//            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
-//
-//            string ret = readStream.ReadToEnd();
-//            Log.Info("Newest version of plugin is: " + ret);
-//            response.Close();
-//            readStream.Close();
-//            return ret;
-//        }
-//
-//        private static bool trustAllCertificates(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-//        {
-//            return true;
-//        }
-
         protected void openQualityMenu(GUIDialogMenu dlgMenu)
         {
                 dlgMenu.Reset();
-                dlgMenu.SetHeading("Velg kvalitet");
-                GUIListItem lowQuality = new GUIListItem("Lav kvalitet");
+                dlgMenu.SetHeading(NrkConstants.QUALITY_MENU_HEADER);
+                GUIListItem lowQuality = new GUIListItem(NrkConstants.QUALITY_MENU_LOW_QUALITY);
                 lowQuality.ItemId = 1;
-                GUIListItem mediumQuality = new GUIListItem("Middels kvalitet");
+                GUIListItem mediumQuality = new GUIListItem(NrkConstants.QUALITY_MENU_MEDIUM_QUALITY);
                 mediumQuality.ItemId = 2;
-                GUIListItem highQuality = new GUIListItem("Høy kvalitet");
+                GUIListItem highQuality = new GUIListItem(NrkConstants.QUALITY_MENU_HIGH_QUALITY);
                 highQuality.ItemId = 3;
                 dlgMenu.Add(lowQuality);
                 dlgMenu.Add(mediumQuality);
@@ -950,19 +1002,19 @@ namespace NrkBrowser
                 {
                     int speed = 400;
                     Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
-                    _nrk = new NrkParser(speed);
+                    nrkParser = new NrkParser(speed);
                 }
                 else if (dlgMenu.SelectedId == mediumQuality.ItemId)
                 {
                     int speed = 1000;
                     Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
-                    _nrk = new NrkParser(speed);
+                    nrkParser = new NrkParser(speed);
                 }
                 else if (dlgMenu.SelectedId == highQuality.ItemId)
                 {
                     int speed = 10000;
                     Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
-                    _nrk = new NrkParser(speed);
+                    nrkParser = new NrkParser(speed);
                 }
         }
 
@@ -980,7 +1032,7 @@ namespace NrkBrowser
                 String message = "";
                 if (!db.addFavoriteVideo(c, ref message))
                 {
-                    ShowMessageBox("Favoritt kunne ikke bli lagt til: " + message);
+                    ShowMessageBox(string.Format(NrkConstants.FAVOURITES_COULD_NOT_BE_ADDED, message));
                 }
             }
             else if (item is Program)
@@ -989,12 +1041,12 @@ namespace NrkBrowser
                 String message = "";
                 if (!db.addFavoriteProgram(p, ref message))
                 {
-                    ShowMessageBox("Favoritt kunne ikke bli lagt til: " + message);
+                    ShowMessageBox(string.Format(NrkConstants.FAVOURITES_COULD_NOT_BE_ADDED, message));
                 }
             }
             else
             {
-                ShowMessageBox("Kun klipp eller program kan legges til som favoritt");
+                ShowMessageBox(NrkConstants.FAVOURITES_UNSUPPORTED_TYPE);
             }
         }
 
@@ -1009,13 +1061,11 @@ namespace NrkBrowser
             bool removedSuccessFully = false;
             if (item is Clip)
             {
-                Clip c = (Clip) item;
-                removedSuccessFully = db.removeFavoriteVideo(c);
+                removedSuccessFully = db.removeFavoriteVideo((Clip) item);
             }
             else if (item is Program)
             {
-                Program p = (Program) item;
-                removedSuccessFully = db.removeFavoriteProgram(p);
+                removedSuccessFully = db.removeFavoriteProgram((Program)item);
             }
             else
             {
@@ -1024,7 +1074,7 @@ namespace NrkBrowser
 
             if (!removedSuccessFully)
             {
-                ShowMessageBox("Favoritt kunne ikke fjernes");
+                ShowMessageBox(NrkConstants.FAVOURITES_COULD_NOT_BE_REMOVED);
             }
             else
             {

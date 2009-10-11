@@ -110,7 +110,10 @@ namespace NrkBrowser
                 sqlClient = null;
             }
         }
-
+        public static FavoritesUtil getDatabase()
+        {
+            return getDatabase(null);
+        }
         /// <summary>
         /// Call this method to get an instance of the database 
         /// </summary>

@@ -110,11 +110,10 @@ namespace NrkBrowser
 
         public List<Item> GetMestSette(int dager)
         {
-            Log.Info(string.Format("{0}: GetMestSettDenneMaaneden()", NrkConstants.PLUGIN_NAME));
+            Log.Info(string.Format("{0}: GetMestSette(), siste {1} dager", NrkConstants.PLUGIN_NAME, dager));
             string data;
             String url = String.Format("http://www1.nrk.no/nett-tv/ml/topp12.aspx?dager={0}&_=", dager);
             data = FetchUrl(url);
-            Console.WriteLine(data);
             //"<a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\">.*?</a></h2><p><a href=\".*?/nett-tv/klipp/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></p>",
             Regex query =
                 new Regex(
@@ -124,12 +123,11 @@ namespace NrkBrowser
             List<Item> clips = new List<Item>();
 
             Log.Info(NrkConstants.PLUGIN_NAME + ": Matches {0}", matches.Count);
-            Console.WriteLine("matches: " + matches.Count);
             foreach (Match x in matches)
             {
                 Clip c = new Clip(x.Groups[3].Value, x.Groups[4].Value);
                 c.AntallGangerVist = x.Groups[5].Value;
-                c.Description = String.Format("Klipp vist {0} ganger denne uken.", c.AntallGangerVist);
+                c.Description = String.Format("Klipp vist {0} ganger.", c.AntallGangerVist);
                 c.Bilde = x.Groups[1].Value;
                 if (x.Groups[2].Value.Trim().ToLower().Equals("indeks"))
                 {
@@ -559,11 +557,10 @@ namespace NrkBrowser
         }
 
 
-        private string FetchUrl(string url)
+        public  string FetchUrl(string url)
         {
             Log.Info(NrkConstants.PLUGIN_NAME + ": FetchUrl(String): " + url);
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
-            //Console.WriteLine("address: " + request.Address);
             request.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)";
             request.CookieContainer = _jar;
             // Set some reasonable limits on resources used by this request
