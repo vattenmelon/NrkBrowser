@@ -20,16 +20,14 @@ using MediaPortal.Playlists;
 using MediaPortal.Profile;
 using NrkBrowser.Domain;
 using MenuItem=NrkBrowser.Domain.MenuItem;
-using Stream=NrkBrowser.Domain.Stream;
 
 namespace NrkBrowser
 {
     public class NrkPlugin : GUIWindow, ISetupForm
     {
         private static string PICTURE_DIR = string.Format(@"{0}\media\nrkbrowser\", GUIGraphicsContext.Skin);
-        
-        protected string _suffix = "_l";
 
+        protected string _suffix = "_l";
 
 
         /// <summary>
@@ -91,7 +89,8 @@ namespace NrkBrowser
 
             string quality = initLiveStreamQuality(form, settings);
 
-            pluginName = settings.GetValueAsString(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_PLUGIN_NAME, "My Nrk");
+            pluginName =
+                settings.GetValueAsString(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_PLUGIN_NAME, "My Nrk");
             form.NameTextbox.Text = pluginName;
 
             DialogResult res = form.ShowDialog();
@@ -114,7 +113,9 @@ namespace NrkBrowser
 
         private static string initLiveStreamQuality(SettingsForm form, Settings settings)
         {
-            string quality = settings.GetValueAsString(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_LIVE_STREAM_QUALITY, "Low");
+            string quality =
+                settings.GetValueAsString(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_LIVE_STREAM_QUALITY,
+                                          "Low");
             form.liveStreamQualityCombo.SelectedIndex = form.liveStreamQualityCombo.Items.IndexOf(quality);
             return quality;
         }
@@ -183,7 +184,9 @@ namespace NrkBrowser
         public override bool Init()
         {
             Log.Debug(string.Format("{0}: Init()", NrkConstants.PLUGIN_NAME));
-            using (Settings xmlreader = new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.MEDIAPORTAL_CONFIG_FILE)))
+            using (
+                Settings xmlreader =
+                    new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.MEDIAPORTAL_CONFIG_FILE)))
             {
                 _osdPlayer = xmlreader.GetValueAsBool("general", "usevrm9forwebstreams", true);
             }
@@ -192,8 +195,11 @@ namespace NrkBrowser
             Settings settings = new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.CONFIG_FILE));
             int speed = settings.GetValueAsInt(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_SPEED, 2048);
             activeStack = new Stack<Item>();
-            String quality = settings.GetValueAsString(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_LIVE_STREAM_QUALITY, "Low");
-            pluginName = settings.GetValueAsString(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_PLUGIN_NAME, "My Nrk");
+            String quality =
+                settings.GetValueAsString(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_LIVE_STREAM_QUALITY,
+                                          "Low");
+            pluginName =
+                settings.GetValueAsString(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_PLUGIN_NAME, "My Nrk");
 
             Dictionary<String, String> qualityMap = new Dictionary<string, string>();
             qualityMap["Low"] = "_l";
@@ -227,13 +233,12 @@ namespace NrkBrowser
 
         protected override void OnPreviousWindow()
         {
-            
-           if (erIHovedMeny())
+            if (erIHovedMeny())
             {
                 base.OnPreviousWindow();
                 return;
             }
-            
+
             Item lAct = activeStack.Pop(); //we do not want to show the active item again
 
             if (harItemsIMenyStacken())
@@ -270,7 +275,7 @@ namespace NrkBrowser
             {
                 if (guiListItem.Label == item.Title)
                 {
-                    this.facadeView.SelectedListItemIndex = indexCounter; 
+                    this.facadeView.SelectedListItemIndex = indexCounter;
                     break;
                 }
                 indexCounter++;
@@ -284,16 +289,19 @@ namespace NrkBrowser
             {
                 case GUIMessage.MessageType.GUI_MSG_WINDOW_INIT:
                     {
-                        Log.Debug(string.Format("{0}: onMessage() with MessageType: [{1}]", NrkConstants.PLUGIN_NAME, "GUI_MSG_WINDOW_INIT"));
+                        Log.Debug(
+                            string.Format("{0}: onMessage() with MessageType: [{1}]", NrkConstants.PLUGIN_NAME,
+                                          "GUI_MSG_WINDOW_INIT"));
 //                        base.OnMessage(message); //code here runs every time the window is displayed 
                         GUIPropertyManager.SetProperty("#currentmodule", NrkConstants.PLUGIN_NAME);
-                        
+
                         if (nrkParser == null)
                         {
                             using (WaitCursor cursor = new WaitCursor())
                             {
                                 Log.Info("Parser is null, getting speed-cookie and creates parser.");
-                                Settings settings = new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.CONFIG_FILE));
+                                Settings settings =
+                                    new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.CONFIG_FILE));
                                 int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
                                 nrkParser = new NrkParser(speed);
                             }
@@ -306,7 +314,6 @@ namespace NrkBrowser
 
         public override void Process()
         {
-            
             if (facadeView.SelectedListItem == null)
             {
                 base.Process();
@@ -322,7 +329,8 @@ namespace NrkBrowser
             }
 
             if (selecteditem.ID == "all" || selecteditem.ID == "categories" || selecteditem.ID == "anbefalte" ||
-                selecteditem.ID == "live" || selecteditem.ID == "mestSett" || selecteditem.ID == "sok" || selecteditem.ID == "liveAlternate" ||
+                selecteditem.ID == "live" || selecteditem.ID == "mestSett" || selecteditem.ID == "sok" ||
+                selecteditem.ID == "liveAlternate" ||
                 selecteditem is Category)
             {
                 GUIPropertyManager.SetProperty(NrkConstants.GUI_PROPERTY_PROGRAM_PICTURE, NrkConstants.DEFAULT_PICTURE);
@@ -367,8 +375,6 @@ namespace NrkBrowser
                 {
                     listitem.IconImage = GUIGraphicsContext.Skin + @"\media\defaultVideo.png";
                     listitem.IconImageBig = GUIGraphicsContext.Skin + @"\media\defaultVideo.png";
-                    
-                    
                 }
                 else
                 {
@@ -430,7 +436,8 @@ namespace NrkBrowser
 
         private void createNextPageSearchItem(string keyword, int indexPage)
         {
-            SearchItem nextPage = new SearchItem(NrkConstants.SEARCH_NEXTPAGE_ID, NrkConstants.SEARCH_NEXTPAGE_TITLE, indexPage);
+            SearchItem nextPage =
+                new SearchItem(NrkConstants.SEARCH_NEXTPAGE_ID, NrkConstants.SEARCH_NEXTPAGE_TITLE, indexPage);
             nextPage.Description = NrkConstants.SEARCH_NEXTPAGE_DESCRIPTION;
             nextPage.Keyword = keyword;
             matchingItems.Add(nextPage);
@@ -439,7 +446,7 @@ namespace NrkBrowser
         protected void Activate(Item item)
         {
             GUIPropertyManager.SetProperty(NrkConstants.GUI_PROPERTY_CLIP_COUNT, " ");
-        
+
             if (item == null)
             {
                 UpdateList(CreateInitialMenuItems());
@@ -451,112 +458,84 @@ namespace NrkBrowser
             if (item is Clip)
             {
                 PlayClip((Clip) item);
-                return;
             }
-
-            if (item is Stream)
+            else if (item is Stream)
             {
                 PlayStream((Stream) item);
-                return;
             }
-
-            if (item.ID == "favoritter")
+            else if (item.ID == "favoritter")
             {
                 FillStackWithFavourites();
-                return;
             }
-            if (item.ID == "sok")
+            else if (item.ID == "sok")
             {
                 search();
-                return;
             }
-            if (item.ID == "nextPage")
+            else if (item.ID == "nextPage")
             {
                 search((SearchItem) item);
-                return;
             }
-
-            if (item.ID == "anbefalte")
+            else if (item.ID == "anbefalte")
             {
                 UpdateList(nrkParser.GetAnbefaltePaaForsiden());
                 setClipCount(nrkParser.GetAnbefaltePaaForsiden());
-                return;
             }
-
-            if (item.ID == "mestSett")
+            else if (item.ID == "mestSett")
             {
                 UpdateList(CreateMestSetteListItems());
-                return;
             }
-
-            if (item.ID == "mestSettUke")
+            else if (item.ID == "mestSettUke")
             {
                 UpdateListAndSetClipCount(nrkParser.GetMestSette(7));
-                return;
             }
-
-            if (item.ID == "mestSettMaaned")
+            else if (item.ID == "mestSettMaaned")
             {
                 UpdateListAndSetClipCount(nrkParser.GetMestSette(31));
-                return;
             }
-
-            if (item.ID == "mestSettTotalt")
+            else if (item.ID == "mestSettTotalt")
             {
                 UpdateListAndSetClipCount(nrkParser.GetMestSette(3650));
-                return;
             }
-
-            if (item.ID == "nyheter" || item.ID == "sport" || item.ID == "natur" || item.ID == "super")
+            else if (item.ID == "nyheter" || item.ID == "sport" || item.ID == "natur" || item.ID == "super")
             {
                 UpdateListAndSetClipCount(nrkParser.GetTopTabRSS(item.ID));
-                return;
             }
-
-            if (item.ID == "categories")
+            else if (item.ID == "categories")
             {
                 UpdateList(nrkParser.GetCategories());
-                return;
             }
-
-            if (item.ID == "all")
+            else if (item.ID == "all")
             {
                 UpdateList(nrkParser.GetAllPrograms());
-                return;
             }
-
-            if (item.ID == "live")
+            else if (item.ID == "live")
             {
                 UpdateList(CreateLiveMenuItems());
-                return;
             }
-            if (item.ID == "liveAlternate")
+            else if (item.ID == "liveAlternate")
             {
                 UpdateList(CreateLiveAlternateMenuItems());
-                return;
             }
-
-            if (item.ID == "liveall")
+            else if (item.ID == "liveall")
             {
                 UpdateList(CreateLiveAlternateAllMenuItems());
-                return;
             }
-            if (item is AutogeneratedMenuItem)
+            else if (item is AutogeneratedMenuItem)
             {
                 UpdateList(nrkParser.GetTopTabContent(item.ID));
             }
-            if (item is Category)
+            else if (item is Category)
             {
                 UpdateList(nrkParser.GetPrograms((Category) item));
             }
-            if (item is Program)
+            else if (item is Program)
             {
                 List<Item> items = nrkParser.GetClips((Program) item);
                 setClipCount(items);
                 items.AddRange(nrkParser.GetFolders((Program) item));
                 UpdateList(items);
             }
-            if (item is Folder)
+            else if (item is Folder)
             {
                 List<Item> items = nrkParser.GetClips((Folder) item);
                 setClipCount(items);
@@ -598,7 +577,7 @@ namespace NrkBrowser
             super.Description = "De siste klippene fra super";
             super.Bilde = PICTURE_DIR + "nrksuper.jpg";
             items.Add(super);
-         
+
             List<Item> tabItems = GetTabItems();
             items.AddRange(tabItems);
 
@@ -642,30 +621,32 @@ namespace NrkBrowser
 
         public List<Item> GetTabItems()
         {
-           List<Item> menuItems = nrkParser.GetTopTabber();
+            List<Item> menuItems = nrkParser.GetTopTabber();
             menuItems.RemoveAll(delegate(Item item)
                                     {
                                         return
                                             item.ID == "direkte" || item.ID == "nyheter" ||
                                             item.ID == "sport" || item.ID == "distrikt" ||
                                             item.ID == "natur" || item.ID == "super";
-
                                     });
-           return menuItems;
+            return menuItems;
         }
-       
+
         public static List<Item> CreateMestSetteListItems()
         {
             List<Item> items = new List<Item>(3);
-            MenuItem mestSettUke = new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_UKE, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_UKE);
+            MenuItem mestSettUke =
+                new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_UKE, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_UKE);
             mestSettUke.Description = NrkConstants.MENU_ITEM_DESCRIPTION_MEST_SETTE_UKE;
             items.Add(mestSettUke);
 
-            MenuItem mestSettMaaned = new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_MAANED, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_MAANED);
+            MenuItem mestSettMaaned =
+                new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_MAANED, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_MAANED);
             mestSettMaaned.Description = NrkConstants.MENU_ITEM_DESCRIPTION_MEST_SETTE_MAANED;
             items.Add(mestSettMaaned);
 
-            MenuItem mestSettTotalt = new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_TOTALT, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_TOTALT);
+            MenuItem mestSettTotalt =
+                new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_TOTALT, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_TOTALT);
             mestSettTotalt.Description = NrkConstants.MENU_ITEM_DESCRIPTION_MEST_SETTE_TOTALT;
             items.Add(mestSettTotalt);
             return items;
@@ -683,7 +664,8 @@ namespace NrkBrowser
             {
                 if (items.Count > 0)
                 {
-                    GUIPropertyManager.SetProperty(NrkConstants.GUI_PROPERTY_CLIP_COUNT, String.Format("{0} Klipp", items.Count));
+                    GUIPropertyManager.SetProperty(NrkConstants.GUI_PROPERTY_CLIP_COUNT,
+                                                   String.Format("{0} Klipp", items.Count));
                 }
             }
         }
@@ -709,7 +691,6 @@ namespace NrkBrowser
             }
             Log.Info(NrkConstants.PLUGIN_NAME + " PlayClip, url is: " + url);
             PlayUrl(url, item.Title, item.StartTime);
-            
         }
 
         protected void PlayStream(Stream item)
@@ -739,21 +720,20 @@ namespace NrkBrowser
             //worker.IsBusy prøv å bruke denne istedetfor _workercompleted
             while (_workerCompleted == false) GUIWindowManager.Process();
             GUIWaitCursor.Hide();
-
-            
-        
         }
+
         private class PlayArgs
         {
             public string url;
             public string title;
             public double startTime;
         }
+
         private void PlayMethodDelegate(object sender, DoWorkEventArgs e)
         {
             Log.Info(string.Format("{0}: PlayMethodDelegate", NrkConstants.PLUGIN_NAME));
             PlayArgs pArgs = (PlayArgs) e.Argument;
-            
+
             PlayListType type;
             if (isWMVVideo(pArgs))
             {
@@ -950,7 +930,6 @@ namespace NrkBrowser
                     items.AddRange(nrkParser.GetFolders(cl));
                     activeStack.Push(item);
                     UpdateList(items);
-                   
                 }
                 if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_LEGG_TIL_I_FAVORITTER)
                 {
@@ -980,42 +959,41 @@ namespace NrkBrowser
                         ShowMessageBox(NrkConstants.NEW_VERSION_IS_NOT_AVAILABLE);
                     }
                 }
-               
             }
         }
 
         protected void openQualityMenu(GUIDialogMenu dlgMenu)
         {
-                dlgMenu.Reset();
-                dlgMenu.SetHeading(NrkConstants.QUALITY_MENU_HEADER);
-                GUIListItem lowQuality = new GUIListItem(NrkConstants.QUALITY_MENU_LOW_QUALITY);
-                lowQuality.ItemId = 1;
-                GUIListItem mediumQuality = new GUIListItem(NrkConstants.QUALITY_MENU_MEDIUM_QUALITY);
-                mediumQuality.ItemId = 2;
-                GUIListItem highQuality = new GUIListItem(NrkConstants.QUALITY_MENU_HIGH_QUALITY);
-                highQuality.ItemId = 3;
-                dlgMenu.Add(lowQuality);
-                dlgMenu.Add(mediumQuality);
-                dlgMenu.Add(highQuality);
-                dlgMenu.DoModal(GetWindowId());
-                if (dlgMenu.SelectedId == lowQuality.ItemId)
-                {
-                    int speed = 400;
-                    Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
-                    nrkParser = new NrkParser(speed);
-                }
-                else if (dlgMenu.SelectedId == mediumQuality.ItemId)
-                {
-                    int speed = 1000;
-                    Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
-                    nrkParser = new NrkParser(speed);
-                }
-                else if (dlgMenu.SelectedId == highQuality.ItemId)
-                {
-                    int speed = 10000;
-                    Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
-                    nrkParser = new NrkParser(speed);
-                }
+            dlgMenu.Reset();
+            dlgMenu.SetHeading(NrkConstants.QUALITY_MENU_HEADER);
+            GUIListItem lowQuality = new GUIListItem(NrkConstants.QUALITY_MENU_LOW_QUALITY);
+            lowQuality.ItemId = 1;
+            GUIListItem mediumQuality = new GUIListItem(NrkConstants.QUALITY_MENU_MEDIUM_QUALITY);
+            mediumQuality.ItemId = 2;
+            GUIListItem highQuality = new GUIListItem(NrkConstants.QUALITY_MENU_HIGH_QUALITY);
+            highQuality.ItemId = 3;
+            dlgMenu.Add(lowQuality);
+            dlgMenu.Add(mediumQuality);
+            dlgMenu.Add(highQuality);
+            dlgMenu.DoModal(GetWindowId());
+            if (dlgMenu.SelectedId == lowQuality.ItemId)
+            {
+                int speed = 400;
+                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
+                nrkParser = new NrkParser(speed);
+            }
+            else if (dlgMenu.SelectedId == mediumQuality.ItemId)
+            {
+                int speed = 1000;
+                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
+                nrkParser = new NrkParser(speed);
+            }
+            else if (dlgMenu.SelectedId == highQuality.ItemId)
+            {
+                int speed = 10000;
+                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
+                nrkParser = new NrkParser(speed);
+            }
         }
 
         /// <summary>
@@ -1065,7 +1043,7 @@ namespace NrkBrowser
             }
             else if (item is Program)
             {
-                removedSuccessFully = db.removeFavoriteProgram((Program)item);
+                removedSuccessFully = db.removeFavoriteProgram((Program) item);
             }
             else
             {
