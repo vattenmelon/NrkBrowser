@@ -19,7 +19,8 @@ namespace NrkBrowser
         [TestFixtureSetUp]
         public void setOpp()
         {
-            nrkPlugin = new NrkPlugin();
+
+            nrkPlugin = new NrkPlugin("no", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
         }
 
         [Test]
@@ -65,6 +66,13 @@ namespace NrkBrowser
             Assert.IsTrue(funnet1);
             Assert.IsTrue(funnet2);
             Assert.IsTrue(funnet3);
+        }
+        [Test]
+        public void getVersion()
+        {
+            String version = NrkPlugin.getVersion();
+            Console.WriteLine(version);
+            Assert.IsNotEmpty(version);
         }
 /*
         [Test]

@@ -18,23 +18,13 @@ namespace NrkBrowser
             Log.Info("Checking for new version of plugin");
             String availableVersion = GetNewestAvailableVersion();
             nyVer = availableVersion;
-            String thisVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            String[] splittedAvailable = availableVersion.Split('.');
-            String[] splittedThis = thisVersion.Split('.');
-            bool returnValue = false;
-            if (Int32.Parse(splittedAvailable[0]) > Int32.Parse(splittedThis[0]))
-            {
-                returnValue = true;
-            }
-            else if (Int32.Parse(splittedAvailable[1]) > Int32.Parse(splittedThis[1]))
-            {
-                returnValue = true;
-            }
-            else if (Int32.Parse(splittedAvailable[2]) > Int32.Parse(splittedThis[2]))
-            {
-                returnValue = true;
-            }
-            return returnValue;
+            
+            Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            String thisVersionUtenPunktum = "" + v.Major + "" + v.Minor +"" + v.Build;
+            String availableVersionUtenPunktum = availableVersion.Replace(".", "");
+            int denneVersjon = Int32.Parse(thisVersionUtenPunktum);
+            int available = Int32.Parse(availableVersionUtenPunktum);
+            return available > denneVersjon;
         }
 
         public static string GetNewestAvailableVersion()

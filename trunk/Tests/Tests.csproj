@@ -39,6 +39,7 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="TranslationTest.cs" />
     <Compile Include="VersionCheckerTest.cs" />
     <Compile Include="XmlKlippIntegrationTest.cs" />
     <Compile Include="XmlRSSTest.cs" />

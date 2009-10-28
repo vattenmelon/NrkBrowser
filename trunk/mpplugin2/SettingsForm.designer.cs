@@ -193,7 +193,7 @@
         this.Controls.Add(this.speedUpDown);
         this.Margin = new System.Windows.Forms.Padding(2);
         this.Name = "SettingsForm";
-        this.Text = "NrkBrowser settings";
+        this.Text = "NRK Browser settings";
         ((System.ComponentModel.ISupportInitialize)(this.speedUpDown)).EndInit();
         this.ResumeLayout(false);
         this.PerformLayout();

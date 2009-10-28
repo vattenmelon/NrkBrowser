@@ -16,7 +16,7 @@ namespace NrkBrowser
         {
 
             String version = VersionChecker.GetNewestAvailableVersion();
-            Assert.AreEqual("1.3.1", version);
+            Assert.AreEqual("1.3.2", version);
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace NrkBrowser
             //NB!! Denne testen er tvilsom, må endres på etter nye versjoner
             String v = String.Empty;
             bool version = VersionChecker.newVersionAvailable(ref v);
-            Assert.AreEqual("1.3.1", v);
+            Assert.AreEqual("1.3.2", v);
             Assert.IsFalse(version);
         }
     }

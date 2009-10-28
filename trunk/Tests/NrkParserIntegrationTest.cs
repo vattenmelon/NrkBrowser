@@ -115,6 +115,7 @@ namespace NrkBrowser
         [Test]
         public void TestGetMestSette()
         {
+            NrkConstants.InitWithParam("en-US", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
             List<Item> liste = nrkParser.GetMestSette(31);
             Assert.IsNotNull(liste);
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
@@ -126,7 +127,7 @@ namespace NrkBrowser
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
-                Assert.IsTrue(ErBildeFil(c.Bilde));
+                //Assert.IsTrue(ErBildeFil(c.Bilde));
                 Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
                 Assert.IsTrue(erEntenKlippEllerIndexType(c), "Klipp skal være enten av type Klipp eller Index");
@@ -142,6 +143,8 @@ namespace NrkBrowser
 
         private static bool ErBildeFil(String filename)
         {
+            //Har etterhvert finne ut at bildefiler ikke nødvendigvis trenger å ha et filnavn, f.eks er denne i bruk:
+            //http://fil.nrk.no/contentfile/imagecrop/1.413251.1144659591
             return filename.EndsWith(".jpg") || filename.EndsWith(".JPG") || filename.EndsWith(".png") || filename.EndsWith(".PNG");
         }
 
@@ -182,6 +185,7 @@ namespace NrkBrowser
         [Test]
         public void TestGetTopTabber()
         {
+            NrkConstants.InitWithParam("en-US", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
             List<Item> liste = nrkParser.GetTopTabber();
             Assert.IsNotNull(liste);
             Assert.IsNotEmpty(liste);
