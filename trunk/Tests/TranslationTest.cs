@@ -8,7 +8,7 @@ namespace Translation
     [TestFixture]
     public class TranslationTest
     {
-        private static string LANGUAGE_PATH = @"C:\Documents and Settings\Erling\My Documents\Visual Studio 2008\nrkbrowser\languages";
+        private static string LANGUAGE_PATH = @"..\..\..\languages";
 
         [Test]
         public void testGetStringInEnglish()

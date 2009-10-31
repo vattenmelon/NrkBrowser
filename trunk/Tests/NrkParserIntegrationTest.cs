@@ -197,7 +197,8 @@ namespace NrkBrowser
                 Assert.IsNotNull(item.Title);
                 Console.Out.WriteLine("-------------------------------------------");
             }
-            Assert.AreEqual(7, liste.Count, "Skal være syv oppførsler i lista");
+            Assert.AreEqual(6, liste.Count, "Skal være seks oppførsler i lista"); 
+            //verifisert at "super" endret seg ca 31. oktober 09 og at den nye linken går til en flashbasert side, ala p3tv tabben.
 
         }
         [Test]

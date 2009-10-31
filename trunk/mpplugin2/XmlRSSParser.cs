@@ -111,6 +111,7 @@ namespace NrkBrowser.Xml
                                     catch (Exception e)
                                     {
                                         //Log.Error("catccccccccccched exception: " + e.Message);
+                                        Console.Error.WriteLine(e.StackTrace);
                                     }
                                     ;
                                     break;

@@ -20,7 +20,8 @@ namespace NrkBrowser
         public void setOpp()
         {
 
-            nrkPlugin = new NrkPlugin("no", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
+            //nrkPlugin = new NrkPlugin("no", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
+            nrkPlugin = new NrkPlugin("no", @"..\..\..\languages");
         }
 
         [Test]
