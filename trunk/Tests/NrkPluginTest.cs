@@ -46,19 +46,19 @@ namespace NrkBrowser
             {
                 if (item.ID.Equals(NrkConstants.MENU_ITEM_ID_MEST_SETTE_UKE))
                 {
-                    Assert.AreEqual(NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_UKE, item.Title);
+                    Assert.AreEqual(NrkTranslatableStrings.MENU_ITEM_TITLE_MEST_SETTE_UKE, item.Title);
                     Assert.AreEqual("De mest populære klippene denne uken!", item.Description);
                     funnet1 = true;
                 }
                 else if (item.ID.Equals(NrkConstants.MENU_ITEM_ID_MEST_SETTE_MAANED))
                 {
-                    Assert.AreEqual(NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_MAANED, item.Title);
+                    Assert.AreEqual(NrkTranslatableStrings.MENU_ITEM_TITLE_MEST_SETTE_MAANED, item.Title);
                     Assert.AreEqual("De mest populære klippene denne måneden!", item.Description);
                     funnet2 = true;
                 }
                 else if (item.ID.Equals(NrkConstants.MENU_ITEM_ID_MEST_SETTE_TOTALT))
                 {
-                    Assert.AreEqual(NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_TOTALT, item.Title);
+                    Assert.AreEqual(NrkTranslatableStrings.MENU_ITEM_TITLE_MEST_SETTE_TOTALT, item.Title);
                     Assert.AreEqual("De mest populære klippene!", item.Description);
                     funnet3 = true;
                 }

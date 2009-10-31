@@ -13,23 +13,23 @@ namespace Translation
         [Test]
         public void testGetStringInEnglish()
         {
-            NrkConstants.InitWithParam("en-US", LANGUAGE_PATH);
-            String s = NrkConstants.FOR_UNIT_TESTING;
+            NrkTranslatableStrings.InitWithParam("en-US", LANGUAGE_PATH);
+            String s = NrkTranslatableStrings.FOR_UNIT_TESTING;
             Assert.AreEqual("Engelsk", s);
         }
         [Test]
         public void testGetStringInNorwegian()
         {
-            NrkConstants.InitWithParam("no", LANGUAGE_PATH);
-            String s = NrkConstants.FOR_UNIT_TESTING;
+            NrkTranslatableStrings.InitWithParam("no", LANGUAGE_PATH);
+            String s = NrkTranslatableStrings.FOR_UNIT_TESTING;
             Assert.AreEqual("Norsk", s);
         }
   
         [Test]
         public void testLanguageNotFoundShouldFallBackToEnglish()
         {
-            NrkConstants.InitWithParam("swe", LANGUAGE_PATH);
-            String s = NrkConstants.FOR_UNIT_TESTING;
+            NrkTranslatableStrings.InitWithParam("swe", LANGUAGE_PATH);
+            String s = NrkTranslatableStrings.FOR_UNIT_TESTING;
             Assert.AreEqual("Default language", s);
 
         }
@@ -37,12 +37,12 @@ namespace Translation
         public void CountTranslatedStrings()
         {
             ///Hvis det kommer flere språk så fyll på med tester her.
-            NrkConstants.InitWithParam("no", LANGUAGE_PATH);
-            int antallNorske = NrkConstants.GetNumberOfTranslatedStrings();
-            NrkConstants.InitWithParam("en-US", LANGUAGE_PATH);
-            int antallEngelske = NrkConstants.GetNumberOfTranslatedStrings();
-            NrkConstants.InitWithParam("swe", LANGUAGE_PATH);
-            int antallswe = NrkConstants.GetNumberOfTranslatedStrings();
+            NrkTranslatableStrings.InitWithParam("no", LANGUAGE_PATH);
+            int antallNorske = NrkTranslatableStrings.GetNumberOfTranslatedStrings();
+            NrkTranslatableStrings.InitWithParam("en-US", LANGUAGE_PATH);
+            int antallEngelske = NrkTranslatableStrings.GetNumberOfTranslatedStrings();
+            NrkTranslatableStrings.InitWithParam("swe", LANGUAGE_PATH);
+            int antallswe = NrkTranslatableStrings.GetNumberOfTranslatedStrings();
             Assert.IsTrue(antallNorske == antallEngelske);
             Assert.IsFalse(antallNorske == antallswe); //det er ingen svenske oversatt
             

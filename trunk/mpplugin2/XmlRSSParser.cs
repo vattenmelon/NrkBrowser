@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using MediaPortal.ServiceImplementations;
+//using MediaPortal.ServiceImplementations;
 using NrkBrowser.Domain;
 
 namespace NrkBrowser.Xml
@@ -34,7 +34,7 @@ namespace NrkBrowser.Xml
                 itemCount++;
                 if (isItemCount100orOver(itemCount))
                 {
-                    Log.Info(string.Format("{0}: Over 100 clips in document, breaking.", NrkConstants.PLUGIN_NAME));
+                    //Log.Info(string.Format("{0}: Over 100 clips in document, breaking.", NrkConstants.PLUGIN_NAME));
                     break;
                 }
                 
@@ -110,7 +110,7 @@ namespace NrkBrowser.Xml
                                     }
                                     catch (Exception e)
                                     {
-                                        Log.Error("catccccccccccched exception: " + e.Message);
+                                        //Log.Error("catccccccccccched exception: " + e.Message);
                                     }
                                     ;
                                     break;

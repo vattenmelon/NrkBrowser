@@ -115,7 +115,7 @@ namespace NrkBrowser
         [Test]
         public void TestGetMestSette()
         {
-            NrkConstants.InitWithParam("en-US", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
+            NrkTranslatableStrings.InitWithParam("en-US", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
             List<Item> liste = nrkParser.GetMestSette(31);
             Assert.IsNotNull(liste);
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
@@ -185,7 +185,7 @@ namespace NrkBrowser
         [Test]
         public void TestGetTopTabber()
         {
-            NrkConstants.InitWithParam("en-US", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
+            NrkTranslatableStrings.InitWithParam("en-US", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
             List<Item> liste = nrkParser.GetTopTabber();
             Assert.IsNotNull(liste);
             Assert.IsNotEmpty(liste);

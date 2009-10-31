@@ -154,7 +154,7 @@ namespace NrkBrowser
         /// <returns>true if clip was added, false if not</returns>
         public bool addFavoriteVideo(Clip clip, ref string message)
         {
-            Log.Debug(NrkConstants.PLUGIN_NAME + "addFavoriteVideo(Clip) " + clip);
+            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + "addFavoriteVideo(Clip) " + clip);
             //check if the video is already in the favorite list
             String sql = string.Format("select ID from FAVORITTER where ID='{0}'", clip.ID);
             SQLiteResultSet resultSet = sqlClient.Execute(sql);
@@ -195,7 +195,7 @@ namespace NrkBrowser
         /// <returns>true if program was added, false if not</returns>
         public bool addFavoriteProgram(Program program, ref string message)
         {
-            Log.Debug(NrkConstants.PLUGIN_NAME + "addFavoriteProgram(Program) " + program);
+            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + "addFavoriteProgram(Program) " + program);
             //check if the video is already in the favorite list
             String sql = string.Format("select ID from FAVORITTER where ID='{0}'", program.ID);
             SQLiteResultSet resultSet = sqlClient.Execute(sql);
@@ -235,7 +235,7 @@ namespace NrkBrowser
         /// <returns>true if clip was removed from database, false if not</returns>
         public bool removeFavoriteVideo(Clip clip)
         {
-            Log.Debug(NrkConstants.PLUGIN_NAME + "removeFavoriteVideo(Clip) " + clip);
+            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + "removeFavoriteVideo(Clip) " + clip);
             String lsSQL = string.Format("delete from FAVORITTER where ID='{0}' ", clip.ID);
             sqlClient.Execute(lsSQL);
             if (sqlClient.ChangedRows() > 0)
@@ -255,7 +255,7 @@ namespace NrkBrowser
         /// <returns>true if program was removed from database, false if not</returns>
         public bool removeFavoriteProgram(Program program)
         {
-            Log.Debug(NrkConstants.PLUGIN_NAME + "removeFavoriteProgram(Program) " + program);
+            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + "removeFavoriteProgram(Program) " + program);
             String lsSQL = string.Format("delete from FAVORITTER where ID='{0}' ", program.ID);
             sqlClient.Execute(lsSQL);
             if (sqlClient.ChangedRows() > 0)
@@ -274,7 +274,7 @@ namespace NrkBrowser
         /// <returns></returns>
         public List<Item> getFavoriteVideos()
         {
-            Log.Debug(NrkConstants.PLUGIN_NAME + "getFavoriteVideos()");
+            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + "getFavoriteVideos()");
             string lsSQL = string.Format("select * from FAVORITTER");
             SQLiteResultSet resultSet = sqlClient.Execute(lsSQL);
 
@@ -295,7 +295,7 @@ namespace NrkBrowser
                 }
                 
             }
-            Log.Debug("{0}: Returned list of {1} favourites", NrkConstants.PLUGIN_NAME, resultSet.Rows.Count);
+            Log.Debug("{0}: Returned list of {1} favourites", NrkTranslatableStrings.PLUGIN_NAME, resultSet.Rows.Count);
             return favorittListe;
         }
 

@@ -36,7 +36,7 @@ namespace NrkBrowser
         /// be shown in the plugins list in the configuration, while in the gui inside mediaportal it will use the name
         /// specified in the configuration, or the default name. 
         /// </summary>
-        private string pluginName = NrkConstants.PLUGIN_NAME;
+        private string pluginName = NrkTranslatableStrings.PLUGIN_NAME;
 
         [SkinControlAttribute(50)] protected GUIFacadeControl facadeView = null;
 
@@ -50,7 +50,7 @@ namespace NrkBrowser
 
         public NrkPlugin()
         {
-            NrkConstants.Init();
+            NrkTranslatableStrings.Init();
         }
         /// <summary>
         /// This constructor is intended for testing purposes
@@ -59,7 +59,7 @@ namespace NrkBrowser
         /// <param name="languagePath"></param>
         public NrkPlugin(String language, string languagePath)
         {
-            NrkConstants.InitWithParam(language, languagePath);
+            NrkTranslatableStrings.InitWithParam(language, languagePath);
         }
 
         public override int GetID
@@ -88,7 +88,7 @@ namespace NrkBrowser
         {
             string appVersion = getVersion();
 //            Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            Log.Debug(NrkConstants.PLUGIN_NAME + ": version: " + appVersion);
+            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": version: " + appVersion);
 //            Log.Debug("major: " + v.Major);
 //            Log.Debug("majorrevison: " + v.MajorRevision);
 //            Log.Debug("build: " + v.Build);
@@ -122,7 +122,7 @@ namespace NrkBrowser
 
         private void SaveSettings(SettingsForm form, Settings settings)
         {
-            Log.Debug(NrkConstants.PLUGIN_NAME + ": SaveSettings");
+            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": SaveSettings");
             int speed = (int) form.speedUpDown.Value;
             settings.SetValue(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_SPEED, speed);
             string quality = (string) form.liveStreamQualityCombo.Items[form.liveStreamQualityCombo.SelectedIndex];
@@ -203,7 +203,7 @@ namespace NrkBrowser
 
         public override bool Init()
         {
-            Log.Debug(string.Format("{0}: Init()", NrkConstants.PLUGIN_NAME));
+            Log.Debug(string.Format("{0}: Init()", NrkTranslatableStrings.PLUGIN_NAME));
             using (
                 Settings xmlreader =
                     new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.MEDIAPORTAL_CONFIG_FILE)))
@@ -304,15 +304,15 @@ namespace NrkBrowser
 
         public override bool OnMessage(GUIMessage message)
         {
-            Log.Debug(string.Format("{0}: onMessage()", NrkConstants.PLUGIN_NAME));
+            Log.Debug(string.Format("{0}: onMessage()", NrkTranslatableStrings.PLUGIN_NAME));
             switch (message.Message)
             {
                 case GUIMessage.MessageType.GUI_MSG_WINDOW_INIT:
                     {
                         Log.Debug(
-                            string.Format("{0}: onMessage() with MessageType: [{1}]", NrkConstants.PLUGIN_NAME,
+                            string.Format("{0}: onMessage() with MessageType: [{1}]", NrkTranslatableStrings.PLUGIN_NAME,
                                           "GUI_MSG_WINDOW_INIT"));
-                        GUIPropertyManager.SetProperty("#currentmodule", NrkConstants.PLUGIN_NAME);
+                        GUIPropertyManager.SetProperty("#currentmodule", NrkTranslatableStrings.PLUGIN_NAME);
 
                         if (nrkParser == null)
                         {
@@ -456,8 +456,8 @@ namespace NrkBrowser
         private void createNextPageSearchItem(string keyword, int indexPage)
         {
             SearchItem nextPage =
-                new SearchItem(NrkConstants.SEARCH_NEXTPAGE_ID, NrkConstants.SEARCH_NEXTPAGE_TITLE, indexPage);
-            nextPage.Description = NrkConstants.SEARCH_NEXTPAGE_DESCRIPTION;
+                new SearchItem(NrkConstants.SEARCH_NEXTPAGE_ID, NrkTranslatableStrings.SEARCH_NEXTPAGE_TITLE, indexPage);
+            nextPage.Description = NrkTranslatableStrings.SEARCH_NEXTPAGE_DESCRIPTION;
             nextPage.Keyword = keyword;
             matchingItems.Add(nextPage);
         }
@@ -566,46 +566,46 @@ namespace NrkBrowser
         private List<Item> CreateInitialMenuItems()
         {
             List<Item> items = new List<Item>();
-            items.Add(new MenuItem("all", NrkConstants.MENU_ITEM_TITLE_ALPHABETICAL_LIST));
-            items.Add(new MenuItem("categories", NrkConstants.MENU_ITEM_TITLE_CATEGORIES));
-            items.Add(new MenuItem("live", NrkConstants.MENU_ITEM_TITLE_LIVE_STREAMS));
-            MenuItem anbefalte = new MenuItem("anbefalte", NrkConstants.MENU_ITEM_TITLE_RECOMMENDED_PROGRAMS);
-            anbefalte.Description = NrkConstants.MENU_ITEM_DESCRIPTION_RECOMMENDED_PROGRAMS;
+            items.Add(new MenuItem("all", NrkTranslatableStrings.MENU_ITEM_TITLE_ALPHABETICAL_LIST));
+            items.Add(new MenuItem("categories", NrkTranslatableStrings.MENU_ITEM_TITLE_CATEGORIES));
+            items.Add(new MenuItem("live", NrkTranslatableStrings.MENU_ITEM_TITLE_LIVE_STREAMS));
+            MenuItem anbefalte = new MenuItem("anbefalte", NrkTranslatableStrings.MENU_ITEM_TITLE_RECOMMENDED_PROGRAMS);
+            anbefalte.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_RECOMMENDED_PROGRAMS;
             items.Add(anbefalte);
 
-            MenuItem mestSett = new MenuItem("mestSett", NrkConstants.MENU_ITEM_TITLE_MOST_WATCHED);
-            mestSett.Description = NrkConstants.MENU_ITEM_DESCRIPTION_MOST_WATCHED;
+            MenuItem mestSett = new MenuItem("mestSett", NrkTranslatableStrings.MENU_ITEM_TITLE_MOST_WATCHED);
+            mestSett.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_MOST_WATCHED;
             items.Add(mestSett);
 
-            MenuItem nyheter = new MenuItem("nyheter", NrkConstants.MENU_ITEM_TITLE_NEWS);
-            nyheter.Description = NrkConstants.MENU_ITEM_DESCRIPTION_NEWS;
+            MenuItem nyheter = new MenuItem("nyheter", NrkTranslatableStrings.MENU_ITEM_TITLE_NEWS);
+            nyheter.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_NEWS;
             nyheter.Bilde = PICTURE_DIR + "nrknyheter.jpg";
             items.Add(nyheter);
 
-            MenuItem sport = new MenuItem("sport", NrkConstants.MENU_ITEM_TITLE_SPORT);
-            sport.Description = NrkConstants.MENU_ITEM_DESCRIPTION_SPORT;
+            MenuItem sport = new MenuItem("sport", NrkTranslatableStrings.MENU_ITEM_TITLE_SPORT);
+            sport.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_SPORT;
             sport.Bilde = PICTURE_DIR + "nrksport.jpg";
             items.Add(sport);
 
-            MenuItem natur = new MenuItem("natur", NrkConstants.MENU_ITEM_TITLE_NATURE);
-            natur.Description = NrkConstants.MENU_ITEM_DESCRIPTION_NATURE;
+            MenuItem natur = new MenuItem("natur", NrkTranslatableStrings.MENU_ITEM_TITLE_NATURE);
+            natur.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_NATURE;
             natur.Bilde = PICTURE_DIR + "nrknatur.jpg";
             items.Add(natur);
 
-            MenuItem super = new MenuItem("super", NrkConstants.MENU_ITEM_TITLE_SUPER);
-            super.Description = NrkConstants.MENU_ITEM_DESCRIPTION_SUPER;
+            MenuItem super = new MenuItem("super", NrkTranslatableStrings.MENU_ITEM_TITLE_SUPER);
+            super.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_SUPER;
             super.Bilde = PICTURE_DIR + "nrksuper.jpg";
             items.Add(super);
 
             List<Item> tabItems = GetTabItems();
             items.AddRange(tabItems);
 
-            MenuItem sok = new MenuItem("sok", NrkConstants.MENU_ITEM_TITLE_SEARCH);
-            sok.Description = NrkConstants.MENU_ITEM_DESCRIPTION_SEARCH;
+            MenuItem sok = new MenuItem("sok", NrkTranslatableStrings.MENU_ITEM_TITLE_SEARCH);
+            sok.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_SEARCH;
             items.Add(sok);
 
-            favoritter = new MenuItem(NrkConstants.MENU_ITEM_ID_FAVOURITES, NrkConstants.MENU_ITEM_TITLE_FAVOURITES);
-            favoritter.Description = NrkConstants.MENU_ITEM_DESCRIPTION_FAVOURITES;
+            favoritter = new MenuItem(NrkConstants.MENU_ITEM_ID_FAVOURITES, NrkTranslatableStrings.MENU_ITEM_TITLE_FAVOURITES);
+            favoritter.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_FAVOURITES;
             items.Add(favoritter);
             return items;
         }
@@ -613,7 +613,7 @@ namespace NrkBrowser
         private List<Item> CreateLiveMenuItems()
         {
             List<Item> items = nrkParser.GetDirektePage("direkte");
-            items.Add(new MenuItem("liveAlternate", NrkConstants.MENU_ITEM_TITLE_ALTERNATIVE_LINKS));
+            items.Add(new MenuItem("liveAlternate", NrkTranslatableStrings.MENU_ITEM_TITLE_ALTERNATIVE_LINKS));
             return items;
         }
 
@@ -634,7 +634,7 @@ namespace NrkBrowser
             items.Add(new Stream(NrkConstants.STREAM_PREFIX + "04" + _suffix, "NRK 2"));
             items.Add(new Stream(NrkConstants.STREAM_PREFIX + "05" + _suffix, "NRK Alltid Nyheter"));
             items.Add(new Stream(NrkConstants.STREAM_PREFIX + "08" + _suffix, "Testkanal (innhold varierer)"));
-            items.Add(new MenuItem("liveall", NrkConstants.MENU_ITEM_TITLE_CHOOSE_STREAM_MANUALLY));
+            items.Add(new MenuItem("liveall", NrkTranslatableStrings.MENU_ITEM_TITLE_CHOOSE_STREAM_MANUALLY));
             return items;
         }
 
@@ -655,18 +655,18 @@ namespace NrkBrowser
         {
             List<Item> items = new List<Item>(3);
             MenuItem mestSettUke =
-                new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_UKE, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_UKE);
-            mestSettUke.Description = NrkConstants.MENU_ITEM_DESCRIPTION_MEST_SETTE_UKE;
+                new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_UKE, NrkTranslatableStrings.MENU_ITEM_TITLE_MEST_SETTE_UKE);
+            mestSettUke.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_MEST_SETTE_UKE;
             items.Add(mestSettUke);
 
             MenuItem mestSettMaaned =
-                new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_MAANED, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_MAANED);
-            mestSettMaaned.Description = NrkConstants.MENU_ITEM_DESCRIPTION_MEST_SETTE_MAANED;
+                new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_MAANED, NrkTranslatableStrings.MENU_ITEM_TITLE_MEST_SETTE_MAANED);
+            mestSettMaaned.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_MEST_SETTE_MAANED;
             items.Add(mestSettMaaned);
 
             MenuItem mestSettTotalt =
-                new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_TOTALT, NrkConstants.MENU_ITEM_TITLE_MEST_SETTE_TOTALT);
-            mestSettTotalt.Description = NrkConstants.MENU_ITEM_DESCRIPTION_MEST_SETTE_TOTALT;
+                new MenuItem(NrkConstants.MENU_ITEM_ID_MEST_SETTE_TOTALT, NrkTranslatableStrings.MENU_ITEM_TITLE_MEST_SETTE_TOTALT);
+            mestSettTotalt.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_MEST_SETTE_TOTALT;
             items.Add(mestSettTotalt);
             return items;
         }
@@ -684,7 +684,7 @@ namespace NrkBrowser
                 if (items.Count > 0)
                 {
                     GUIPropertyManager.SetProperty(NrkConstants.GUI_PROPERTY_CLIP_COUNT,
-                                                   String.Format(NrkConstants.CLIP_COUNT, items.Count));
+                                                   String.Format(NrkTranslatableStrings.CLIP_COUNT, items.Count));
                 }
             }
         }
@@ -694,27 +694,27 @@ namespace NrkBrowser
         /// </summary>
         private void FillStackWithFavourites()
         {
-            Log.Debug(NrkConstants.PLUGIN_NAME + "FillStackWithFavourites()");
+            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + "FillStackWithFavourites()");
             List<Item> items = FavoritesUtil.getDatabase().getFavoriteVideos();
             UpdateList(items);
         }
 
         protected void PlayClip(Clip item)
         {
-            Log.Info(string.Format("{0} PlayClip {1}", NrkConstants.PLUGIN_NAME, item));
+            Log.Info(string.Format("{0} PlayClip {1}", NrkTranslatableStrings.PLUGIN_NAME, item));
             string url = nrkParser.GetClipUrl(item);
             if (url == null)
             {
-                ShowMessageBox(NrkConstants.PLAYBACK_FAILED_URL_WAS_NULL);
+                ShowMessageBox(NrkTranslatableStrings.PLAYBACK_FAILED_URL_WAS_NULL);
                 return;
             }
-            Log.Info(NrkConstants.PLUGIN_NAME + " PlayClip, url is: " + url);
+            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " PlayClip, url is: " + url);
             PlayUrl(url, item.Title, item.StartTime, item);
         }
 
         protected void PlayStream(Stream item)
         {
-            Log.Info(NrkConstants.PLUGIN_NAME + " PlayStream " + item.ID);
+            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " PlayStream " + item.ID);
             PlayUrl(item.ID, item.Title, 0, item);
         }
 
@@ -752,7 +752,7 @@ namespace NrkBrowser
 
         private void PlayMethodDelegate(object sender, DoWorkEventArgs e)
         {
-            Log.Info(string.Format("{0}: PlayMethodDelegate", NrkConstants.PLUGIN_NAME));
+            Log.Info(string.Format("{0}: PlayMethodDelegate", NrkTranslatableStrings.PLUGIN_NAME));
             PlayArgs pArgs = (PlayArgs) e.Argument;
 
             PlayListType type;
@@ -799,7 +799,7 @@ namespace NrkBrowser
         {
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
-                Log.Info(NrkConstants.PLUGIN_NAME + " Playing OK, switching to fullscreen");
+                Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " Playing OK, switching to fullscreen");
                 g_Player.ShowFullScreenWindow();
                 g_Player.FullScreen = true;
               
@@ -839,19 +839,19 @@ namespace NrkBrowser
             string message = String.Empty;
             if (_osdPlayer)
             {
-                message = NrkConstants.PLAYBACK_FAILED_TRY_DISABLING_VMR9;
+                message = NrkTranslatableStrings.PLAYBACK_FAILED_TRY_DISABLING_VMR9;
             }
             else
             {
-                message = NrkConstants.PLAYBACK_FAILED_GENERIC;
+                message = NrkTranslatableStrings.PLAYBACK_FAILED_GENERIC;
             }
             if (pArgs.url.Contains(NrkConstants.GEOBLOCK_URL_PART))
             {
-                message = NrkConstants.PLAYBACK_FAILED_GENERIC;
-                message += NrkConstants.PLAYBACK_FAILED_GEOBLOCKED_TO_NORWAY;
+                message = NrkTranslatableStrings.PLAYBACK_FAILED_GENERIC;
+                message += NrkTranslatableStrings.PLAYBACK_FAILED_GEOBLOCKED_TO_NORWAY;
             }
             ShowMessageBox(message);
-            Log.Info(NrkConstants.PLUGIN_NAME + " Playing failed");
+            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " Playing failed");
         }
 
         private static bool isLiveStream(PlayArgs pArgs)
@@ -880,7 +880,7 @@ namespace NrkBrowser
         private bool playWithOsd(String url, String title, PlayListType type, double startTime)
         {
             //g_Player.Init();
-            Log.Info(NrkConstants.PLUGIN_NAME + " Trying to play with Osd (g_Player): " + url);
+            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " Trying to play with Osd (g_Player): " + url);
             Log.Debug("Title is: " + title);
             Log.Debug("Type of clip is: " + type);
             Log.Debug("Starttime of clip is: " + startTime);
@@ -914,7 +914,7 @@ namespace NrkBrowser
         /// <returns>True if playing of clip is successfully, false if not</returns>
         private bool playWithoutOsd(String url, String title, PlayListType pType, double startTime)
         {
-            Log.Info(NrkConstants.PLUGIN_NAME + " Trying to play without Osd (PlayListPlayer): " + url);
+            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " Trying to play without Osd (PlayListPlayer): " + url);
             Log.Debug("Title is: " + title);
             Log.Debug("Type of clip is: " + pType);
             Log.Debug("Starttime of clip is: " + startTime);
@@ -952,7 +952,7 @@ namespace NrkBrowser
 
         private void HandleInputFromContextMenu(GUIDialogMenu dlgMenu, Item item)
         {
-            if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER)
+            if (dlgMenu.SelectedLabelText == NrkTranslatableStrings.CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER)
             {
                 Clip cl = (Clip) item;
                 List<Item> items = nrkParser.GetClipsTilhoerendeSammeProgram(cl);
@@ -960,23 +960,23 @@ namespace NrkBrowser
                 activeStack.Push(item);
                 UpdateList(items);
             }
-            else if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_LEGG_TIL_I_FAVORITTER)
+            else if (dlgMenu.SelectedLabelText == NrkTranslatableStrings.CONTEXTMENU_ITEM_LEGG_TIL_I_FAVORITTER)
             {
                 addToFavourites(item);
             }
-            else if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_BRUK_VALGT_SOM_SOEKEORD)
+            else if (dlgMenu.SelectedLabelText == NrkTranslatableStrings.CONTEXTMENU_ITEM_BRUK_VALGT_SOM_SOEKEORD)
             {
                 search(item.Title);
             }
-            else if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_FJERN_FAVORITT)
+            else if (dlgMenu.SelectedLabelText == NrkTranslatableStrings.CONTEXTMENU_ITEM_FJERN_FAVORITT)
             {
                 removeFavourite(item);
             }
-            else if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_KVALITET)
+            else if (dlgMenu.SelectedLabelText == NrkTranslatableStrings.CONTEXTMENU_ITEM_KVALITET)
             {
                 openQualityMenu(dlgMenu);
             }
-            else if (dlgMenu.SelectedLabelText == NrkConstants.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION)
+            else if (dlgMenu.SelectedLabelText == NrkTranslatableStrings.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION)
             {
                 CheckForNewVersionAndDisplayResultInMessageBox();
             }
@@ -987,11 +987,11 @@ namespace NrkBrowser
             String nyVer = String.Empty;
             if (VersionChecker.newVersionAvailable(ref nyVer))
             {
-                ShowMessageBox(string.Format(NrkConstants.NEW_VERSION_IS_AVAILABLE, nyVer));
+                ShowMessageBox(string.Format(NrkTranslatableStrings.NEW_VERSION_IS_AVAILABLE, nyVer));
             }
             else
             {
-                ShowMessageBox(NrkConstants.NEW_VERSION_IS_NOT_AVAILABLE);
+                ShowMessageBox(NrkTranslatableStrings.NEW_VERSION_IS_NOT_AVAILABLE);
             }
         }
 
@@ -1006,32 +1006,32 @@ namespace NrkBrowser
                 Clip cl = (Clip) item;
                 if (cl.TilhoerendeProsjekt > 0)
                 {
-                    dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER);
+                    dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER);
                 }
             }
             if (!activeStack.Contains(favoritter))
             {
-                dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_LEGG_TIL_I_FAVORITTER);
+                dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_LEGG_TIL_I_FAVORITTER);
             }
             if (activeStack.Contains(favoritter))
             {
-                dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_FJERN_FAVORITT);
+                dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_FJERN_FAVORITT);
             }
-            dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_BRUK_VALGT_SOM_SOEKEORD);
-            dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_KVALITET);
-            dlgMenu.Add(NrkConstants.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION);
+            dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_BRUK_VALGT_SOM_SOEKEORD);
+            dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_KVALITET);
+            dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION);
             return dlgMenu;
         }
 
         protected void openQualityMenu(GUIDialogMenu dlgMenu)
         {
             dlgMenu.Reset();
-            dlgMenu.SetHeading(NrkConstants.QUALITY_MENU_HEADER);
-            GUIListItem lowQuality = new GUIListItem(NrkConstants.QUALITY_MENU_LOW_QUALITY);
+            dlgMenu.SetHeading(NrkTranslatableStrings.QUALITY_MENU_HEADER);
+            GUIListItem lowQuality = new GUIListItem(NrkTranslatableStrings.QUALITY_MENU_LOW_QUALITY);
             lowQuality.ItemId = 1;
-            GUIListItem mediumQuality = new GUIListItem(NrkConstants.QUALITY_MENU_MEDIUM_QUALITY);
+            GUIListItem mediumQuality = new GUIListItem(NrkTranslatableStrings.QUALITY_MENU_MEDIUM_QUALITY);
             mediumQuality.ItemId = 2;
-            GUIListItem highQuality = new GUIListItem(NrkConstants.QUALITY_MENU_HIGH_QUALITY);
+            GUIListItem highQuality = new GUIListItem(NrkTranslatableStrings.QUALITY_MENU_HIGH_QUALITY);
             highQuality.ItemId = 3;
             dlgMenu.Add(lowQuality);
             dlgMenu.Add(mediumQuality);
@@ -1040,19 +1040,19 @@ namespace NrkBrowser
             if (dlgMenu.SelectedId == lowQuality.ItemId)
             {
                 int speed = 400;
-                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
+                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkTranslatableStrings.PLUGIN_NAME, speed));
                 nrkParser = new NrkParser(speed, new MPLogger());
             }
             else if (dlgMenu.SelectedId == mediumQuality.ItemId)
             {
                 int speed = 1000;
-                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
+                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkTranslatableStrings.PLUGIN_NAME, speed));
                 nrkParser = new NrkParser(speed, new MPLogger());
             }
             else if (dlgMenu.SelectedId == highQuality.ItemId)
             {
                 int speed = 10000;
-                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
+                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkTranslatableStrings.PLUGIN_NAME, speed));
                 nrkParser = new NrkParser(speed, new MPLogger());
             }
         }
@@ -1063,7 +1063,7 @@ namespace NrkBrowser
         /// <param name="item"></param>
         private void addToFavourites(Item item)
         {
-            Log.Debug(NrkConstants.PLUGIN_NAME + ": addToFavourites: " + item);
+            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": addToFavourites: " + item);
             FavoritesUtil db = FavoritesUtil.getDatabase(null);
             if (item is Clip)
             {
@@ -1071,7 +1071,7 @@ namespace NrkBrowser
                 String message = "";
                 if (!db.addFavoriteVideo(c, ref message))
                 {
-                    ShowMessageBox(string.Format(NrkConstants.FAVOURITES_COULD_NOT_BE_ADDED, message));
+                    ShowMessageBox(string.Format(NrkTranslatableStrings.FAVOURITES_COULD_NOT_BE_ADDED, message));
                 }
             }
             else if (item is Program)
@@ -1080,12 +1080,12 @@ namespace NrkBrowser
                 String message = "";
                 if (!db.addFavoriteProgram(p, ref message))
                 {
-                    ShowMessageBox(string.Format(NrkConstants.FAVOURITES_COULD_NOT_BE_ADDED, message));
+                    ShowMessageBox(string.Format(NrkTranslatableStrings.FAVOURITES_COULD_NOT_BE_ADDED, message));
                 }
             }
             else
             {
-                ShowMessageBox(NrkConstants.FAVOURITES_UNSUPPORTED_TYPE);
+                ShowMessageBox(NrkTranslatableStrings.FAVOURITES_UNSUPPORTED_TYPE);
             }
         }
 
@@ -1095,7 +1095,7 @@ namespace NrkBrowser
         /// <param name="item"></param>
         private void removeFavourite(Item item)
         {
-            Log.Debug(NrkConstants.PLUGIN_NAME + ": removeFavourite: " + item);
+            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": removeFavourite: " + item);
             FavoritesUtil db = FavoritesUtil.getDatabase(null);
             bool removedSuccessFully = false;
             if (item is Clip)
@@ -1113,7 +1113,7 @@ namespace NrkBrowser
 
             if (!removedSuccessFully)
             {
-                ShowMessageBox(NrkConstants.FAVOURITES_COULD_NOT_BE_REMOVED);
+                ShowMessageBox(NrkTranslatableStrings.FAVOURITES_COULD_NOT_BE_REMOVED);
             }
             else
             {
