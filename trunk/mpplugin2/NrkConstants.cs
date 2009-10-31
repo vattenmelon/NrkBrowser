@@ -425,5 +425,10 @@ namespace NrkBrowser
         { 
             get { return getTranslatedFromKeyOrGetDefault("CLIP_COUNT", "{0} clips"); }
         }
+        
+        public static string GEOBLOCK_URL_PART
+        {
+            get { return "geoblokk"; }
+        }
     }
 }

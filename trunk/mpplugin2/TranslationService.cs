@@ -70,15 +70,28 @@ namespace NrkBrowser
             }
         }
 
-
+        /// <summary>
+        /// Returns the translated string for the key stringKey
+        /// </summary>
+        /// <param name="stringKey">The key for the translated string.</param>
+        /// <returns>The translated string</returns>
         public string Get(string stringKey)
         {
             return translatedStrings[stringKey];
         }
+        /// <summary>
+        /// Method that checks if the key is translated.
+        /// </summary>
+        /// <param name="stringKey">The stringKey to check</param>
+        /// <returns>True if it is translated, false if not.S</returns>
         public bool Contains(string stringKey)
         {
             return translatedStrings.ContainsKey(stringKey);
         }
+        /// <summary>
+        /// Returns the numger of translated strings.
+        /// </summary>
+        /// <returns></returns>
         public int GetNumberOfTranslatedStrings()
         {
             return translatedStrings.Count;

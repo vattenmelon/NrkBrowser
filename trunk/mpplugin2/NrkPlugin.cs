@@ -803,22 +803,26 @@ namespace NrkBrowser
                 g_Player.ShowFullScreenWindow();
                 g_Player.FullScreen = true;
               
-                // Update OSD (delayed). This is very ugly..
-                Thread newThread = new Thread(new ParameterizedThreadStart(UpdatePlaybackInfo));
+                // Update OSD (delayed).
+                Thread firstThread = new Thread(new ParameterizedThreadStart(UpdatePlaybackInfo));
                 Object[] parametere = new Object[1];
                 parametere[0] = 2000;
                 parametere[1] = item;
-                newThread.Start(parametere);
-                parametere[0] = 8000;
-                newThread.Start(parametere);
+                firstThread.Start(parametere);
+                parametere[0] = 10000;
+                Thread secondThread = new Thread(new ParameterizedThreadStart(UpdatePlaybackInfo));
+                secondThread.Start(parametere);
                 
                 
             }
         }
-        
+        /// <summary>
+        /// Ugly delayed method that should be started as a separate thread to avoid that mediaportal clears
+        /// the Current.Title etc information. 
+        /// </summary>
+        /// <param name="paramArray"></param>
         private void UpdatePlaybackInfo(Object paramArray)
         {
-            //20 secs works mostly for wmv's at nrk.no.
             Object[] parametere = (Object[]) paramArray;
             int sleepDurationInMilliSecs = (Int32) parametere[0];
             Log.Debug("Thread setting osd values starting, will sleep: " + sleepDurationInMilliSecs);
@@ -841,7 +845,7 @@ namespace NrkBrowser
             {
                 message = NrkConstants.PLAYBACK_FAILED_GENERIC;
             }
-            if (pArgs.url.Contains("geoblokk"))
+            if (pArgs.url.Contains(NrkConstants.GEOBLOCK_URL_PART))
             {
                 message = NrkConstants.PLAYBACK_FAILED_GENERIC;
                 message += NrkConstants.PLAYBACK_FAILED_GEOBLOCKED_TO_NORWAY;
