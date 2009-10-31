@@ -189,15 +189,16 @@ namespace NrkBrowser
             List<Item> liste = nrkParser.GetTopTabber();
             Assert.IsNotNull(liste);
             Assert.IsNotEmpty(liste);
-            Assert.AreEqual(7, liste.Count, "Skal være syv oppførsler i lista");
-           foreach (Item item in liste)
+            foreach (Item item in liste)
             {
                 Console.WriteLine("id: " + item.ID);
                 Assert.IsNotNull(item.ID);
                 Console.WriteLine("title: " + item.Title);
                 Assert.IsNotNull(item.Title);
                 Console.Out.WriteLine("-------------------------------------------");
-            } 
+            }
+            Assert.AreEqual(7, liste.Count, "Skal være syv oppførsler i lista");
+
         }
         [Test]
         public void TestGetTopTabs()
