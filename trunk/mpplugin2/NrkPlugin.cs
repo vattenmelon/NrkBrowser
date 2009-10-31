@@ -322,7 +322,7 @@ namespace NrkBrowser
                                 Settings settings =
                                     new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.CONFIG_FILE));
                                 int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
-                                nrkParser = new NrkParser(speed);
+                                nrkParser = new NrkParser(speed, new MPLogger());
                             }
                         }
                         break;
@@ -1041,19 +1041,19 @@ namespace NrkBrowser
             {
                 int speed = 400;
                 Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
-                nrkParser = new NrkParser(speed);
+                nrkParser = new NrkParser(speed, new MPLogger());
             }
             else if (dlgMenu.SelectedId == mediumQuality.ItemId)
             {
                 int speed = 1000;
                 Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
-                nrkParser = new NrkParser(speed);
+                nrkParser = new NrkParser(speed, new MPLogger());
             }
             else if (dlgMenu.SelectedId == highQuality.ItemId)
             {
                 int speed = 10000;
                 Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
-                nrkParser = new NrkParser(speed);
+                nrkParser = new NrkParser(speed, new MPLogger());
             }
         }
 

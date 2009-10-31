@@ -14,7 +14,6 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using MediaPortal.GUI.Library;
 using NrkBrowser.Domain;
 using NrkBrowser.Xml;
 
@@ -22,6 +21,8 @@ namespace NrkBrowser
 {
     public class NrkParser
     {
+        private ILog Log;
+       
         public const string RSS_CLIPURL_PREFIX = "http://pd.nrk.no/nett-tv-stream/stream.ashx?id=";
         private static string STORY_URL = "http://www1.nrk.no/nett-tv/spilleliste.ashx?story=";
         private static string BASE_URL = "http://www1.nrk.no/";
@@ -42,8 +43,9 @@ namespace NrkBrowser
         private CookieContainer _jar;
         private int _speed;
 
-        public NrkParser(int speed)
+        public NrkParser(int speed, ILog logger)
         {
+            this.Log = logger;
             _jar = new CookieContainer();
             this.Speed = speed;
         }
@@ -513,7 +515,7 @@ namespace NrkBrowser
 
         private static string GetClipUrlForRSS(Clip clip)
         {
-            Log.Debug(NrkConstants.PLUGIN_NAME + ": Clip type is RSS");
+            //Log.Debug(NrkConstants.PLUGIN_NAME + ": Clip type is RSS");
             return RSS_CLIPURL_PREFIX + clip.ID;
         }
 

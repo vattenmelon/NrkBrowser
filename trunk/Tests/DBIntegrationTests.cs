@@ -17,7 +17,7 @@ namespace NrkBrowser
         [TestFixtureSetUp]
         public void setOpp()
         {
-            nrkParser = new NrkParser(10000);
+            nrkParser = new NrkParser(10000, new MPLogger());
         }
 
         [Test]

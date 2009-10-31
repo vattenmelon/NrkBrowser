@@ -44,7 +44,8 @@ namespace NrkBrowser
         private static void printMostWatchedAndExit(string days)
         {
             int dager = Int32.Parse(days);
-            NrkParser parser = new NrkParser(2000);
+            NrkParser parser = new NrkParser(2000, new NullLogger());
+            
             List<Item> anbefalte = parser.GetMestSette(dager);
             Console.WriteLine("Most watched last " + days + " days");
             foreach (Item item in anbefalte)
@@ -56,7 +57,7 @@ namespace NrkBrowser
 
         private static void printRecommendedAndExit()
         {
-            NrkParser parser = new NrkParser(2000);
+            NrkParser parser = new NrkParser(2000, new NullLogger());
             List<Item> anbefalte = parser.GetAnbefaltePaaForsiden();
             Console.WriteLine("Recommended:");
             foreach (Item item in anbefalte)
@@ -67,7 +68,7 @@ namespace NrkBrowser
 
         private static void printCategoriesAndExit()
         {
-            NrkParser parser = new NrkParser(2000);
+            NrkParser parser = new NrkParser(2000, new NullLogger());
             List<Item> kategorier = parser.GetCategories();
             Console.WriteLine("Categories:");
             foreach(Item item in kategorier)
