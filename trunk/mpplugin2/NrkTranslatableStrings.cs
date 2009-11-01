@@ -4,7 +4,6 @@ namespace NrkBrowser
 {
     public class NrkTranslatableStrings
     {
-        public const string PLUGIN_NAME = "NRK Browser";
         private static TranslationService trans;
         
         public static void Init()
@@ -49,8 +48,6 @@ namespace NrkBrowser
             return trans.GetNumberOfTranslatedStrings();
         }
 
-
-
         public static string MENU_ITEM_TITLE_MEST_SETTE_UKE
         {
             get{return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_MEST_SETTE_UKE", "Most watched this week");}
@@ -81,7 +78,6 @@ namespace NrkBrowser
             get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_DESCRIPTION_MEST_SETTE_TOTALT", "All time most popular clips!"); }
         }
         
-
         public static string CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER
         {
             get { return getTranslatedFromKeyOrGetDefault("CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER", "Watch earlier programs"); }
@@ -116,8 +112,6 @@ namespace NrkBrowser
         {
             get { return getTranslatedFromKeyOrGetDefault("SEARCH_NEXTPAGE_TITLE", "Next page"); }
         }
-
-       
 
         public static string CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION
         {
@@ -168,8 +162,7 @@ namespace NrkBrowser
         {
             get { return getTranslatedFromKeyOrGetDefault("FAVOURITES_COULD_NOT_BE_REMOVED", "Favourite could not be removed"); }
         }
-
-        
+  
         public static string PLAYBACK_FAILED_TRY_DISABLING_VMR9
         {
             get { return getTranslatedFromKeyOrGetDefault("PLAYBACK_FAILED_TRY_DISABLING_VMR9", "Playback failed, try disabling VMR9/Osd player for webstreams"); }
@@ -194,8 +187,6 @@ namespace NrkBrowser
         {
             get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_FAVOURITES", "Favourites"); }
         }
-
-
 
         public static string MENU_ITEM_DESCRIPTION_FAVOURITES
         {

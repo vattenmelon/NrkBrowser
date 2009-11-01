@@ -273,7 +273,7 @@ namespace NrkBrowser
                 string clipUrl = nrkParser.GetClipUrl(c);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
-                Assert.IsTrue(clipUrl.ToLower().StartsWith(NrkParser.RSS_CLIPURL_PREFIX));
+                Assert.IsTrue(clipUrl.ToLower().StartsWith(NrkConstants.RSS_CLIPURL_PREFIX));
             }
         }
 

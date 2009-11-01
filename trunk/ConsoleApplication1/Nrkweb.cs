@@ -35,6 +35,7 @@ namespace NrkBrowser
 
         private static void printVersionAndExit()
         {
+            Console.WriteLine(".NET Consoleapplication for NrkParser");
             Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             Console.WriteLine("nrkweb: " + v);
             v = System.Reflection.Assembly.GetAssembly(typeof(NrkParser)).GetName().Version;

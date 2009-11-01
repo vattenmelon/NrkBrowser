@@ -36,7 +36,7 @@ namespace NrkBrowser
         /// be shown in the plugins list in the configuration, while in the gui inside mediaportal it will use the name
         /// specified in the configuration, or the default name. 
         /// </summary>
-        private string pluginName = NrkTranslatableStrings.PLUGIN_NAME;
+        private string pluginName = NrkConstants.PLUGIN_NAME;
 
         [SkinControlAttribute(50)] protected GUIFacadeControl facadeView = null;
 
@@ -88,7 +88,7 @@ namespace NrkBrowser
         {
             string appVersion = getVersion();
 //            Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": version: " + appVersion);
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": version: " + appVersion);
 //            Log.Debug("major: " + v.Major);
 //            Log.Debug("majorrevison: " + v.MajorRevision);
 //            Log.Debug("build: " + v.Build);
@@ -122,7 +122,7 @@ namespace NrkBrowser
 
         private void SaveSettings(SettingsForm form, Settings settings)
         {
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": SaveSettings");
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": SaveSettings");
             int speed = (int) form.speedUpDown.Value;
             settings.SetValue(NrkConstants.CONFIG_SECTION, NrkConstants.CONFIG_ENTRY_SPEED, speed);
             string quality = (string) form.liveStreamQualityCombo.Items[form.liveStreamQualityCombo.SelectedIndex];
@@ -203,7 +203,7 @@ namespace NrkBrowser
 
         public override bool Init()
         {
-            Log.Debug(string.Format("{0}: Init()", NrkTranslatableStrings.PLUGIN_NAME));
+            Log.Debug(string.Format("{0}: Init()", NrkConstants.PLUGIN_NAME));
             using (
                 Settings xmlreader =
                     new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.MEDIAPORTAL_CONFIG_FILE)))
@@ -304,15 +304,15 @@ namespace NrkBrowser
 
         public override bool OnMessage(GUIMessage message)
         {
-            Log.Debug(string.Format("{0}: onMessage()", NrkTranslatableStrings.PLUGIN_NAME));
+            Log.Debug(string.Format("{0}: onMessage()", NrkConstants.PLUGIN_NAME));
             switch (message.Message)
             {
                 case GUIMessage.MessageType.GUI_MSG_WINDOW_INIT:
                     {
                         Log.Debug(
-                            string.Format("{0}: onMessage() with MessageType: [{1}]", NrkTranslatableStrings.PLUGIN_NAME,
+                            string.Format("{0}: onMessage() with MessageType: [{1}]", NrkConstants.PLUGIN_NAME,
                                           "GUI_MSG_WINDOW_INIT"));
-                        GUIPropertyManager.SetProperty("#currentmodule", NrkTranslatableStrings.PLUGIN_NAME);
+                        GUIPropertyManager.SetProperty("#currentmodule", NrkConstants.PLUGIN_NAME);
 
                         if (nrkParser == null)
                         {
@@ -694,27 +694,27 @@ namespace NrkBrowser
         /// </summary>
         private void FillStackWithFavourites()
         {
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + "FillStackWithFavourites()");
+            Log.Debug(NrkConstants.PLUGIN_NAME + "FillStackWithFavourites()");
             List<Item> items = FavoritesUtil.getDatabase().getFavoriteVideos();
             UpdateList(items);
         }
 
         protected void PlayClip(Clip item)
         {
-            Log.Info(string.Format("{0} PlayClip {1}", NrkTranslatableStrings.PLUGIN_NAME, item));
+            Log.Info(string.Format("{0} PlayClip {1}", NrkConstants.PLUGIN_NAME, item));
             string url = nrkParser.GetClipUrl(item);
             if (url == null)
             {
                 ShowMessageBox(NrkTranslatableStrings.PLAYBACK_FAILED_URL_WAS_NULL);
                 return;
             }
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " PlayClip, url is: " + url);
+            Log.Info(NrkConstants.PLUGIN_NAME + " PlayClip, url is: " + url);
             PlayUrl(url, item.Title, item.StartTime, item);
         }
 
         protected void PlayStream(Stream item)
         {
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " PlayStream " + item.ID);
+            Log.Info(NrkConstants.PLUGIN_NAME + " PlayStream " + item.ID);
             PlayUrl(item.ID, item.Title, 0, item);
         }
 
@@ -752,7 +752,7 @@ namespace NrkBrowser
 
         private void PlayMethodDelegate(object sender, DoWorkEventArgs e)
         {
-            Log.Info(string.Format("{0}: PlayMethodDelegate", NrkTranslatableStrings.PLUGIN_NAME));
+            Log.Info(string.Format("{0}: PlayMethodDelegate", NrkConstants.PLUGIN_NAME));
             PlayArgs pArgs = (PlayArgs) e.Argument;
 
             PlayListType type;
@@ -799,7 +799,7 @@ namespace NrkBrowser
         {
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
-                Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " Playing OK, switching to fullscreen");
+                Log.Info(NrkConstants.PLUGIN_NAME + " Playing OK, switching to fullscreen");
                 g_Player.ShowFullScreenWindow();
                 g_Player.FullScreen = true;
               
@@ -851,7 +851,7 @@ namespace NrkBrowser
                 message += NrkTranslatableStrings.PLAYBACK_FAILED_GEOBLOCKED_TO_NORWAY;
             }
             ShowMessageBox(message);
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " Playing failed");
+            Log.Info(NrkConstants.PLUGIN_NAME + " Playing failed");
         }
 
         private static bool isLiveStream(PlayArgs pArgs)
@@ -880,7 +880,7 @@ namespace NrkBrowser
         private bool playWithOsd(String url, String title, PlayListType type, double startTime)
         {
             //g_Player.Init();
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " Trying to play with Osd (g_Player): " + url);
+            Log.Info(NrkConstants.PLUGIN_NAME + " Trying to play with Osd (g_Player): " + url);
             Log.Debug("Title is: " + title);
             Log.Debug("Type of clip is: " + type);
             Log.Debug("Starttime of clip is: " + startTime);
@@ -914,7 +914,7 @@ namespace NrkBrowser
         /// <returns>True if playing of clip is successfully, false if not</returns>
         private bool playWithoutOsd(String url, String title, PlayListType pType, double startTime)
         {
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + " Trying to play without Osd (PlayListPlayer): " + url);
+            Log.Info(NrkConstants.PLUGIN_NAME + " Trying to play without Osd (PlayListPlayer): " + url);
             Log.Debug("Title is: " + title);
             Log.Debug("Type of clip is: " + pType);
             Log.Debug("Starttime of clip is: " + startTime);
@@ -1040,19 +1040,19 @@ namespace NrkBrowser
             if (dlgMenu.SelectedId == lowQuality.ItemId)
             {
                 int speed = 400;
-                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkTranslatableStrings.PLUGIN_NAME, speed));
+                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
                 nrkParser = new NrkParser(speed, new MPLogger());
             }
             else if (dlgMenu.SelectedId == mediumQuality.ItemId)
             {
                 int speed = 1000;
-                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkTranslatableStrings.PLUGIN_NAME, speed));
+                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
                 nrkParser = new NrkParser(speed, new MPLogger());
             }
             else if (dlgMenu.SelectedId == highQuality.ItemId)
             {
                 int speed = 10000;
-                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkTranslatableStrings.PLUGIN_NAME, speed));
+                Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkConstants.PLUGIN_NAME, speed));
                 nrkParser = new NrkParser(speed, new MPLogger());
             }
         }
@@ -1063,7 +1063,7 @@ namespace NrkBrowser
         /// <param name="item"></param>
         private void addToFavourites(Item item)
         {
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": addToFavourites: " + item);
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": addToFavourites: " + item);
             FavoritesUtil db = FavoritesUtil.getDatabase(null);
             if (item is Clip)
             {
@@ -1095,7 +1095,7 @@ namespace NrkBrowser
         /// <param name="item"></param>
         private void removeFavourite(Item item)
         {
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": removeFavourite: " + item);
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": removeFavourite: " + item);
             FavoritesUtil db = FavoritesUtil.getDatabase(null);
             bool removedSuccessFully = false;
             if (item is Clip)

@@ -6,6 +6,8 @@ namespace NrkBrowser
 {
     public class NrkConstants
     {
+        public const string PLUGIN_NAME = "NRK Browser";
+
         public static string MENU_ITEM_ID_MEST_SETTE_UKE
         {
             get { return "mestSettUke"; }
@@ -113,14 +115,20 @@ namespace NrkBrowser
         {
             get { return "NRK Browser"; }
         }
+
         public static string MENU_ITEM_ID_FAVOURITES
         {
             get { return "favoritter"; }
         }
+
         public static string GEOBLOCK_URL_PART
         {
             get { return "geoblokk"; }
         }
-
+        
+        public static string RSS_CLIPURL_PREFIX
+        {
+            get { return "http://pd.nrk.no/nett-tv-stream/stream.ashx?id="; }
+        }
     }
 }

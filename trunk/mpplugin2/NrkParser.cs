@@ -4,7 +4,7 @@
  * Loosely based on an anonymous (and slightly outdated) NRK parser in python for Myth-tv, 
  * please email me if you are the author :)
  * 
- * 2008-2009 Modified by Vattenmelon
+ * 2008-2009 by Vattenmelon
  * 
  * */
 
@@ -21,10 +21,8 @@ namespace NrkBrowser
 {
     public class NrkParser
     {
-        private ILog Log;
+        private static ILog Log;
        
-        public const string RSS_CLIPURL_PREFIX = "http://pd.nrk.no/nett-tv-stream/stream.ashx?id=";
-        private static string STORY_URL = "http://www1.nrk.no/nett-tv/spilleliste.ashx?story=";
         private static string BASE_URL = "http://www1.nrk.no/";
         private static string MAIN_URL = BASE_URL + "nett-tv/";
         private static string CATEGORY_URL = MAIN_URL + "tema/";
@@ -32,31 +30,30 @@ namespace NrkBrowser
         private static string CLIP_URL = MAIN_URL + "klipp/";
         private static string DIREKTE_URL = MAIN_URL + "direkte/";
         private static string FOLDER_URL = MAIN_URL + "kategori/";
-        
-
-        private static string SOK_URL_BEFORE =
-            "http://www.nrk.no/nett-tv/DynamiskLaster.aspx?SearchResultList$search:{0}|sort:dato|page:{1}";
-
         private static string INDEX_URL = MAIN_URL + "indeks/";
+        private static string STORY_URL = MAIN_URL + "spilleliste.ashx?story=";
+        private static string SOK_URL_BEFORE = MAIN_URL + "DynamiskLaster.aspx?SearchResultList$search:{0}|sort:dato|page:{1}";
+        private static string MEST_SETTE_URL = MAIN_URL + "ml/topp12.aspx?dager={0}&_=";
+        private static string GET_COOKIE_URL = MAIN_URL + "hastighet.aspx?hastighet={0}&retururl=http://www1.nrk.no/nett-tv/";
 
 
-        private CookieContainer _jar;
-        private int _speed;
+        private CookieContainer cookieContainer;
+        private int speed;
 
         public NrkParser(int speed, ILog logger)
         {
-            this.Log = logger;
-            _jar = new CookieContainer();
+            Log = logger;
+            cookieContainer = new CookieContainer();
             this.Speed = speed;
         }
 
         public int Speed
         {
-            get { return _speed; }
+            get { return speed; }
             set
             {
-                _speed = value;
-                FetchUrl(MAIN_URL + "hastighet.aspx?hastighet=" + _speed + "&retururl=http://www1.nrk.no/nett-tv/");
+                speed = value;
+                FetchUrl(String.Format(GET_COOKIE_URL, speed));
             }
         }
 
@@ -86,7 +83,7 @@ namespace NrkBrowser
 
         public List<Item> GetAnbefaltePaaForsiden()
         {
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + ": GetAnbefaltePaaForsiden()");
+            Log.Info(NrkConstants.PLUGIN_NAME + ": GetAnbefaltePaaForsiden()");
             string data;
             data = FetchUrl(MAIN_URL);
 
@@ -97,7 +94,7 @@ namespace NrkBrowser
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
 
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + ": Matches {0}", matches.Count);
+            Log.Info(NrkConstants.PLUGIN_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
                 Clip c = new Clip(x.Groups[2].Value, x.Groups[4].Value);
@@ -112,9 +109,9 @@ namespace NrkBrowser
 
         public List<Item> GetMestSette(int dager)
         {
-            Log.Info(string.Format("{0}: GetMestSette(), siste {1} dager", NrkTranslatableStrings.PLUGIN_NAME, dager));
+            Log.Info(string.Format("{0}: GetMestSette(), siste {1} dager", NrkConstants.PLUGIN_NAME, dager));
             string data;
-            String url = String.Format("http://www1.nrk.no/nett-tv/ml/topp12.aspx?dager={0}&_=", dager);
+            String url = String.Format(MEST_SETTE_URL, dager);
             data = FetchUrl(url);
             //"<a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\">.*?</a></h2><p><a href=\".*?/nett-tv/klipp/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></p>",
             Regex query =
@@ -124,7 +121,7 @@ namespace NrkBrowser
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
 
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + ": Matches {0}", matches.Count);
+            Log.Info(NrkConstants.PLUGIN_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
                 Clip c = new Clip(x.Groups[3].Value, x.Groups[4].Value);
@@ -145,7 +142,7 @@ namespace NrkBrowser
 
         public List<Item> GetTopTabber()
         {
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + ": GetTopTabber()");
+            Log.Info(NrkConstants.PLUGIN_NAME + ": GetTopTabber()");
             string data1;
             data1 = FetchUrl(MAIN_URL);
             //narrow it down
@@ -161,7 +158,7 @@ namespace NrkBrowser
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> items = new List<Item>();
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + ": Matches {0}", matches.Count);
+            Log.Info(NrkConstants.PLUGIN_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
                 string title = x.Groups[2].Value;
@@ -199,7 +196,7 @@ namespace NrkBrowser
 
         public List<Item> GetDirektePage(String tab)
         {
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + ": GetDirektePage(String)", tab);
+            Log.Info(NrkConstants.PLUGIN_NAME + ": GetDirektePage(String)", tab);
             string data;
             data = FetchUrl(MAIN_URL + tab + "/");
             Regex query =
@@ -210,7 +207,7 @@ namespace NrkBrowser
 
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + ": Matches {0}", matches.Count);
+            Log.Info(NrkConstants.PLUGIN_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
                 Clip c = new Clip(x.Groups[1].Value, x.Groups[2].Value);
@@ -226,7 +223,7 @@ namespace NrkBrowser
 
         public List<Item> GetTopTabContent(String tab)
         {
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + ": GetTopTabContent(String)", tab);
+            Log.Info(NrkConstants.PLUGIN_NAME + ": GetTopTabContent(String)", tab);
             string data;
             data = FetchUrl(MAIN_URL + tab + "/");
             Regex query =
@@ -237,7 +234,7 @@ namespace NrkBrowser
 
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + ": Matches {0}", matches.Count);
+            Log.Info(NrkConstants.PLUGIN_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
                 Clip c = new Clip(x.Groups[1].Value, x.Groups[3].Value);
@@ -352,7 +349,7 @@ namespace NrkBrowser
 
         private List<Item> GetClips(int id)
         {
-            Log.Info("{0}: GetClips(int): {1}", NrkTranslatableStrings.PLUGIN_NAME, id);
+            Log.Info("{0}: GetClips(int): {1}", NrkConstants.PLUGIN_NAME, id);
             string data = FetchUrl(PROGRAM_URL + id);
             List<Item> clips = new List<Item>();
             Regex query =
@@ -367,7 +364,7 @@ namespace NrkBrowser
         }
         public List<Item> GetClips(Program program)
         {
-            Log.Info("{0}: GetClips(Program): {1}", NrkTranslatableStrings.PLUGIN_NAME, program);
+            Log.Info("{0}: GetClips(Program): {1}", NrkConstants.PLUGIN_NAME, program);
             return GetClips(Int32.Parse(program.ID));
         }
 
@@ -395,7 +392,7 @@ namespace NrkBrowser
 
         public string GetClipUrl(Clip clip)
         {
-            Log.Debug("{0}: GetClipUrl(Clip): {1}", NrkTranslatableStrings.PLUGIN_NAME, clip);
+            Log.Debug("{0}: GetClipUrl(Clip): {1}", NrkConstants.PLUGIN_NAME, clip);
 
             if (clip.Type == Clip.KlippType.KLIPP)
             {
@@ -429,7 +426,7 @@ namespace NrkBrowser
 
         private string GetClipUrlForDirekte(Clip clip)
         {
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": Clip type is: " + clip.Type);
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": Clip type is: " + clip.Type);
             string data = FetchUrl(DIREKTE_URL + clip.ID);
             Regex query;
             query = new Regex("<param name=\"FileName\" value=\"(.*?)\" />", RegexOptions.IgnoreCase);
@@ -445,7 +442,7 @@ namespace NrkBrowser
                 return null;
             }
             string urldata = FetchUrl(urlToFetch);
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": " + urldata);
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": " + urldata);
             query = new Regex("<ref href=\"(.*?)\" />");
             MatchCollection movie_url = query.Matches(urldata);
 
@@ -458,7 +455,7 @@ namespace NrkBrowser
                 urlToReturn = movie_url[1].Groups[1].Value;
                 if (urlToReturn.ToLower().EndsWith(".gif"))
                 {
-                    Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": Kan ikke spille av: " + urlToReturn + ", prøver annet treff.");
+                    Log.Debug(NrkConstants.PLUGIN_NAME + ": Kan ikke spille av: " + urlToReturn + ", prøver annet treff.");
                     //vi kan ikke spille av fullt.gif, returnerer samme som i catch'en.
                     urlToReturn = movie_url[0].Groups[1].Value;
                 }
@@ -477,8 +474,8 @@ namespace NrkBrowser
 
         private string GetClipUrlAndPutStartTimeForKlipp(Clip clip)
         {
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": Clip type is: " + clip.Type);
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": Parsing xml: " + string.Format(NrkConstants.URL_GET_MEDIAXML, clip.ID, Speed));
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": Clip type is: " + clip.Type);
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": Parsing xml: " + string.Format(NrkConstants.URL_GET_MEDIAXML, clip.ID, Speed));
             XmlKlippParser xmlKlippParser = new XmlKlippParser(string.Format(NrkConstants.URL_GET_MEDIAXML, clip.ID, Speed));
             string url = xmlKlippParser.GetUrl();
             clip.StartTime = xmlKlippParser.GetStartTimeOfClip();
@@ -515,27 +512,27 @@ namespace NrkBrowser
 
         private static string GetClipUrlForRSS(Clip clip)
         {
-            //Log.Debug(NrkConstants.PLUGIN_NAME + ": Clip type is RSS");
-            return RSS_CLIPURL_PREFIX + clip.ID;
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": Clip type is RSS");
+            return NrkConstants.RSS_CLIPURL_PREFIX + clip.ID;
         }
 
         private string GetClipUrlForIndex(Clip clip)
         {
             Regex query;
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": Clip type is INDEX");
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": Clip type is INDEX");
             string data = FetchUrl(INDEX_URL + clip.ID);
             query = new Regex("<param name=\"FileName\" value=\"(.*?)\" />", RegexOptions.IgnoreCase);
             MatchCollection result = query.Matches(data);
             string urlToFetch = result[0].Groups[1].Value;
             urlToFetch = urlToFetch.Replace("amp;", ""); //noen ganger er det amper der..som må bort
             string urldata = FetchUrl(urlToFetch);
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": " + urldata);
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": " + urldata);
             query = new Regex("<starttime value=\"(.*?)\" />.*?<ref href=\"(.*?)\" />", RegexOptions.Singleline);
             MatchCollection movie_url = query.Matches(urldata);
             //skip any advertisement
 
             string str_startTime = movie_url[0].Groups[1].Value;
-            Log.Debug(NrkTranslatableStrings.PLUGIN_NAME + ": Starttime er: " + str_startTime);
+            Log.Debug(NrkConstants.PLUGIN_NAME + ": Starttime er: " + str_startTime);
             //må gjøre string representasjon på formen: 00:27:38, om til en double
             Double dStartTime = NrkUtils.convertToDouble(str_startTime);
             clip.StartTime = dStartTime;
@@ -544,7 +541,7 @@ namespace NrkBrowser
 
         private string GetClipUrlForVerdi(Clip clip)
         {
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + ": Fetching verdi url");
+            Log.Info(NrkConstants.PLUGIN_NAME + ": Fetching verdi url");
             string data = FetchUrl(STORY_URL + clip.ID);
             
             Regex query = new Regex("<media:content url=\"(.*?)&amp;app=nett-tv\"", RegexOptions.IgnoreCase);
@@ -554,12 +551,12 @@ namespace NrkBrowser
         }
 
 
-        public  string FetchUrl(string url)
+        public string FetchUrl(string url)
         {
-            Log.Info(NrkTranslatableStrings.PLUGIN_NAME + ": FetchUrl(String): " + url);
+            Log.Info(NrkConstants.PLUGIN_NAME + ": FetchUrl(String): " + url);
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
             request.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)";
-            request.CookieContainer = _jar;
+            request.CookieContainer = cookieContainer;
             // Set some reasonable limits on resources used by this request
             request.MaximumAutomaticRedirections = 4;
             request.MaximumResponseHeadersLength = 4;

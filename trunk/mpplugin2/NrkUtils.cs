@@ -47,7 +47,7 @@ namespace NrkBrowser
            }
            catch (Exception)
            {
-               Log.Info(NrkTranslatableStrings.PLUGIN_NAME +
+               Log.Info(NrkConstants.PLUGIN_NAME +
                         ": Could not parse date from image filename, but that is fine...just returning a blank string");
                return "";
            }
