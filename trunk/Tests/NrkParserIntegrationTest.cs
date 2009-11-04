@@ -88,12 +88,11 @@ namespace NrkBrowser
             List<Item> liste = nrkParser.GetAnbefaltePaaForsiden();
             Assert.IsNotNull(liste);
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
-            Console.WriteLine(liste.Count);
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
-                Console.WriteLine("type: " + c.Type);
-                Console.WriteLine("title: " + c.Title);
+                //Console.WriteLine("type: " + c.Type);
+                //Console.WriteLine("title: " + c.Title);
                 String directLink = nrkParser.GetClipUrl(c);
                 isMMSVideoStream(directLink);
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
@@ -169,16 +168,15 @@ namespace NrkBrowser
         {
             List<Item> liste = nrkParser.GetDirektePage("direkte");
             Assert.IsNotEmpty(liste);
-            Console.Out.WriteLine("count: " + liste.Count);
             Assert.AreEqual(3, liste.Count, "Skal være tre  alltid på direktelinker");
             foreach (Item item in liste)
             {
                 Clip clip = (Clip) item;
                 Assert.AreEqual(Clip.KlippType.DIREKTE, clip.Type);
-                Console.Out.WriteLine("id: "+clip.ID);
-                Console.Out.WriteLine("title: " +clip.Title);
-                Console.Out.WriteLine("description: "+clip.Description);
-                Console.Out.WriteLine("bilde: " + clip.Bilde);
+                Assert.IsNotNull(clip.ID);
+                Assert.IsNotNull(clip.Title);
+                Assert.IsNotNull(clip.Description);
+                Assert.IsNotNull(clip.Bilde);
             }
         }
 
@@ -191,11 +189,11 @@ namespace NrkBrowser
             Assert.IsNotEmpty(liste);
             foreach (Item item in liste)
             {
-                Console.WriteLine("id: " + item.ID);
+                //Console.WriteLine("id: " + item.ID);
                 Assert.IsNotNull(item.ID);
-                Console.WriteLine("title: " + item.Title);
+                //Console.WriteLine("title: " + item.Title);
                 Assert.IsNotNull(item.Title);
-                Console.Out.WriteLine("-------------------------------------------");
+                //Console.Out.WriteLine("-------------------------------------------");
             }
             Assert.AreEqual(6, liste.Count, "Skal være seks oppførsler i lista"); 
             //verifisert at "super" endret seg ca 31. oktober 09 og at den nye linken går til en flashbasert side, ala p3tv tabben.
@@ -210,22 +208,22 @@ namespace NrkBrowser
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
-                Console.WriteLine("id: " + c.ID);
+//                Console.WriteLine("id: " + c.ID);
                 Assert.IsNotNull(c.ID);
-                Console.WriteLine("title: " + c.Title);
+//                Console.WriteLine("title: " + c.Title);
                 Assert.IsNotNull(c.Title);
-                try
-                {
-                    Console.WriteLine("link: " + nrkParser.GetClipUrl(c));
-                }
-                catch(Exception e)
-                {
-                    Console.WriteLine("Kunne ikke finne url: "+ e.GetBaseException());
-                }
-                Console.WriteLine("bilde: " + c.Bilde);
-                Console.WriteLine("desc: " + c.Description);
+//                try
+//                {
+//                    Console.WriteLine("link: " + nrkParser.GetClipUrl(c));
+//                }
+//                catch(Exception e)
+//                {
+//                    Console.WriteLine("Kunne ikke finne url: "+ e.GetBaseException());
+//                }
+//                Console.WriteLine("bilde: " + c.Bilde);
+//                Console.WriteLine("desc: " + c.Description);
                 Assert.IsNotNull(c.Bilde);
-                Console.WriteLine("--------------------------");
+                //Console.WriteLine("--------------------------");
             } 
         }
 
@@ -237,7 +235,7 @@ namespace NrkBrowser
             {
                 Clip c = (Clip) item;
                 string clipUrl = nrkParser.GetClipUrl(c);
-                Console.WriteLine(c.Title + ", " + c.ID);
+                //Console.WriteLine(c.Title + ", " + c.ID);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
                 Assert.IsFalse(clipUrl.ToLower().StartsWith("mms://"));
@@ -254,7 +252,7 @@ namespace NrkBrowser
             {
                 Clip c = (Clip) item;
                 string clipUrl = nrkParser.GetClipUrl(c);
-                Console.WriteLine(c.Title + ", " + c.ID);
+                //Console.WriteLine(c.Title + ", " + c.ID);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
                 Assert.IsFalse(clipUrl.ToLower().StartsWith("mms://"));
@@ -319,7 +317,6 @@ namespace NrkBrowser
             Assert.AreEqual(1, liste.Count);
             Clip c = (Clip) liste[0];
             String klippUrl = nrkParser.GetClipUrl(c);
-            Console.WriteLine(klippUrl);
             string expectedUrl = "mms://straumod.nrk.no/disk03/Lydverket/2008-04-16/Lydverket_16_04_08_1000_358373_20080416_231000.wmv";
             Assert.AreEqual(
                 expectedUrl,

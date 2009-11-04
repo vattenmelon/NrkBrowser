@@ -58,6 +58,7 @@
     <Compile Include="MPLogger.cs" />
     <Compile Include="NrkTranslatableStrings.cs" />
     <Compile Include="TranslationService.cs" />
+    <Compile Include="UpdatePlayBackInfo.cs" />
     <Compile Include="VersionChecker.cs" />
     <Compile Include="XmlKlippParser.cs" />
     <Compile Include="FavoritesUtil.cs" />

@@ -804,35 +804,13 @@ namespace NrkBrowser
                 g_Player.FullScreen = true;
               
                 // Update OSD (delayed).
-                StartUpdatePlayBackInfoDelayedThread(2000, item);
-                StartUpdatePlayBackInfoDelayedThread(10000, item);
+                new UpdatePlayBackInfo(2000, item);
+                new UpdatePlayBackInfo(10000, item);
+               
             }
         }
 
-        private void StartUpdatePlayBackInfoDelayedThread(int delay, Item item)
-        {
-            Object[] paramz = new object[]{delay, item};
-            Thread secondThread = new Thread(new ParameterizedThreadStart(UpdatePlaybackInfoThreadMethod));
-            secondThread.Start(paramz);
-        }
 
-        /// <summary>
-        /// Ugly delayed method that should be started as a separate thread to avoid that mediaportal clears
-        /// the Current.Title etc information. 
-        /// </summary>
-        /// <param name="paramArray"></param>
-        private void UpdatePlaybackInfoThreadMethod(Object paramArray)
-        {
-            Object[] parametere = (Object[]) paramArray;
-            int sleepDurationInMilliSecs = (int) parametere[0];
-            //Log.Debug("Thread setting osd values starting, will sleep: " + sleepDurationInMilliSecs);
-            Thread.Sleep(sleepDurationInMilliSecs);
-            Item item = (Item) parametere[1];
-            GUIPropertyManager.SetProperty("#Play.Current.Title", item.Title);
-            GUIPropertyManager.SetProperty("#Play.Current.Plot", item.Description);
-            GUIPropertyManager.SetProperty("#Play.Current.Thumb", item.Bilde);
-            //Log.Debug("Thread setting osd values stopping, have slept: " + sleepDurationInMilliSecs);
-        }
 
         private void ifPlaybackFailed(PlayArgs pArgs)
         {
@@ -888,7 +866,7 @@ namespace NrkBrowser
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
                 playOk = g_Player.PlayVideoStream(url, title);
-                if (startTime != 0)
+                if (startTime < NrkConstants.MINIMUM_TIME_BEFORE_SEEK)
                 {
                     g_Player.SeekAbsolute(startTime);
                 }
@@ -896,7 +874,7 @@ namespace NrkBrowser
             else
             {
                 playOk = g_Player.PlayAudioStream(url, false);
-                if (startTime != 0)
+                if (startTime < NrkConstants.MINIMUM_TIME_BEFORE_SEEK)
                 {
                     g_Player.SeekAbsolute(startTime);
                 }
@@ -920,7 +898,7 @@ namespace NrkBrowser
             Log.Debug("Starttime of clip is: " + startTime);
             bool playIsOk = g_Player.Play(url);
 
-            if (playIsOk && startTime != 0)
+            if (playIsOk && startTime < NrkConstants.MINIMUM_TIME_BEFORE_SEEK)
             {
                 g_Player.SeekAbsolute(startTime);
             }

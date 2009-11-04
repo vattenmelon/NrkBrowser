@@ -40,6 +40,7 @@
   -->
   <ItemGroup>
     <Compile Include="TranslationTest.cs" />
+    <Compile Include="UpdatePlayBackInfoTest.cs" />
     <Compile Include="VersionCheckerTest.cs" />
     <Compile Include="XmlKlippIntegrationTest.cs" />
     <Compile Include="XmlRSSTest.cs" />
@@ -61,6 +62,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files\NUnit 2.4.8\bin\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.mocks, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

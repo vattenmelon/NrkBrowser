@@ -130,5 +130,13 @@ namespace NrkBrowser
         {
             get { return "http://pd.nrk.no/nett-tv-stream/stream.ashx?id="; }
         }
+
+        /// <summary>
+        /// The minimum time start-time of the clip should be before we wants to seek.
+        /// </summary>
+        public static double MINIMUM_TIME_BEFORE_SEEK
+        {
+            get { return 4; }
+        }
     }
 }
