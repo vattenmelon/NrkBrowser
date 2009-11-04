@@ -29,8 +29,8 @@ namespace NrkBrowser
             {
                 printVersionAndExit();
             }
-            //Console.WriteLine("Press enter to quit");
-            //Console.Read();
+            Console.WriteLine("Press enter to quit");
+            Console.Read();
         }
 
         private static void printVersionAndExit()
