@@ -8,7 +8,7 @@ namespace NrkBrowser.Xml
     [TestFixture]
     public class XMLKlippIntegrationTest
     {
-        const string ID = "556191";
+        const string ID = "569191";
         
 
         [Test]
@@ -17,7 +17,8 @@ namespace NrkBrowser.Xml
             int hastighet = 10000;
             XmlKlippParser parser = new XmlKlippParser(string.Format(NrkConstants.URL_GET_MEDIAXML, ID, hastighet));
             String url = parser.GetUrl();
-            Assert.AreEqual("mms://straumod.nrk.no/disk08/skavlan/2009-10-02/Skavlan_02_10_09_1000_556191_20091002_212500.wmv", url);
+            Console.WriteLine(url);
+            Assert.AreEqual("mms://straumod.nrk.no/disk05/Puls/2009-11-02/Puls_02_11_09_1000_569191_20091102_193000.wmv", url);
 
         }
 
@@ -27,7 +28,7 @@ namespace NrkBrowser.Xml
             int hastighet = 700;
             XmlKlippParser parser = new XmlKlippParser(string.Format(NrkConstants.URL_GET_MEDIAXML, ID, hastighet));
             String url = parser.GetUrl();
-            Assert.AreEqual("mms://straumod.nrk.no/disk08/skavlan/2009-10-02/Skavlan_02_10_09_600_556191_20091002_212500.wmv", url);
+            Assert.AreEqual("mms://straumod.nrk.no/disk05/Puls/2009-11-02/Puls_02_11_09_600_569191_20091102_193000.wmv", url);
 
         }
 
@@ -37,7 +38,7 @@ namespace NrkBrowser.Xml
             int hastighet = 500;
             XmlKlippParser parser = new XmlKlippParser(string.Format(NrkConstants.URL_GET_MEDIAXML, ID, hastighet));
             String url = parser.GetUrl();
-            Assert.AreEqual("mms://straumod.nrk.no/disk08/skavlan/2009-10-02/Skavlan_02_10_09_300_556191_20091002_212500.wmv", url);
+            Assert.AreEqual("mms://straumod.nrk.no/disk05/Puls/2009-11-02/Puls_02_11_09_300_569191_20091102_193000.wmv", url);
 
         }
 
@@ -47,7 +48,7 @@ namespace NrkBrowser.Xml
             int hastighet = 500;
             XmlKlippParser parser = new XmlKlippParser(string.Format(NrkConstants.URL_GET_MEDIAXML, ID, hastighet));
             int startTime = parser.GetStartTimeOfClip();
-            Assert.AreEqual(87, startTime);
+            Assert.AreEqual(0, startTime);
 
         }
 
