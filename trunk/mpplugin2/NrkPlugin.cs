@@ -804,34 +804,34 @@ namespace NrkBrowser
                 g_Player.FullScreen = true;
               
                 // Update OSD (delayed).
-                Thread firstThread = new Thread(new ParameterizedThreadStart(UpdatePlaybackInfo));
-                Object[] parametere = new Object[1];
-                parametere[0] = 2000;
-                parametere[1] = item;
-                firstThread.Start(parametere);
-                parametere[0] = 10000;
-                Thread secondThread = new Thread(new ParameterizedThreadStart(UpdatePlaybackInfo));
-                secondThread.Start(parametere);
-                
-                
+                StartUpdatePlayBackInfoDelayedThread(2000, item);
+                StartUpdatePlayBackInfoDelayedThread(10000, item);
             }
         }
+
+        private void StartUpdatePlayBackInfoDelayedThread(int delay, Item item)
+        {
+            Object[] paramz = new object[]{delay, item};
+            Thread secondThread = new Thread(new ParameterizedThreadStart(UpdatePlaybackInfoThreadMethod));
+            secondThread.Start(paramz);
+        }
+
         /// <summary>
         /// Ugly delayed method that should be started as a separate thread to avoid that mediaportal clears
         /// the Current.Title etc information. 
         /// </summary>
         /// <param name="paramArray"></param>
-        private void UpdatePlaybackInfo(Object paramArray)
+        private void UpdatePlaybackInfoThreadMethod(Object paramArray)
         {
             Object[] parametere = (Object[]) paramArray;
-            int sleepDurationInMilliSecs = (Int32) parametere[0];
-            Log.Debug("Thread setting osd values starting, will sleep: " + sleepDurationInMilliSecs);
+            int sleepDurationInMilliSecs = (int) parametere[0];
+            //Log.Debug("Thread setting osd values starting, will sleep: " + sleepDurationInMilliSecs);
             Thread.Sleep(sleepDurationInMilliSecs);
             Item item = (Item) parametere[1];
             GUIPropertyManager.SetProperty("#Play.Current.Title", item.Title);
             GUIPropertyManager.SetProperty("#Play.Current.Plot", item.Description);
             GUIPropertyManager.SetProperty("#Play.Current.Thumb", item.Bilde);
-            Log.Debug("Thread setting osd values stopping, have slept: " + sleepDurationInMilliSecs);
+            //Log.Debug("Thread setting osd values stopping, have slept: " + sleepDurationInMilliSecs);
         }
 
         private void ifPlaybackFailed(PlayArgs pArgs)
