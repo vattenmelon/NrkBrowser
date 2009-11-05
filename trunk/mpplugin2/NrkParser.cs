@@ -27,7 +27,6 @@ namespace NrkBrowser
         private static string MAIN_URL = BASE_URL + "nett-tv/";
         private static string CATEGORY_URL = MAIN_URL + "tema/";
         private static string PROGRAM_URL = MAIN_URL + "prosjekt/";
-        private static string CLIP_URL = MAIN_URL + "klipp/";
         private static string DIREKTE_URL = MAIN_URL + "direkte/";
         private static string FOLDER_URL = MAIN_URL + "kategori/";
         private static string INDEX_URL = MAIN_URL + "indeks/";
