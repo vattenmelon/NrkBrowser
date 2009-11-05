@@ -8,10 +8,11 @@ namespace NrkBrowser.Xml
 {
     public class XmlRSSParser : XmlParser
     {
- 
+        private string section;
         public XmlRSSParser(string siteurl, string section)
         {
-            base.url = siteurl + section;
+            url = siteurl + section;
+            this.section = section;
         }
 
 
@@ -25,6 +26,7 @@ namespace NrkBrowser.Xml
             foreach (XmlNode childNode in nodeList)
             {
                 Clip loRssItem = CreateClipFromChildNode(childNode);
+                loRssItem.Bilde = GetBildeUrl();
                 if (NrkParser.isNotShortVignett(loRssItem))
                 {
                     loRssItem.Type = Clip.KlippType.RSS;
@@ -54,9 +56,7 @@ namespace NrkBrowser.Xml
 
         private static Clip CreateClipFromChildNode(XmlNode childNode)
         {
-            Clip loRssItem;
-            loRssItem = new Clip("", "");
-
+            Clip loRssItem = new Clip("", "");
             for (int i = 0; i < childNode.ChildNodes.Count; i++)
             {
                 XmlNode n = childNode.ChildNodes[i];
@@ -154,6 +154,30 @@ namespace NrkBrowser.Xml
                 }
             }
             return loRssItem;
+        }
+
+        public string GetBildeUrl()
+        {
+            String bildeUrl;
+            switch (section)
+            {
+                case NrkConstants.MENU_ITEM_ID_NYHETER:
+                    bildeUrl = NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_NYHETER;
+                    break;
+                case NrkConstants.MENU_ITEM_ID_SPORT:
+                    bildeUrl = NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_SPORT;
+                    break;
+                    case NrkConstants.MENU_ITEM_ID_NATUR:
+                        bildeUrl = NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_NATURE;
+                    break;
+                case NrkConstants.MENU_ITEM_ID_SUPER:
+                    bildeUrl = NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_SUPER; ;
+                    break;
+                default:
+                    bildeUrl = NrkConstants.DEFAULT_PICTURE;
+                    break;
+            }
+            return bildeUrl;
         }
     }
 }

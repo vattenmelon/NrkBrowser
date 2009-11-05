@@ -34,14 +34,27 @@ namespace NrkBrowser
         {
             Object[] parametere = (Object[])paramArray;
             int sleepDurationInMilliSecs = (int)parametere[0];
-            Log.Debug("Thread setting osd values starting, will sleep: " + sleepDurationInMilliSecs);
             Thread.Sleep(sleepDurationInMilliSecs);
             Item item = (Item)parametere[1];
             GUIPropertyManager.SetProperty("#Play.Current.Title", item.Title);
             GUIPropertyManager.SetProperty("#Play.Current.Plot", item.Description);
-            GUIPropertyManager.SetProperty("#Play.Current.Thumb", item.Bilde);
-            Log.Debug("Thread setting osd values stopping, have slept: " + sleepDurationInMilliSecs);
+            string bildeUrl = GetBildeUrl(item);
+            GUIPropertyManager.SetProperty("#Play.Current.Thumb", bildeUrl);
             finished = true;
+        }
+
+        private static string GetBildeUrl(Item item)
+        {
+            String bildeUrl;
+            if (item.Bilde.Equals(String.Empty))
+            {
+                bildeUrl = NrkConstants.DEFAULT_PICTURE;
+            }
+            else
+            {
+                bildeUrl = item.Bilde;
+            }
+            return bildeUrl;
         }
     }
 }

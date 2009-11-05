@@ -138,5 +138,37 @@ namespace NrkBrowser
         {
             get { return 4; }
         }
+
+        public static string MENU_ITEM_PICTURE_NYHETER
+        {
+            get { return "nrknyheter.jpg"; }
+        }
+
+        public static string MENU_ITEM_PICTURE_SPORT
+        {
+            get { return "nrksport.jpg"; }
+        }
+
+        public static string MENU_ITEM_PICTURE_NATURE
+        {
+            get { return "nrknatur.jpg"; }
+        }
+
+        public static string MENU_ITEM_PICTURE_SUPER
+        {
+            get { return "nrksuper.jpg"; }
+        }
+
+        public const string MENU_ITEM_ID_NYHETER = "nyheter";
+
+
+        public const string MENU_ITEM_ID_SPORT = "sport";
+
+
+        public const string MENU_ITEM_ID_NATUR = "natur";
+
+
+        public const string MENU_ITEM_ID_SUPER = "super";
+
     }
 }

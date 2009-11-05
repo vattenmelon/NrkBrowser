@@ -38,6 +38,35 @@ namespace NrkBrowser.Xml
             sjekkTopTabRSSClips(ol);
         }
 
+        [Test]
+        public void GetPictureUrlIfSectionIsKnown()
+        {
+            XmlRSSParser parser = new XmlRSSParser(NrkConstants.RSS_URL, NrkConstants.MENU_ITEM_ID_NYHETER);
+            String bildeUrl = parser.GetBildeUrl();
+            Assert.AreEqual(NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_NYHETER, bildeUrl);
+            
+            parser = new XmlRSSParser(NrkConstants.RSS_URL, NrkConstants.MENU_ITEM_ID_NATUR);
+            bildeUrl = parser.GetBildeUrl();
+            Assert.AreEqual(NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_NATURE, bildeUrl);
+
+            parser = new XmlRSSParser(NrkConstants.RSS_URL, NrkConstants.MENU_ITEM_ID_SPORT);
+            bildeUrl = parser.GetBildeUrl();
+            Assert.AreEqual(NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_SPORT, bildeUrl);
+
+            parser = new XmlRSSParser(NrkConstants.RSS_URL, NrkConstants.MENU_ITEM_ID_SUPER);
+            bildeUrl = parser.GetBildeUrl();
+            Assert.AreEqual(NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_SUPER, bildeUrl);
+        }
+
+        [Test]
+        public void GetPictureUrlShouldDefaultToDefaultPictureIfSectionIsUnknown()
+        {
+            XmlRSSParser parser = new XmlRSSParser(NrkConstants.RSS_URL, "Abba");
+            String bildeUrl = parser.GetBildeUrl();
+            Assert.AreEqual(NrkConstants.DEFAULT_PICTURE, bildeUrl);
+
+        }
+
 
         private void sjekkTopTabRSSClips(List<Item> liste)
         {

@@ -26,7 +26,7 @@ namespace NrkBrowser
 {
     public class NrkPlugin : GUIWindow, ISetupForm
     {
-        private static string PICTURE_DIR = string.Format(@"{0}\media\nrkbrowser\", GUIGraphicsContext.Skin);
+        public static string PICTURE_DIR = string.Format(@"{0}\media\nrkbrowser\", GUIGraphicsContext.Skin);
 
         protected string _suffix = "_l";
 
@@ -515,7 +515,7 @@ namespace NrkBrowser
             {
                 UpdateListAndSetClipCount(nrkParser.GetMestSette(3650));
             }
-            else if (item.ID == "nyheter" || item.ID == "sport" || item.ID == "natur" || item.ID == "super")
+            else if (item.ID == NrkConstants.MENU_ITEM_ID_NYHETER || item.ID == NrkConstants.MENU_ITEM_ID_SPORT || item.ID == NrkConstants.MENU_ITEM_ID_NATUR || item.ID == NrkConstants.MENU_ITEM_ID_SUPER)
             {
                 UpdateListAndSetClipCount(nrkParser.GetTopTabRSS(item.ID));
             }
@@ -577,24 +577,24 @@ namespace NrkBrowser
             mestSett.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_MOST_WATCHED;
             items.Add(mestSett);
 
-            MenuItem nyheter = new MenuItem("nyheter", NrkTranslatableStrings.MENU_ITEM_TITLE_NEWS);
+            MenuItem nyheter = new MenuItem(NrkConstants.MENU_ITEM_ID_NYHETER, NrkTranslatableStrings.MENU_ITEM_TITLE_NEWS);
             nyheter.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_NEWS;
-            nyheter.Bilde = PICTURE_DIR + "nrknyheter.jpg";
+            nyheter.Bilde = PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_NYHETER;
             items.Add(nyheter);
 
-            MenuItem sport = new MenuItem("sport", NrkTranslatableStrings.MENU_ITEM_TITLE_SPORT);
+            MenuItem sport = new MenuItem(NrkConstants.MENU_ITEM_ID_SPORT, NrkTranslatableStrings.MENU_ITEM_TITLE_SPORT);
             sport.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_SPORT;
-            sport.Bilde = PICTURE_DIR + "nrksport.jpg";
+            sport.Bilde = PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_SPORT;
             items.Add(sport);
 
-            MenuItem natur = new MenuItem("natur", NrkTranslatableStrings.MENU_ITEM_TITLE_NATURE);
+            MenuItem natur = new MenuItem(NrkConstants.MENU_ITEM_ID_NATUR, NrkTranslatableStrings.MENU_ITEM_TITLE_NATURE);
             natur.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_NATURE;
-            natur.Bilde = PICTURE_DIR + "nrknatur.jpg";
+            natur.Bilde = PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_NATURE;
             items.Add(natur);
 
-            MenuItem super = new MenuItem("super", NrkTranslatableStrings.MENU_ITEM_TITLE_SUPER);
+            MenuItem super = new MenuItem(NrkConstants.MENU_ITEM_ID_SUPER, NrkTranslatableStrings.MENU_ITEM_TITLE_SUPER);
             super.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_SUPER;
-            super.Bilde = PICTURE_DIR + "nrksuper.jpg";
+            super.Bilde = PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_SUPER;
             items.Add(super);
 
             List<Item> tabItems = GetTabItems();
