@@ -49,6 +49,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bilder", "bilder", "{9BCBA1
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{00C08DA7-FECB-4E15-8F68-C03D5815979F}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +73,10 @@ Global
 		{526E3060-B4C4-43DA-918F-94FAAA1E0A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{526E3060-B4C4-43DA-918F-94FAAA1E0A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{526E3060-B4C4-43DA-918F-94FAAA1E0A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00C08DA7-FECB-4E15-8F68-C03D5815979F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00C08DA7-FECB-4E15-8F68-C03D5815979F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00C08DA7-FECB-4E15-8F68-C03D5815979F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00C08DA7-FECB-4E15-8F68-C03D5815979F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
