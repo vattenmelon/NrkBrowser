@@ -1,5 +1,5 @@
 using System;
-using MediaPortal.GUI.Library;
+
 /*
  * Created by: Vattenmelon 
  * Created: 15. november 2008
@@ -15,13 +15,13 @@ namespace NrkBrowser
         /// <returns></returns>
         public static double convertToDouble(string time)
         {
-            Log.Debug("convertTouDouble(String): " + time);
+            //Log.Debug("convertTouDouble(String): " + time);
             String[] array = time.Split(':');
             double hours = Double.Parse(array[0]);
             double minutes = Double.Parse(array[1]);
             double seconds = Double.Parse(array[2]);
             double totalSeconds = seconds + minutes * 60 + hours * 60 * 60;
-            Log.Debug("convertTouDouble(String): returns: " + totalSeconds + " seconds");
+            //Log.Debug("convertTouDouble(String): returns: " + totalSeconds + " seconds");
             return totalSeconds;
         }
 
@@ -47,8 +47,8 @@ namespace NrkBrowser
            }
            catch (Exception)
            {
-               Log.Info(NrkConstants.PLUGIN_NAME +
-                        ": Could not parse date from image filename, but that is fine...just returning a blank string");
+//               Log.Info(NrkConstants.PLUGIN_NAME +
+//                        ": Could not parse date from image filename, but that is fine...just returning a blank string");
                return "";
            }
        }

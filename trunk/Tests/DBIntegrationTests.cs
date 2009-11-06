@@ -4,6 +4,7 @@
  */
 
 using System.Collections.Generic;
+using Nrk.Parser;
 using NrkBrowser.Domain;
 using NUnit.Framework;
 

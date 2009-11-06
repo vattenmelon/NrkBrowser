@@ -51,28 +51,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILog.cs" />
     <Compile Include="MPLogger.cs" />
     <Compile Include="NrkTranslatableStrings.cs" />
     <Compile Include="TranslationService.cs" />
     <Compile Include="UpdatePlayBackInfo.cs" />
     <Compile Include="VersionChecker.cs" />
-    <Compile Include="XmlKlippParser.cs" />
     <Compile Include="FavoritesUtil.cs" />
-    <Compile Include="NrkConstants.cs" />
-    <Compile Include="NrkParser.cs" />
     <Compile Include="NrkPlugin.cs" />
-    <Compile Include="NrkUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Search.cs" />
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SettingsForm.designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="XmlParser.cs" />
-    <Compile Include="XmlRSSParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SettingsForm.resx">
@@ -84,6 +76,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{00C08DA7-FECB-4E15-8F68-C03D5815979F}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NrkParser\NrkParser.csproj">
+      <Project>{C67F56C6-C8FA-45C7-833C-3C2F64F31351}</Project>
+      <Name>NrkParser</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
-//using MediaPortal.ServiceImplementations;
+using Nrk.Parser;
 using NrkBrowser.Domain;
 
 namespace NrkBrowser.Xml
@@ -162,16 +162,16 @@ namespace NrkBrowser.Xml
             switch (section)
             {
                 case NrkConstants.MENU_ITEM_ID_NYHETER:
-                    bildeUrl = NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_NYHETER;
+                    bildeUrl = NrkConstants.MENU_ITEM_PICTURE_NYHETER;
                     break;
                 case NrkConstants.MENU_ITEM_ID_SPORT:
-                    bildeUrl = NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_SPORT;
+                    bildeUrl = NrkConstants.MENU_ITEM_PICTURE_SPORT;
                     break;
                     case NrkConstants.MENU_ITEM_ID_NATUR:
-                        bildeUrl = NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_NATURE;
+                        bildeUrl = NrkConstants.MENU_ITEM_PICTURE_NATURE;
                     break;
                 case NrkConstants.MENU_ITEM_ID_SUPER:
-                    bildeUrl = NrkPlugin.PICTURE_DIR + NrkConstants.MENU_ITEM_PICTURE_SUPER; ;
+                    bildeUrl = NrkConstants.MENU_ITEM_PICTURE_SUPER; ;
                     break;
                 default:
                     bildeUrl = NrkConstants.DEFAULT_PICTURE;

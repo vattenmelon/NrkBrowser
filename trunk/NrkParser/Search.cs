@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using MediaPortal.ServiceImplementations;
+//using MediaPortal.ServiceImplementations;
 using NrkBrowser.Domain;
 
 namespace NrkBrowser
@@ -24,7 +24,7 @@ namespace NrkBrowser
 
             Regex query = new Regex(regexQuery, RegexOptions.Singleline);
             MatchCollection result = query.Matches(htmlData);
-            Log.Info(string.Format("Matches found in search: {0}", result.Count));
+            //Log.Info(string.Format("Matches found in search: {0}", result.Count));
             searchHits = Search.GetSearchHits(result);
         }
 
@@ -71,7 +71,7 @@ namespace NrkBrowser
             else
             {
                 Console.WriteLine("feil: " + type);
-                Log.Error(NrkConstants.PLUGIN_NAME + ": unsupported type: " + x.Groups[2].Value);
+                //Log.Error(NrkConstants.PLUGIN_NAME + ": unsupported type: " + x.Groups[2].Value);
             }
         }
 
