@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Nrk.Parser;
-using NrkBrowser.Domain;
+using Vattenmelon.Nrk.Browser;
+using Vattenmelon.Nrk.Browser.Translation;
+using Vattenmelon.Nrk.Parser;
+using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Parser
 {
     [TestFixture]
     public class NrkParserIntegrationTest

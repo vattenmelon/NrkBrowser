@@ -5,7 +5,7 @@
 
 using NUnit.Framework;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Parser
 {
     [TestFixture]
     public class UtilsTest

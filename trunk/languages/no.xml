@@ -42,8 +42,8 @@
   <string id="MENU_ITEM_DESCRIPTION_NEWS">De siste nyhetsklippene</string>
   <string id="MENU_ITEM_TITLE_SPORT">Sport</string>
   <string id="MENU_ITEM_DESCRIPTION_SPORT">De siste sportsklippene</string>
-  <string id="MENU_ITEM_TITLE_NATUR">Natur</string>
-  <string id="MENU_ITEM_DESCRIPTION_NATUR">De siste naturklippene</string>
+  <string id="MENU_ITEM_TITLE_NATURE">Natur</string>
+  <string id="MENU_ITEM_DESCRIPTION_NATURE">De siste naturklippene</string>
   <string id="MENU_ITEM_TITLE_SUPER">Super</string>
   <string id="MENU_ITEM_DESCRIPTION_SUPER">De siste klippene fra Super</string>
   <string id="MENU_ITEM_TITLE_SEARCH">Søk</string>

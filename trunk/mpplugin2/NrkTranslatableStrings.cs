@@ -1,10 +1,10 @@
 using System;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Browser.Translation
 {
     public class NrkTranslatableStrings
     {
-        private static TranslationService trans;
+        private static ITranslationService trans;
         
         public static void Init()
         {

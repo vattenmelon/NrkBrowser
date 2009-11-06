@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITranslationService.cs" />
     <Compile Include="MPLogger.cs" />
     <Compile Include="NrkTranslatableStrings.cs" />
     <Compile Include="TranslationService.cs" />

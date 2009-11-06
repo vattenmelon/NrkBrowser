@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Browser
 {
     public partial class SettingsForm : Form
     {

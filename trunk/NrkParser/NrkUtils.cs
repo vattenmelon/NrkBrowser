@@ -4,7 +4,7 @@ using System;
  * Created by: Vattenmelon 
  * Created: 15. november 2008
  */
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Parser
 {
    public class NrkUtils
     {

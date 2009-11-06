@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 //using MediaPortal.ServiceImplementations;
-using NrkBrowser.Domain;
+using Vattenmelon.Nrk.Domain;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Parser
 {
     public class Search
     {

@@ -4,11 +4,12 @@
  */
 
 using System.Collections.Generic;
-using Nrk.Parser;
-using NrkBrowser.Domain;
+using Vattenmelon.Nrk.Browser.Db;
+using Vattenmelon.Nrk.Parser;
+using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Browser.Db
 {
     [TestFixture]
     public class DBIntegrationTests

@@ -4,10 +4,11 @@ using System.IO;
 using System.Xml;
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
+using Vattenmelon.Nrk.Parser;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Browser.Translation
 {
-    public class TranslationService
+    public class TranslationService : ITranslationService
     {
         private string path;
         
@@ -20,7 +21,7 @@ namespace NrkBrowser
         {
             string lang = GUILocalizeStrings.GetCultureName(GUILocalizeStrings.CurrentLanguage());
             Log.Info("Using language " + lang);
-            path = Config.GetSubFolder(Config.Dir.Language, "NrkBrowser");
+            path = Config.GetSubFolder(Config.Dir.Language, NrkConstants.LANGUAGE_DIR);
             loadTranslatedStringsFromFile(lang);
         }
         /// <summary>

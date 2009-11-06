@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using Nrk.Parser;
-using NrkBrowser.Domain;
+using Vattenmelon.Nrk.Parser;
+using Vattenmelon.Nrk.Domain;
 
-namespace NrkBrowser.Xml
+namespace Vattenmelon.Nrk.Parser.Xml
 {
     public class XmlRSSParser : XmlParser
     {
@@ -26,7 +26,7 @@ namespace NrkBrowser.Xml
             foreach (XmlNode childNode in nodeList)
             {
                 Clip loRssItem = CreateClipFromChildNode(childNode);
-                loRssItem.Bilde = GetBildeUrl();
+                loRssItem.Bilde = GetPictureForSection();
                 if (NrkParser.isNotShortVignett(loRssItem))
                 {
                     loRssItem.Type = Clip.KlippType.RSS;
@@ -156,28 +156,28 @@ namespace NrkBrowser.Xml
             return loRssItem;
         }
 
-        public string GetBildeUrl()
+        public string GetPictureForSection()
         {
-            String bildeUrl;
+            String pictureFile;
             switch (section)
             {
                 case NrkConstants.MENU_ITEM_ID_NYHETER:
-                    bildeUrl = NrkConstants.MENU_ITEM_PICTURE_NYHETER;
+                    pictureFile = NrkConstants.MENU_ITEM_PICTURE_NYHETER;
                     break;
                 case NrkConstants.MENU_ITEM_ID_SPORT:
-                    bildeUrl = NrkConstants.MENU_ITEM_PICTURE_SPORT;
+                    pictureFile = NrkConstants.MENU_ITEM_PICTURE_SPORT;
                     break;
                     case NrkConstants.MENU_ITEM_ID_NATUR:
-                        bildeUrl = NrkConstants.MENU_ITEM_PICTURE_NATURE;
+                        pictureFile = NrkConstants.MENU_ITEM_PICTURE_NATURE;
                     break;
                 case NrkConstants.MENU_ITEM_ID_SUPER:
-                    bildeUrl = NrkConstants.MENU_ITEM_PICTURE_SUPER; ;
+                    pictureFile = NrkConstants.MENU_ITEM_PICTURE_SUPER; ;
                     break;
                 default:
-                    bildeUrl = NrkConstants.DEFAULT_PICTURE;
+                    pictureFile = NrkConstants.DEFAULT_PICTURE;
                     break;
             }
-            return bildeUrl;
+            return pictureFile;
         }
     }
 }

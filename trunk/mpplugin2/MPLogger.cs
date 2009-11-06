@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using MediaPortal.GUI.Library;
+using Vattenmelon.Nrk.Domain;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Browser
 {
     public class MPLogger : ILog
     {

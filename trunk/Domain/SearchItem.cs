@@ -3,7 +3,7 @@
  * Created: 9. september 2008
  */
 
-namespace NrkBrowser.Domain
+namespace Vattenmelon.Nrk.Domain
 {
     public class SearchItem : Item
     {

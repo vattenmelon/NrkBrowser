@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Domain
 {
     /// <summary>
     /// This is mostly all methods from Mediaportals Log class that i used. serious cleanup needed.
     /// </summary>
     public interface ILog
-    {
+    { 
         //void BackupLogFile(LogType logType);
         void BackupLogFiles();
         void Debug(string format, params object[] arg);

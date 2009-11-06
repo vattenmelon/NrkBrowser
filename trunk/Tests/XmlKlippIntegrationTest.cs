@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using NrkBrowser.Domain;
+using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
 
-namespace NrkBrowser.Xml
+namespace Vattenmelon.Nrk.Parser.Xml
 {
     [TestFixture]
     public class XMLKlippIntegrationTest

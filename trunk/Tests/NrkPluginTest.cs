@@ -5,10 +5,13 @@
 
 using System;
 using System.Collections.Generic;
-using NrkBrowser.Domain;
+using Vattenmelon.Nrk.Browser;
+using Vattenmelon.Nrk.Browser.Translation;
+using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
+using Vattenmelon.Nrk.Parser;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Browser
 {
     [TestFixture]
     public class NrkPluginTest

@@ -6,9 +6,9 @@
 using System;
 using System.Threading;
 using MediaPortal.GUI.Library;
-using NrkBrowser.Domain;
+using Vattenmelon.Nrk.Domain;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Parser
 {
     public class UpdatePlayBackInfo
     {

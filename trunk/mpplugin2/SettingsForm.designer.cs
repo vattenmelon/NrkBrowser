@@ -1,4 +1,4 @@
-﻿namespace NrkBrowser
+﻿namespace Vattenmelon.Nrk.Browser
 {
   partial class SettingsForm
   {

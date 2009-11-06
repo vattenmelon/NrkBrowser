@@ -10,14 +10,15 @@ using System.IO;
 using MediaPortal.Configuration;
 using MediaPortal.Database;
 using MediaPortal.GUI.Library;
-using NrkBrowser.Domain;
+using Vattenmelon.Nrk.Domain;
 using SQLite.NET;
+using Vattenmelon.Nrk.Parser;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Browser.Db
 {
     public class FavoritesUtil
-    {
-        private static string DB_FILENAME = "NrkBrowser.db3";
+    { 
+        private static string DB_FILENAME = "Vattenmelon.Nrk.Parser.db3";
         private SQLiteClient sqlClient;
         private static int schemaVersion = 3;
 

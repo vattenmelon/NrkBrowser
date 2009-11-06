@@ -5,8 +5,9 @@
 
 using System;
 using NUnit.Framework;
+using Vattenmelon.Nrk.Browser;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Browser
 {
     [TestFixture]
     public class VersionCheckerTest

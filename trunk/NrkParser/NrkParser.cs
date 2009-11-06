@@ -14,11 +14,11 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using NrkBrowser;
-using NrkBrowser.Domain;
-using NrkBrowser.Xml;
+using Vattenmelon.Nrk.Parser;
+using Vattenmelon.Nrk.Domain;
+using Vattenmelon.Nrk.Parser.Xml;
 
-namespace Nrk.Parser
+namespace Vattenmelon.Nrk.Parser
 {
     public class NrkParser
     {
@@ -174,6 +174,7 @@ namespace Nrk.Parser
         public List<Item> GetTopTabRSS(string site)
         {
             XmlRSSParser parser = new XmlRSSParser(NrkConstants.RSS_URL, site);
+            List<Item> tItems = parser.getClips();
             return parser.getClips();
         }
 

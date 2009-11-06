@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Parser
 {
     public class NrkConstants
     {
@@ -157,6 +157,11 @@ namespace NrkBrowser
         public static string MENU_ITEM_PICTURE_SUPER
         {
             get { return "nrksuper.jpg"; }
+        }
+
+        public static string LANGUAGE_DIR
+        {
+            get { return CONFIG_SECTION; }
         }
 
         public const string MENU_ITEM_ID_NYHETER = "nyheter";

@@ -1,6 +1,6 @@
 using System.Xml;
 
-namespace NrkBrowser.Xml
+namespace Vattenmelon.Nrk.Parser.Xml
 {
     public class XmlParser
     {

@@ -5,7 +5,7 @@
 
 using System;
 
-namespace NrkBrowser.Domain
+namespace Vattenmelon.Nrk.Domain
 {
     public class Clip : Item
     {

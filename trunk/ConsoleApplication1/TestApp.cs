@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Nrk.Parser;
-using NrkBrowser;
-using NrkBrowser.Domain;
+using Vattenmelon.Nrk.Parser;
+using Vattenmelon.Nrk.Domain;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Parser
 {
     public class NrkBrowser
     {

@@ -1,9 +1,8 @@
 using System;
-using System.Reflection;
-using NrkBrowser;
+using Vattenmelon.Nrk.Browser.Translation;
 using NUnit.Framework;
 
-namespace Translation
+namespace Vattenmelon.Nrk.Browser.Translation
 {
     [TestFixture]
     public class TranslationTest

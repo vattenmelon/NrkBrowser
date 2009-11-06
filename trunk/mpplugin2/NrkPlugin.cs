@@ -19,11 +19,13 @@ using MediaPortal.GUI.Library;
 using MediaPortal.Player;
 using MediaPortal.Playlists;
 using MediaPortal.Profile;
-using Nrk.Parser;
-using NrkBrowser.Domain;
-using MenuItem=NrkBrowser.Domain.MenuItem;
+using Vattenmelon.Nrk.Browser.Db;
+using Vattenmelon.Nrk.Browser.Translation;
+using Vattenmelon.Nrk.Parser;
+using Vattenmelon.Nrk.Domain;
+using MenuItem=Vattenmelon.Nrk.Domain.MenuItem;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Browser
 {
     public class NrkPlugin : GUIWindow, ISetupForm
     {
@@ -74,7 +76,7 @@ namespace NrkBrowser
         {
             return pluginName;
         }
-
+        
         public string Description()
         {
             return NrkConstants.ABOUT_DESCRIPTION;
@@ -328,7 +330,7 @@ namespace NrkBrowser
                                 Log.Info("Parser is null, getting speed-cookie and creates parser.");
                                 Settings settings =
                                     new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.CONFIG_FILE));
-                                int speed = settings.GetValueAsInt("NrkBrowser", "speed", 2048);
+                                int speed = settings.GetValueAsInt("Vattenmelon.Nrk.Parser", "speed", 2048);
                                 nrkParser = new NrkParser(speed, new MPLogger());
                             }
                         }
@@ -534,7 +536,12 @@ namespace NrkBrowser
             }
             else if (item.ID == NrkConstants.MENU_ITEM_ID_NYHETER || item.ID == NrkConstants.MENU_ITEM_ID_SPORT || item.ID == NrkConstants.MENU_ITEM_ID_NATUR || item.ID == NrkConstants.MENU_ITEM_ID_SUPER)
             {
-                UpdateListAndSetClipCount(nrkParser.GetTopTabRSS(item.ID));
+                List<Item> tItems = nrkParser.GetTopTabRSS(item.ID);
+                tItems.ForEach(delegate (Item thisItem)
+                                   {
+                                       thisItem.Bilde = PICTURE_DIR + thisItem.Bilde;
+                                   });
+                UpdateListAndSetClipCount(tItems);
             }
             else if (item.ID == "categories")
             {
@@ -832,10 +839,16 @@ namespace NrkBrowser
                 g_Player.ShowFullScreenWindow();
                 g_Player.FullScreen = true;
               
-                // Update OSD (delayed).
-                new UpdatePlayBackInfo(2000, item);
-                new UpdatePlayBackInfo(10000, item);
-               
+                // Update OSD (delayed). RSS/Flash-based need shorter time to load than wmv-based
+                Clip clip = (Clip) item;
+                if(clip.Type == Clip.KlippType.RSS){
+                    new UpdatePlayBackInfo(2000, item);
+                }
+                else
+                {
+                    new UpdatePlayBackInfo(10000, item);
+                }
+                  
             }
         }
 

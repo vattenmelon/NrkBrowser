@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Vattenmelon.Nrk.Domain;
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Parser
 {
     public class NullLogger : ILog
     {

@@ -2,14 +2,13 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Security;
-using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using MediaPortal.GUI.Library;
 
 
-namespace NrkBrowser
+namespace Vattenmelon.Nrk.Browser
 {
     public static class VersionChecker
     {

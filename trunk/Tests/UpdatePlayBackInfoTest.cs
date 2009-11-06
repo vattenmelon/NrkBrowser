@@ -5,11 +5,11 @@
 
 
 using System.Threading;
-using NrkBrowser;
-using NrkBrowser.Domain;
+using Vattenmelon.Nrk.Parser;
+using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
 
-namespace Tests
+namespace Vattenmelon.Nrk.Browser
 {
     [TestFixture]
     public class UpdatePlayBackInfoTest
