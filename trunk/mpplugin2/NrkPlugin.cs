@@ -88,8 +88,9 @@ namespace NrkBrowser
         public void ShowPlugin()
         {
             string appVersion = getVersion();
+            string libraryVersion = getLibraryVersion();
 //            Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            Log.Debug(NrkConstants.PLUGIN_NAME + ": version: " + appVersion);
+            Log.Debug(string.Format("{0}: pluginversion: {1}, libraryversion: {2}", NrkConstants.PLUGIN_NAME, appVersion, libraryVersion));
 //            Log.Debug("major: " + v.Major);
 //            Log.Debug("majorrevison: " + v.MajorRevision);
 //            Log.Debug("build: " + v.Build);
@@ -98,7 +99,8 @@ namespace NrkBrowser
 //            Log.Debug("minorrevision: " + v.MinorRevision);
             //configuration
             SettingsForm form = new SettingsForm();
-            form.LabelVersionVerdi.Text = appVersion;
+            form.LabelVersionPluginVerdi.Text = appVersion;
+            form.LabelVersionLibraryVerdi.Text = libraryVersion;
 
             Settings settings = new Settings(Config.GetFile(Config.Dir.Config, NrkConstants.CONFIG_FILE));
             int speed = initSpeedSettings(form, settings);
@@ -119,6 +121,10 @@ namespace NrkBrowser
         public static string getVersion()
         {
             return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
+        public static string getLibraryVersion()
+        {
+            return Assembly.GetAssembly(typeof(NrkParser)).GetName().Version.ToString();
         }
 
         private void SaveSettings(SettingsForm form, Settings settings)

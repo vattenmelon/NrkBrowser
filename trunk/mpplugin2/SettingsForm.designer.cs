@@ -38,8 +38,10 @@
         this.header = new System.Windows.Forms.Label();
         this.nameLabel = new System.Windows.Forms.Label();
         this.nameTextbox = new System.Windows.Forms.TextBox();
-        this.labelVersion = new System.Windows.Forms.Label();
-        this.labelVersionVerdi = new System.Windows.Forms.Label();
+        this.labelVersionPlugin = new System.Windows.Forms.Label();
+        this.labelVersionPluginVerdi = new System.Windows.Forms.Label();
+        this.labelVersionLibraryVerdi = new System.Windows.Forms.Label();
+        this.labelVersionLibrary = new System.Windows.Forms.Label();
         ((System.ComponentModel.ISupportInitialize)(this.speedUpDown)).BeginInit();
         this.SuspendLayout();
         // 
@@ -156,31 +158,51 @@
         this.nameTextbox.Size = new System.Drawing.Size(121, 20);
         this.nameTextbox.TabIndex = 11;
         // 
-        // labelVersion
+        // labelVersionPlugin
         // 
-        this.labelVersion.AutoSize = true;
-        this.labelVersion.Location = new System.Drawing.Point(136, 13);
-        this.labelVersion.Name = "labelVersion";
-        this.labelVersion.Size = new System.Drawing.Size(45, 13);
-        this.labelVersion.TabIndex = 12;
-        this.labelVersion.Text = "Version:";
+        this.labelVersionPlugin.AutoSize = true;
+        this.labelVersionPlugin.Location = new System.Drawing.Point(136, 13);
+        this.labelVersionPlugin.Name = "labelVersionPlugin";
+        this.labelVersionPlugin.Size = new System.Drawing.Size(76, 13);
+        this.labelVersionPlugin.TabIndex = 12;
+        this.labelVersionPlugin.Text = "Plugin version:";
         // 
-        // labelVersionVerdi
+        // labelVersionPluginVerdi
         // 
-        this.labelVersionVerdi.AutoSize = true;
-        this.labelVersionVerdi.Location = new System.Drawing.Point(187, 13);
-        this.labelVersionVerdi.Name = "labelVersionVerdi";
-        this.labelVersionVerdi.Size = new System.Drawing.Size(78, 13);
-        this.labelVersionVerdi.TabIndex = 13;
-        this.labelVersionVerdi.Text = "versjonnummer";
+        this.labelVersionPluginVerdi.AutoSize = true;
+        this.labelVersionPluginVerdi.Location = new System.Drawing.Point(218, 13);
+        this.labelVersionPluginVerdi.Name = "labelVersionPluginVerdi";
+        this.labelVersionPluginVerdi.Size = new System.Drawing.Size(78, 13);
+        this.labelVersionPluginVerdi.TabIndex = 13;
+        this.labelVersionPluginVerdi.Text = "versjonnummer";
+        // 
+        // labelVersionLibraryVerdi
+        // 
+        this.labelVersionLibraryVerdi.AutoSize = true;
+        this.labelVersionLibraryVerdi.Location = new System.Drawing.Point(218, 39);
+        this.labelVersionLibraryVerdi.Name = "labelVersionLibraryVerdi";
+        this.labelVersionLibraryVerdi.Size = new System.Drawing.Size(75, 13);
+        this.labelVersionLibraryVerdi.TabIndex = 15;
+        this.labelVersionLibraryVerdi.Text = "Library version";
+        // 
+        // labelVersionLibrary
+        // 
+        this.labelVersionLibrary.AutoSize = true;
+        this.labelVersionLibrary.Location = new System.Drawing.Point(136, 39);
+        this.labelVersionLibrary.Name = "labelVersionLibrary";
+        this.labelVersionLibrary.Size = new System.Drawing.Size(78, 13);
+        this.labelVersionLibrary.TabIndex = 14;
+        this.labelVersionLibrary.Text = "Library version:";
         // 
         // SettingsForm
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.ClientSize = new System.Drawing.Size(451, 214);
-        this.Controls.Add(this.labelVersionVerdi);
-        this.Controls.Add(this.labelVersion);
+        this.Controls.Add(this.labelVersionLibraryVerdi);
+        this.Controls.Add(this.labelVersionLibrary);
+        this.Controls.Add(this.labelVersionPluginVerdi);
+        this.Controls.Add(this.labelVersionPlugin);
         this.Controls.Add(this.nameTextbox);
         this.Controls.Add(this.nameLabel);
         this.Controls.Add(this.header);
@@ -212,7 +234,9 @@
       private System.Windows.Forms.Label header;
       private System.Windows.Forms.Label nameLabel;
       private System.Windows.Forms.TextBox nameTextbox;
-      private System.Windows.Forms.Label labelVersion;
-      private System.Windows.Forms.Label labelVersionVerdi;
+      private System.Windows.Forms.Label labelVersionPlugin;
+      private System.Windows.Forms.Label labelVersionPluginVerdi;
+      private System.Windows.Forms.Label labelVersionLibraryVerdi;
+      private System.Windows.Forms.Label labelVersionLibrary;
   }
 }

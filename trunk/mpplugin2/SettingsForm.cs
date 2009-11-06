@@ -15,10 +15,15 @@ namespace NrkBrowser
             set { nameTextbox = value; }
         }
 
-        public Label LabelVersionVerdi
+        public Label LabelVersionPluginVerdi
         {
-            get { return labelVersionVerdi; }
-            set { labelVersionVerdi = value; }
+            get { return labelVersionPluginVerdi; }
+            set { labelVersionPluginVerdi = value; }
+        }
+        public Label LabelVersionLibraryVerdi
+        {
+            get { return labelVersionLibraryVerdi; }
+            set { labelVersionLibraryVerdi = value; }
         }
     }
 }

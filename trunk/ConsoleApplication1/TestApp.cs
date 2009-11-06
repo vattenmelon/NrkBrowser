@@ -30,6 +30,7 @@ namespace NrkBrowser
             {
                 printVersionAndExit();
             }
+            
             Console.WriteLine("Press enter to quit");
             Console.Read();
         }
@@ -39,6 +40,8 @@ namespace NrkBrowser
             Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             Console.WriteLine("nrkweb: " + v);
             v = System.Reflection.Assembly.GetAssembly(typeof(NrkParser)).GetName().Version;
+            Console.WriteLine("nrkparser: " + v);
+            v = System.Reflection.Assembly.GetAssembly(typeof (Item)).GetName().Version;
             Console.WriteLine("nrkparser: " + v);
         }
 
