@@ -42,14 +42,16 @@
         this.labelVersionPluginVerdi = new System.Windows.Forms.Label();
         this.labelVersionLibraryVerdi = new System.Windows.Forms.Label();
         this.labelVersionLibrary = new System.Windows.Forms.Label();
+        this.pictureBox1 = new System.Windows.Forms.PictureBox();
         ((System.ComponentModel.ISupportInitialize)(this.speedUpDown)).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
         this.SuspendLayout();
         // 
         // saveButton
         // 
         this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
         this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-        this.saveButton.Location = new System.Drawing.Point(384, 185);
+        this.saveButton.Location = new System.Drawing.Point(295, 185);
         this.saveButton.Margin = new System.Windows.Forms.Padding(2);
         this.saveButton.Name = "saveButton";
         this.saveButton.Size = new System.Drawing.Size(56, 19);
@@ -104,7 +106,7 @@
         // 
         this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
         this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-        this.cancelButton.Location = new System.Drawing.Point(323, 185);
+        this.cancelButton.Location = new System.Drawing.Point(234, 185);
         this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
         this.cancelButton.Name = "cancelButton";
         this.cancelButton.Size = new System.Drawing.Size(56, 19);
@@ -136,9 +138,10 @@
         // header
         // 
         this.header.AutoSize = true;
-        this.header.Location = new System.Drawing.Point(17, 13);
+        this.header.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        this.header.Location = new System.Drawing.Point(10, 12);
         this.header.Name = "header";
-        this.header.Size = new System.Drawing.Size(71, 13);
+        this.header.Size = new System.Drawing.Size(114, 19);
         this.header.TabIndex = 9;
         this.header.Text = "NRK Browser";
         // 
@@ -161,7 +164,7 @@
         // labelVersionPlugin
         // 
         this.labelVersionPlugin.AutoSize = true;
-        this.labelVersionPlugin.Location = new System.Drawing.Point(136, 13);
+        this.labelVersionPlugin.Location = new System.Drawing.Point(10, 157);
         this.labelVersionPlugin.Name = "labelVersionPlugin";
         this.labelVersionPlugin.Size = new System.Drawing.Size(76, 13);
         this.labelVersionPlugin.TabIndex = 12;
@@ -170,7 +173,7 @@
         // labelVersionPluginVerdi
         // 
         this.labelVersionPluginVerdi.AutoSize = true;
-        this.labelVersionPluginVerdi.Location = new System.Drawing.Point(218, 13);
+        this.labelVersionPluginVerdi.Location = new System.Drawing.Point(92, 157);
         this.labelVersionPluginVerdi.Name = "labelVersionPluginVerdi";
         this.labelVersionPluginVerdi.Size = new System.Drawing.Size(78, 13);
         this.labelVersionPluginVerdi.TabIndex = 13;
@@ -179,7 +182,7 @@
         // labelVersionLibraryVerdi
         // 
         this.labelVersionLibraryVerdi.AutoSize = true;
-        this.labelVersionLibraryVerdi.Location = new System.Drawing.Point(218, 39);
+        this.labelVersionLibraryVerdi.Location = new System.Drawing.Point(92, 183);
         this.labelVersionLibraryVerdi.Name = "labelVersionLibraryVerdi";
         this.labelVersionLibraryVerdi.Size = new System.Drawing.Size(75, 13);
         this.labelVersionLibraryVerdi.TabIndex = 15;
@@ -188,17 +191,27 @@
         // labelVersionLibrary
         // 
         this.labelVersionLibrary.AutoSize = true;
-        this.labelVersionLibrary.Location = new System.Drawing.Point(136, 39);
+        this.labelVersionLibrary.Location = new System.Drawing.Point(10, 183);
         this.labelVersionLibrary.Name = "labelVersionLibrary";
         this.labelVersionLibrary.Size = new System.Drawing.Size(78, 13);
         this.labelVersionLibrary.TabIndex = 14;
         this.labelVersionLibrary.Text = "Library version:";
         // 
+        // pictureBox1
+        // 
+        this.pictureBox1.Image = global::NrkBrowser.Properties.Resources.nrk_logo_small;
+        this.pictureBox1.Location = new System.Drawing.Point(272, 12);
+        this.pictureBox1.Name = "pictureBox1";
+        this.pictureBox1.Size = new System.Drawing.Size(82, 60);
+        this.pictureBox1.TabIndex = 17;
+        this.pictureBox1.TabStop = false;
+        // 
         // SettingsForm
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(451, 214);
+        this.ClientSize = new System.Drawing.Size(362, 214);
+        this.Controls.Add(this.pictureBox1);
         this.Controls.Add(this.labelVersionLibraryVerdi);
         this.Controls.Add(this.labelVersionLibrary);
         this.Controls.Add(this.labelVersionPluginVerdi);
@@ -217,6 +230,7 @@
         this.Name = "SettingsForm";
         this.Text = "NRK Browser settings";
         ((System.ComponentModel.ISupportInitialize)(this.speedUpDown)).EndInit();
+        ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
         this.ResumeLayout(false);
         this.PerformLayout();
 
@@ -238,5 +252,6 @@
       private System.Windows.Forms.Label labelVersionPluginVerdi;
       private System.Windows.Forms.Label labelVersionLibraryVerdi;
       private System.Windows.Forms.Label labelVersionLibrary;
+      private System.Windows.Forms.PictureBox pictureBox1;
   }
 }

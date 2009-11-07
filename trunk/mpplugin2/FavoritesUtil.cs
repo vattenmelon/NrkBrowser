@@ -12,7 +12,6 @@ using MediaPortal.Database;
 using MediaPortal.GUI.Library;
 using Vattenmelon.Nrk.Domain;
 using SQLite.NET;
-using Vattenmelon.Nrk.Parser;
 
 namespace Vattenmelon.Nrk.Browser.Db
 {

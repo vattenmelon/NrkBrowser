@@ -3,7 +3,9 @@
  * Created: 5. september 2008
  */
 
-namespace Vattenmelon.Nrk.Domain
+using Vattenmelon.Nrk.Domain;
+
+namespace Vattenmelon.Nrk.Browser.Domain
 {
     public class MenuItem : Item
     {

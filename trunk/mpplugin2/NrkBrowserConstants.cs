@@ -140,6 +140,56 @@ namespace Vattenmelon.Nrk.Browser
             get { return "http://fil.nrk.no/contentfile/web/bgimages/special/nettv/bakgrunn_nett_tv.jpg"; }
         }
 
+        public static string MENU_ITEM_ID_CHOOSE_STREAM_MANUALLY
+        {
+            get { return "liveall"; }
+        }
+
+        public static string MENU_ITEM_ID_LIVE_ALTERNATE
+        {
+            get { return "liveAlternate"; }
+        }
+
+        public static string MENU_ITEM_ID_SEARCH
+        {
+            get { return "sok"; }
+        }
+
+        public static string MENU_ITEM_ID_ALPHABETICAL_LIST
+        {
+            get { return "all"; }
+        }
+
+        public static string MENU_ITEM_ID_CATEGORIES
+        {
+            get { return "categories"; }
+        }
+
+        public static string MENU_ITEM_ID_LIVE
+        {
+            get { return "live"; }
+        }
+
+        public static string MENU_ITEM_ID_RECOMMENDED
+        {
+            get { return "anbefalte"; }
+        }
+
+        public static string MENU_ITEM_ID_MOST_WATCHED
+        {
+            get { return "mestSett"; }
+        }
+
+        public static int CONFIG_DEFAULT_SPEED
+        {
+            get { return 2048; }
+        }
+
+        public static string CONFIG_DEFAULT_LIVE_STREAM_QUALITY
+        {
+            get { return "Low"; }
+        }
+
         public const string PLUGIN_NAME = "NRK Browser";
 
         public const string MENU_ITEM_ID_NYHETER = "nyheter";

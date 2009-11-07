@@ -8,7 +8,7 @@ using Vattenmelon.Nrk.Browser;
 [assembly: AssemblyTitle(NrkBrowserConstants.PLUGIN_NAME)]
 [assembly: AssemblyDescription("Plugin for browsing NRK web tv.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Vattenmelon")]
 [assembly: AssemblyProduct(NrkBrowserConstants.PLUGIN_NAME)]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]

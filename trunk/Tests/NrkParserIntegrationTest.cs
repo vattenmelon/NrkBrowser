@@ -169,7 +169,7 @@ namespace Vattenmelon.Nrk.Parser
         [Test]
         public void TestTopTabbDirekte()
         {
-            List<Item> liste = nrkParser.GetDirektePage("direkte");
+            List<Item> liste = nrkParser.GetDirektePage();
             Assert.IsNotEmpty(liste);
             Assert.AreEqual(3, liste.Count, "Skal være tre  alltid på direktelinker");
             foreach (Item item in liste)

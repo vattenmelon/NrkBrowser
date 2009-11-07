@@ -23,7 +23,7 @@ using Vattenmelon.Nrk.Browser.Db;
 using Vattenmelon.Nrk.Browser.Translation;
 using Vattenmelon.Nrk.Parser;
 using Vattenmelon.Nrk.Domain;
-using MenuItem=Vattenmelon.Nrk.Domain.MenuItem;
+using MenuItem = Vattenmelon.Nrk.Browser.Domain.MenuItem;
 
 namespace Vattenmelon.Nrk.Browser
 {
@@ -91,8 +91,9 @@ namespace Vattenmelon.Nrk.Browser
         {
             string appVersion = getVersion();
             string libraryVersion = getLibraryVersion();
+            string domainVersion = getDomainVersion();
 //            Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            Log.Debug(string.Format("{0}: pluginversion: {1}, libraryversion: {2}", NrkBrowserConstants.PLUGIN_NAME, appVersion, libraryVersion));
+            Log.Debug(string.Format("{0}: pluginversion: {1}, libraryversion: {2}, domainversion: {3}", NrkBrowserConstants.PLUGIN_NAME, appVersion, libraryVersion, domainVersion));
 //            Log.Debug("major: " + v.Major);
 //            Log.Debug("majorrevison: " + v.MajorRevision);
 //            Log.Debug("build: " + v.Build);
@@ -120,6 +121,11 @@ namespace Vattenmelon.Nrk.Browser
             }
         }
 
+        private string getDomainVersion()
+        {
+            return Assembly.GetAssembly(typeof(ILog)).GetName().Version.ToString();
+        }
+
         public static string getVersion()
         {
             return Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -144,7 +150,7 @@ namespace Vattenmelon.Nrk.Browser
         {
             string quality =
                 settings.GetValueAsString(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_LIVE_STREAM_QUALITY,
-                                          "Low");
+                                          NrkBrowserConstants.CONFIG_DEFAULT_LIVE_STREAM_QUALITY);
             form.liveStreamQualityCombo.SelectedIndex = form.liveStreamQualityCombo.Items.IndexOf(quality);
             return quality;
         }
@@ -174,7 +180,6 @@ namespace Vattenmelon.Nrk.Browser
         public int GetWindowId()
         {
             return GetID;
-            //return 40918376;
         }
 
         public bool DefaultEnabled()
@@ -226,9 +231,9 @@ namespace Vattenmelon.Nrk.Browser
             activeStack = new Stack<Item>();
             String quality =
                 settings.GetValueAsString(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_LIVE_STREAM_QUALITY,
-                                          "Low");
+                                          NrkBrowserConstants.CONFIG_DEFAULT_LIVE_STREAM_QUALITY);
             pluginName =
-                settings.GetValueAsString(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_PLUGIN_NAME, "My Nrk");
+                settings.GetValueAsString(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_PLUGIN_NAME, NrkBrowserConstants.PLUGIN_NAME);
 
             Dictionary<String, String> qualityMap = new Dictionary<string, string>();
             qualityMap["Low"] = "_l";
@@ -249,7 +254,7 @@ namespace Vattenmelon.Nrk.Browser
             else
             {
                 //for å forhindre at keyboardet kommer opp når man går tilbake fra videovisning til søkresultatsida.
-                if (activeStack.Peek().ID.Equals("sok"))
+                if (activeStack.Peek().ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_SEARCH))
                 {
                     UpdateList(matchingItems);
                     return;
@@ -273,7 +278,7 @@ namespace Vattenmelon.Nrk.Browser
             if (harItemsIMenyStacken())
             {
                 //for å forhindre at keyboardet kommer opp når man "browser bakover" til søkeresultatsida
-                if (activeStack.Peek().ID.Equals("sok"))
+                if (activeStack.Peek().ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_SEARCH))
                 {
                     UpdateList(matchingItems);
                     return;
@@ -330,7 +335,7 @@ namespace Vattenmelon.Nrk.Browser
                                 Log.Info("Parser is null, getting speed-cookie and creates parser.");
                                 Settings settings =
                                     new Settings(Config.GetFile(Config.Dir.Config, NrkBrowserConstants.CONFIG_FILE));
-                                int speed = settings.GetValueAsInt("Vattenmelon.Nrk.Parser", "speed", 2048);
+                                int speed = settings.GetValueAsInt(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_SPEED, NrkBrowserConstants.CONFIG_DEFAULT_SPEED);
                                 nrkParser = new NrkParser(speed, new MPLogger());
                             }
                         }
@@ -356,9 +361,9 @@ namespace Vattenmelon.Nrk.Browser
                 GUIPropertyManager.SetProperty(NrkBrowserConstants.GUI_PROPERTY_PROGRAM_DESCRIPTION, " ");
             }
 
-            if (selecteditem.ID == "all" || selecteditem.ID == "categories" || selecteditem.ID == "anbefalte" ||
-                selecteditem.ID == "live" || selecteditem.ID == "mestSett" || selecteditem.ID == "sok" ||
-                selecteditem.ID == "liveAlternate" ||
+            if (selecteditem.ID == NrkBrowserConstants.MENU_ITEM_ID_ALPHABETICAL_LIST || selecteditem.ID == NrkBrowserConstants.MENU_ITEM_ID_CATEGORIES || selecteditem.ID == NrkBrowserConstants.MENU_ITEM_ID_RECOMMENDED ||
+                selecteditem.ID == NrkBrowserConstants.MENU_ITEM_ID_LIVE || selecteditem.ID == NrkBrowserConstants.MENU_ITEM_ID_MOST_WATCHED || selecteditem.ID == NrkBrowserConstants.MENU_ITEM_ID_SEARCH ||
+                selecteditem.ID == NrkBrowserConstants.MENU_ITEM_ID_LIVE_ALTERNATE ||
                 selecteditem is Category)
             {
                 GUIPropertyManager.SetProperty(NrkBrowserConstants.GUI_PROPERTY_PROGRAM_PICTURE, NrkBrowserConstants.DEFAULT_PICTURE);
@@ -495,40 +500,40 @@ namespace Vattenmelon.Nrk.Browser
             {
                 PlayStream((Stream) item);
             }
-            else if (item.ID == "favoritter")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_FAVOURITES)
             {
                 FillStackWithFavourites();
             }
-            else if (item.ID == "sok")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_SEARCH)
             {
                 search();
             }
-            else if (item.ID == "nextPage")
+            else if (item.ID == NrkBrowserConstants.SEARCH_NEXTPAGE_ID)
             {
                 search((SearchItem) item);
             }
-            else if (item.ID == "anbefalte")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_RECOMMENDED)
             {
                 UpdateList(nrkParser.GetAnbefaltePaaForsiden());
                 setClipCount(nrkParser.GetAnbefaltePaaForsiden());
             }
-            else if (item.ID == "mestSett")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_MOST_WATCHED)
             {
                 UpdateList(CreateMestSetteListItems());
             }
-            else if (item.ID == "mestSettUke")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_MEST_SETTE_UKE)
             { 
                 List<Item> tItems = nrkParser.GetMestSette(7);
                 tItems.ForEach(SetDescriptionForMostWatched);
                 UpdateListAndSetClipCount(tItems);
             }
-            else if (item.ID == "mestSettMaaned")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_MEST_SETTE_MAANED)
             {
                 List<Item> tItems = nrkParser.GetMestSette(31);
                 tItems.ForEach(SetDescriptionForMostWatched);
                 UpdateListAndSetClipCount(tItems);
             }
-            else if (item.ID == "mestSettTotalt")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_MEST_SETTE_TOTALT)
             {
                 List<Item> tItems = nrkParser.GetMestSette(3650);
                 tItems.ForEach(SetDescriptionForMostWatched);
@@ -543,23 +548,23 @@ namespace Vattenmelon.Nrk.Browser
                                    });
                 UpdateListAndSetClipCount(tItems);
             }
-            else if (item.ID == "categories")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_CATEGORIES)
             {
                 UpdateList(nrkParser.GetCategories());
             }
-            else if (item.ID == "all")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_ALPHABETICAL_LIST)
             {
                 UpdateList(nrkParser.GetAllPrograms());
             }
-            else if (item.ID == "live")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_LIVE)
             {
                 UpdateList(CreateLiveMenuItems());
             }
-            else if (item.ID == "liveAlternate")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_LIVE_ALTERNATE)
             {
                 UpdateList(CreateLiveAlternateMenuItems());
             }
-            else if (item.ID == "liveall")
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_CHOOSE_STREAM_MANUALLY)
             {
                 UpdateList(CreateLiveAlternateAllMenuItems());
             }
@@ -622,14 +627,14 @@ namespace Vattenmelon.Nrk.Browser
         private List<Item> CreateInitialMenuItems()
         {
             List<Item> items = new List<Item>();
-            items.Add(new MenuItem("all", NrkTranslatableStrings.MENU_ITEM_TITLE_ALPHABETICAL_LIST));
-            items.Add(new MenuItem("categories", NrkTranslatableStrings.MENU_ITEM_TITLE_CATEGORIES));
-            items.Add(new MenuItem("live", NrkTranslatableStrings.MENU_ITEM_TITLE_LIVE_STREAMS));
-            MenuItem anbefalte = new MenuItem("anbefalte", NrkTranslatableStrings.MENU_ITEM_TITLE_RECOMMENDED_PROGRAMS);
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_ALPHABETICAL_LIST, NrkTranslatableStrings.MENU_ITEM_TITLE_ALPHABETICAL_LIST));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_CATEGORIES, NrkTranslatableStrings.MENU_ITEM_TITLE_CATEGORIES));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_LIVE, NrkTranslatableStrings.MENU_ITEM_TITLE_LIVE_STREAMS));
+            MenuItem anbefalte = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_RECOMMENDED, NrkTranslatableStrings.MENU_ITEM_TITLE_RECOMMENDED_PROGRAMS);
             anbefalte.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_RECOMMENDED_PROGRAMS;
             items.Add(anbefalte);
 
-            MenuItem mestSett = new MenuItem("mestSett", NrkTranslatableStrings.MENU_ITEM_TITLE_MOST_WATCHED);
+            MenuItem mestSett = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_MOST_WATCHED, NrkTranslatableStrings.MENU_ITEM_TITLE_MOST_WATCHED);
             mestSett.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_MOST_WATCHED;
             items.Add(mestSett);
 
@@ -656,7 +661,7 @@ namespace Vattenmelon.Nrk.Browser
             List<Item> tabItems = GetTabItems();
             items.AddRange(tabItems);
 
-            MenuItem sok = new MenuItem("sok", NrkTranslatableStrings.MENU_ITEM_TITLE_SEARCH);
+            MenuItem sok = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_SEARCH, NrkTranslatableStrings.MENU_ITEM_TITLE_SEARCH);
             sok.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_SEARCH;
             items.Add(sok);
 
@@ -668,8 +673,8 @@ namespace Vattenmelon.Nrk.Browser
 
         private List<Item> CreateLiveMenuItems()
         {
-            List<Item> items = nrkParser.GetDirektePage("direkte");
-            items.Add(new MenuItem("liveAlternate", NrkTranslatableStrings.MENU_ITEM_TITLE_ALTERNATIVE_LINKS));
+            List<Item> items = nrkParser.GetDirektePage();
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_LIVE_ALTERNATE, NrkTranslatableStrings.MENU_ITEM_TITLE_ALTERNATIVE_LINKS));
             return items;
         }
 
@@ -690,7 +695,7 @@ namespace Vattenmelon.Nrk.Browser
             items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + "04" + _suffix, "NRK 2"));
             items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + "05" + _suffix, "NRK Alltid Nyheter"));
             items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + "08" + _suffix, "Testkanal (innhold varierer)"));
-            items.Add(new MenuItem("liveall", NrkTranslatableStrings.MENU_ITEM_TITLE_CHOOSE_STREAM_MANUALLY));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_CHOOSE_STREAM_MANUALLY, NrkTranslatableStrings.MENU_ITEM_TITLE_CHOOSE_STREAM_MANUALLY));
             return items;
         }
 
@@ -699,7 +704,7 @@ namespace Vattenmelon.Nrk.Browser
             List<Item> menuItems = nrkParser.GetTopTabber();
             menuItems.ForEach(delegate (Item item)
                                   {
-                                      item.Title = string.Format(NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_NEWEST_CLIPS_FROM_GENERIC, item.Title);
+                                      item.Description = string.Format(NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_NEWEST_CLIPS_FROM_GENERIC, item.Title);
                                       item.Bilde = NrkBrowserConstants.DEFAULT_PICTURE;
                                   });
             menuItems.RemoveAll(delegate(Item item)
@@ -799,8 +804,12 @@ namespace Vattenmelon.Nrk.Browser
             worker.DoWork += new DoWorkEventHandler(PlayMethodDelegate);
             worker.RunWorkerAsync(pArgs);
             //worker.IsBusy prøv å bruke denne istedetfor _workercompleted
-            while (_workerCompleted == false) GUIWindowManager.Process();
+            //while (_workerCompleted == false) GUIWindowManager.Process();
+            while(worker.IsBusy) GUIWindowManager.Process();
             GUIWaitCursor.Hide();
+           
+           
+
         }
 
         private class PlayArgs
@@ -811,7 +820,7 @@ namespace Vattenmelon.Nrk.Browser
             public Item item;
         }
 
-        private void PlayMethodDelegate(object sender, DoWorkEventArgs e)
+        private void PlayMethodDelegate(Object sender, DoWorkEventArgs e)
         {
             Log.Info(string.Format("{0}: PlayMethodDelegate", NrkBrowserConstants.PLUGIN_NAME));
             PlayArgs pArgs = (PlayArgs) e.Argument;

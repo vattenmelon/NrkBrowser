@@ -33,6 +33,31 @@ namespace Vattenmelon.Nrk.Parser
             get { return "http://pd.nrk.no/nett-tv-stream/stream.ashx?id="; }
         }
 
+        public static string QTICKET
+        {
+            get { return "qticket"; }
+        }
+
+        public static string VIGNETT_ID_NATURE
+        {
+            get { return "372980"; }
+        }
+
+        public static string VIGNETT_ID_SUPER
+        {
+            get { return "381994"; }
+        }
+
+        public static string VIGNETT_ID_NYHETER
+        {
+            get { return "410330"; }
+        }
+
+        public static string VIGNETT_ID_SPORT
+        {
+            get { return "410335"; }
+        }
+
         public const string LIBRARY_NAME = "NrkParser";
 
     }
