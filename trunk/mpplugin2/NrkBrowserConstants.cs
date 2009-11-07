@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+/*
+ * Created by: 
+ * Created: 7. november 2009
+ */
 
-namespace Vattenmelon.Nrk.Parser
+namespace Vattenmelon.Nrk.Browser
 {
-    public class NrkConstants
+    public class NrkBrowserConstants
     {
-        public const string PLUGIN_NAME = "NRK Browser";
-
         public static string MENU_ITEM_ID_MEST_SETTE_UKE
         {
             get { return "mestSettUke"; }
@@ -53,11 +52,6 @@ namespace Vattenmelon.Nrk.Parser
             get { return "NrkBrowserSettings.xml"; }
         }
 
-        public static string STREAM_PREFIX
-        {
-            get { return "mms://straumV.nrk.no/nrk_tv_webvid"; }
-        }
-
         public static string CONFIG_SECTION
         {
             get { return "NrkBrowser"; }
@@ -88,24 +82,11 @@ namespace Vattenmelon.Nrk.Parser
             get { return "MediaPortal.xml"; }
         }
 
-        public static string DEFAULT_PICTURE
+        public static string LANGUAGE_DIR
         {
-            get { return "http://fil.nrk.no/contentfile/web/bgimages/special/nettv/bakgrunn_nett_tv.jpg"; }
+            get { return CONFIG_SECTION; }
         }
 
-        public static string RSS_URL
-        {
-            get { return "http://www1.nrk.no/nett-tv/MediaRss.ashx?loop="; }
-        }
-
-        public static string URL_GET_MEDIAXML
-        {
-            get { return "http://www1.nrk.no/nett-tv/silverlight/getmediaxml.ashx?id={0}&hastighet={1}"; }
-        }
-        public static string SEARCH_NEXTPAGE_ID
-        {
-            get { return "nextPage"; }
-        }
         public static string CONTEXTMENU_HEADER_TEXT
         {
             get { return "NRK Browser"; }
@@ -121,14 +102,9 @@ namespace Vattenmelon.Nrk.Parser
             get { return "favoritter"; }
         }
 
-        public static string GEOBLOCK_URL_PART
+        public static string SEARCH_NEXTPAGE_ID
         {
-            get { return "geoblokk"; }
-        }
-        
-        public static string RSS_CLIPURL_PREFIX
-        {
-            get { return "http://pd.nrk.no/nett-tv-stream/stream.ashx?id="; }
+            get { return "nextPage"; }
         }
 
         /// <summary>
@@ -159,10 +135,12 @@ namespace Vattenmelon.Nrk.Parser
             get { return "nrksuper.jpg"; }
         }
 
-        public static string LANGUAGE_DIR
+        public static string DEFAULT_PICTURE
         {
-            get { return CONFIG_SECTION; }
+            get { return "http://fil.nrk.no/contentfile/web/bgimages/special/nettv/bakgrunn_nett_tv.jpg"; }
         }
+
+        public const string PLUGIN_NAME = "NRK Browser";
 
         public const string MENU_ITEM_ID_NYHETER = "nyheter";
 
@@ -174,6 +152,5 @@ namespace Vattenmelon.Nrk.Parser
 
 
         public const string MENU_ITEM_ID_SUPER = "super";
-
     }
 }

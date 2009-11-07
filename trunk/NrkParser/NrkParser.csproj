@@ -33,7 +33,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NrkConstants.cs" />
+    <Compile Include="NrkParserConstants.cs" />
     <Compile Include="NrkParser.cs" />
     <Compile Include="NrkUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -26,7 +26,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
             foreach (XmlNode childNode in nodeList)
             {
                 Clip loRssItem = CreateClipFromChildNode(childNode);
-                loRssItem.Bilde = GetPictureForSection();
+               // loRssItem.Bilde = GetPictureForSection();
                 if (NrkParser.isNotShortVignett(loRssItem))
                 {
                     loRssItem.Type = Clip.KlippType.RSS;
@@ -36,7 +36,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
                 itemCount++;
                 if (isItemCount100orOver(itemCount))
                 {
-                    //Log.Info(string.Format("{0}: Over 100 clips in document, breaking.", NrkConstants.PLUGIN_NAME));
+                    //Log.Info(string.Format("{0}: Over 100 clips in document, breaking.", NrkParserConstants.PLUGIN_NAME));
                     break;
                 }
                 
@@ -156,28 +156,28 @@ namespace Vattenmelon.Nrk.Parser.Xml
             return loRssItem;
         }
 
-        public string GetPictureForSection()
-        {
-            String pictureFile;
-            switch (section)
-            {
-                case NrkConstants.MENU_ITEM_ID_NYHETER:
-                    pictureFile = NrkConstants.MENU_ITEM_PICTURE_NYHETER;
-                    break;
-                case NrkConstants.MENU_ITEM_ID_SPORT:
-                    pictureFile = NrkConstants.MENU_ITEM_PICTURE_SPORT;
-                    break;
-                    case NrkConstants.MENU_ITEM_ID_NATUR:
-                        pictureFile = NrkConstants.MENU_ITEM_PICTURE_NATURE;
-                    break;
-                case NrkConstants.MENU_ITEM_ID_SUPER:
-                    pictureFile = NrkConstants.MENU_ITEM_PICTURE_SUPER; ;
-                    break;
-                default:
-                    pictureFile = NrkConstants.DEFAULT_PICTURE;
-                    break;
-            }
-            return pictureFile;
-        }
+//        public string GetPictureForSection()
+//        {
+//            String pictureFile;
+//            switch (section)
+//            {
+//                case NrkParserConstants.MENU_ITEM_ID_NYHETER:
+//                    pictureFile = NrkParserConstants.MENU_ITEM_PICTURE_NYHETER;
+//                    break;
+//                case NrkParserConstants.MENU_ITEM_ID_SPORT:
+//                    pictureFile = NrkParserConstants.MENU_ITEM_PICTURE_SPORT;
+//                    break;
+//                    case NrkParserConstants.MENU_ITEM_ID_NATUR:
+//                        pictureFile = NrkParserConstants.MENU_ITEM_PICTURE_NATURE;
+//                    break;
+//                case NrkParserConstants.MENU_ITEM_ID_SUPER:
+//                    pictureFile = NrkParserConstants.MENU_ITEM_PICTURE_SUPER; ;
+//                    break;
+//                default:
+//                    pictureFile = NrkParserConstants.DEFAULT_PICTURE;
+//                    break;
+//            }
+//            return pictureFile;
+//        }
     }
 }

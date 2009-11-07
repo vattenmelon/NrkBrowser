@@ -21,7 +21,7 @@ namespace Vattenmelon.Nrk.Browser.Translation
         {
             string lang = GUILocalizeStrings.GetCultureName(GUILocalizeStrings.CurrentLanguage());
             Log.Info("Using language " + lang);
-            path = Config.GetSubFolder(Config.Dir.Language, NrkConstants.LANGUAGE_DIR);
+            path = Config.GetSubFolder(Config.Dir.Language, NrkBrowserConstants.LANGUAGE_DIR);
             loadTranslatedStringsFromFile(lang);
         }
         /// <summary>

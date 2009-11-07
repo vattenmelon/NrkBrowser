@@ -71,7 +71,7 @@ namespace Vattenmelon.Nrk.Parser
             else
             {
                 Console.WriteLine("feil: " + type);
-                //Log.Error(NrkConstants.PLUGIN_NAME + ": unsupported type: " + x.Groups[2].Value);
+                //Log.Error(NrkParserConstants.PLUGIN_NAME + ": unsupported type: " + x.Groups[2].Value);
             }
         }
 

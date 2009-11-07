@@ -48,19 +48,19 @@ namespace Vattenmelon.Nrk.Browser
             bool funnet3 = false;
             foreach (Item item in items)
             {
-                if (item.ID.Equals(NrkConstants.MENU_ITEM_ID_MEST_SETTE_UKE))
+                if (item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_MEST_SETTE_UKE))
                 {
                     Assert.AreEqual(NrkTranslatableStrings.MENU_ITEM_TITLE_MEST_SETTE_UKE, item.Title);
                     Assert.AreEqual("De mest populære klippene denne uken!", item.Description);
                     funnet1 = true;
                 }
-                else if (item.ID.Equals(NrkConstants.MENU_ITEM_ID_MEST_SETTE_MAANED))
+                else if (item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_MEST_SETTE_MAANED))
                 {
                     Assert.AreEqual(NrkTranslatableStrings.MENU_ITEM_TITLE_MEST_SETTE_MAANED, item.Title);
                     Assert.AreEqual("De mest populære klippene denne måneden!", item.Description);
                     funnet2 = true;
                 }
-                else if (item.ID.Equals(NrkConstants.MENU_ITEM_ID_MEST_SETTE_TOTALT))
+                else if (item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_MEST_SETTE_TOTALT))
                 {
                     Assert.AreEqual(NrkTranslatableStrings.MENU_ITEM_TITLE_MEST_SETTE_TOTALT, item.Title);
                     Assert.AreEqual("De mest populære klippene!", item.Description);
@@ -77,6 +77,35 @@ namespace Vattenmelon.Nrk.Browser
             String version = NrkPlugin.getVersion();
             Console.WriteLine(version);
             Assert.IsNotEmpty(version);
+        }
+
+        [Test]
+        public void GetPictureUrlIfSectionIsKnown()
+        {
+
+            String bildeUrl = nrkPlugin.GetPictureFile(NrkBrowserConstants.MENU_ITEM_ID_NYHETER);
+            Assert.AreEqual(NrkBrowserConstants.MENU_ITEM_PICTURE_NYHETER, bildeUrl);
+
+
+            bildeUrl = nrkPlugin.GetPictureFile(NrkBrowserConstants.MENU_ITEM_ID_NATUR);
+            Assert.AreEqual(NrkBrowserConstants.MENU_ITEM_PICTURE_NATURE, bildeUrl);
+
+
+            bildeUrl = nrkPlugin.GetPictureFile(NrkBrowserConstants.MENU_ITEM_ID_SPORT);
+            Assert.AreEqual(NrkBrowserConstants.MENU_ITEM_PICTURE_SPORT, bildeUrl);
+
+
+            bildeUrl = nrkPlugin.GetPictureFile(NrkBrowserConstants.MENU_ITEM_ID_SUPER);
+            Assert.AreEqual(NrkBrowserConstants.MENU_ITEM_PICTURE_SUPER, bildeUrl);
+        }
+
+        [Test]
+        public void GetPictureUrlShouldDefaultToDefaultPictureIfSectionIsUnknown()
+        {
+
+            String bildeUrl = nrkPlugin.GetPictureFile("abba");
+            Assert.AreEqual(NrkBrowserConstants.DEFAULT_PICTURE, bildeUrl);
+
         }
 /*
         [Test]

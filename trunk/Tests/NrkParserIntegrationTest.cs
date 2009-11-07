@@ -274,7 +274,7 @@ namespace Vattenmelon.Nrk.Parser
                 string clipUrl = nrkParser.GetClipUrl(c);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
-                Assert.IsTrue(clipUrl.ToLower().StartsWith(NrkConstants.RSS_CLIPURL_PREFIX));
+                Assert.IsTrue(clipUrl.ToLower().StartsWith(NrkParserConstants.RSS_CLIPURL_PREFIX));
             }
         }
 

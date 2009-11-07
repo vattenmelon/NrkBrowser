@@ -47,7 +47,7 @@ namespace Vattenmelon.Nrk.Parser
            }
            catch (Exception)
            {
-//               Log.Info(NrkConstants.PLUGIN_NAME +
+//               Log.Info(NrkParserConstants.PLUGIN_NAME +
 //                        ": Could not parse date from image filename, but that is fine...just returning a blank string");
                return "";
            }

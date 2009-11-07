@@ -1,15 +1,15 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using Vattenmelon.Nrk.Parser;
+using Vattenmelon.Nrk.Browser;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle(NrkConstants.PLUGIN_NAME)]
+[assembly: AssemblyTitle(NrkBrowserConstants.PLUGIN_NAME)]
 [assembly: AssemblyDescription("Plugin for browsing NRK web tv.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct(NrkConstants.PLUGIN_NAME)]
+[assembly: AssemblyProduct(NrkBrowserConstants.PLUGIN_NAME)]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

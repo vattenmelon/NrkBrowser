@@ -6,9 +6,10 @@
 using System;
 using System.Threading;
 using MediaPortal.GUI.Library;
+using Vattenmelon.Nrk.Browser;
 using Vattenmelon.Nrk.Domain;
 
-namespace Vattenmelon.Nrk.Parser
+namespace Vattenmelon.Nrk.Browser
 {
     public class UpdatePlayBackInfo
     {
@@ -48,7 +49,7 @@ namespace Vattenmelon.Nrk.Parser
             String bildeUrl;
             if (item.Bilde.Equals(String.Empty))
             {
-                bildeUrl = NrkConstants.DEFAULT_PICTURE;
+                bildeUrl = NrkBrowserConstants.DEFAULT_PICTURE;
             }
             else
             {
