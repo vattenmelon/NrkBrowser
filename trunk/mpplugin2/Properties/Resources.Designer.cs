@@ -60,9 +60,9 @@ namespace NrkBrowser.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap nrk_logo_small {
+        internal static System.Drawing.Bitmap nrk_logo {
             get {
-                object obj = ResourceManager.GetObject("nrk_logo_small", resourceCulture);
+                object obj = ResourceManager.GetObject("nrk_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

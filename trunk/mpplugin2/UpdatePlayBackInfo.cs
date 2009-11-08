@@ -49,7 +49,7 @@ namespace Vattenmelon.Nrk.Browser
             String bildeUrl;
             if (item.Bilde.Equals(String.Empty))
             {
-                bildeUrl = NrkBrowserConstants.DEFAULT_PICTURE;
+                bildeUrl = NrkPlugin.PICTURE_DIR + NrkBrowserConstants.NRK_LOGO_PICTURE;
             }
             else
             {

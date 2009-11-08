@@ -43,6 +43,7 @@
         this.labelVersionLibraryVerdi = new System.Windows.Forms.Label();
         this.labelVersionLibrary = new System.Windows.Forms.Label();
         this.pictureBox1 = new System.Windows.Forms.PictureBox();
+        this.textBox1 = new System.Windows.Forms.TextBox();
         ((System.ComponentModel.ISupportInitialize)(this.speedUpDown)).BeginInit();
         ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
         this.SuspendLayout();
@@ -51,7 +52,7 @@
         // 
         this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
         this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-        this.saveButton.Location = new System.Drawing.Point(295, 185);
+        this.saveButton.Location = new System.Drawing.Point(293, 230);
         this.saveButton.Margin = new System.Windows.Forms.Padding(2);
         this.saveButton.Name = "saveButton";
         this.saveButton.Size = new System.Drawing.Size(56, 19);
@@ -106,7 +107,7 @@
         // 
         this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
         this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-        this.cancelButton.Location = new System.Drawing.Point(234, 185);
+        this.cancelButton.Location = new System.Drawing.Point(233, 230);
         this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
         this.cancelButton.Name = "cancelButton";
         this.cancelButton.Size = new System.Drawing.Size(56, 19);
@@ -121,6 +122,7 @@
         this.label1.Name = "label1";
         this.label1.Size = new System.Drawing.Size(94, 13);
         this.label1.TabIndex = 7;
+        this.label1.Tag = "";
         this.label1.Text = "Live stream quality";
         // 
         // liveStreamQualityCombo
@@ -164,7 +166,7 @@
         // labelVersionPlugin
         // 
         this.labelVersionPlugin.AutoSize = true;
-        this.labelVersionPlugin.Location = new System.Drawing.Point(10, 157);
+        this.labelVersionPlugin.Location = new System.Drawing.Point(12, 217);
         this.labelVersionPlugin.Name = "labelVersionPlugin";
         this.labelVersionPlugin.Size = new System.Drawing.Size(76, 13);
         this.labelVersionPlugin.TabIndex = 12;
@@ -173,7 +175,7 @@
         // labelVersionPluginVerdi
         // 
         this.labelVersionPluginVerdi.AutoSize = true;
-        this.labelVersionPluginVerdi.Location = new System.Drawing.Point(92, 157);
+        this.labelVersionPluginVerdi.Location = new System.Drawing.Point(94, 217);
         this.labelVersionPluginVerdi.Name = "labelVersionPluginVerdi";
         this.labelVersionPluginVerdi.Size = new System.Drawing.Size(78, 13);
         this.labelVersionPluginVerdi.TabIndex = 13;
@@ -182,7 +184,7 @@
         // labelVersionLibraryVerdi
         // 
         this.labelVersionLibraryVerdi.AutoSize = true;
-        this.labelVersionLibraryVerdi.Location = new System.Drawing.Point(92, 183);
+        this.labelVersionLibraryVerdi.Location = new System.Drawing.Point(94, 230);
         this.labelVersionLibraryVerdi.Name = "labelVersionLibraryVerdi";
         this.labelVersionLibraryVerdi.Size = new System.Drawing.Size(75, 13);
         this.labelVersionLibraryVerdi.TabIndex = 15;
@@ -191,26 +193,41 @@
         // labelVersionLibrary
         // 
         this.labelVersionLibrary.AutoSize = true;
-        this.labelVersionLibrary.Location = new System.Drawing.Point(10, 183);
+        this.labelVersionLibrary.Location = new System.Drawing.Point(12, 230);
         this.labelVersionLibrary.Name = "labelVersionLibrary";
-        this.labelVersionLibrary.Size = new System.Drawing.Size(78, 13);
+        this.labelVersionLibrary.Size = new System.Drawing.Size(77, 13);
         this.labelVersionLibrary.TabIndex = 14;
-        this.labelVersionLibrary.Text = "Library version:";
+        this.labelVersionLibrary.Text = "Parser version:";
         // 
         // pictureBox1
         // 
-        this.pictureBox1.Image = global::NrkBrowser.Properties.Resources.nrk_logo_small;
-        this.pictureBox1.Location = new System.Drawing.Point(272, 12);
+        this.pictureBox1.ErrorImage = null;
+        this.pictureBox1.Image = global::NrkBrowser.Properties.Resources.nrk_logo;
+        this.pictureBox1.InitialImage = null;
+        this.pictureBox1.Location = new System.Drawing.Point(243, 8);
         this.pictureBox1.Name = "pictureBox1";
-        this.pictureBox1.Size = new System.Drawing.Size(82, 60);
+        this.pictureBox1.Size = new System.Drawing.Size(108, 74);
+        this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
         this.pictureBox1.TabIndex = 17;
         this.pictureBox1.TabStop = false;
+        // 
+        // textBox1
+        // 
+        this.textBox1.Location = new System.Drawing.Point(12, 142);
+        this.textBox1.Multiline = true;
+        this.textBox1.Name = "textBox1";
+        this.textBox1.ReadOnly = true;
+        this.textBox1.Size = new System.Drawing.Size(337, 57);
+        this.textBox1.TabIndex = 19;
+        this.textBox1.Text = "Plugin to browse content from Norwegian Public Broadcasting (www.nrk.no). Based o" +
+            "n plugin originally by Terje Wiesener <wiesener@samfundet.no>";
         // 
         // SettingsForm
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(362, 214);
+        this.ClientSize = new System.Drawing.Size(362, 264);
+        this.Controls.Add(this.textBox1);
         this.Controls.Add(this.pictureBox1);
         this.Controls.Add(this.labelVersionLibraryVerdi);
         this.Controls.Add(this.labelVersionLibrary);
@@ -253,5 +270,6 @@
       private System.Windows.Forms.Label labelVersionLibraryVerdi;
       private System.Windows.Forms.Label labelVersionLibrary;
       private System.Windows.Forms.PictureBox pictureBox1;
+      private System.Windows.Forms.TextBox textBox1;
   }
 }

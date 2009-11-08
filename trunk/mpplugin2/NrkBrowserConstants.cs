@@ -44,7 +44,7 @@ namespace Vattenmelon.Nrk.Browser
 
         public static string ABOUT_AUTHOR
         {
-            get { return "Terje Wiesener <wiesener@samfundet.no> / Vattenmelon"; }
+            get { return "Vattenmelon"; }
         }
 
         public static string CONFIG_FILE
@@ -135,6 +135,11 @@ namespace Vattenmelon.Nrk.Browser
             get { return "nrksuper.jpg"; }
         }
 
+        public static string NRK_LOGO_PICTURE
+        {
+            get { return "nrklogo.jpg"; }
+        }
+
         public static string DEFAULT_PICTURE
         {
             get { return "http://fil.nrk.no/contentfile/web/bgimages/special/nettv/bakgrunn_nett_tv.jpg"; }
@@ -187,7 +192,77 @@ namespace Vattenmelon.Nrk.Browser
 
         public static string CONFIG_DEFAULT_LIVE_STREAM_QUALITY
         {
+            get { return QUALITY_LOW; }
+        }
+
+        public static string HOVER_IMAGE
+        {
+            get { return @"\media\hover_my tv.png"; }
+        }
+
+        public static string QUALITY_LOW
+        {
             get { return "Low"; }
+        }
+
+        public static string QUALITY_MEDIUM
+        {
+            get { return "Medium"; }
+        }
+
+        public static string QUALITY_HIGH
+        {
+            get { return "High"; }
+        }
+
+        public static string QUALITY_LOW_SUFFIX
+        {
+            get { return "_l"; }
+        }
+
+        public static string QUALITY_MEDIUM_SUFFIX
+        {
+            get { return "_m"; }
+        }
+
+        public static string QUALITY_HIGH_SUFFIX
+        {
+            get { return "_h"; }
+        }
+
+        public static string MENU_ITEM_LIVE_ALTERNATE_NRK1
+        {
+            get { return "NRK 1"; }
+        }
+
+        public static string MENU_ITEM_LIVE_ALTERNATE_NRK2
+        {
+            get { return "NRK 2"; }
+        }
+
+        public static string MENU_ITEM_LIVE_ALTERNATE_3
+        {
+            get { return "NRK Alltid Nyheter"; }
+        }
+
+        public static string MENU_ITEM_LIVE_ALTERNATE_4
+        {
+            get { return "Testkanal (innhold varierer)"; }
+        }
+
+        public static int PREDEFINED_LOW_SPEED
+        {
+            get { return 400; }
+        }
+
+        public static int PREDEFINED_MEDIUM_SPEED
+        {
+            get { return 1000; }
+        }
+
+        public static int PREDEFINED_HIGH_SPEED
+        {
+            get { return 10000; }
         }
 
         public const string PLUGIN_NAME = "NRK Browser";

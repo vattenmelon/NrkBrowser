@@ -4,14 +4,13 @@
  * Loosely based on an anonymous (and slightly outdated) NRK parser in python for Myth-tv, 
  * please email me if you are the author :)
  * 
- * 2008 - 2009 Modified by Vattenmelon
+ * 2008 - 2009 Vattenmelon
  * 
  * */
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
 using MediaPortal.Dialogs;
@@ -31,7 +30,7 @@ namespace Vattenmelon.Nrk.Browser
     {
         public static string PICTURE_DIR = string.Format(@"{0}\media\nrkbrowser\", GUIGraphicsContext.Skin);
 
-        protected string _suffix = "_l";
+        protected string liveStreamUrlSuffix = "_l";
 
 
         /// <summary>
@@ -47,9 +46,8 @@ namespace Vattenmelon.Nrk.Browser
         protected Stack<Item> activeStack = null;
         private List<Item> matchingItems = new List<Item>();
         private MenuItem favoritter; //used so we can se if option to remove favorite should be shown
-        private bool _workerCompleted = false;
-
-        protected bool _osdPlayer = true;
+    
+        protected bool useOsdPlayer = true;
 
         public NrkPlugin()
         {
@@ -92,33 +90,61 @@ namespace Vattenmelon.Nrk.Browser
             string appVersion = getVersion();
             string libraryVersion = getLibraryVersion();
             string domainVersion = getDomainVersion();
-//            Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             Log.Debug(string.Format("{0}: pluginversion: {1}, libraryversion: {2}, domainversion: {3}", NrkBrowserConstants.PLUGIN_NAME, appVersion, libraryVersion, domainVersion));
-//            Log.Debug("major: " + v.Major);
-//            Log.Debug("majorrevison: " + v.MajorRevision);
-//            Log.Debug("build: " + v.Build);
-//            Log.Debug("revision: " + v.Revision);
-//            Log.Debug("minor: " + v.Minor);
-//            Log.Debug("minorrevision: " + v.MinorRevision);
-            //configuration
             SettingsForm form = new SettingsForm();
-            form.LabelVersionPluginVerdi.Text = appVersion;
-            form.LabelVersionLibraryVerdi.Text = libraryVersion;
-
+            setVersionNumberInConfigDialog(appVersion, form, libraryVersion);
             Settings settings = new Settings(Config.GetFile(Config.Dir.Config, NrkBrowserConstants.CONFIG_FILE));
-            int speed = initSpeedSettings(form, settings);
-
-            string quality = initLiveStreamQuality(form, settings);
-
-            pluginName =
-                settings.GetValueAsString(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_PLUGIN_NAME, "My Nrk");
-            form.NameTextbox.Text = pluginName;
-
+            initValuesInConfigDialog(form, settings);
             DialogResult res = form.ShowDialog();
             if (res == DialogResult.OK)
             {
                 SaveSettings(form, settings);
             }
+        }
+
+        private static void setVersionNumberInConfigDialog(string appVersion, SettingsForm form, string libraryVersion)
+        {
+            form.LabelVersionPluginVerdi.Text = appVersion;
+            form.LabelVersionLibraryVerdi.Text = libraryVersion;
+        }
+
+        private void initValuesInConfigDialog(SettingsForm form, Settings settings)
+        {
+            initSpeedSettings(form, settings);
+            initLiveStreamQuality(form, settings);
+            initPluginName(form, settings);
+        }
+
+        private void initPluginName(SettingsForm form, Settings settings)
+        {
+            pluginName = settings.GetValueAsString(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_PLUGIN_NAME, NrkBrowserConstants.PLUGIN_NAME);
+            form.NameTextbox.Text = pluginName;
+        }
+
+        private static string initLiveStreamQuality(SettingsForm form, Settings settings)
+        {
+            string quality =
+                settings.GetValueAsString(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_LIVE_STREAM_QUALITY,
+                                          NrkBrowserConstants.CONFIG_DEFAULT_LIVE_STREAM_QUALITY);
+            form.liveStreamQualityCombo.SelectedIndex = form.liveStreamQualityCombo.Items.IndexOf(quality);
+            return quality;
+        }
+
+        private static int initSpeedSettings(SettingsForm form, Settings settings)
+        {
+            int speed = settings.GetValueAsInt(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_SPEED, 2048);
+            if (speed < form.speedUpDown.Minimum)
+            {
+                speed = (int)form.speedUpDown.Minimum;
+                settings.SetValue(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_SPEED, speed);
+            }
+            if (speed > form.speedUpDown.Maximum)
+            {
+                speed = (int)form.speedUpDown.Maximum;
+                settings.SetValue(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_SPEED, speed);
+            }
+            form.speedUpDown.Value = speed;
+            return speed;
         }
 
         private string getDomainVersion()
@@ -144,32 +170,6 @@ namespace Vattenmelon.Nrk.Browser
             settings.SetValue(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_LIVE_STREAM_QUALITY, quality);
             pluginName = form.NameTextbox.Text;
             settings.SetValue(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_PLUGIN_NAME, pluginName);
-        }
-
-        private static string initLiveStreamQuality(SettingsForm form, Settings settings)
-        {
-            string quality =
-                settings.GetValueAsString(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_LIVE_STREAM_QUALITY,
-                                          NrkBrowserConstants.CONFIG_DEFAULT_LIVE_STREAM_QUALITY);
-            form.liveStreamQualityCombo.SelectedIndex = form.liveStreamQualityCombo.Items.IndexOf(quality);
-            return quality;
-        }
-
-        private static int initSpeedSettings(SettingsForm form, Settings settings)
-        {
-            int speed = settings.GetValueAsInt(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_SPEED, 2048);
-            if (speed < form.speedUpDown.Minimum)
-            {
-                speed = (int) form.speedUpDown.Minimum;
-                settings.SetValue(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_SPEED, speed);
-            }
-            if (speed > form.speedUpDown.Maximum)
-            {
-                speed = (int) form.speedUpDown.Maximum;
-                settings.SetValue(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_SPEED, speed);
-            }
-            form.speedUpDown.Value = speed;
-            return speed;
         }
 
         public bool CanEnable()
@@ -209,7 +209,7 @@ namespace Vattenmelon.Nrk.Browser
             strButtonText = PluginName();
             strButtonImage = String.Empty;
             strButtonImageFocus = String.Empty;
-            strPictureImage = GUIGraphicsContext.Skin + @"\media\hover_my tv.png";
+            strPictureImage = GUIGraphicsContext.Skin + NrkBrowserConstants.HOVER_IMAGE;
             return true;
         }
 
@@ -222,27 +222,31 @@ namespace Vattenmelon.Nrk.Browser
                 Settings xmlreader =
                     new Settings(Config.GetFile(Config.Dir.Config, NrkBrowserConstants.MEDIAPORTAL_CONFIG_FILE)))
             {
-                _osdPlayer = xmlreader.GetValueAsBool("general", "usevrm9forwebstreams", true);
+                useOsdPlayer = xmlreader.GetValueAsBool("general", "usevrm9forwebstreams", true);
             }
 
             bool result = Load(string.Format(@"{0}\{1}", GUIGraphicsContext.Skin, NrkBrowserConstants.SKIN_FILENAME));
             Settings settings = new Settings(Config.GetFile(Config.Dir.Config, NrkBrowserConstants.CONFIG_FILE));
             int speed = settings.GetValueAsInt(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_SPEED, 2048);
             activeStack = new Stack<Item>();
-            String quality =
+            String alternativeLiveStreamsQuality =
                 settings.GetValueAsString(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_LIVE_STREAM_QUALITY,
                                           NrkBrowserConstants.CONFIG_DEFAULT_LIVE_STREAM_QUALITY);
             pluginName =
                 settings.GetValueAsString(NrkBrowserConstants.CONFIG_SECTION, NrkBrowserConstants.CONFIG_ENTRY_PLUGIN_NAME, NrkBrowserConstants.PLUGIN_NAME);
 
-            Dictionary<String, String> qualityMap = new Dictionary<string, string>();
-            qualityMap["Low"] = "_l";
-            qualityMap["Medium"] = "_m";
-            qualityMap["High"] = "_h";
-
-            _suffix = qualityMap[quality];
+            SetAlternativeLiveStreamQuality(alternativeLiveStreamsQuality);
 
             return result;
+        }
+
+        private void SetAlternativeLiveStreamQuality(string quality)
+        {
+            Dictionary<String, String> qualityMap = new Dictionary<string, string>();
+            qualityMap[NrkBrowserConstants.QUALITY_LOW] = NrkBrowserConstants.QUALITY_LOW_SUFFIX;
+            qualityMap[NrkBrowserConstants.QUALITY_MEDIUM] = NrkBrowserConstants.QUALITY_MEDIUM_SUFFIX;
+            qualityMap[NrkBrowserConstants.QUALITY_HIGH] = NrkBrowserConstants.QUALITY_HIGH_SUFFIX;
+            liveStreamUrlSuffix = qualityMap[quality];
         }
 
         protected override void OnPageLoad()
@@ -615,7 +619,7 @@ namespace Vattenmelon.Nrk.Browser
                                 pictureFile = NrkBrowserConstants.MENU_ITEM_PICTURE_NATURE;
                                 break;
                             case NrkBrowserConstants.MENU_ITEM_ID_SUPER:
-                                pictureFile = NrkBrowserConstants.MENU_ITEM_PICTURE_SUPER; ;
+                                pictureFile = NrkBrowserConstants.MENU_ITEM_PICTURE_SUPER;
                                 break;
                             default:
                                 pictureFile = NrkBrowserConstants.DEFAULT_PICTURE;
@@ -683,7 +687,7 @@ namespace Vattenmelon.Nrk.Browser
             List<Item> items = new List<Item>();
             for (int i = 0; i < 10; i++)
             {
-                items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + i.ToString("D2") + _suffix, "Strøm " + i));
+                items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + i.ToString("D2") + liveStreamUrlSuffix, "Strøm " + i));
             }
             return items;
         }
@@ -691,10 +695,10 @@ namespace Vattenmelon.Nrk.Browser
         private List<Item> CreateLiveAlternateMenuItems()
         {
             List<Item> items = new List<Item>();
-            items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + "03" + _suffix, "NRK 1"));
-            items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + "04" + _suffix, "NRK 2"));
-            items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + "05" + _suffix, "NRK Alltid Nyheter"));
-            items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + "08" + _suffix, "Testkanal (innhold varierer)"));
+            items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + "03" + liveStreamUrlSuffix, NrkBrowserConstants.MENU_ITEM_LIVE_ALTERNATE_NRK1));
+            items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + "04" + liveStreamUrlSuffix, NrkBrowserConstants.MENU_ITEM_LIVE_ALTERNATE_NRK2));
+            items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + "05" + liveStreamUrlSuffix, NrkBrowserConstants.MENU_ITEM_LIVE_ALTERNATE_3));
+            items.Add(new Stream(NrkParserConstants.STREAM_PREFIX + "08" + liveStreamUrlSuffix, NrkBrowserConstants.MENU_ITEM_LIVE_ALTERNATE_4));
             items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_CHOOSE_STREAM_MANUALLY, NrkTranslatableStrings.MENU_ITEM_TITLE_CHOOSE_STREAM_MANUALLY));
             return items;
         }
@@ -794,7 +798,6 @@ namespace Vattenmelon.Nrk.Browser
         {
             GUIWaitCursor.Init();
             GUIWaitCursor.Show();
-            _workerCompleted = false;
             BackgroundWorker worker = new BackgroundWorker();
             PlayArgs pArgs = new PlayArgs();
             pArgs.url = url;
@@ -845,7 +848,7 @@ namespace Vattenmelon.Nrk.Browser
             }
             bool playOk = false;
 
-            if (_osdPlayer)
+            if (useOsdPlayer)
             {
                 playOk = playWithOsd(pArgs.url, pArgs.title, type, pArgs.startTime);
             }
@@ -862,17 +865,18 @@ namespace Vattenmelon.Nrk.Browser
             {
                 ifPlayBackSucceded(type, pArgs.item);
             }
-            _workerCompleted = true;
         }
 
         private void ifPlayBackSucceded(PlayListType type, Item item)
         {
+            
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
                 Log.Info(NrkBrowserConstants.PLUGIN_NAME + " Playing OK, switching to fullscreen");
                 g_Player.ShowFullScreenWindow();
                 g_Player.FullScreen = true;
-              
+                
+             
                 // Update OSD (delayed). RSS/Flash-based need shorter time to load than wmv-based
                 Clip clip = (Clip) item;
                 if(clip.Type == Clip.KlippType.RSS){
@@ -882,16 +886,14 @@ namespace Vattenmelon.Nrk.Browser
                 {
                     new UpdatePlayBackInfo(10000, item);
                 }
-                  
+                 
             }
         }
-
-
 
         private void ifPlaybackFailed(PlayArgs pArgs)
         {
             string message = String.Empty;
-            if (_osdPlayer)
+            if (useOsdPlayer)
             {
                 message = NrkTranslatableStrings.PLAYBACK_FAILED_TRY_DISABLING_VMR9;
             }
@@ -910,7 +912,7 @@ namespace Vattenmelon.Nrk.Browser
 
         private static bool isLiveStream(PlayArgs pArgs)
         {
-            return pArgs.url.ToLower().EndsWith("_h");
+            return pArgs.url.ToLower().EndsWith(NrkBrowserConstants.QUALITY_HIGH_SUFFIX) || pArgs.url.ToLower().EndsWith(NrkBrowserConstants.QUALITY_MEDIUM_SUFFIX) || pArgs.url.ToLower().EndsWith(NrkBrowserConstants.QUALITY_LOW_SUFFIX);
         }
 
         private static bool isWMVVideo(PlayArgs pArgs)
@@ -1076,7 +1078,7 @@ namespace Vattenmelon.Nrk.Browser
             dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION);
             return dlgMenu;
         }
-
+       
         protected void openQualityMenu(GUIDialogMenu dlgMenu)
         {
             dlgMenu.Reset();
@@ -1093,19 +1095,19 @@ namespace Vattenmelon.Nrk.Browser
             dlgMenu.DoModal(GetWindowId());
             if (dlgMenu.SelectedId == lowQuality.ItemId)
             {
-                int speed = 400;
+                int speed = NrkBrowserConstants.PREDEFINED_LOW_SPEED;
                 Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkBrowserConstants.PLUGIN_NAME, speed));
                 nrkParser = new NrkParser(speed, new MPLogger());
             }
             else if (dlgMenu.SelectedId == mediumQuality.ItemId)
             {
-                int speed = 1000;
+                int speed = NrkBrowserConstants.PREDEFINED_MEDIUM_SPEED;
                 Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkBrowserConstants.PLUGIN_NAME, speed));
                 nrkParser = new NrkParser(speed, new MPLogger());
             }
             else if (dlgMenu.SelectedId == highQuality.ItemId)
             {
-                int speed = 10000;
+                int speed = NrkBrowserConstants.PREDEFINED_HIGH_SPEED;
                 Log.Info(string.Format("{0}: Changing bitrate to {1}", NrkBrowserConstants.PLUGIN_NAME, speed));
                 nrkParser = new NrkParser(speed, new MPLogger());
             }
