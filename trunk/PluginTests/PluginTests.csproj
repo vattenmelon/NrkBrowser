@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="NrkPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TranslationTest.cs" />
     <Compile Include="VersionCheckerTest.cs" />
   </ItemGroup>
   <ItemGroup>

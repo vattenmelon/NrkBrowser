@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Vattenmelon.Nrk.Browser;
-using Vattenmelon.Nrk.Browser.Translation;
 using Vattenmelon.Nrk.Parser;
 using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
@@ -117,7 +115,7 @@ namespace Vattenmelon.Nrk.Parser
         [Test]
         public void TestGetMestSette()
         {
-            NrkTranslatableStrings.InitWithParam("en-US", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
+            
             List<Item> liste = nrkParser.GetMestSette(31);
             Assert.IsNotNull(liste);
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
@@ -186,7 +184,6 @@ namespace Vattenmelon.Nrk.Parser
         [Test]
         public void TestGetTopTabber()
         {
-            NrkTranslatableStrings.InitWithParam("en-US", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
             List<Item> liste = nrkParser.GetTopTabber();
             Assert.IsNotNull(liste);
             Assert.IsNotEmpty(liste);
