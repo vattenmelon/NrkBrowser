@@ -61,6 +61,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NrkParser", "NrkParser\NrkP
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginTests", "PluginTests\PluginTests.csproj", "{5AABA7D6-F0DC-4315-BD02-DA1CD9BBD5C4}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{2A20C160-A7E8-48CB-95A3-92F62CA6AB38} = {2A20C160-A7E8-48CB-95A3-92F62CA6AB38}
+		{00C08DA7-FECB-4E15-8F68-C03D5815979F} = {00C08DA7-FECB-4E15-8F68-C03D5815979F}
+		{C67F56C6-C8FA-45C7-833C-3C2F64F31351} = {C67F56C6-C8FA-45C7-833C-3C2F64F31351}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +98,10 @@ Global
 		{C67F56C6-C8FA-45C7-833C-3C2F64F31351}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C67F56C6-C8FA-45C7-833C-3C2F64F31351}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C67F56C6-C8FA-45C7-833C-3C2F64F31351}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AABA7D6-F0DC-4315-BD02-DA1CD9BBD5C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AABA7D6-F0DC-4315-BD02-DA1CD9BBD5C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AABA7D6-F0DC-4315-BD02-DA1CD9BBD5C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AABA7D6-F0DC-4315-BD02-DA1CD9BBD5C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

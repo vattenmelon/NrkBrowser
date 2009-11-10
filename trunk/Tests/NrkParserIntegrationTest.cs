@@ -16,7 +16,7 @@ namespace Vattenmelon.Nrk.Parser
         [TestFixtureSetUp]
         public void setOpp()
         {
-            nrkParser = new NrkParser(10000, new MPLogger());
+            nrkParser = new NrkParser(10000, new NullLogger());
         }
 
         [Test]

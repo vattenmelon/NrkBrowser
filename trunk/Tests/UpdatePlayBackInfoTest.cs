@@ -5,7 +5,6 @@
 
 
 using System.Threading;
-using Vattenmelon.Nrk.Parser;
 using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
 
