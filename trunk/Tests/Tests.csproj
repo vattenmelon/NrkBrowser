@@ -42,7 +42,6 @@
     <Compile Include="NullLogger.cs" />
     <Compile Include="XmlKlippIntegrationTest.cs" />
     <Compile Include="XmlRSSTest.cs" />
-    <Compile Include="DBIntegrationTests.cs" />
     <Compile Include="NrkParserIntegrationTest.cs" />
     <Compile Include="UtilsTest.cs" />
   </ItemGroup>
