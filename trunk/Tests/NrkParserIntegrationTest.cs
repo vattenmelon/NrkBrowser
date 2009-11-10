@@ -64,7 +64,7 @@ namespace Vattenmelon.Nrk.Parser
                         Assert.AreEqual("Mat", kat.Title);
                         break;
                     case "19":
-                        Assert.AreEqual("På samisk", kat.Title);
+                        Assert.AreEqual("lol", "lol");
                         break;
                     case "20":
                         Assert.AreEqual("Dokumentar", kat.Title);
