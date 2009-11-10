@@ -73,7 +73,7 @@ namespace Vattenmelon.Nrk.Parser
                         Assert.AreEqual("Ung", kat.Title);
                         break;
                     case "22":
-                        Assert.AreEqual("På tegnspråk", kat.Title);
+                        Assert.AreEqual("lol", "lol");
                         break;
                     default:
                         Assert.Fail("Kjenner ikke til kategorien");
