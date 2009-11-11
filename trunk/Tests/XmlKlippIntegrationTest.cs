@@ -54,7 +54,8 @@ namespace Vattenmelon.Nrk.Parser.Xml
         {
             //Starttime verified to be 7 on the 11.11.2009
             int hastighet = 500;
-            XmlKlippParser parser = new XmlKlippParser(string.Format(NrkParserConstants.URL_GET_MEDIAXML, 571135, hastighet));
+            int clipId = 571135;
+            XmlKlippParser parser = new XmlKlippParser(string.Format(NrkParserConstants.URL_GET_MEDIAXML, clipId, hastighet));
             int startTime = parser.GetStartTimeOfClip();
             Assert.AreEqual(7, startTime);
 
