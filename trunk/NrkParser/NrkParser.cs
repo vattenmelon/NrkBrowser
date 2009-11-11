@@ -350,7 +350,9 @@ namespace Vattenmelon.Nrk.Parser
             MatchCollection matches = query.Matches(data);
             foreach (Match x in matches)
             {
-                clips.Add(new Clip(x.Groups[1].Value, x.Groups[4].Value));
+                Clip c = new Clip(x.Groups[1].Value, x.Groups[4].Value);
+                c.TilhoerendeProsjekt = id;
+                clips.Add(c);
             }
 
             return clips;

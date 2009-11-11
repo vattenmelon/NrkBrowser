@@ -82,6 +82,21 @@ namespace Vattenmelon.Nrk.Parser
             }
         }
 
+        [Test]
+        public void TestGetClipsTilhoerendeSammeProgram()
+        {
+            int prosjektId = 1194;
+            string clipId = "567540";
+            Clip clip = new Clip(clipId, "True Blood");
+            clip.TilhoerendeProsjekt = prosjektId;
+            List<Item> itemsTilHoerendeTrueBlood = nrkParser.GetClipsTilhoerendeSammeProgram(clip);
+            Assert.IsNotEmpty(itemsTilHoerendeTrueBlood);
+            foreach (Item item in itemsTilHoerendeTrueBlood)
+            {
+                Clip c = (Clip) item;
+                Assert.AreEqual(1194, c.TilhoerendeProsjekt);
+            }
+        }
 
         [Test]
         public void TestGetForsiden()
@@ -268,6 +283,7 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.IsTrue(clipUrl.ToLower().StartsWith(NrkParserConstants.RSS_CLIPURL_PREFIX));
             }
         }
+
 
         [Test]
         public void TestHentProgrammer()

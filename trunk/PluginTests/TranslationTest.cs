@@ -30,7 +30,6 @@ namespace Vattenmelon.Nrk.Browser.Translation
             NrkTranslatableStrings.InitWithParam("swe", LANGUAGE_PATH);
             String s = NrkTranslatableStrings.FOR_UNIT_TESTING;
             Assert.AreEqual("Default language", s);
-
         }
         [Test]
         public void CountTranslatedStrings()

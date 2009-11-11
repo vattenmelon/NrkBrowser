@@ -5,7 +5,6 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
-using MediaPortal.GUI.Library;
 
 
 namespace Vattenmelon.Nrk.Browser
@@ -14,7 +13,7 @@ namespace Vattenmelon.Nrk.Browser
     {
         public static bool newVersionAvailable(ref String nyVer)
         {
-            Log.Info("Checking for new version of plugin");
+            //TODO: logging
             String availableVersion = GetNewestAvailableVersion();
             nyVer = availableVersion;
             
@@ -47,7 +46,7 @@ namespace Vattenmelon.Nrk.Browser
             readStream.Close();
 
             ret = GetVersionFromHtml(ret);
-            Log.Info("Newest version of plugin is: " + ret);
+            //TODO: logg newest version
             
             return ret;
         }
