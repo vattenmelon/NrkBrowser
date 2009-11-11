@@ -15,13 +15,11 @@ namespace Vattenmelon.Nrk.Parser
         /// <returns></returns>
         public static double convertToDouble(string time)
         {
-            //Log.Debug("convertTouDouble(String): " + time);
             String[] array = time.Split(':');
             double hours = Double.Parse(array[0]);
             double minutes = Double.Parse(array[1]);
             double seconds = Double.Parse(array[2]);
             double totalSeconds = seconds + minutes * 60 + hours * 60 * 60;
-            //Log.Debug("convertTouDouble(String): returns: " + totalSeconds + " seconds");
             return totalSeconds;
         }
 
@@ -47,8 +45,7 @@ namespace Vattenmelon.Nrk.Parser
            }
            catch (Exception)
            {
-//               Log.Info(NrkParserConstants.PLUGIN_NAME +
-//                        ": Could not parse date from image filename, but that is fine...just returning a blank string");
+               //if parsing of this fails..this is fine
                return "";
            }
        }

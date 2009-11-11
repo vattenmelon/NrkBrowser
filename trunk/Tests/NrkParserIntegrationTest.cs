@@ -141,12 +141,6 @@ namespace Vattenmelon.Nrk.Parser
             return c.Type == Clip.KlippType.KLIPP || c.Type == Clip.KlippType.INDEX;
         }
 
-        private static bool ErBildeFil(String filename)
-        {
-            //Har etterhvert finne ut at bildefiler ikke nødvendigvis trenger å ha et filnavn, f.eks er denne i bruk:
-            //http://fil.nrk.no/contentfile/imagecrop/1.413251.1144659591
-            return filename.EndsWith(".jpg") || filename.EndsWith(".JPG") || filename.EndsWith(".png") || filename.EndsWith(".PNG");
-        }
 
         [Test]
         public void TestGetAllPrograms()
@@ -313,7 +307,6 @@ namespace Vattenmelon.Nrk.Parser
         [Test]
         public void TestSearchForNyttLivForCommodore64()
         {
-            //TODO finn ut hvorfor denne ikke kjører i Mono
             List<Item> liste = nrkParser.GetSearchHits("Nytt liv for Commodore 64", 0);
             Assert.AreEqual(1, liste.Count);
             Clip c = (Clip) liste[0];
