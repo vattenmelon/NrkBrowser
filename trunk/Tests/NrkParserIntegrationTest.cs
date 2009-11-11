@@ -313,7 +313,7 @@ namespace Vattenmelon.Nrk.Parser
         [Test]
         public void TestSearchForNyttLivForCommodore64()
         {
-            //TODO: finn ut hvorfor denne ikke kjører i Mono
+            //TODO finn ut hvorfor denne ikke kjører i Mono
             List<Item> liste = nrkParser.GetSearchHits("Nytt liv for Commodore 64", 0);
             Assert.AreEqual(1, liste.Count);
             Clip c = (Clip) liste[0];
