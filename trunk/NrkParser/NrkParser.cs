@@ -172,7 +172,6 @@ namespace Vattenmelon.Nrk.Parser
         public List<Item> GetTopTabRSS(string site)
         {
             XmlRSSParser parser = new XmlRSSParser(NrkParserConstants.RSS_URL, site);
-            List<Item> tItems = parser.getClips();
             return parser.getClips();
         }
 

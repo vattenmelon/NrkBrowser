@@ -8,11 +8,9 @@ namespace Vattenmelon.Nrk.Parser.Xml
 {
     public class XmlRSSParser : XmlParser
     {
-        private string section;
         public XmlRSSParser(string siteurl, string section)
         {
             url = siteurl + section;
-            this.section = section;
         }
 
 
