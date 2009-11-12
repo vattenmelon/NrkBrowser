@@ -365,7 +365,10 @@ namespace Vattenmelon.Nrk.Parser
 
         public List<Item> GetClipsTilhoerendeSammeProgram(Clip c)
         {
-            return GetClips(c.TilhoerendeProsjekt);
+            //return GetClips(c.TilhoerendeProsjekt);
+            List<Item> tItems = GetClips(c.TilhoerendeProsjekt);
+            tItems.AddRange(GetFolders(c.TilhoerendeProsjekt));
+            return tItems;
         }
 
         public List<Item> GetClips(Folder folder)

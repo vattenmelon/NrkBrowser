@@ -93,8 +93,7 @@ namespace Vattenmelon.Nrk.Parser
             Assert.IsNotEmpty(itemsTilHoerendeTrueBlood);
             foreach (Item item in itemsTilHoerendeTrueBlood)
             {
-                Clip c = (Clip) item;
-                Assert.AreEqual(prosjektId, c.TilhoerendeProsjekt);
+                Assert.IsTrue(ItemErEntenClipEllerFolder(item));
             }
         }
         [Test]
@@ -109,9 +108,14 @@ namespace Vattenmelon.Nrk.Parser
             Assert.IsNotEmpty(itemsTilHoerendeTrueBlood);
             foreach (Item item in itemsTilHoerendeTrueBlood)
             {
-                Clip c = (Clip)item;
-                Assert.AreEqual(prosjektId, c.TilhoerendeProsjekt);
+                Assert.IsTrue(ItemErEntenClipEllerFolder(item));
+                
             }
+        }
+
+        private bool ItemErEntenClipEllerFolder(Item item)
+        {
+            return item is Clip || item is Folder;
         }
 
         [Test]
