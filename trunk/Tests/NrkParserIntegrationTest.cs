@@ -99,7 +99,6 @@ namespace Vattenmelon.Nrk.Parser
         [Test]
         public void TestGetClipsTilhoerendeSammeProgramForbrukerInspektoerene()
         {
-            //TODO: Denne finner kun tilhoerende clips, ikke folders osv.
             int prosjektId = 67;
             string clipId = "574251";
             Clip clip = new Clip(clipId, "Forbruker");
