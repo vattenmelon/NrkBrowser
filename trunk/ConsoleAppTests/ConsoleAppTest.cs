@@ -10,10 +10,15 @@ namespace ConsoleAppTests
     public class ConsoleAppTest
     {
         [Test]
-        public void Test1()
+        public void TestPrintVersion()
         {
            TestApp.printVersionAndExit();
             
+        }
+        [Test]
+        public void TestPrintMostWatched()
+        {
+            TestApp.printMostWatchedAndExit("365");
         }
     }
 }

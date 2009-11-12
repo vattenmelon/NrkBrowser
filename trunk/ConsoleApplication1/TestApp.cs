@@ -44,7 +44,7 @@ namespace Vattenmelon.Nrk.Parser
             Console.WriteLine("nrkparser: " + v);
         }
 
-        private static void printMostWatchedAndExit(string days)
+        public static void printMostWatchedAndExit(string days)
         {
             int dager = Int32.Parse(days);
             NrkParser parser = new NrkParser(2000, new NullLogger());
