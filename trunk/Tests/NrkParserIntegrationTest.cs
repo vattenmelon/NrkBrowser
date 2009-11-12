@@ -94,7 +94,23 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Item item in itemsTilHoerendeTrueBlood)
             {
                 Clip c = (Clip) item;
-                Assert.AreEqual(1194, c.TilhoerendeProsjekt);
+                Assert.AreEqual(prosjektId, c.TilhoerendeProsjekt);
+            }
+        }
+        [Test]
+        public void TestGetClipsTilhoerendeSammeProgramForbrukerInspektoerene()
+        {
+            //TODO: Denne finner kun tilhoerende clips, ikke folders osv.
+            int prosjektId = 67;
+            string clipId = "574251";
+            Clip clip = new Clip(clipId, "Forbruker");
+            clip.TilhoerendeProsjekt = prosjektId;
+            List<Item> itemsTilHoerendeTrueBlood = nrkParser.GetClipsTilhoerendeSammeProgram(clip);
+            Assert.IsNotEmpty(itemsTilHoerendeTrueBlood);
+            foreach (Item item in itemsTilHoerendeTrueBlood)
+            {
+                Clip c = (Clip)item;
+                Assert.AreEqual(prosjektId, c.TilhoerendeProsjekt);
             }
         }
 
