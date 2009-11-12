@@ -6,12 +6,18 @@
 using System;
 using NUnit.Framework;
 using Vattenmelon.Nrk.Browser;
+using Vattenmelon.Nrk.Parser;
 
 namespace Vattenmelon.Nrk.Browser
 {
     [TestFixture]
     public class VersionCheckerTest
     {
+        [SetUp]
+        public void setOpp()
+        {
+            VersionChecker.SetLog(new NullLogger());
+        }
         [Test]
         public void TestGetNewestAvailableVersion()
         {

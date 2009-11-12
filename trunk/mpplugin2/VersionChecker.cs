@@ -5,15 +5,21 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
-
+using Vattenmelon.Nrk.Domain;
 
 namespace Vattenmelon.Nrk.Browser
 {
     public static class VersionChecker
     {
+        private static ILog Log;
+        public static void SetLog(ILog log)
+        {
+            Log = log;
+        }
+
         public static bool newVersionAvailable(ref String nyVer)
         {
-            //TODO: logging
+            Log.Info("VersionChecker:newVersionAvailable(ref String nyVer): " + nyVer);
             String availableVersion = GetNewestAvailableVersion();
             nyVer = availableVersion;
             
@@ -46,7 +52,7 @@ namespace Vattenmelon.Nrk.Browser
             readStream.Close();
 
             ret = GetVersionFromHtml(ret);
-            //TODO: logg newest version
+            Log.Info("Newest version is " + ret);
             
             return ret;
         }

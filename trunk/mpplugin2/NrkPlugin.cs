@@ -31,7 +31,7 @@ namespace Vattenmelon.Nrk.Browser
         public static string PICTURE_DIR = string.Format(@"{0}\media\nrkbrowser\", GUIGraphicsContext.Skin);
 
         protected string liveStreamUrlSuffix = "_l";
-
+        
 
         /// <summary>
         /// This is the name of the plugin as it appears in MediaPortal gui. Note: the name specified here will
@@ -52,6 +52,7 @@ namespace Vattenmelon.Nrk.Browser
         public NrkPlugin()
         {
             NrkTranslatableStrings.Init();
+            VersionChecker.SetLog(new MPLogger());
         }
         /// <summary>
         /// This constructor is intended for testing purposes
