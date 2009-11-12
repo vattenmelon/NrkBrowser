@@ -37,7 +37,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NullLogger.cs" />
     <Compile Include="TestApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
