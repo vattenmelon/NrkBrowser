@@ -41,10 +41,6 @@
       <Project>{00C08DA7-FECB-4E15-8F68-C03D5815979F}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\mpplugin2\NrkBrowser.csproj">
-      <Project>{2A20C160-A7E8-48CB-95A3-92F62CA6AB38}</Project>
-      <Name>NrkBrowser</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NrkParser\NrkParser.csproj">
       <Project>{C67F56C6-C8FA-45C7-833C-3C2F64F31351}</Project>
       <Name>NrkParser</Name>
