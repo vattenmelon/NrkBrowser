@@ -5,7 +5,7 @@ using Vattenmelon.Nrk.Domain;
 
 namespace Vattenmelon.Nrk.Parser
 {
-    public class NrkBrowser
+    public class TestApp
     {
         private static void Main(string[] args)
         {
@@ -34,7 +34,7 @@ namespace Vattenmelon.Nrk.Parser
             Console.Read();
         }
 
-        private static void printVersionAndExit()
+        public static void printVersionAndExit()
         {
             Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             Console.WriteLine("nrkweb: " + v);
