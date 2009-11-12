@@ -106,11 +106,17 @@ namespace Vattenmelon.Nrk.Parser
             clip.TilhoerendeProsjekt = prosjektId;
             List<Item> itemsTilHoerendeTrueBlood = nrkParser.GetClipsTilhoerendeSammeProgram(clip);
             Assert.IsNotEmpty(itemsTilHoerendeTrueBlood);
+            bool funnetMinstEtKlipp = false;
             foreach (Item item in itemsTilHoerendeTrueBlood)
             {
                 Assert.IsTrue(ItemErEntenClipEllerFolder(item));
-                
+                if (item is Clip)
+                {
+                    Assert.AreEqual(prosjektId, ((Clip)item).TilhoerendeProsjekt);
+                    funnetMinstEtKlipp = true;
+                }
             }
+            Assert.IsTrue(funnetMinstEtKlipp);
         }
 
         private bool ItemErEntenClipEllerFolder(Item item)
