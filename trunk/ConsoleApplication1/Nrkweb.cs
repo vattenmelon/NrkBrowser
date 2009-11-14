@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NrkBrowser;
-using NrkBrowser.Domain;
+using Vattenmelon.Nrk.Domain;
 
 namespace NrkBrowser
 {
