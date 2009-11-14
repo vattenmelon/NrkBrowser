@@ -488,7 +488,7 @@ namespace Vattenmelon.Nrk.Parser
         /// Method that returns the direct link to a qticket enabled clip, including the ticket
         /// </summary>
         /// <param name="url"></param>
-        /// <returns></returns>
+        /// <returns>Direct link to the clip</returns>
         private string getDirectLinkWithTicket(string url)
         {
             String data = FetchUrl(url);
