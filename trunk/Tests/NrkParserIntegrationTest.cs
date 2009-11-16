@@ -132,8 +132,6 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
-                //Console.WriteLine("type: " + c.Type);
-                //Console.WriteLine("title: " + c.Title);
                 String directLink = nrkParser.GetClipUrl(c);
                 isMMSVideoStream(directLink);
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
@@ -145,6 +143,13 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.AreEqual(Clip.KlippType.KLIPP, c.Type, "Skal være av typen KLIPP");
                 Assert.IsEmpty(c.VerdiLink, "Klipp fra forsiden er ikke verdilinker");
             }
+        }
+
+        [Test]
+        public void TestGetForsidenChangeDetectionTestAntall()
+        {
+            List<Item> liste = nrkParser.GetAnbefaltePaaForsiden();
+            Assert.AreEqual(50, liste.Count); //Verified to be fifty 2009-11-16
         }
 
         private static void isMMSVideoStream(String directLink)
@@ -197,13 +202,20 @@ namespace Vattenmelon.Nrk.Parser
             }
         }
 
+        [Test]
+        public void TestGetAllProgramsChangeDetectionTest()
+        {
+            List<Item> liste = nrkParser.GetAllPrograms();
+            Assert.Greater(liste.Count, 500, "Verifisert til å være over 500: 2009-11-16"); //Var 513: 2009-11-16 
+        }
+
 
         [Test]
         public void TestTopTabbDirekte()
         {
             List<Item> liste = nrkParser.GetDirektePage();
             Assert.IsNotEmpty(liste);
-            Assert.AreEqual(3, liste.Count, "Skal være tre  alltid på direktelinker");
+            Assert.AreEqual(3, liste.Count, "Skal være tre alltid på direktelinker");
             foreach (Item item in liste)
             {
                 Clip clip = (Clip) item;
@@ -223,11 +235,8 @@ namespace Vattenmelon.Nrk.Parser
             Assert.IsNotEmpty(liste);
             foreach (Item item in liste)
             {
-                //Console.WriteLine("id: " + item.ID);
                 Assert.IsNotNull(item.ID);
-                //Console.WriteLine("title: " + item.Title);
                 Assert.IsNotNull(item.Title);
-                //Console.Out.WriteLine("-------------------------------------------");
             }
             Assert.AreEqual(6, liste.Count, "Skal være seks oppførsler i lista"); 
             //verifisert at "super" endret seg ca 31. oktober 09 og at den nye linken går til en flashbasert side, ala p3tv tabben.
@@ -244,11 +253,12 @@ namespace Vattenmelon.Nrk.Parser
                 Clip c = (Clip) item;
 //                Console.WriteLine("id: " + c.ID);
                 Assert.IsNotNull(c.ID);
+                Assert.AreEqual(Clip.KlippType.VERDI, c.Type);
 //                Console.WriteLine("title: " + c.Title);
-                Assert.IsNotNull(c.Title);
+//                Assert.IsNotNull(c.Title);
 //                try
 //                {
-//                    Console.WriteLine("link: " + nrkParser.GetClipUrl(c));
+//                    Console.WriteLine(c.Type + "link: c " + c.ID + " " + nrkParser.GetClipUrl(c));
 //                }
 //                catch(Exception e)
 //                {
@@ -257,10 +267,17 @@ namespace Vattenmelon.Nrk.Parser
 //                Console.WriteLine("bilde: " + c.Bilde);
 //                Console.WriteLine("desc: " + c.Description);
                 Assert.IsNotNull(c.Bilde);
-                //Console.WriteLine("--------------------------");
+
             } 
         }
-
+        [Test]
+        public void TestGetVerdiClipUrlWhereNrkReportsCouldNotFindVideoChangeDetectionTest()
+        {
+            Clip c = new Clip("109378", "finnesikke");
+            c.Type = Clip.KlippType.VERDI;
+            String klippUrl = nrkParser.GetClipUrl(c);
+            Assert.IsNull(klippUrl, "Verifisert at Nrk ikke finner videoen 2009-11-16");
+        }
         [Test]
         public void TestGetClipUrlFraNyheterITopTab()
         {
