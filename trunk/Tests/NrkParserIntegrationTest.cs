@@ -172,7 +172,6 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
                 Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
-                //Assert.IsTrue(ErBildeFil(c.Bilde));
                 Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
                 Assert.IsTrue(erEntenKlippEllerIndexType(c), "Klipp skal være enten av type Klipp eller Index");
@@ -285,10 +284,15 @@ namespace Vattenmelon.Nrk.Parser
                 //Console.WriteLine(c.Title + ", " + c.ID);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
-                Assert.IsFalse(clipUrl.ToLower().StartsWith("mms://"));
-                Assert.IsFalse(clipUrl.ToLower().EndsWith(".wmv"));
-                Assert.IsTrue(clipUrl.ToLower().StartsWith("http://"));
+                erHttpLink(clipUrl);
             }
+        }
+
+        private static void erHttpLink(string clipUrl)
+        {
+            Assert.IsFalse(clipUrl.ToLower().StartsWith("mms://"));
+            Assert.IsFalse(clipUrl.ToLower().EndsWith(".wmv"));
+            Assert.IsTrue(clipUrl.ToLower().StartsWith("http://"));
         }
 
         [Test]
@@ -302,9 +306,7 @@ namespace Vattenmelon.Nrk.Parser
                 //Console.WriteLine(c.Title + ", " + c.ID);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
-                Assert.IsFalse(clipUrl.ToLower().StartsWith("mms://"));
-                Assert.IsFalse(clipUrl.ToLower().EndsWith(".wmv"));
-                Assert.IsTrue(clipUrl.ToLower().StartsWith("http://"));
+                erHttpLink(clipUrl);
             }
         }
 
@@ -319,6 +321,7 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
                 Assert.IsTrue(clipUrl.ToLower().StartsWith(NrkParserConstants.RSS_CLIPURL_PREFIX));
+                erHttpLink(clipUrl);
             }
         }
 
@@ -327,6 +330,7 @@ namespace Vattenmelon.Nrk.Parser
         public void TestHentProgrammer()
         {
             List<Item> categories = nrkParser.GetCategories();
+            Boolean funnetProgrammerForBarn = false;
             foreach (Item item in categories)
             {
                 Category k = (Category) item;
@@ -335,6 +339,7 @@ namespace Vattenmelon.Nrk.Parser
                     List<Item> programmer = nrkParser.GetPrograms(k);
                     foreach (Item item1 in programmer)
                     {
+                        funnetProgrammerForBarn = true;
                         Program p = (Program) item1;
                         Assert.IsNotNull(p.ID, "ID skal ikke være null på et program");
                         Assert.IsNotNull(p.Title, "Title skal ikke være null på et program");
@@ -344,6 +349,7 @@ namespace Vattenmelon.Nrk.Parser
                     }
                 }
             }
+            Assert.IsTrue(funnetProgrammerForBarn);
         }
 
         [Test]
