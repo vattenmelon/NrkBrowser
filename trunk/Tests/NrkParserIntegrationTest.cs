@@ -251,11 +251,9 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
-//                Console.WriteLine("id: " + c.ID);
                 Assert.IsNotNull(c.ID);
                 Assert.AreEqual(Clip.KlippType.VERDI, c.Type);
-//                Console.WriteLine("title: " + c.Title);
-//                Assert.IsNotNull(c.Title);
+                Assert.IsNotNull(c.Title);
 //                try
 //                {
 //                    Console.WriteLine(c.Type + "link: c " + c.ID + " " + nrkParser.GetClipUrl(c));
@@ -264,8 +262,6 @@ namespace Vattenmelon.Nrk.Parser
 //                {
 //                    Console.WriteLine("Kunne ikke finne url: "+ e.GetBaseException());
 //                }
-//                Console.WriteLine("bilde: " + c.Bilde);
-//                Console.WriteLine("desc: " + c.Description);
                 Assert.IsNotNull(c.Bilde);
 
             } 
