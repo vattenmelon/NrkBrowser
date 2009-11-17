@@ -551,6 +551,7 @@ namespace Vattenmelon.Nrk.Parser
             return urlToFetch;
         }
 
+        //TODO: kun en prototype.
         public List<Item> GetMestSetteNyheter()
         {
             String url = "http://www1.nrk.no/nett-tv/nyheter";
