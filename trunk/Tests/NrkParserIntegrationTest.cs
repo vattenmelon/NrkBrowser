@@ -149,7 +149,7 @@ namespace Vattenmelon.Nrk.Parser
         public void TestGetForsidenChangeDetectionTestAntall()
         {
             List<Item> liste = nrkParser.GetAnbefaltePaaForsiden();
-            Assert.AreEqual(50, liste.Count); //Verified to be fifty 2009-11-16
+            Assert.AreEqual(53, liste.Count); //Verified to be fifty 2009-11-17
         }
 
         private static void isMMSVideoStream(String directLink)
@@ -376,6 +376,18 @@ namespace Vattenmelon.Nrk.Parser
                 expectedUrl,
                 klippUrl, "KlippURL er blitt endret...denne testen er mest nyttig for å finne endringer hos nrk.");
             Assert.AreEqual(1658, c.StartTime, "Starttiden for klippet har endret seg.");
+        }
+        [Test]
+        public void TestGetMestSetteNyheter()
+        {
+           List<Item> items = nrkParser.GetMestSetteNyheter();
+           Assert.IsNotEmpty(items);
+           Assert.AreEqual(20, items.Count);
+            foreach (Item item in items)
+            {
+                Console.WriteLine(item.Title);
+                Console.WriteLine(item.ID);
+            }
         }
 
     }
