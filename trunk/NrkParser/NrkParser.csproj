@@ -34,7 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HttpClient.cs" />
-    <Compile Include="HttpPost.cs" />
     <Compile Include="NrkParserConstants.cs" />
     <Compile Include="NrkParser.cs" />
     <Compile Include="NrkUtils.cs" />
