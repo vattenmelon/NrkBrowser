@@ -582,7 +582,7 @@ namespace Vattenmelon.Nrk.Parser
             //data = FetchUrl(MAIN_URL + tab + "/");
             Regex query =
                     new Regex(
-                        "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?></a>.*?</div>.*?<div class=\"active\"><h2><a href=\"(.*?)\">(.*?)</a></h2>",
+                        "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?></a>.*?</div>.*?<div class=\"active\"><h2><a href=\"(.*?)\">(.*?)</a></h2><p><a.*?><span.*?>(.*?) visninger</span><span>(.*?)</span></a></p>",
                         RegexOptions.Singleline);
 
             MatchCollection matches = query.Matches(data);
@@ -594,7 +594,8 @@ namespace Vattenmelon.Nrk.Parser
                 Clip c = new Clip(x.Groups[2].Value, x.Groups[3].Value);
                 String bildeUrl = x.Groups[1].Value;
                 c.Bilde = bildeUrl;
-                //c.Description = "Lagt ut " + klokkeslett;
+                c.AntallGangerVist = x.Groups[4].Value;
+                c.Description = x.Groups[5].Value;
                 c.Type = Clip.KlippType.VERDI;
                 //c.VerdiLink = tab;
                 clips.Add(c);
