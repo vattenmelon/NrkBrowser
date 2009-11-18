@@ -457,5 +457,13 @@ namespace Vattenmelon.Nrk.Parser
             }
         }
 
+        [Test]
+        [ExpectedException(typeof(Exception))]
+        public void TestGetMestSetteForInvalidCategory()
+        {
+            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Totalt, "heythizdoesnoetexists");
+            
+        }
+
     }
 }
