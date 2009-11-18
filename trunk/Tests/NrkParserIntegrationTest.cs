@@ -417,5 +417,18 @@ namespace Vattenmelon.Nrk.Parser
             }
         }
 
+        [Test]
+        public void TestGetMestSetteSportSisteUke()
+        {
+            List<Item> items = nrkParser.GetMestSetteSportSisteUke();
+            Assert.IsNotEmpty(items);
+            Assert.AreEqual(20, items.Count);
+            foreach (Item item in items)
+            {
+                Console.WriteLine(item.Title);
+                Console.WriteLine(item.ID);
+            }
+        }
+
     }
 }
