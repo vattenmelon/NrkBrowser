@@ -378,55 +378,82 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(1658, c.StartTime, "Starttiden for klippet har endret seg.");
         }
 
-        [Test]
-        public void TestGetMestSetteNyheterSisteUke()
-        {
-           List<Item> items = nrkParser.GetMestSetteNyheterSisteUke();
-           Assert.IsNotEmpty(items);
-           Assert.AreEqual(20, items.Count);
-            foreach (Item item in items)
-            {
-                Console.WriteLine(item.Title);
-                Console.WriteLine(item.ID);
-            }
-        }
 
         [Test]
-        public void TestGetMestSetteNyheterSisteMaaned()
+        public void TestGetMestSetteNyheterSistUke()
         {
-            List<Item> items = nrkParser.GetMestSetteNyheterSisteMaaned();
+            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Uke, "Nyheter");
             Assert.IsNotEmpty(items);
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                Console.WriteLine(item.Title);
-                Console.WriteLine(item.ID);
+                //Console.WriteLine(item.Title);
+                //Console.WriteLine(item.ID);
+            }
+        }
+
+        [Test]
+        public void TestGetMestSetteNyheterSistMaaned()
+        {
+            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Maned, "Nyheter");
+            Assert.IsNotEmpty(items);
+            Assert.AreEqual(20, items.Count);
+            foreach (Item item in items)
+            {
+                //Console.WriteLine(item.Title);
+                //Console.WriteLine(item.ID);
             }
         }
 
         [Test]
         public void TestGetMestSetteNyheterTotalt()
         {
-            List<Item> items = nrkParser.GetMestSetteNyheterTotalt();
+            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Totalt, "Nyheter");
             Assert.IsNotEmpty(items);
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                Console.WriteLine(item.Title);
-                Console.WriteLine(item.ID);
+                //Console.WriteLine(item.Title);
+                //Console.WriteLine(item.ID);
             }
         }
 
         [Test]
-        public void TestGetMestSetteSportSisteUke()
+        public void TestGetMestSetteSportSistUke()
         {
-            List<Item> items = nrkParser.GetMestSetteSportSisteUke();
+            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Uke, "Sport");
             Assert.IsNotEmpty(items);
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                Console.WriteLine(item.Title);
-                Console.WriteLine(item.ID);
+                //Console.WriteLine(item.Title);
+                //Console.WriteLine(item.ID);
+            }
+        }
+
+        [Test]
+        public void TestGetMestSetteSportSistMaaned()
+        {
+            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Maned, "Sport");
+            Assert.IsNotEmpty(items);
+            Assert.AreEqual(20, items.Count);
+            foreach (Item item in items)
+            {
+                //Console.WriteLine(item.Title);
+                //Console.WriteLine(item.ID);
+            }
+        }
+
+        [Test]
+        public void TestGetMestSetteSportTotalt()
+        {
+            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Totalt, "Sport");
+            Assert.IsNotEmpty(items);
+            Assert.AreEqual(20, items.Count);
+            foreach (Item item in items)
+            {
+                //Console.WriteLine(item.Title);
+                //Console.WriteLine(item.ID);
             }
         }
 
