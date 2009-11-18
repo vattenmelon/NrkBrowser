@@ -387,8 +387,18 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                //Console.WriteLine(item.Title);
-                //Console.WriteLine(item.ID);
+                Clip c = (Clip) item;
+                //Console.WriteLine(c.Title);
+                //Console.WriteLine(c.ID);
+                //Console.WriteLine(c.Description);
+                //Console.WriteLine(c.Bilde);
+                //Console.WriteLine(c.AntallGangerVist);
+                Assert.IsNotEmpty(c.Title);
+                Assert.IsNotEmpty(c.ID);
+                Assert.IsNotEmpty(c.Description);
+                Assert.IsNotEmpty(c.Bilde);
+                Assert.IsNotEmpty(c.AntallGangerVist);
+                
             }
         }
 
@@ -400,8 +410,17 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                //Console.WriteLine(item.Title);
-                //Console.WriteLine(item.ID);
+                Clip c = (Clip)item;
+                //Console.WriteLine(c.Title);
+                //Console.WriteLine(c.ID);
+                //Console.WriteLine(c.Description);
+                //Console.WriteLine(c.Bilde);
+                //Console.WriteLine(c.AntallGangerVist);
+                Assert.IsNotEmpty(c.Title);
+                Assert.IsNotEmpty(c.ID);
+                Assert.IsNotEmpty(c.Description);
+                Assert.IsNotEmpty(c.Bilde);
+                Assert.IsNotEmpty(c.AntallGangerVist);
             }
         }
 
@@ -413,8 +432,17 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                //Console.WriteLine(item.Title);
-                //Console.WriteLine(item.ID);
+                Clip c = (Clip)item;
+                //Console.WriteLine(c.Title);
+                //Console.WriteLine(c.ID);
+                //Console.WriteLine(c.Description);
+                //Console.WriteLine(c.Bilde);
+                //Console.WriteLine(c.AntallGangerVist);
+                Assert.IsNotEmpty(c.Title);
+                Assert.IsNotEmpty(c.ID);
+                Assert.IsNotEmpty(c.Description);
+                Assert.IsNotEmpty(c.Bilde);
+                Assert.IsNotEmpty(c.AntallGangerVist);
             }
         }
 
@@ -426,8 +454,17 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                //Console.WriteLine(item.Title);
-                //Console.WriteLine(item.ID);
+                Clip c = (Clip)item;
+                //Console.WriteLine(c.Title);
+                //Console.WriteLine(c.ID);
+                //Console.WriteLine(c.Description);
+                //Console.WriteLine(c.Bilde);
+                //Console.WriteLine(c.AntallGangerVist);
+                Assert.IsNotEmpty(c.Title);
+                Assert.IsNotEmpty(c.ID);
+                Assert.IsNotEmpty(c.Description);
+                Assert.IsNotEmpty(c.Bilde);
+                Assert.IsNotEmpty(c.AntallGangerVist);
             }
         }
 
@@ -439,8 +476,17 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                //Console.WriteLine(item.Title);
-                //Console.WriteLine(item.ID);
+                Clip c = (Clip)item;
+                //Console.WriteLine(c.Title);
+                //Console.WriteLine(c.ID);
+                //Console.WriteLine(c.Description);
+                //Console.WriteLine(c.Bilde);
+                //Console.WriteLine(c.AntallGangerVist);
+                Assert.IsNotEmpty(c.Title);
+                Assert.IsNotEmpty(c.ID);
+                Assert.IsNotEmpty(c.Description);
+                Assert.IsNotEmpty(c.Bilde);
+                Assert.IsNotEmpty(c.AntallGangerVist);
             }
         }
 
@@ -452,8 +498,17 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                //Console.WriteLine(item.Title);
-                //Console.WriteLine(item.ID);
+                Clip c = (Clip)item;
+                //Console.WriteLine(c.Title);
+                //Console.WriteLine(c.ID);
+                //Console.WriteLine(c.Description);
+                //Console.WriteLine(c.Bilde);
+                //Console.WriteLine(c.AntallGangerVist);
+                Assert.IsNotEmpty(c.Title);
+                Assert.IsNotEmpty(c.ID);
+                Assert.IsNotEmpty(c.Description);
+                Assert.IsNotEmpty(c.Bilde);
+                Assert.IsNotEmpty(c.AntallGangerVist);
             }
         }
 
