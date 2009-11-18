@@ -554,27 +554,38 @@ namespace Vattenmelon.Nrk.Parser
         //TODO: kun en prototype.
         public List<Item> GetMestSetteNyheterSisteUke()
         {
+            String url = "http://www1.nrk.no/nett-tv/nyheter";
             string postData =  "?=&__EVENTARGUMENT=&__EVENTTARGET=ctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msUke&__VIEWSTATE=%2FwEPDwULLTE1MzY4Nzg0MjgPZBYCZg9kFgICARBkZBYCAgcPZBYEAgUPZBYCAgIPZBYEAgEPFgIeB1Zpc2libGVnZAIDD2QWAgIBD2QWAmYPZBYCAgEPEGRkFgFmZAITDxYCHghJbnRlcnZhbAKg9zZkZK%2BW3BUTIoBRgR%2BZmbNcBkpGpGFk&ctl00%24contentPlaceHolder%24asyncPBparent=&ctl00%24contentPlaceHolder%24asyncPBstory=&ctl00%24contentPlaceHolder%24asyncPBtitle=&ctl00%24contentPlaceHolder%24mainCat=Nyheter&ctl00%24contentPlaceHolder%24nowPlaying=&ctl00%24contentPlaceHolder%24subCat=&ctl00%24scriptManager1=ctl00%24contentPlaceHolder%24loopPanel%7Cctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msUke&ctl00%24ucTop%24userSearch=";
-            return GetMestSetteNyheter(postData);
+            return GetMestSetteNyheter(url, postData);
         }
 
         //TODO: gjør ferdig
         public List<Item> GetMestSetteNyheterSisteMaaned()
         {
+            String url = "http://www1.nrk.no/nett-tv/nyheter";
             string postData = "?=&__EVENTARGUMENT=&__EVENTTARGET=ctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msManed&__VIEWSTATE=%2FwEPDwULLTE1MzY4Nzg0MjgPZBYCZg9kFgICARBkZBYCAgcPZBYEAgUPZBYCAgIPZBYEAgEPFgIeB1Zpc2libGVnZAIDD2QWAgIBD2QWAmYPZBYCAgEPEGRkFgFmZAITDxYCHghJbnRlcnZhbAKg9zZkZK%2BW3BUTIoBRgR%2BZmbNcBkpGpGFk&ctl00%24contentPlaceHolder%24asyncPBparent=&ctl00%24contentPlaceHolder%24asyncPBstory=&ctl00%24contentPlaceHolder%24asyncPBtitle=&ctl00%24contentPlaceHolder%24mainCat=Nyheter&ctl00%24contentPlaceHolder%24nowPlaying=&ctl00%24contentPlaceHolder%24subCat=&ctl00%24scriptManager1=ctl00%24contentPlaceHolder%24loopPanel%7Cctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msManed&ctl00%24ucTop%24userSearch=";
-            return GetMestSetteNyheter(postData);
+            return GetMestSetteNyheter(url, postData);
         }
         //TODO: gjør ferdig
         public List<Item> GetMestSetteNyheterTotalt()
         {
+            String url = "http://www1.nrk.no/nett-tv/nyheter";
             string postData = "?=&__EVENTARGUMENT=&__EVENTTARGET=ctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msTotalt&__VIEWSTATE=%2FwEPDwULLTE1MzY4Nzg0MjgPZBYCZg9kFgICARBkZBYCAgcPZBYEAgUPZBYCAgIPZBYEAgEPFgIeB1Zpc2libGVnZAIDD2QWAgIBD2QWAmYPZBYCAgEPEGRkFgFmZAITDxYCHghJbnRlcnZhbAKg9zZkZK%2BW3BUTIoBRgR%2BZmbNcBkpGpGFk&ctl00%24contentPlaceHolder%24asyncPBparent=&ctl00%24contentPlaceHolder%24asyncPBstory=&ctl00%24contentPlaceHolder%24asyncPBtitle=&ctl00%24contentPlaceHolder%24mainCat=Nyheter&ctl00%24contentPlaceHolder%24nowPlaying=&ctl00%24contentPlaceHolder%24subCat=&ctl00%24scriptManager1=ctl00%24contentPlaceHolder%24loopPanel%7Cctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msTotalt&ctl00%24ucTop%24userSearch=";
-            return GetMestSetteNyheter(postData);
+            return GetMestSetteNyheter(url, postData);
+        }
+
+
+        public List<Item> GetMestSetteSportSisteUke()
+        {
+            String url = "http://www1.nrk.no/nett-tv/sport";
+            string postData = "?=&__EVENTARGUMENT=&__EVENTTARGET=ctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msUke&__VIEWSTATE=%2FwEPDwULLTE1MzY4Nzg0MjgPZBYCZg9kFgICARBkZBYCAgcPZBYEAgUPZBYCAgIPZBYEAgEPFgIeB1Zpc2libGVnZAIDD2QWAgIBD2QWAmYPZBYCAgEPEGRkFgFmZAITDxYCHghJbnRlcnZhbAKg9zZkZK%2BW3BUTIoBRgR%2BZmbNcBkpGpGFk&ctl00%24contentPlaceHolder%24asyncPBparent=&ctl00%24contentPlaceHolder%24asyncPBstory=&ctl00%24contentPlaceHolder%24asyncPBtitle=&ctl00%24contentPlaceHolder%24mainCat=Sport&ctl00%24contentPlaceHolder%24nowPlaying=&ctl00%24contentPlaceHolder%24subCat=&ctl00%24scriptManager1=ctl00%24contentPlaceHolder%24loopPanel%7Cctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msUke&ctl00%24ucTop%24userSearch=";
+            return GetMestSetteNyheter(url, postData);
         }
 
         //TODO: gjør ferdig
-        public List<Item> GetMestSetteNyheter(String dataToPost)
+        public List<Item> GetMestSetteNyheter(String url, String dataToPost)
         {
-            String url = "http://www1.nrk.no/nett-tv/nyheter";
+            
             String data = httpClient.PostUrl(url, dataToPost);
             //data = FetchUrl(MAIN_URL + tab + "/");
             Regex query =
@@ -604,5 +615,6 @@ namespace Vattenmelon.Nrk.Parser
         {
             return httpClient.GetUrl(url);
         }
+
     }
 }
