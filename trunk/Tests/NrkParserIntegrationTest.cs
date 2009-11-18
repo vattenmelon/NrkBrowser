@@ -377,12 +377,39 @@ namespace Vattenmelon.Nrk.Parser
                 klippUrl, "KlippURL er blitt endret...denne testen er mest nyttig for å finne endringer hos nrk.");
             Assert.AreEqual(1658, c.StartTime, "Starttiden for klippet har endret seg.");
         }
+
         [Test]
-        public void TestGetMestSetteNyheter()
+        public void TestGetMestSetteNyheterSisteUke()
         {
-           List<Item> items = nrkParser.GetMestSetteNyheter();
+           List<Item> items = nrkParser.GetMestSetteNyheterSisteUke();
            Assert.IsNotEmpty(items);
            Assert.AreEqual(20, items.Count);
+            foreach (Item item in items)
+            {
+                Console.WriteLine(item.Title);
+                Console.WriteLine(item.ID);
+            }
+        }
+
+        [Test]
+        public void TestGetMestSetteNyheterSisteMaaned()
+        {
+            List<Item> items = nrkParser.GetMestSetteNyheterSisteMaaned();
+            Assert.IsNotEmpty(items);
+            Assert.AreEqual(20, items.Count);
+            foreach (Item item in items)
+            {
+                Console.WriteLine(item.Title);
+                Console.WriteLine(item.ID);
+            }
+        }
+
+        [Test]
+        public void TestGetMestSetteNyheterTotalt()
+        {
+            List<Item> items = nrkParser.GetMestSetteNyheterTotalt();
+            Assert.IsNotEmpty(items);
+            Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
                 Console.WriteLine(item.Title);
