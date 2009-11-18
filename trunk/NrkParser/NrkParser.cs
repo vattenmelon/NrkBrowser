@@ -551,39 +551,31 @@ namespace Vattenmelon.Nrk.Parser
             return urlToFetch;
         }
 
-        //TODO: kun en prototype.
-        public List<Item> GetMestSetteNyheterSisteUke()
+        public List<Item> GetMestSetteForKategoriOgPeriode(Periode periode, String category)
         {
-            String url = "http://www1.nrk.no/nett-tv/nyheter";
-            string postData =  "?=&__EVENTARGUMENT=&__EVENTTARGET=ctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msUke&__VIEWSTATE=%2FwEPDwULLTE1MzY4Nzg0MjgPZBYCZg9kFgICARBkZBYCAgcPZBYEAgUPZBYCAgIPZBYEAgEPFgIeB1Zpc2libGVnZAIDD2QWAgIBD2QWAmYPZBYCAgEPEGRkFgFmZAITDxYCHghJbnRlcnZhbAKg9zZkZK%2BW3BUTIoBRgR%2BZmbNcBkpGpGFk&ctl00%24contentPlaceHolder%24asyncPBparent=&ctl00%24contentPlaceHolder%24asyncPBstory=&ctl00%24contentPlaceHolder%24asyncPBtitle=&ctl00%24contentPlaceHolder%24mainCat=Nyheter&ctl00%24contentPlaceHolder%24nowPlaying=&ctl00%24contentPlaceHolder%24subCat=&ctl00%24scriptManager1=ctl00%24contentPlaceHolder%24loopPanel%7Cctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msUke&ctl00%24ucTop%24userSearch=";
-            return GetMestSetteNyheter(url, postData);
+            String url = getUrl(category);
+            string viewState =
+                "%2FwEPDwULLTE1MzY4Nzg0MjgPZBYCZg9kFgICARBkZBYCAgcPZBYEAgUPZBYCAgIPZBYEAgEPFgIeB1Zpc2libGVnZAIDD2QWAgIBD2QWAmYPZBYCAgEPEGRkFgFmZAITDxYCHghJbnRlcnZhbAKg9zZkZK%2BW3BUTIoBRgR%2BZmbNcBkpGpGFk&ctl00%24";
+            string postData = string.Format("?=&__EVENTARGUMENT=&__EVENTTARGET=ctl00%24contentPlaceHolder%24asyncPBTrigger_loop_ms{0}&__VIEWSTATE={1}contentPlaceHolder%24asyncPBparent=&ctl00%24contentPlaceHolder%24asyncPBstory=&ctl00%24contentPlaceHolder%24asyncPBtitle=&ctl00%24contentPlaceHolder%24mainCat={2}&ctl00%24contentPlaceHolder%24nowPlaying=&ctl00%24contentPlaceHolder%24subCat=&ctl00%24scriptManager1=ctl00%24contentPlaceHolder%24loopPanel%7Cctl00%24contentPlaceHolder%24asyncPBTrigger_loop_ms{3}&ctl00%24ucTop%24userSearch=", periode, viewState, category, periode);
+            return GetMestSetteGeneric(url, postData);
+        }
+
+        private string getUrl(String cateogry)
+        {
+            if (cateogry.Equals("Nyheter"))
+                return MAIN_URL + "nyheter";
+            else if (cateogry.Equals("Sport"))
+                return MAIN_URL + "sport";
+            else if (cateogry.Equals("Distrikt"))
+                return MAIN_URL + "distrikt";
+            else if (cateogry.Equals("Natur"))
+                return MAIN_URL + "natur";
+            else
+                throw new Exception("No valid URL found!");
         }
 
         //TODO: gjør ferdig
-        public List<Item> GetMestSetteNyheterSisteMaaned()
-        {
-            String url = "http://www1.nrk.no/nett-tv/nyheter";
-            string postData = "?=&__EVENTARGUMENT=&__EVENTTARGET=ctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msManed&__VIEWSTATE=%2FwEPDwULLTE1MzY4Nzg0MjgPZBYCZg9kFgICARBkZBYCAgcPZBYEAgUPZBYCAgIPZBYEAgEPFgIeB1Zpc2libGVnZAIDD2QWAgIBD2QWAmYPZBYCAgEPEGRkFgFmZAITDxYCHghJbnRlcnZhbAKg9zZkZK%2BW3BUTIoBRgR%2BZmbNcBkpGpGFk&ctl00%24contentPlaceHolder%24asyncPBparent=&ctl00%24contentPlaceHolder%24asyncPBstory=&ctl00%24contentPlaceHolder%24asyncPBtitle=&ctl00%24contentPlaceHolder%24mainCat=Nyheter&ctl00%24contentPlaceHolder%24nowPlaying=&ctl00%24contentPlaceHolder%24subCat=&ctl00%24scriptManager1=ctl00%24contentPlaceHolder%24loopPanel%7Cctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msManed&ctl00%24ucTop%24userSearch=";
-            return GetMestSetteNyheter(url, postData);
-        }
-        //TODO: gjør ferdig
-        public List<Item> GetMestSetteNyheterTotalt()
-        {
-            String url = "http://www1.nrk.no/nett-tv/nyheter";
-            string postData = "?=&__EVENTARGUMENT=&__EVENTTARGET=ctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msTotalt&__VIEWSTATE=%2FwEPDwULLTE1MzY4Nzg0MjgPZBYCZg9kFgICARBkZBYCAgcPZBYEAgUPZBYCAgIPZBYEAgEPFgIeB1Zpc2libGVnZAIDD2QWAgIBD2QWAmYPZBYCAgEPEGRkFgFmZAITDxYCHghJbnRlcnZhbAKg9zZkZK%2BW3BUTIoBRgR%2BZmbNcBkpGpGFk&ctl00%24contentPlaceHolder%24asyncPBparent=&ctl00%24contentPlaceHolder%24asyncPBstory=&ctl00%24contentPlaceHolder%24asyncPBtitle=&ctl00%24contentPlaceHolder%24mainCat=Nyheter&ctl00%24contentPlaceHolder%24nowPlaying=&ctl00%24contentPlaceHolder%24subCat=&ctl00%24scriptManager1=ctl00%24contentPlaceHolder%24loopPanel%7Cctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msTotalt&ctl00%24ucTop%24userSearch=";
-            return GetMestSetteNyheter(url, postData);
-        }
-
-
-        public List<Item> GetMestSetteSportSisteUke()
-        {
-            String url = "http://www1.nrk.no/nett-tv/sport";
-            string postData = "?=&__EVENTARGUMENT=&__EVENTTARGET=ctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msUke&__VIEWSTATE=%2FwEPDwULLTE1MzY4Nzg0MjgPZBYCZg9kFgICARBkZBYCAgcPZBYEAgUPZBYCAgIPZBYEAgEPFgIeB1Zpc2libGVnZAIDD2QWAgIBD2QWAmYPZBYCAgEPEGRkFgFmZAITDxYCHghJbnRlcnZhbAKg9zZkZK%2BW3BUTIoBRgR%2BZmbNcBkpGpGFk&ctl00%24contentPlaceHolder%24asyncPBparent=&ctl00%24contentPlaceHolder%24asyncPBstory=&ctl00%24contentPlaceHolder%24asyncPBtitle=&ctl00%24contentPlaceHolder%24mainCat=Sport&ctl00%24contentPlaceHolder%24nowPlaying=&ctl00%24contentPlaceHolder%24subCat=&ctl00%24scriptManager1=ctl00%24contentPlaceHolder%24loopPanel%7Cctl00%24contentPlaceHolder%24asyncPBTrigger_loop_msUke&ctl00%24ucTop%24userSearch=";
-            return GetMestSetteNyheter(url, postData);
-        }
-
-        //TODO: gjør ferdig
-        public List<Item> GetMestSetteNyheter(String url, String dataToPost)
+        public List<Item> GetMestSetteGeneric(String url, String dataToPost)
         {
             
             String data = httpClient.PostUrl(url, dataToPost);
@@ -616,5 +608,13 @@ namespace Vattenmelon.Nrk.Parser
             return httpClient.GetUrl(url);
         }
 
+        public enum Periode
+        {
+            Uke,
+            Maned,
+            Totalt
+        }
     }
+
+
 }
