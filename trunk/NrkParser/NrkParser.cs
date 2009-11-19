@@ -574,12 +574,10 @@ namespace Vattenmelon.Nrk.Parser
                 throw new Exception("No valid URL found!");
         }
 
-        //TODO: gjør ferdig
         public List<Item> GetMestSetteGeneric(String url, String dataToPost)
         {
-            
+            Log.Info(string.Format("{0}: GetMestSetteGeneric :{1}, {2}", NrkParserConstants.LIBRARY_NAME, url, dataToPost));
             String data = httpClient.PostUrl(url, dataToPost);
-            //data = FetchUrl(MAIN_URL + tab + "/");
             Regex query =
                     new Regex(
                         "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?></a>.*?</div>.*?<div class=\"active\"><h2><a href=\"(.*?)\">(.*?)</a></h2><p><a.*?><span.*?>(.*?) visninger</span><span>(.*?)</span></a></p>",
@@ -587,10 +585,9 @@ namespace Vattenmelon.Nrk.Parser
 
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
-            //Log.Info(NrkPlugin.PLUGIN_NAME + ": Matches {0}", matches.Count);
+            Log.Info(NrkParserConstants.LIBRARY_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
-                //string klokkeslett = parseKlokkeSlettFraBilde(x.Groups[1].Value);
                 string idUrl = x.Groups[2].Value;
                 Clip c = new Clip("tmpId", x.Groups[3].Value);
                 NrkUtils.BestemKlippType(c, idUrl);
