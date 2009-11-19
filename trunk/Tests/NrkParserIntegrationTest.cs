@@ -387,20 +387,40 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                Clip c = (Clip) item;
+                AssertValidMestSette(item);
+            }
+        }
+
+        /// <summary>
+        /// Vanskelig å asserte på videostreamen siden det hender at klipp ikke er tilgjengelige hos nrk.
+        /// </summary>
+        /// <param name="item"></param>
+        private void AssertValidMestSette(Item item)
+        {
+            Clip c = (Clip) item;
+            
                 Console.WriteLine("Tittel.............: " + c.Title);
                 Console.WriteLine("ID.................: " + c.ID);
                 Console.WriteLine("Beskrivelse........: " + c.Description);
                 Console.WriteLine("Bilde..............: " + c.Bilde);
+                Console.WriteLine("Type...............: " + c.Type);
                 Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
+                //String videoLink = nrkParser.GetClipUrl(c);
+                //Console.WriteLine("Videostream........: " + videoLink);
                 Console.WriteLine("--------------------------------------------");
-                Assert.IsNotEmpty(c.Title);
-                Assert.IsNotEmpty(c.ID);
-                Assert.IsNotEmpty(c.Description);
-                Assert.IsNotEmpty(c.Bilde);
-                Assert.IsNotEmpty(c.AntallGangerVist);
-                
-            }
+            Assert.IsNotEmpty(c.Title);
+            Assert.IsNotEmpty(c.ID);
+            Assert.IsNotEmpty(c.Description);
+            Assert.IsNotEmpty(c.Bilde);
+            Assert.IsNotEmpty(c.AntallGangerVist);
+//            if (c.Type == Clip.KlippType.KLIPP)
+//            {
+//                Assert.IsTrue(videoLink.EndsWith(".wmv"));
+//            }
+//            else
+//            {
+//                erHttpLink(videoLink);
+//            }
         }
 
         [Test]
@@ -411,17 +431,7 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                Clip c = (Clip)item;
-                //Console.WriteLine(c.Title);
-                //Console.WriteLine(c.ID);
-                //Console.WriteLine(c.Description);
-                //Console.WriteLine(c.Bilde);
-                //Console.WriteLine(c.AntallGangerVist);
-                Assert.IsNotEmpty(c.Title);
-                Assert.IsNotEmpty(c.ID);
-                Assert.IsNotEmpty(c.Description);
-                Assert.IsNotEmpty(c.Bilde);
-                Assert.IsNotEmpty(c.AntallGangerVist);
+                AssertValidMestSette(item);
             }
         }
 
@@ -433,17 +443,7 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                Clip c = (Clip)item;
-                //Console.WriteLine(c.Title);
-                //Console.WriteLine(c.ID);
-                //Console.WriteLine(c.Description);
-                //Console.WriteLine(c.Bilde);
-                //Console.WriteLine(c.AntallGangerVist);
-                Assert.IsNotEmpty(c.Title);
-                Assert.IsNotEmpty(c.ID);
-                Assert.IsNotEmpty(c.Description);
-                Assert.IsNotEmpty(c.Bilde);
-                Assert.IsNotEmpty(c.AntallGangerVist);
+                AssertValidMestSette(item);
             }
         }
 
@@ -455,18 +455,7 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                Clip c = (Clip)item;
-                Console.WriteLine("Tittel.............: " + c.Title);
-                Console.WriteLine("ID.................: " + c.ID);
-                Console.WriteLine("Beskrivelse........: " + c.Description);
-                Console.WriteLine("Bilde..............: " + c.Bilde);
-                Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
-                Console.WriteLine("--------------------------------------------");
-                Assert.IsNotEmpty(c.Title);
-                Assert.IsNotEmpty(c.ID);
-                Assert.IsNotEmpty(c.Description);
-                Assert.IsNotEmpty(c.Bilde);
-                Assert.IsNotEmpty(c.AntallGangerVist);
+                AssertValidMestSette(item);
             }
         }
 
@@ -478,17 +467,7 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                Clip c = (Clip)item;
-                //Console.WriteLine(c.Title);
-                //Console.WriteLine(c.ID);
-                //Console.WriteLine(c.Description);
-                //Console.WriteLine(c.Bilde);
-                //Console.WriteLine(c.AntallGangerVist);
-                Assert.IsNotEmpty(c.Title);
-                Assert.IsNotEmpty(c.ID);
-                Assert.IsNotEmpty(c.Description);
-                Assert.IsNotEmpty(c.Bilde);
-                Assert.IsNotEmpty(c.AntallGangerVist);
+                AssertValidMestSette(item);
             }
         }
 
@@ -500,17 +479,7 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(20, items.Count);
             foreach (Item item in items)
             {
-                Clip c = (Clip)item;
-                //Console.WriteLine(c.Title);
-                //Console.WriteLine(c.ID);
-                //Console.WriteLine(c.Description);
-                //Console.WriteLine(c.Bilde);
-                //Console.WriteLine(c.AntallGangerVist);
-                Assert.IsNotEmpty(c.Title);
-                Assert.IsNotEmpty(c.ID);
-                Assert.IsNotEmpty(c.Description);
-                Assert.IsNotEmpty(c.Bilde);
-                Assert.IsNotEmpty(c.AntallGangerVist);
+                AssertValidMestSette(item);
             }
         }
 
