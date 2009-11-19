@@ -32,18 +32,8 @@ namespace Vattenmelon.Nrk.Parser.Http
             request.MaximumResponseHeadersLength = 4;
             // Set credentials to use for this request.
             request.Credentials = CredentialCache.DefaultCredentials;
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-            // Get the stream associated with the response.
-            System.IO.Stream receiveStream = response.GetResponseStream();
-
-            // Pipes the stream to a higher level stream reader with the required encoding format. 
-            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
-
-            string ret = readStream.ReadToEnd();
-            response.Close();
-            readStream.Close();
-            return ret;
+            return HandleResponse(request);
         }
 
         public string PostUrl(string url, string postData)
@@ -71,13 +61,17 @@ namespace Vattenmelon.Nrk.Parser.Http
             Stream newStream = request.GetRequestStream();
             newStream.Write(postDataAsByteArray, 0, postDataAsByteArray.Length);
             newStream.Close();
+
+            return HandleResponse(request);
+        }
+
+        private static string HandleResponse(HttpWebRequest request)
+        {
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             // Get the stream associated with the response.
             System.IO.Stream receiveStream = response.GetResponseStream();
-
             // Pipes the stream to a higher level stream reader with the required encoding format. 
             StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
-
             string ret = readStream.ReadToEnd();
             response.Close();
             readStream.Close();
