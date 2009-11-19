@@ -516,7 +516,7 @@ namespace Vattenmelon.Nrk.Parser
         [ExpectedException(typeof(Exception))]
         public void TestGetMestSetteForInvalidCategory()
         {
-            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Totalt, "heythizdoesnoetexists");
+            nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Totalt, "heythizdoesnoetexists");
             
         }
 
