@@ -24,6 +24,13 @@ namespace Vattenmelon.Nrk.Parser.Http
         /// <returns></returns>
         public string GetUrl(string url)
         {
+            HttpWebRequest request = CreateRequest(url);
+
+            return HandleResponse(request);
+        }
+
+        private HttpWebRequest CreateRequest(string url)
+        {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.UserAgent = userAgent;
             request.CookieContainer = cookieContainer;
@@ -32,21 +39,16 @@ namespace Vattenmelon.Nrk.Parser.Http
             request.MaximumResponseHeadersLength = 4;
             // Set credentials to use for this request.
             request.Credentials = CredentialCache.DefaultCredentials;
-
-            return HandleResponse(request);
+            return request;
         }
 
         public string PostUrl(string url, string postData)
         {
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.UserAgent = userAgent;
-            request.CookieContainer = cookieContainer;
-            // Set some reasonable limits on resources used by this request
-            request.MaximumAutomaticRedirections = 4;
-            request.MaximumResponseHeadersLength = 4;
+            HttpWebRequest request = CreateRequest(url);
+
+            ///Post-specific stuff
             request.Method = WebRequestMethods.Http.Post;
-            
             UTF8Encoding encoding = new UTF8Encoding();
             byte[] postDataAsByteArray = encoding.GetBytes(postData);
             request.Headers.Add("X-MicrosoftAjax", "Delta=true");
@@ -61,7 +63,7 @@ namespace Vattenmelon.Nrk.Parser.Http
             Stream newStream = request.GetRequestStream();
             newStream.Write(postDataAsByteArray, 0, postDataAsByteArray.Length);
             newStream.Close();
-
+            
             return HandleResponse(request);
         }
 
