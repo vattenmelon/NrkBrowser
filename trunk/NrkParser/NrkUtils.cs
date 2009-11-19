@@ -1,4 +1,5 @@
 using System;
+using Vattenmelon.Nrk.Domain;
 
 /*
  * Created by: Vattenmelon 
@@ -48,6 +49,25 @@ namespace Vattenmelon.Nrk.Parser
                //if parsing of this fails..this is fine
                return "";
            }
+       }
+
+       /// <summary>
+       /// Method that puts the clip type on the given clip by looking at the url.
+       /// </summary>
+       /// <param name="c"></param>
+       /// <param name="url"></param>
+       public static void BestemKlippType(Clip c, string url)
+       {
+           String tmpUrl = url.Substring(url.LastIndexOf("/") + 1);
+           if (url.Contains("verdi"))
+           {
+               c.Type = Clip.KlippType.VERDI;
+           }
+           else if (url.Contains("klipp"))
+           {
+               c.Type = Clip.KlippType.KLIPP;
+           }
+           c.ID = tmpUrl;
        }
     }
 }

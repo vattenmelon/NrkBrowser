@@ -4,6 +4,7 @@
  */
 
 using NUnit.Framework;
+using Vattenmelon.Nrk.Domain;
 
 namespace Vattenmelon.Nrk.Parser
 {
@@ -47,6 +48,26 @@ namespace Vattenmelon.Nrk.Parser
             string bildeFil = "http://fil.nrk.no/nett-tv/data/stillbilder/nsps_upload_2009adsf_1390_loop.jpg";
             string klokkeslett = NrkUtils.parseKlokkeSlettFraBilde(bildeFil);
             Assert.AreEqual("", klokkeslett);
+        }
+
+        [Test]
+        public void TestBestemKlippTypeDersomVerdiLink()
+        {
+            string url = "http://www1.nrk.no/nett-tv/sport/spill/verdi/115570";
+            Clip c = new Clip("tmpId", url);
+            NrkUtils.BestemKlippType(c, url);
+            Assert.AreEqual("115570", c.ID);
+            Assert.AreEqual(Clip.KlippType.VERDI, c.Type);
+        }
+
+        [Test]
+        public void TestBestemKlippTypeDersomKlippLink()
+        {
+            string url = "http://www1.nrk.no/nett-tv/klipp/576725";
+            Clip c = new Clip("tmpId", url);
+            NrkUtils.BestemKlippType(c, url);
+            Assert.AreEqual("576725", c.ID);
+            Assert.AreEqual(Clip.KlippType.KLIPP, c.Type);
         }
     }
 }

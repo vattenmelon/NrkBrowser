@@ -388,11 +388,12 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Item item in items)
             {
                 Clip c = (Clip) item;
-                //Console.WriteLine(c.Title);
-                //Console.WriteLine(c.ID);
-                //Console.WriteLine(c.Description);
-                //Console.WriteLine(c.Bilde);
-                //Console.WriteLine(c.AntallGangerVist);
+                Console.WriteLine("Tittel.............: " + c.Title);
+                Console.WriteLine("ID.................: " + c.ID);
+                Console.WriteLine("Beskrivelse........: " + c.Description);
+                Console.WriteLine("Bilde..............: " + c.Bilde);
+                Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
+                Console.WriteLine("--------------------------------------------");
                 Assert.IsNotEmpty(c.Title);
                 Assert.IsNotEmpty(c.ID);
                 Assert.IsNotEmpty(c.Description);
@@ -455,11 +456,12 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Item item in items)
             {
                 Clip c = (Clip)item;
-                //Console.WriteLine(c.Title);
-                //Console.WriteLine(c.ID);
-                //Console.WriteLine(c.Description);
-                //Console.WriteLine(c.Bilde);
-                //Console.WriteLine(c.AntallGangerVist);
+                Console.WriteLine("Tittel.............: " + c.Title);
+                Console.WriteLine("ID.................: " + c.ID);
+                Console.WriteLine("Beskrivelse........: " + c.Description);
+                Console.WriteLine("Bilde..............: " + c.Bilde);
+                Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
+                Console.WriteLine("--------------------------------------------");
                 Assert.IsNotEmpty(c.Title);
                 Assert.IsNotEmpty(c.ID);
                 Assert.IsNotEmpty(c.Description);

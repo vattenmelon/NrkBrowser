@@ -591,13 +591,13 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Match x in matches)
             {
                 //string klokkeslett = parseKlokkeSlettFraBilde(x.Groups[1].Value);
-                Clip c = new Clip(x.Groups[2].Value, x.Groups[3].Value);
+                string idUrl = x.Groups[2].Value;
+                Clip c = new Clip("tmpId", x.Groups[3].Value);
+                NrkUtils.BestemKlippType(c, idUrl);
                 String bildeUrl = x.Groups[1].Value;
                 c.Bilde = bildeUrl;
                 c.AntallGangerVist = x.Groups[4].Value;
                 c.Description = x.Groups[5].Value;
-                c.Type = Clip.KlippType.VERDI;
-                //c.VerdiLink = tab;
                 clips.Add(c);
             }
 
