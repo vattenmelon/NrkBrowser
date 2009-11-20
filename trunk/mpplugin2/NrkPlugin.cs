@@ -1033,9 +1033,41 @@ namespace Vattenmelon.Nrk.Browser
             {
                 openQualityMenu(dlgMenu);
             }
+            else if (dlgMenu.SelectedLabelText == "Mest sette " + item.Title)
+            {
+                openMostWatchedMenu(dlgMenu, item);
+            }
             else if (dlgMenu.SelectedLabelText == NrkTranslatableStrings.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION)
             {
                 CheckForNewVersionAndDisplayResultInMessageBox();
+            }
+        }
+
+        private void openMostWatchedMenu(GUIDialogMenu dlgMenu, Item item)
+        {
+            dlgMenu.Reset();
+            dlgMenu.SetHeading(string.Format("Mest sette {0}", item.Title));
+            GUIListItem sisteUke = new GUIListItem("Siste uke");
+            sisteUke.ItemId = 1;
+            GUIListItem sisteManed = new GUIListItem("Siste måned");
+            sisteManed.ItemId = 2;
+            GUIListItem totalt = new GUIListItem("Totalt");
+            totalt.ItemId = 3;
+            dlgMenu.Add(sisteUke);
+            dlgMenu.Add(sisteManed);
+            dlgMenu.Add(totalt);
+            dlgMenu.DoModal(GetWindowId());
+            if (dlgMenu.SelectedId == sisteUke.ItemId)
+            {
+                UpdateList(nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Uke, item.Title));
+            }
+            else if (dlgMenu.SelectedId == sisteManed.ItemId)
+            {
+                UpdateList(nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Maned, item.Title));
+            }
+            else if (dlgMenu.SelectedId == totalt.ItemId)
+            {
+                UpdateList(nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Totalt, item.Title));
             }
         }
 
@@ -1066,6 +1098,13 @@ namespace Vattenmelon.Nrk.Browser
                     dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER);
                 }
             }
+            if (item is MenuItem)
+            {
+                if (erMestSetteEnabled(item))
+                {
+                    dlgMenu.Add("Mest sette " + item.Title);
+                }
+            }
             if (!activeStack.Contains(favoritter))
             {
                 dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_LEGG_TIL_I_FAVORITTER);
@@ -1079,7 +1118,14 @@ namespace Vattenmelon.Nrk.Browser
             dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION);
             return dlgMenu;
         }
-       
+
+        private bool erMestSetteEnabled(Item item)
+        {
+            return
+                item.Title.Equals("Nyheter") || item.Title.Equals("Sport") || item.Title.Equals("Natur") ||
+                item.Title.Equals("Distrikt");
+        }
+
         protected void openQualityMenu(GUIDialogMenu dlgMenu)
         {
             dlgMenu.Reset();
