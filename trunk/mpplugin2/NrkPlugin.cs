@@ -1033,7 +1033,7 @@ namespace Vattenmelon.Nrk.Browser
             {
                 openQualityMenu(dlgMenu);
             }
-            else if (dlgMenu.SelectedLabelText == "Mest sette " + item.Title)
+            else if (dlgMenu.SelectedId == NrkBrowserConstants.CONTEXT_MENU_ITEM_MOST_WATCHED_FOR)
             {
                 openMostWatchedMenu(dlgMenu, item);
             }
@@ -1046,12 +1046,12 @@ namespace Vattenmelon.Nrk.Browser
         private void openMostWatchedMenu(GUIDialogMenu dlgMenu, Item item)
         {
             dlgMenu.Reset();
-            dlgMenu.SetHeading(string.Format("Mest sette {0}", item.Title));
-            GUIListItem sisteUke = new GUIListItem("Siste uke");
+            dlgMenu.SetHeading(string.Format(NrkTranslatableStrings.CONTEXTMENU_ITEM_MOST_WATCHED_FOR, item.Title));
+            GUIListItem sisteUke = new GUIListItem(NrkTranslatableStrings.CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_WEEK);
             sisteUke.ItemId = 1;
-            GUIListItem sisteManed = new GUIListItem("Siste måned");
+            GUIListItem sisteManed = new GUIListItem(NrkTranslatableStrings.CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_MONTH);
             sisteManed.ItemId = 2;
-            GUIListItem totalt = new GUIListItem("Totalt");
+            GUIListItem totalt = new GUIListItem(NrkTranslatableStrings.CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_TOTAL);
             totalt.ItemId = 3;
             dlgMenu.Add(sisteUke);
             dlgMenu.Add(sisteManed);
@@ -1102,7 +1102,9 @@ namespace Vattenmelon.Nrk.Browser
             {
                 if (erMestSetteEnabled(item))
                 {
-                    dlgMenu.Add("Mest sette " + item.Title);
+                    GUIListItem mostWatched = new GUIListItem(String.Format(NrkTranslatableStrings.CONTEXTMENU_ITEM_MOST_WATCHED_FOR, item.Title));
+                    mostWatched.ItemId = NrkBrowserConstants.CONTEXT_MENU_ITEM_MOST_WATCHED_FOR;
+                    dlgMenu.Add(mostWatched);
                 }
             }
             if (!activeStack.Contains(favoritter))
@@ -1122,8 +1124,7 @@ namespace Vattenmelon.Nrk.Browser
         private bool erMestSetteEnabled(Item item)
         {
             return
-                item.Title.Equals("Nyheter") || item.Title.Equals("Sport") || item.Title.Equals("Natur") ||
-                item.Title.Equals("Distrikt");
+                item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_NYHETER) || item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_SPORT) || item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_NATUR);
         }
 
         protected void openQualityMenu(GUIDialogMenu dlgMenu)

@@ -265,6 +265,10 @@ namespace Vattenmelon.Nrk.Browser
             get { return 10000; }
         }
 
+        public static int CONTEXT_MENU_ITEM_MOST_WATCHED_FOR
+        {
+            get { return 99; }
+        }
         public const string PLUGIN_NAME = "NRK Browser";
 
         public const string MENU_ITEM_ID_NYHETER = "nyheter";

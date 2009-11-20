@@ -10,7 +10,7 @@ namespace Vattenmelon.Nrk.Parser
     public class NrkParserIntegrationTest
     {
         private NrkParser nrkParser;
-
+         
         [TestFixtureSetUp]
         public void setOpp()
         {
@@ -134,6 +134,7 @@ namespace Vattenmelon.Nrk.Parser
                 Clip c = (Clip) item;
                 String directLink = nrkParser.GetClipUrl(c);
                 isMMSVideoStream(directLink);
+                Console.WriteLine("id: " + c.ID);
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotNull(c.TilhoerendeProsjekt, "Tilhørende prosjekt skal være satt");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
