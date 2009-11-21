@@ -1059,16 +1059,32 @@ namespace Vattenmelon.Nrk.Browser
             dlgMenu.DoModal(GetWindowId());
             if (dlgMenu.SelectedId == sisteUke.ItemId)
             {
-                UpdateList(nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Uke, item.Title));
+                AddMostWatchedForPeriodToList(NrkParser.Periode.Uke, item);
             }
             else if (dlgMenu.SelectedId == sisteManed.ItemId)
             {
-                UpdateList(nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Maned, item.Title));
+                AddMostWatchedForPeriodToList(NrkParser.Periode.Maned, item);
             }
             else if (dlgMenu.SelectedId == totalt.ItemId)
             {
-                UpdateList(nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Totalt, item.Title));
+                AddMostWatchedForPeriodToList(NrkParser.Periode.Totalt, item);
             }
+        }
+
+        private void AddMostWatchedForPeriodToList(NrkParser.Periode periode, Item item)
+        {
+            List<Item> tItems = nrkParser.GetMestSetteForKategoriOgPeriode(periode, item.Title);
+            tItems.ForEach(AddDescriptionToMostWatched);
+            activeStack.Push(item);
+            UpdateList(tItems);
+        }
+
+        private static void AddDescriptionToMostWatched(Item titem)
+        {
+            Clip c = (Clip)titem;
+            string descriptionPart1 = string.Format(NrkTranslatableStrings.DESCRIPTION_CLIP_ADDED, c.Klokkeslett);
+            string descriptionPart2 = string.Format(NrkTranslatableStrings.DESCRIPTION_CLIP_SHOWN_TIMES, c.AntallGangerVist);
+            titem.Description = string.Format("{0}. {1}", descriptionPart1, descriptionPart2);
         }
 
         private void CheckForNewVersionAndDisplayResultInMessageBox()

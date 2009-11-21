@@ -55,7 +55,7 @@ namespace Vattenmelon.Nrk.Parser
         {
             string url = "http://www1.nrk.no/nett-tv/sport/spill/verdi/115570";
             Clip c = new Clip("tmpId", url);
-            NrkUtils.BestemKlippType(c, url);
+            NrkUtils.BestemKlippTypeOgPuttPaaId(c, url);
             Assert.AreEqual("115570", c.ID);
             Assert.AreEqual(Clip.KlippType.VERDI, c.Type);
         }
@@ -65,7 +65,7 @@ namespace Vattenmelon.Nrk.Parser
         {
             string url = "http://www1.nrk.no/nett-tv/klipp/576725";
             Clip c = new Clip("tmpId", url);
-            NrkUtils.BestemKlippType(c, url);
+            NrkUtils.BestemKlippTypeOgPuttPaaId(c, url);
             Assert.AreEqual("576725", c.ID);
             Assert.AreEqual(Clip.KlippType.KLIPP, c.Type);
         }

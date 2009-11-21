@@ -52,11 +52,11 @@ namespace Vattenmelon.Nrk.Parser
        }
 
        /// <summary>
-       /// Method that puts the clip type on the given clip by looking at the url.
+       /// Method that puts the clip type and id on the given clip by looking at the url.
        /// </summary>
        /// <param name="c"></param>
        /// <param name="url"></param>
-       public static void BestemKlippType(Clip c, string url)
+       public static void BestemKlippTypeOgPuttPaaId(Clip c, string url)
        {
            String tmpUrl = url.Substring(url.LastIndexOf("/") + 1);
            if (url.Contains("verdi"))

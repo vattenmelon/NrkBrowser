@@ -406,12 +406,14 @@ namespace Vattenmelon.Nrk.Parser
                 Console.WriteLine("Bilde..............: " + c.Bilde);
                 Console.WriteLine("Type...............: " + c.Type);
                 Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
+                Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
                 //String videoLink = nrkParser.GetClipUrl(c);
                 //Console.WriteLine("Videostream........: " + videoLink);
                 Console.WriteLine("--------------------------------------------");
             Assert.IsNotEmpty(c.Title);
             Assert.IsNotEmpty(c.ID);
-            Assert.IsNotEmpty(c.Description);
+            Assert.IsEmpty(c.Description);
+            Assert.IsNotEmpty(c.Klokkeslett);
             Assert.IsNotEmpty(c.Bilde);
             Assert.IsNotEmpty(c.AntallGangerVist);
 //            if (c.Type == Clip.KlippType.KLIPP)

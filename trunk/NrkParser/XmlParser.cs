@@ -1,4 +1,5 @@
 using System.Xml;
+using System;
 
 namespace Vattenmelon.Nrk.Parser.Xml
 {
@@ -12,6 +13,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
             doc = new XmlDocument();
             XmlTextReader reader = new XmlTextReader(url);
             doc.Load(reader);
+            reader.Close();
         }
 
     }
