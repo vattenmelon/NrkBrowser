@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HttpClient.cs" />
+    <Compile Include="NrkBetaXmlParser.cs" />
     <Compile Include="NrkParserConstants.cs" />
     <Compile Include="NrkParser.cs" />
     <Compile Include="NrkUtils.cs" />
