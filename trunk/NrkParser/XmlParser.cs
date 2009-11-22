@@ -8,7 +8,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
         protected XmlDocument doc;
         protected string url;
 
-        protected void LoadXmlDocument()
+        virtual protected void LoadXmlDocument()
         {
             doc = new XmlDocument();
             XmlTextReader reader = new XmlTextReader(url);

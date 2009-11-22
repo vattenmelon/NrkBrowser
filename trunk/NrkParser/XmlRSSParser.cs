@@ -18,16 +18,15 @@ namespace Vattenmelon.Nrk.Parser.Xml
         {
             LoadXmlDocument();
             XmlNodeList nodeList = GetNodeList();
-
             List<Item> clips = new List<Item>();
             int itemCount = 0;
             foreach (XmlNode childNode in nodeList)
             {
                 Clip loRssItem = CreateClipFromChildNode(childNode);
-               // loRssItem.Bilde = GetPictureForSection();
                 if (NrkParser.isNotShortVignett(loRssItem))
                 {
-                    loRssItem.Type = Clip.KlippType.RSS;
+                    loRssItem.Type = GetClipType();
+                    loRssItem.Bilde = GetPicture(loRssItem);
                     clips.Add(loRssItem);
                 }
                 
@@ -41,18 +40,35 @@ namespace Vattenmelon.Nrk.Parser.Xml
             }
             return clips;
         }
+
+        virtual protected Clip.KlippType GetClipType()
+        {
+            return Clip.KlippType.RSS;
+        }
+
+        virtual protected string GetPicture(Clip clip)
+        {
+            return String.Empty;
+        }
         
         private static bool isItemCount100orOver(int itemCount)
         {
             return itemCount >= 100;
         }
 
-        private XmlNodeList GetNodeList()
+        virtual protected XmlNodeList GetNodeList()
         {
             return doc.SelectNodes("//rss/channel/item");
         }
+        virtual protected void PutLinkOnItem(Clip clip, XmlNode node)
+        {
 
-        private static Clip CreateClipFromChildNode(XmlNode childNode)
+        }
+        virtual protected void PutSummaryOnItem(Clip clip, XmlNode node)
+        {
+
+        }
+        protected Clip CreateClipFromChildNode(XmlNode childNode)
         {
             Clip loRssItem = new Clip("", "");
             for (int i = 0; i < childNode.ChildNodes.Count; i++)
@@ -65,7 +81,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
                         loRssItem.Title = n.InnerText;
                         break;
                     case "link":
-
+                        PutLinkOnItem(loRssItem, n);
                         break;
                     case "guid":
                         loRssItem.ID = n.InnerText;
@@ -75,6 +91,9 @@ namespace Vattenmelon.Nrk.Parser.Xml
                         break;
                     case "description":
                         loRssItem.Description = n.InnerText;
+                        break;
+                    case "summary":
+                        PutSummaryOnItem(loRssItem, n);
                         break;
                     case "author":
 
@@ -154,28 +173,5 @@ namespace Vattenmelon.Nrk.Parser.Xml
             return loRssItem;
         }
 
-//        public string GetPictureForSection()
-//        {
-//            String pictureFile;
-//            switch (section)
-//            {
-//                case NrkParserConstants.MENU_ITEM_ID_NYHETER:
-//                    pictureFile = NrkParserConstants.MENU_ITEM_PICTURE_NYHETER;
-//                    break;
-//                case NrkParserConstants.MENU_ITEM_ID_SPORT:
-//                    pictureFile = NrkParserConstants.MENU_ITEM_PICTURE_SPORT;
-//                    break;
-//                    case NrkParserConstants.MENU_ITEM_ID_NATUR:
-//                        pictureFile = NrkParserConstants.MENU_ITEM_PICTURE_NATURE;
-//                    break;
-//                case NrkParserConstants.MENU_ITEM_ID_SUPER:
-//                    pictureFile = NrkParserConstants.MENU_ITEM_PICTURE_SUPER; ;
-//                    break;
-//                default:
-//                    pictureFile = NrkParserConstants.DEFAULT_PICTURE;
-//                    break;
-//            }
-//            return pictureFile;
-//        }
     }
 }

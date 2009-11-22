@@ -116,10 +116,10 @@ namespace Vattenmelon.Nrk.Parser
             string data;
             String url = String.Format(MEST_SETTE_URL, dager);
             data = FetchUrl(url);
-            //"<a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\">.*?</a></h2><p><a href=\".*?/nett-tv/klipp/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></p>",
+            //"<a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\">.*?</a></h2><keyword><a href=\".*?/nett-tv/klipp/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></keyword>",
             Regex query =
                 new Regex(
-                    "<a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\">.*?</a></h2><p><a href=\".*?/nett-tv/(.*?)/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></p>",
+                    "<a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\">.*?</a></h2><keyword><a href=\".*?/nett-tv/(.*?)/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></keyword>",
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
@@ -301,7 +301,7 @@ namespace Vattenmelon.Nrk.Parser
             string data = FetchUrl(MAIN_URL + "bokstav/@");
             Regex query =
                 new Regex(
-                    "<div class=\"intro-element intro-element-small\">.*?<div.*?>.*?<a href=\"/nett-tv/prosjekt/(.*?)\" id=\".*?\" title=\"(.*?)\".*?>.*?<img src=\"(.*?)\".*?>.*?</a>.*?</div>.*?<h2>.*?<a href=\".*?\" id=\".*?\" title=\".*?\" onclick=\".*?\">(.*?)</a>.*?</h2>.*?<p>.*?</p>.*?</div>",
+                    "<div class=\"intro-element intro-element-small\">.*?<div.*?>.*?<a href=\"/nett-tv/prosjekt/(.*?)\" id=\".*?\" title=\"(.*?)\".*?>.*?<img src=\"(.*?)\".*?>.*?</a>.*?</div>.*?<h2>.*?<a href=\".*?\" id=\".*?\" title=\".*?\" onclick=\".*?\">(.*?)</a>.*?</h2>.*?<keyword>.*?</keyword>.*?</div>",
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> programs = new List<Item>();
@@ -578,7 +578,7 @@ namespace Vattenmelon.Nrk.Parser
             String data = httpClient.PostUrl(url, dataToPost);
             Regex query =
                     new Regex(
-                        "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?></a>.*?</div>.*?<div class=\"active\"><h2><a href=\"(.*?)\">(.*?)</a></h2><p><a.*?><span.*?>(.*?) visninger</span><span>(.*?)</span></a></p>",
+                        "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?></a>.*?</div>.*?<div class=\"active\"><h2><a href=\"(.*?)\">(.*?)</a></h2><keyword><a.*?><span.*?>(.*?) visninger</span><span>(.*?)</span></a></keyword>",
                         RegexOptions.Singleline);
 
             MatchCollection matches = query.Matches(data);

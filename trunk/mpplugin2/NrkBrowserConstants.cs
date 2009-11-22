@@ -7,6 +7,19 @@ namespace Vattenmelon.Nrk.Browser
 {
     public class NrkBrowserConstants
     {
+        public static string MENU_ITEM_ID_NRKBETA
+        {
+            get { return "nrkbeta"; }
+        }
+
+        public static string MENU_ITEM_ID_NRKBETA_TVSERIER
+        {
+            get { return "nrkbetatvserier"; }
+        }
+        public static string MENU_ITEM_ID_NRKBETA_DIVERSE
+        {
+            get { return "nrkbetadiverse"; }
+        }
         public static string MENU_ITEM_ID_MEST_SETTE_UKE
         {
             get { return "mestSettUke"; }

@@ -61,23 +61,59 @@ namespace Vattenmelon.Nrk.Parser.Xml
         [Test]
         public void TestGetNrkBetaTVSerier()
         {
-            //string url = @"http://video.nrkbeta.no/feeds/kategori/tv-serier";
-            NrkBetaXmlParser pars = new NrkBetaXmlParser("http://video.nrkbeta.no/feeds/kategori/", "tv-serier");
-            List<Item> items = pars.getClips();
+            NrkBetaXmlParser parser = new NrkBetaXmlParser(NrkParserConstants.NRK_BETA_FEEDS_KATEGORI_URL, NrkParserConstants.NRK_BETA_SECTION_TV_SERIES);
+            List<Item> items = parser.getClips();
             Assert.IsNotEmpty(items);
             foreach(Item item in items)
             {
-                Clip c = (Clip)item;
-                Console.WriteLine("Tittel.............: " + c.Title);
-                Console.WriteLine("ID.................: " + c.ID);
-                Console.WriteLine("Beskrivelse........: " + c.Description);
-                Console.WriteLine("Bilde..............: " + c.Bilde);
-                Console.WriteLine("Type...............: " + c.Type);
-                Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
-                Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
-                Console.WriteLine("-----------------------------------------");
+                AssertNrkBetaClip(item);
             }
             
+        }
+
+        [Test]
+        public void TestGetNrkBetaDiverse()
+        {
+            NrkBetaXmlParser parser = new NrkBetaXmlParser(NrkParserConstants.NRK_BETA_FEEDS_KATEGORI_URL, NrkParserConstants.NRK_BETA_SECTION_DIVERSE);
+            List<Item> items = parser.getClips();
+            Assert.IsNotEmpty(items);
+            foreach (Item item in items)
+            {
+                AssertNrkBetaClip(item);
+            }
+
+        }
+
+        [Test]
+        public void TestGetNrkBetaSearch()
+        {
+            NrkBetaXmlParser parser = new NrkBetaXmlParser();
+            parser.SearchFor("Tekno");
+            List<Item> items = parser.getClips();
+            Assert.IsNotEmpty(items);
+            foreach (Item item in items)
+            {
+                AssertNrkBetaClip(item);
+            }
+
+        }
+
+        private static void AssertNrkBetaClip(Item item)
+        {
+            Clip c = (Clip)item;
+            Console.WriteLine("Tittel.............: " + c.Title);
+            Console.WriteLine("ID.................: " + c.ID);
+            Console.WriteLine("Beskrivelse........: " + c.Description);
+            Console.WriteLine("Bilde..............: " + c.Bilde);
+            Console.WriteLine("Type...............: " + c.Type);
+            Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
+            Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
+            Console.WriteLine("-----------------------------------------");
+            Assert.IsNotEmpty(c.Title);
+            Assert.IsNotEmpty(c.ID);
+            Assert.IsNotEmpty(c.Description);
+            Assert.IsNotEmpty(c.Bilde);
+            Assert.AreEqual(Clip.KlippType.NRKBETA, c.Type);
         }
       
     }

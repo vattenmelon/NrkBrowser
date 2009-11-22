@@ -84,34 +84,44 @@ namespace Vattenmelon.Nrk.Parser
             get { return NRK_BETA_FEEDS_URL + "siste/"; }
         }
 
+        public static string NRK_BETA_FEEDS_SOK_URL
+        {
+            get { return NRK_BETA_FEEDS_URL + "sok/{0}/"; }
+        }
+
         public static string NRK_BETA_SECTION_TV_SERIES
         {
             get { return "tv-serier"; }
         }
 
-        public static string NRK_BETA_SECTION_TV_DIVERSE
+        public static string NRK_BETA_SECTION_DIVERSE
         {
             get { return "diverse"; }
         }
 
-        public static string NRK_BETA_SECTION_TV_PRESENTASJONER
+        public static string NRK_BETA_SECTION_PRESENTASJONER
         {
             get { return "presentasjoner"; }
         }
 
-        public static string NRK_BETA_SECTION_TV_KONFERANSER_OG_MESSER
+        public static string NRK_BETA_SECTION_KONFERANSER_OG_MESSER
         {
             get { return "konferanser-og-messer"; }
         }
 
-        public static string NRK_BETA_SECTION_TV_FRA_TV
+        public static string NRK_BETA_SECTION_FRA_TV
         {
             get { return "fra-tv"; }
         }
 
-        public static string NRK_BETA_SECTION_TV_LYDFILER
+        public static string NRK_BETA_SECTION_LYDFILER
         {
             get { return "lydfiler"; }
+        }
+
+        public static string NRK_BETA_THUMBNAIL_URL
+        {
+            get { return "http://video.nrkbeta.no/media/filer/videofiler/thumbnails/{0}.jpg"; }
         }
         public const string LIBRARY_NAME = "NrkParser";
 

@@ -48,6 +48,11 @@ namespace Vattenmelon.Nrk.Browser.Translation
             return trans.GetNumberOfTranslatedStrings();
         }
 
+        public static string MENU_ITEM_TITLE_NRKBETA
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_NRKBETA", "NrkBeta"); }
+        }
+
         public static string MENU_ITEM_TITLE_MEST_SETTE_UKE
         {
             get{return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_MEST_SETTE_UKE", "Most watched this week");}

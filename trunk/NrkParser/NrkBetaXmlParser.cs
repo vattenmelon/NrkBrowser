@@ -7,161 +7,58 @@ using Vattenmelon.Nrk.Parser.Http;
 
 namespace Vattenmelon.Nrk.Parser.Xml
 {
-    public class NrkBetaXmlParser
+    public class NrkBetaXmlParser : XmlRSSParser
     {
-        protected XmlDocument doc;
-        protected string url;
 
-        public NrkBetaXmlParser(string siteurl, string section)
+
+        public NrkBetaXmlParser(string siteurl, string section) : base(siteurl, section)
         {
-            url = siteurl + section;
+            
         }
 
-        protected void LoadXmlDocument()
+        public NrkBetaXmlParser()
+            : this("", "")
+        {
+            
+        }
+        public void SearchFor(string keyword)
+        {
+            url = string.Format(NrkParserConstants.NRK_BETA_FEEDS_SOK_URL, keyword);
+        }
+
+        override protected void LoadXmlDocument()
         {
             doc = new XmlDocument();
             HttpClient httpClient = new HttpClient(new System.Net.CookieContainer());
             String xmlAsString = httpClient.GetUrl(url);
             doc.LoadXml(xmlAsString);
         }
-
-        public List<Item> getClips()
+        override protected string GetPicture(Clip clip)
         {
-            LoadXmlDocument();
-            XmlNodeList nodeList = GetNodeList();
-            List<Item> clips = new List<Item>();
-            int itemCount = 0;
-            foreach (XmlNode childNode in nodeList)
-            {
-                Clip loRssItem = CreateClipFromChildNode(childNode);
-                // loRssItem.Bilde = GetPictureForSection();
-                if (NrkParser.isNotShortVignett(loRssItem))
-                {
-                    loRssItem.Type = Clip.KlippType.NRKBETA;
-                    clips.Add(loRssItem);
-                }
-
-                itemCount++;
-                if (isItemCount100orOver(itemCount))
-                {
-                    //Log.Info(string.Format("{0}: Over 100 clips in document, breaking.", NrkParserConstants.PLUGIN_NAME));
-                    break;
-                }
-
-            }
-            return clips;
+            String bilde = NrkParserConstants.NRK_BETA_THUMBNAIL_URL;
+            String videoFileName = clip.ID.Substring(clip.ID.LastIndexOf("/") + 1);
+            return string.Format(bilde, videoFileName);
         }
 
-        private static bool isItemCount100orOver(int itemCount)
+        override protected Clip.KlippType GetClipType()
         {
-            return itemCount >= 100;
+            return Clip.KlippType.NRKBETA;
         }
 
-        private XmlNodeList GetNodeList()
+        override protected XmlNodeList GetNodeList()
         {
             return doc.GetElementsByTagName("entry");
         }
 
-        private static Clip CreateClipFromChildNode(XmlNode childNode)
+        override protected void PutLinkOnItem(Clip clip, XmlNode node)
         {
-            Clip loRssItem = new Clip("", "");
-            for (int i = 0; i < childNode.ChildNodes.Count; i++)
-            {
-                XmlNode n = childNode.ChildNodes[i];
-
-                switch (n.Name)
-                {
-                    case "title":
-                        loRssItem.Title = n.InnerText;
-                        break;
-                    case "link":
-                        loRssItem.ID = n.Attributes["href"].Value;
-                        break;
-                    case "guid":
-                        loRssItem.ID = n.InnerText;
-                        break;
-                    case "pubDate":
-
-                        break;
-                    case "summary":
-                        loRssItem.Description = n.InnerText;
-                        break;
-                    case "author":
-
-                        break;
-                    case "exInfo:image":
-
-                        break;
-                    case "exInfo:gameID":
-
-                        break;
-                    case "feedburner:origLink":
-
-                        break;
-                    case "media:group":
-
-                        for (int j = 0; j < n.ChildNodes.Count; j++)
-                        {
-                            XmlNode nin = n.ChildNodes[j];
-                            switch (nin.Name)
-                            {
-                                case "media:content":
-                                    //                                        loMediaContent = new MediaContent();
-                                    try
-                                    {
-                                        //                                            loMediaContent.url = nin.Attributes["url"].Value;
-                                        //                                            loMediaContent.type = nin.Attributes["type"].Value;
-                                        //                                            loMediaContent.medium = nin.Attributes["medium"].Value;
-                                        //                                            loMediaContent.duration = nin.Attributes["duration"].Value;
-                                        //                                            loMediaContent.height = nin.Attributes["height"].Value;
-                                        //                                            loMediaContent.width = nin.Attributes["width"].Value;
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        //Log.Error("catccccccccccched exception: " + e.Message);
-                                        Console.Error.WriteLine(e.StackTrace);
-                                    }
-                                    ;
-                                    break;
-                                case "media:description":
-
-                                    break;
-                                case "media:thumbnail":
-
-                                    break;
-                                case "media:title":
-
-                                    break;
-                            }
-                        }
-                        break;
-
-                    case "media:description":
-                        //                            loRssItem.mediaDescription = n.InnerText;
-                        break;
-                    case "media:thumbnail":
-                        //                            loRssItem.mediaThumbnail = n.Attributes["url"].Value;
-                        break;
-                    case "media:title":
-                        //                            loRssItem.mediaTitle = n.InnerText;
-                        break;
-                    case "enclosure":
-                        // loRssItem.ID = n.InnerText;
-                        //loRssItem.ID = n.Attributes["url"].Value;
-                        //                            if (n.Attributes["duration"] != null)
-                        //                            {
-                        //                                loRssItem.enclosureDuration = n.Attributes["duration"].Value;
-                        //                            }
-
-                        break;
-                    case "media:category":
-                        //  loRssItem.mediaCategory = n.InnerText;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return loRssItem;
+            clip.ID = node.Attributes["href"].Value;
         }
+
+        override protected void PutSummaryOnItem(Clip clip, XmlNode node)
+        {
+            clip.Description = node.InnerText;
+        }
+
     }
 }
