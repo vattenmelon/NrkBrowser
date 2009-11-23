@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using Vattenmelon.Nrk.Parser.Http;
 
-namespace Tests
+namespace Vattenmelon.Nrk.Parser
 {
     public class StubHttpClient : IHttpClient
     {

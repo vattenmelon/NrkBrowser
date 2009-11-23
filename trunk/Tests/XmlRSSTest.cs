@@ -2,10 +2,6 @@ using System;
 using System.Collections.Generic;
 using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
-using System.Xml;
-using System.IO;
-using System.Text;
-using System.Net;
 
 namespace Vattenmelon.Nrk.Parser.Xml
 {

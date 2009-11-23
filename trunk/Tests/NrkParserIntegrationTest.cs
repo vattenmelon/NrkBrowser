@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Tests;
 using Vattenmelon.Nrk.Parser;
 using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
-using Vattenmelon.Nrk.Parser.Http;
 
 namespace Vattenmelon.Nrk.Parser
 {
