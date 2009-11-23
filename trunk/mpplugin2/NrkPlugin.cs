@@ -549,10 +549,23 @@ namespace Vattenmelon.Nrk.Browser
             {
                 UpdateList(CreateNrkBetaListItems());
             }
-            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_TVSERIER)
+            else if (isNrkBetaSectionItem(item))
             {
-                NrkBetaXmlParser nrkBetaParser = new NrkBetaXmlParser(NrkParserConstants.NRK_BETA_FEEDS_KATEGORI_URL, NrkParserConstants.NRK_BETA_SECTION_TV_SERIES);
+                String section = GetNrkBetaSection(item.ID);
+                NrkBetaXmlParser nrkBetaParser = new NrkBetaXmlParser(NrkParserConstants.NRK_BETA_FEEDS_KATEGORI_URL, section);
                 List<Item> tItems = nrkBetaParser.getClips();
+                UpdateListAndSetClipCount(tItems);
+            }
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_HD_KLIPP)
+            {
+                String section = GetNrkBetaSection(item.ID);
+                List<Item> tItems = new NrkBetaXmlParser().FindHDClips().getClips();
+                UpdateListAndSetClipCount(tItems);
+            }
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_SISTE_KLIPP)
+            {
+                String section = GetNrkBetaSection(item.ID);
+                List<Item> tItems = new NrkBetaXmlParser().FindLatestClips().getClips();
                 UpdateListAndSetClipCount(tItems);
             }
             else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_NYHETER || item.ID == NrkBrowserConstants.MENU_ITEM_ID_SPORT || item.ID == NrkBrowserConstants.MENU_ITEM_ID_NATUR || item.ID == NrkBrowserConstants.MENU_ITEM_ID_SUPER)
@@ -616,16 +629,49 @@ namespace Vattenmelon.Nrk.Browser
             }
         }
 
+        private string GetNrkBetaSection(string id)
+        {
+            if (id.Equals(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_TVSERIER))
+            {
+                return NrkParserConstants.NRK_BETA_SECTION_FRA_TV;
+            }
+            else if (id.Equals(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_DIVERSE))
+            {
+                return NrkParserConstants.NRK_BETA_SECTION_DIVERSE;
+            }
+            else if (id.Equals(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_PRESENTASJONER))
+            {
+                return NrkParserConstants.NRK_BETA_SECTION_PRESENTASJONER;
+            }
+            else if (id.Equals(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_KONFERANSER_OG_MESSER))
+            {
+                return NrkParserConstants.NRK_BETA_SECTION_KONFERANSER_OG_MESSER;
+            }
+            else if (id.Equals(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_FRA_TV))
+            {
+                return NrkParserConstants.NRK_BETA_SECTION_FRA_TV;
+            }
+            else
+            {
+                throw new Exception("Unknown NRKBETA section!");
+            }
+        }
+
+        private static bool isNrkBetaSectionItem(Item item)
+        {
+            return item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_TVSERIER || item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_DIVERSE || item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_FRA_TV || item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_KONFERANSER_OG_MESSER || item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_PRESENTASJONER;
+        }
+
         private List<Item> CreateNrkBetaListItems()
         {
             List<Item> items = new List<Item>(3);
-            MenuItem tvserier =
-                new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_TVSERIER, "TV-serier");
-            items.Add(tvserier);
-            MenuItem diverse =
-                new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_DIVERSE, "Diverse");
-            
-            items.Add(diverse);
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_SISTE_KLIPP, "Siste klipp"));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_TVSERIER, "TV-serier"));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_DIVERSE, "Diverse"));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_PRESENTASJONER, "Presentasjoner"));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_KONFERANSER_OG_MESSER, "Konferanser og messer"));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_FRA_TV, "Fra TV"));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_HD_KLIPP, "HD Klipp"));
             return items;
         }
 
@@ -1034,8 +1080,46 @@ namespace Vattenmelon.Nrk.Browser
             HandleInputFromContextMenu(dlgMenu, item);
         }
 
+        private GUIDialogMenu CreateDlgMenu(Item item)
+        {
+            GUIDialogMenu dlgMenu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_MENU);
+
+            dlgMenu.Reset();
+            dlgMenu.SetHeading(NrkBrowserConstants.CONTEXTMENU_HEADER_TEXT);
+            if (item is Clip)
+            {
+                Clip cl = (Clip)item;
+                if (cl.TilhoerendeProsjekt > 0)
+                {
+                    dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER);
+                }
+            }
+            if (item is MenuItem)
+            {
+                if (erMestSetteEnabled(item))
+                {
+                    GUIListItem mostWatched = new GUIListItem(String.Format(NrkTranslatableStrings.CONTEXTMENU_ITEM_MOST_WATCHED_FOR, item.Title));
+                    dlgMenu.Add(mostWatched);
+                }
+            }
+            if (!activeStack.Contains(favoritter))
+            {
+                dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_LEGG_TIL_I_FAVORITTER);
+            }
+            if (activeStack.Contains(favoritter))
+            {
+                dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_FJERN_FAVORITT);
+            }
+            dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_BRUK_VALGT_SOM_SOEKEORD);
+            dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_KVALITET);
+            dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION);
+            return dlgMenu;
+        }
+
         private void HandleInputFromContextMenu(GUIDialogMenu dlgMenu, Item item)
         {
+            Log.Info("dlgMenu.SelectedId: " + dlgMenu.SelectedId);
+            Log.Info("dlgMenu.SelectedLabelText: " + dlgMenu.SelectedLabelText);
             if (dlgMenu.SelectedLabelText == NrkTranslatableStrings.CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER)
             {
                 Clip cl = (Clip) item;
@@ -1060,7 +1144,7 @@ namespace Vattenmelon.Nrk.Browser
             {
                 openQualityMenu(dlgMenu);
             }
-            else if (dlgMenu.SelectedId == NrkBrowserConstants.CONTEXT_MENU_ITEM_MOST_WATCHED_FOR)
+            else if (dlgMenu.SelectedLabelText == String.Format(NrkTranslatableStrings.CONTEXTMENU_ITEM_MOST_WATCHED_FOR, item.Title))
             {
                 openMostWatchedMenu(dlgMenu, item);
             }
@@ -1100,7 +1184,7 @@ namespace Vattenmelon.Nrk.Browser
 
         private void AddMostWatchedForPeriodToList(NrkParser.Periode periode, Item item)
         {
-            List<Item> tItems = nrkParser.GetMestSetteForKategoriOgPeriode(periode, item.Title);
+            List<Item> tItems = nrkParser.GetMestSetteForKategoriOgPeriode(periode, item.ID);
             tItems.ForEach(AddDescriptionToMostWatched);
             activeStack.Push(item);
             UpdateList(tItems);
@@ -1127,42 +1211,7 @@ namespace Vattenmelon.Nrk.Browser
             }
         }
 
-        private GUIDialogMenu CreateDlgMenu(Item item)
-        {
-            GUIDialogMenu dlgMenu = (GUIDialogMenu) GUIWindowManager.GetWindow((int) Window.WINDOW_DIALOG_MENU);
-            
-            dlgMenu.Reset();
-            dlgMenu.SetHeading(NrkBrowserConstants.CONTEXTMENU_HEADER_TEXT);
-            if (item is Clip)
-            {
-                Clip cl = (Clip) item;
-                if (cl.TilhoerendeProsjekt > 0)
-                {
-                    dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER);
-                }
-            }
-            if (item is MenuItem)
-            {
-                if (erMestSetteEnabled(item))
-                {
-                    GUIListItem mostWatched = new GUIListItem(String.Format(NrkTranslatableStrings.CONTEXTMENU_ITEM_MOST_WATCHED_FOR, item.Title));
-                    mostWatched.ItemId = NrkBrowserConstants.CONTEXT_MENU_ITEM_MOST_WATCHED_FOR;
-                    dlgMenu.Add(mostWatched);
-                }
-            }
-            if (!activeStack.Contains(favoritter))
-            {
-                dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_LEGG_TIL_I_FAVORITTER);
-            }
-            if (activeStack.Contains(favoritter))
-            {
-                dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_FJERN_FAVORITT);
-            }
-            dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_BRUK_VALGT_SOM_SOEKEORD);
-            dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_KVALITET);
-            dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION);
-            return dlgMenu;
-        }
+
 
         private bool erMestSetteEnabled(Item item)
         {

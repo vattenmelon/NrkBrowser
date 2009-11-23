@@ -21,9 +21,22 @@ namespace Vattenmelon.Nrk.Parser.Xml
         {
             
         }
+
         public void SearchFor(string keyword)
         {
             url = string.Format(NrkParserConstants.NRK_BETA_FEEDS_SOK_URL, keyword);
+        }
+
+        public NrkBetaXmlParser FindLatestClips()
+        {
+            url = NrkParserConstants.NRK_BETA_FEEDS_LATEST_CLIPS_URL;
+            return this;
+        }
+
+        public NrkBetaXmlParser FindHDClips()
+        {
+            url = NrkParserConstants.NRK_BETA_FEEDS_HD_CLIPS_URL;
+            return this;
         }
 
         override protected void LoadXmlDocument()
@@ -59,6 +72,5 @@ namespace Vattenmelon.Nrk.Parser.Xml
         {
             clip.Description = node.InnerText;
         }
-
     }
 }

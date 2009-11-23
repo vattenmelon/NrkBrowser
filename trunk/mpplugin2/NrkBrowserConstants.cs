@@ -12,6 +12,31 @@ namespace Vattenmelon.Nrk.Browser
             get { return "nrkbeta"; }
         }
 
+        public static string MENU_ITEM_ID_NRKBETA_SISTE_KLIPP
+        {
+            get { return "nrkbetasisteklipp"; }
+        }
+
+        public static string MENU_ITEM_ID_NRKBETA_HD_KLIPP
+        {
+            get { return "nrkbetahdklipp"; }
+        }
+
+        public static string MENU_ITEM_ID_NRKBETA_FRA_TV
+        {
+            get { return "nrkbetafratv"; }
+        }
+
+        public static string MENU_ITEM_ID_NRKBETA_KONFERANSER_OG_MESSER
+        {
+            get { return "nrkbetakonferogmesser"; }
+        }
+
+        public static string MENU_ITEM_ID_NRKBETA_PRESENTASJONER
+        {
+            get { return "nrkbetapresentasjoner"; }
+        }
+
         public static string MENU_ITEM_ID_NRKBETA_TVSERIER
         {
             get { return "nrkbetatvserier"; }
@@ -282,6 +307,7 @@ namespace Vattenmelon.Nrk.Browser
         {
             get { return 99; }
         }
+
         public const string PLUGIN_NAME = "NRK Browser";
 
         public const string MENU_ITEM_ID_NYHETER = "nyheter";

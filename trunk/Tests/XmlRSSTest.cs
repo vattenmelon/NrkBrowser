@@ -98,6 +98,27 @@ namespace Vattenmelon.Nrk.Parser.Xml
 
         }
 
+        [Test]
+        public void TestGetNrkBetaLatestClips()
+        {
+            NrkBetaXmlParser parser = new NrkBetaXmlParser();
+            List<Item> items = parser.FindLatestClips().getClips();
+            Assert.IsNotEmpty(items);
+            foreach (Item item in items)
+            {
+                AssertNrkBetaClip(item);
+            }
+
+        }
+        [Test]
+        public void TestGetNrkBetaHDClips()
+        {
+            NrkBetaXmlParser parser = new NrkBetaXmlParser();
+            List<Item> items = parser.FindHDClips().getClips();
+            //fant ingen klipp 2009-11-23
+
+        }
+
         private static void AssertNrkBetaClip(Item item)
         {
             Clip c = (Clip)item;

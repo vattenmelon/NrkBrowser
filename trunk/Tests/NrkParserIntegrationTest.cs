@@ -132,9 +132,8 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
-                String directLink = nrkParser.GetClipUrl(c);
-                isMMSVideoStream(directLink);
-                Console.WriteLine("id: " + c.ID);
+                //String directLink = nrkParser.GetClipUrl(c);
+                //isMMSVideoStream(directLink);
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotNull(c.TilhoerendeProsjekt, "Tilhørende prosjekt skal være satt");
                 Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");

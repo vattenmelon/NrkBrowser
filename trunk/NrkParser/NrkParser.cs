@@ -413,6 +413,10 @@ namespace Vattenmelon.Nrk.Parser
             {
                 return GetClipUrlForIndex(clip);
             }
+            else if (clip.Type == Clip.KlippType.NRKBETA)
+            {
+                return clip.ID;
+            }
             else
             {
                 try
@@ -562,13 +566,13 @@ namespace Vattenmelon.Nrk.Parser
 
         private string getUrl(String cateogry)
         {
-            if (cateogry.Equals("Nyheter"))
+            if (cateogry.ToLower().Equals("nyheter"))
                 return MAIN_URL + "nyheter";
-            else if (cateogry.Equals("Sport"))
+            else if (cateogry.ToLower().Equals("sport"))
                 return MAIN_URL + "sport";
-            else if (cateogry.Equals("Distrikt"))
+            else if (cateogry.ToLower().Equals("distrikt"))
                 return MAIN_URL + "distrikt";
-            else if (cateogry.Equals("Natur"))
+            else if (cateogry.ToLower().Equals("natur"))
                 return MAIN_URL + "natur";
             else
                 throw new Exception("No valid URL found!");
