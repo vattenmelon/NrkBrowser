@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Vattenmelon.Nrk.Parser.Http
 {
-    public class HttpClient
+    public class HttpClient : IHttpClient
     {
         private CookieContainer cookieContainer;
         private string userAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)";

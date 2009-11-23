@@ -39,7 +39,9 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="NrkParserTest.cs" />
     <Compile Include="PostTest.cs" />
+    <Compile Include="StubHttpClient.cs" />
     <Compile Include="XmlKlippIntegrationTest.cs" />
     <Compile Include="XmlRSSTest.cs" />
     <Compile Include="NrkParserIntegrationTest.cs" />

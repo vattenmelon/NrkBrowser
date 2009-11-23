@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Tests;
 using Vattenmelon.Nrk.Parser;
 using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
+using Vattenmelon.Nrk.Parser.Http;
 
 namespace Vattenmelon.Nrk.Parser
 {
@@ -18,7 +20,7 @@ namespace Vattenmelon.Nrk.Parser
         }
 
         [Test]
-        public void TestHentKategorier()
+        public void TestHentKategorierIntegrationTest()
         {
             List<Item> categories = nrkParser.GetCategories();
             Assert.AreEqual(16, categories.Count);
@@ -487,4 +489,5 @@ namespace Vattenmelon.Nrk.Parser
         }
 
     }
+
 }

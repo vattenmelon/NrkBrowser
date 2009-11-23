@@ -42,7 +42,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
         override protected void LoadXmlDocument()
         {
             doc = new XmlDocument();
-            HttpClient httpClient = new HttpClient(new System.Net.CookieContainer());
+            IHttpClient httpClient = new HttpClient(new System.Net.CookieContainer());
             String xmlAsString = httpClient.GetUrl(url);
             doc.LoadXml(xmlAsString);
         }

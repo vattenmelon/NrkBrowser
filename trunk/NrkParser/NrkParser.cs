@@ -24,7 +24,7 @@ namespace Vattenmelon.Nrk.Parser
     public class NrkParser
     {
         private static ILog Log;
-        private HttpClient httpClient;
+        private IHttpClient httpClient;
        
         private static string BASE_URL = "http://www1.nrk.no/";
         private static string MAIN_URL = BASE_URL + "nett-tv/";
@@ -50,6 +50,11 @@ namespace Vattenmelon.Nrk.Parser
             this.Speed = speed;
         }
 
+        public IHttpClient HttpClient
+        {
+            set { httpClient = value; }
+        }
+
         public int Speed
         {
             get { return speed; }
@@ -73,7 +78,7 @@ namespace Vattenmelon.Nrk.Parser
         public List<Item> GetCategories()
         {
             List<Item> categories = new List<Item>();
-            string data = FetchUrl(MAIN_URL);
+            string data = FetchUrl(MAIN_URL);   
             Regex query = new Regex("<a href=\"/nett-tv/tema/(\\w*).*?>(.*?)</a>");
             MatchCollection result = query.Matches(data);
 
