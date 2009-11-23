@@ -146,13 +146,6 @@ namespace Vattenmelon.Nrk.Parser
             }
         }
 
-        [Test]
-        public void TestGetForsidenChangeDetectionTestAntall()
-        {
-            List<Item> liste = nrkParser.GetAnbefaltePaaForsiden();
-            Assert.IsTrue(liste.Count > 50); //Verified to be fifty 2009-11-19
-        }
-
         private static void isMMSVideoStream(String directLink)
         {
             Assert.IsTrue(directLink.ToLower().StartsWith("mms://"), "Videostreamer skal starte med mms://");
