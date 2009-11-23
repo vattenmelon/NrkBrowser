@@ -27,16 +27,18 @@ namespace Tests
 
         private string readFile(String fileName)
         {
-            // create reader & open file
-            TextReader tr = new StreamReader(fileName);
-
-            // read a line of text
-            string s = tr.ReadToEnd();
-
-            // close the stream
-            tr.Close();
+            TextReader textReader = new StreamReader(fileName);
+            string s = textReader.ReadToEnd();
+            textReader.Close();
 
             return s;
+        }
+
+        public static void WriteToFile(String text, String filename)
+        {
+            TextWriter textWriter = new StreamWriter(filename);
+            textWriter.Write(text);
+            textWriter.Close();
         }
     }
 }
