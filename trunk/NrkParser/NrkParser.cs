@@ -114,6 +114,13 @@ namespace Vattenmelon.Nrk.Parser
 
             return clips;
         }
+        //TODO: fjern etter bruk..
+        public static void WriteToFile(String text, String filename)
+        {
+            TextWriter textWriter = new StreamWriter(filename);
+            textWriter.Write(text);
+            textWriter.Close();
+        }
 
         public List<Item> GetMestSette(int dager)
         {

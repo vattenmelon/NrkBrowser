@@ -10,9 +10,14 @@ namespace Tests
     {
         public string GetUrl(string url)
         {
+            Console.WriteLine("StubHttpClient--->GetUrl: " + url);
             if (url.Equals("http://www1.nrk.no/nett-tv/"))
             {
                 return readFile("../../stubfiler/allcategories.html");
+            }
+            else if (url.Equals("http://www1.nrk.no/nett-tv/ml/topp12.aspx?dager=31&_="))
+            {
+                return readFile("../../stubfiler/topp12lastmonth.html");
             }
             else
             {

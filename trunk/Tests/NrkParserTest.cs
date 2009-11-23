@@ -88,6 +88,53 @@ namespace Vattenmelon.Nrk.Parser
             }
         }
 
+        [Test]
+        public void TestGetForsiden()
+        {
+            List<Item> liste = nrkParser.GetAnbefaltePaaForsiden();
+            Assert.IsNotNull(liste);
+            Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
+            foreach (Item item in liste)
+            {
+                Clip c = (Clip)item;
+                Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
+                Assert.IsNotNull(c.TilhoerendeProsjekt, "Tilhørende prosjekt skal være satt");
+                Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
+                Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
+                Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
+                Assert.IsTrue(c.Playable, "Klipp må være playable");
+                Assert.AreEqual(Clip.KlippType.KLIPP, c.Type, "Skal være av typen KLIPP");
+                Assert.IsEmpty(c.VerdiLink, "Klipp fra forsiden er ikke verdilinker");
+            }
+        }
+
+        [Test]
+        public void TestGetMestSette()
+        {
+
+            List<Item> liste = nrkParser.GetMestSette(31);
+            Assert.IsNotNull(liste);
+            Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
+            Assert.AreEqual(12, liste.Count, "Listen skal ha 12 oppførsler");
+            foreach (Item item in liste)
+            {
+
+                Clip c = (Clip)item;
+                Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
+                Assert.IsNotEmpty(c.Description, "Beskrivelsen kan ikke være null");
+                Assert.IsNotEmpty(c.Bilde, "Bilde kan ikke være null");
+                Assert.IsNotEmpty(c.Title, "Tittelen kan ikke være null");
+                Assert.IsTrue(c.Playable, "Klipp må være playable");
+                Assert.IsTrue(erEntenKlippEllerIndexType(c), "Klipp skal være enten av type Klipp eller Index");
+                Assert.IsNotEmpty(c.AntallGangerVist, "Antall ganger vist skal være satt");
+                Assert.IsEmpty(c.VerdiLink, "Klipp fra mest sette er ikke verdilinker");
+            }
+        }
+        //TODO: duplicate test code
+        private static bool erEntenKlippEllerIndexType(Clip c)
+        {
+            return c.Type == Clip.KlippType.KLIPP || c.Type == Clip.KlippType.INDEX;
+        }
     }
 
 }
