@@ -43,9 +43,9 @@
     <Compile Include="NrkParserTest.cs" />
     <Compile Include="StubHttpClient.cs" />
     <Compile Include="XmlKlippIntegrationTest.cs" />
-    <Compile Include="XmlRSSTest.cs" />
     <Compile Include="NrkParserIntegrationTest.cs" />
     <Compile Include="UtilsTest.cs" />
+    <Compile Include="XmlRSSIntegrationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
