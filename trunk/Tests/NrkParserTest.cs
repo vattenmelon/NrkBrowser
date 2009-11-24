@@ -147,6 +147,90 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.IsFalse(program.Playable, "Program skal ikke være spillbare");
             }
         }
+
+        [Test]
+        public void TestTopTabbDirekte()
+        {
+            List<Item> liste = nrkParser.GetDirektePage();
+            Assert.IsNotEmpty(liste);
+            Assert.AreEqual(3, liste.Count, "Skal være tre alltid på direktelinker");
+            foreach (Item item in liste)
+            {
+                Clip clip = (Clip)item;
+                Assert.AreEqual(Clip.KlippType.DIREKTE, clip.Type);
+                Assert.IsNotNull(clip.ID);
+                Assert.IsNotNull(clip.Title);
+                Assert.IsNotNull(clip.Description);
+                Assert.IsNotNull(clip.Bilde);
+            }
+        }
+
+        [Test]
+        public void TestGetTopTabber()
+        {
+            List<Item> liste = nrkParser.GetTopTabber();
+            Assert.IsNotNull(liste);
+            Assert.IsNotEmpty(liste);
+            foreach (Item item in liste)
+            {
+                Assert.IsNotNull(item.ID);
+                Assert.IsNotNull(item.Title);
+            }
+            Assert.AreEqual(6, liste.Count, "Skal være seks oppførsler i lista");
+            //verifisert at "super" endret seg ca 31. oktober 09 og at den nye linken går til en flashbasert side, ala p3tv tabben.
+
+        }
+
+        [Test]
+        public void TestGetTopTabs()
+        {
+            List<Item> liste = nrkParser.GetTopTabContent("valg");
+            Assert.IsNotEmpty(liste);
+
+            foreach (Item item in liste)
+            {
+                Clip c = (Clip)item;
+                Assert.IsNotNull(c.ID);
+                Assert.AreEqual(Clip.KlippType.VERDI, c.Type);
+                Assert.IsNotNull(c.Title);
+                //                try
+                //                {
+                //                    Console.WriteLine(c.Type + "link: c " + c.ID + " " + nrkParser.GetClipUrl(c));
+                //                }
+                //                catch(Exception e)
+                //                {
+                //                    Console.WriteLine("Kunne ikke finne url: "+ e.GetBaseException());
+                //                }
+                Assert.IsNotNull(c.Bilde);
+
+            }
+        }
+
+        [Test]
+        public void TestHentProgrammer()
+        {
+            List<Item> categories = nrkParser.GetCategories();
+            bool funnetProgrammerForBarn = false;
+            foreach (Item item in categories)
+            {
+                Category k = (Category)item;
+                if (k.Title.Equals("Barn"))
+                {
+                    List<Item> programmer = nrkParser.GetPrograms(k);
+                    foreach (Item item1 in programmer)
+                    {
+                        funnetProgrammerForBarn = true;
+                        Program p = (Program)item1;
+                        Assert.IsNotNull(p.ID, "ID skal ikke være null på et program");
+                        Assert.IsNotNull(p.Title, "Title skal ikke være null på et program");
+                        Assert.IsNotNull(p.Bilde, "Bilde skal ikke være null på et program");
+                        Assert.IsNotNull(p.Description, "Beskrivelse skal ikke være null på et program");
+                        Assert.IsFalse(p.Playable, "Et program skal ikke være playable");
+                    }
+                }
+            }
+            Assert.IsTrue(funnetProgrammerForBarn);
+        }
     }
 
 }

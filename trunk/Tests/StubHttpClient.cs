@@ -21,6 +21,18 @@ namespace Vattenmelon.Nrk.Parser
             {
                 return readFile("../../stubfiler/allprograms.html");
             }
+            else if (url.Equals("http://www1.nrk.no/nett-tv/direkte/"))
+            {
+                return readFile("../../stubfiler/topptabdirekte.html");
+            }
+            else if (url.Equals("http://www1.nrk.no/nett-tv/valg/"))
+            {
+                return readFile("../../stubfiler/valgside.html");
+            }
+            else if(url.Equals("http://www1.nrk.no/nett-tv/tema/2"))
+            {
+                return readFile("../../stubfiler/tema2.html");
+            }
             else
             {
                 throw new Exception("Finnes ikke stubb for denne url'en: " + url);
