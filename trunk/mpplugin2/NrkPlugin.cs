@@ -558,13 +558,11 @@ namespace Vattenmelon.Nrk.Browser
             }
             else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_HD_KLIPP)
             {
-                String section = GetNrkBetaSection(item.ID);
                 List<Item> tItems = new NrkBetaXmlParser().FindHDClips().getClips();
                 UpdateListAndSetClipCount(tItems);
             }
             else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_SISTE_KLIPP)
             {
-                String section = GetNrkBetaSection(item.ID);
                 List<Item> tItems = new NrkBetaXmlParser().FindLatestClips().getClips();
                 UpdateListAndSetClipCount(tItems);
             }
