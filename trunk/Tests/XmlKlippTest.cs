@@ -13,7 +13,6 @@ namespace Vattenmelon.Nrk.Parser.Xml
         [Test]
         public void GetUrlAtSpeed10000()
         {
-            int hastighet = 10000;
             XmlKlippParser parser =
                 new XmlKlippParser("../../stubfiler/XmlKlippTest.xml");
             String url = parser.GetUrl();
