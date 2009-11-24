@@ -401,7 +401,7 @@ namespace Vattenmelon.Nrk.Parser
 //                Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
                 //String videoLink = nrkParser.GetClipUrl(c);
                 //Console.WriteLine("Videostream........: " + videoLink);
-                Console.WriteLine("--------------------------------------------");
+               // Console.WriteLine("--------------------------------------------");
             Assert.IsNotEmpty(c.Title);
             Assert.IsNotEmpty(c.ID);
             Assert.IsEmpty(c.Description);

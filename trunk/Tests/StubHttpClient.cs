@@ -8,7 +8,8 @@ namespace Vattenmelon.Nrk.Parser
 {
     public class StubHttpClient : IHttpClient
     {
-        Dictionary<String, String> urls = new Dictionary<string, string>();
+        private Dictionary<String, String> getUrls;
+        private Dictionary<String, String> postUrls;
 
         public StubHttpClient()
         {
@@ -18,31 +19,37 @@ namespace Vattenmelon.Nrk.Parser
         public string GetUrl(string url)
         {
             Console.WriteLine("StubHttpClient--->GetUrl: " + url);
-            String fileName = urls[url];
+            return getContent(getUrls[url]);
+        }
+
+        private string getContent(string fileName)
+        {
             if (fileName == null)
             {
-                throw new Exception("Finnes ikke stubb for denne url'en: " + url);
+                throw new Exception("Finnes ikke denne stubben");
             }
             Console.WriteLine("                 -----> " +fileName);
             return readFile(fileName);
-          
         }
 
         private void registerUrls()
-        {     
-            urls.Add("http://www1.nrk.no/nett-tv/", "../../stubfiler/allcategories.html");
-            urls.Add("http://www1.nrk.no/nett-tv/ml/topp12.aspx?dager=31&_=", "../../stubfiler/topp12lastmonth.html");
-            urls.Add("http://www1.nrk.no/nett-tv/bokstav/@", "../../stubfiler/allprograms.html");
-            urls.Add("http://www1.nrk.no/nett-tv/direkte/", "../../stubfiler/topptabdirekte.html");
-            urls.Add("http://www1.nrk.no/nett-tv/valg/", "../../stubfiler/valgside.html");
-            urls.Add("http://www1.nrk.no/nett-tv/tema/2", "../../stubfiler/tema2.html");
-            urls.Add("http://www1.nrk.no/nett-tv/DynamiskLaster.aspx?SearchResultList$search:Norge|sort:dato|page:1", "../../stubfiler/sokNorgeSide1.html");
-            urls.Add("http://www1.nrk.no/nett-tv/DynamiskLaster.aspx?SearchResultList$search:Norge|sort:dato|page:2", "../../stubfiler/sokNorgeSide2.html");
+        {   getUrls = new Dictionary<string, string>();
+            postUrls = new Dictionary<string, string>();
+            getUrls.Add("http://www1.nrk.no/nett-tv/", "../../stubfiler/allcategories.html");
+            getUrls.Add("http://www1.nrk.no/nett-tv/ml/topp12.aspx?dager=31&_=", "../../stubfiler/topp12lastmonth.html");
+            getUrls.Add("http://www1.nrk.no/nett-tv/bokstav/@", "../../stubfiler/allprograms.html");
+            getUrls.Add("http://www1.nrk.no/nett-tv/direkte/", "../../stubfiler/topptabdirekte.html");
+            getUrls.Add("http://www1.nrk.no/nett-tv/valg/", "../../stubfiler/valgside.html");
+            getUrls.Add("http://www1.nrk.no/nett-tv/tema/2", "../../stubfiler/tema2.html");
+            getUrls.Add("http://www1.nrk.no/nett-tv/DynamiskLaster.aspx?SearchResultList$search:Norge|sort:dato|page:1", "../../stubfiler/sokNorgeSide1.html");
+            getUrls.Add("http://www1.nrk.no/nett-tv/DynamiskLaster.aspx?SearchResultList$search:Norge|sort:dato|page:2", "../../stubfiler/sokNorgeSide2.html");
+            postUrls.Add("http://www1.nrk.no/nett-tv/nyheter", "../../stubfiler/postGetMestSetteNyheter.html");
         }
 
         public string PostUrl(string url, string postData)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("StubHttpClient--->PostUrl: " + url);
+            return getContent(postUrls[url]);
         }
 
         private string readFile(String fileName)

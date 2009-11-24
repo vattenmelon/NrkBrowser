@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Vattenmelon.Nrk.Parser;
 using Vattenmelon.Nrk.Domain;
@@ -242,6 +243,52 @@ namespace Vattenmelon.Nrk.Parser
            Assert.AreEqual(25, liste.Count);
 
            Assert.AreNotEqual(liste[0].ID, listeSide2[0].ID, "Skal ikke være like");
+        }
+
+        [Test]
+        public void TestGetMestSetteNyheterSistUke()
+        {
+            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Uke, "Nyheter");
+            Assert.IsNotEmpty(items);
+            Assert.AreEqual(20, items.Count);
+            foreach (Item item in items)
+            {
+                AssertValidMestSette(item);
+            }
+        }
+
+        //TODO: duplicate code
+        /// <summary>
+        /// Vanskelig å asserte på videostreamen siden det hender at klipp ikke er tilgjengelige hos nrk.
+        /// </summary>
+        /// <param name="item"></param>
+        private void AssertValidMestSette(Item item)
+        {
+            Clip c = (Clip)item;
+
+            //                Console.WriteLine("Tittel.............: " + c.Title);
+            //                Console.WriteLine("ID.................: " + c.ID);
+            //                Console.WriteLine("Beskrivelse........: " + c.Description);
+            //                Console.WriteLine("Bilde..............: " + c.Bilde);
+            //                Console.WriteLine("Type...............: " + c.Type);
+            //                Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
+            //                Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
+            //String videoLink = nrkParser.GetClipUrl(c);
+            //Console.WriteLine("Videostream........: " + videoLink);
+            Assert.IsNotEmpty(c.Title);
+            Assert.IsNotEmpty(c.ID);
+            Assert.IsEmpty(c.Description);
+            Assert.IsNotEmpty(c.Klokkeslett);
+            Assert.IsNotEmpty(c.Bilde);
+            Assert.IsNotEmpty(c.AntallGangerVist);
+            //            if (c.Type == Clip.KlippType.KLIPP)
+            //            {
+            //                Assert.IsTrue(videoLink.EndsWith(".wmv"));
+            //            }
+            //            else
+            //            {
+            //                erHttpLink(videoLink);
+            //            }
         }
     }
 

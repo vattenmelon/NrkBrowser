@@ -69,7 +69,6 @@ namespace Vattenmelon.Nrk.Parser
         {
             String urlToFetch = String.Format(SOK_URL_BEFORE, keyword, page + 1);
             string data = FetchUrl(urlToFetch);
-            WriteToFile(data, "sokNorgeSide2.html");
             Search search = new Search(data);
             return search.SearchHits;
         }
