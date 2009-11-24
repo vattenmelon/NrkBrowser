@@ -118,14 +118,14 @@ namespace Vattenmelon.Nrk.Parser.Xml
         private static void AssertNrkBetaClip(Item item)
         {
             Clip c = (Clip)item;
-            Console.WriteLine("Tittel.............: " + c.Title);
-            Console.WriteLine("ID.................: " + c.ID);
-            Console.WriteLine("Beskrivelse........: " + c.Description);
-            Console.WriteLine("Bilde..............: " + c.Bilde);
-            Console.WriteLine("Type...............: " + c.Type);
-            Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
-            Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
-            Console.WriteLine("-----------------------------------------");
+//            Console.WriteLine("Tittel.............: " + c.Title);
+//            Console.WriteLine("ID.................: " + c.ID);
+//            Console.WriteLine("Beskrivelse........: " + c.Description);
+//            Console.WriteLine("Bilde..............: " + c.Bilde);
+//            Console.WriteLine("Type...............: " + c.Type);
+//            Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
+//            Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
+//            Console.WriteLine("-----------------------------------------");
             Assert.IsNotEmpty(c.Title);
             Assert.IsNotEmpty(c.ID);
             Assert.IsNotEmpty(c.Description);
