@@ -69,6 +69,7 @@ namespace Vattenmelon.Nrk.Parser
         {
             String urlToFetch = String.Format(SOK_URL_BEFORE, keyword, page + 1);
             string data = FetchUrl(urlToFetch);
+            WriteToFile(data, "sokNorgeSide2.html");
             Search search = new Search(data);
             return search.SearchHits;
         }
@@ -275,7 +276,6 @@ namespace Vattenmelon.Nrk.Parser
             string data;
 
             data = FetchUrl(CATEGORY_URL + category.ID);
-
             Regex queryBilder =
                 new Regex("<a href=\"/nett-tv/prosjekt/(.*?)\" id=\".*?\" title=\"(.*?)\".*?>\\s+<img src=\"(.*?)\" id=");
             MatchCollection matchesBilder = queryBilder.Matches(data);

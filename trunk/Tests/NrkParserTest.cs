@@ -231,6 +231,18 @@ namespace Vattenmelon.Nrk.Parser
             }
             Assert.IsTrue(funnetProgrammerForBarn);
         }
+
+        [Test]
+        public void TestGetSearchHits()
+        {
+           List<Item> liste = nrkParser.GetSearchHits("Norge", 0);
+           Assert.AreEqual(25, liste.Count);
+
+           List<Item> listeSide2 = nrkParser.GetSearchHits("Norge", 1);
+           Assert.AreEqual(25, liste.Count);
+
+           Assert.AreNotEqual(liste[0].ID, listeSide2[0].ID, "Skal ikke være like");
+        }
     }
 
 }
