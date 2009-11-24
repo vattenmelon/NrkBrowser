@@ -17,6 +17,10 @@ namespace Vattenmelon.Nrk.Parser
             {
                 return readFile("../../stubfiler/topp12lastmonth.html");
             }
+            else if (url.Equals("http://www1.nrk.no/nett-tv/bokstav/@"))
+            {
+                return readFile("../../stubfiler/allprograms.html");
+            }
             else
             {
                 throw new Exception("Finnes ikke stubb for denne url'en: " + url);

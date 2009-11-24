@@ -392,13 +392,13 @@ namespace Vattenmelon.Nrk.Parser
         {
             Clip c = (Clip) item;
             
-                Console.WriteLine("Tittel.............: " + c.Title);
-                Console.WriteLine("ID.................: " + c.ID);
-                Console.WriteLine("Beskrivelse........: " + c.Description);
-                Console.WriteLine("Bilde..............: " + c.Bilde);
-                Console.WriteLine("Type...............: " + c.Type);
-                Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
-                Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
+//                Console.WriteLine("Tittel.............: " + c.Title);
+//                Console.WriteLine("ID.................: " + c.ID);
+//                Console.WriteLine("Beskrivelse........: " + c.Description);
+//                Console.WriteLine("Bilde..............: " + c.Bilde);
+//                Console.WriteLine("Type...............: " + c.Type);
+//                Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
+//                Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
                 //String videoLink = nrkParser.GetClipUrl(c);
                 //Console.WriteLine("Videostream........: " + videoLink);
                 Console.WriteLine("--------------------------------------------");

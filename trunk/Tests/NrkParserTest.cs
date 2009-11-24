@@ -132,6 +132,21 @@ namespace Vattenmelon.Nrk.Parser
         {
             return c.Type == Clip.KlippType.KLIPP || c.Type == Clip.KlippType.INDEX;
         }
+
+        [Test]
+        public void TestGetAllPrograms()
+        {
+            List<Item> liste = nrkParser.GetAllPrograms();
+            foreach (Item item in liste)
+            {
+                Program program = (Program)item;
+                Assert.IsNotEmpty(program.ID, "ID'en kan ikke være null");
+                Assert.IsNotEmpty(program.Description, "Beskrivelsen kan ikke være null");
+                Assert.IsNotEmpty(program.Bilde, "Bilde kan ikke være null");
+                Assert.IsNotEmpty(program.Title, "Tittelen kan ikke være null");
+                Assert.IsFalse(program.Playable, "Program skal ikke være spillbare");
+            }
+        }
     }
 
 }
