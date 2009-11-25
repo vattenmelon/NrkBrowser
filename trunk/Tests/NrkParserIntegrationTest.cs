@@ -485,7 +485,48 @@ namespace Vattenmelon.Nrk.Parser
             nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Totalt, "heythizdoesnoetexists");
             
         }
+        [Test]
+        public void TestPredicate1()
+        {
+            Predicate<Employee> highPaid = PaidMore(150);
+            Employee john = new Employee();
+            john.Salary = 500;
+            Assert.IsTrue(highPaid(john));
+        }
+
+        public Predicate<Employee> PaidMore(int amount) {
+            return delegate(Employee e) { return e.Salary > amount; };
+        }
+
+        [Test]
+        public void TestPredicate2()
+        {
+            Employee john = new Employee();
+            john.Salary = 500;
+            int amount = 150;
+            Predicate<Employee> PaidMore2 = delegate(Employee e) { return e.Salary > amount; };
+            Assert.IsTrue(PaidMore2(john));
+            amount = 800;
+            Assert.IsFalse(PaidMore2(john));
+        }
+        
+
 
     }
 
-}
+    public class Employee
+    {
+        private int salary;
+
+        public int Salary
+        {
+            get { return salary; }
+            set { salary = value; }
+        }
+    }
+
+//klasse slutter
+
+
+}//namespace slutter
+
