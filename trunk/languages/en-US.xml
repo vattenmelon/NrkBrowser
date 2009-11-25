@@ -55,5 +55,10 @@
   <string id="DESCRIPTION_CLIP_ADDED">Clip added {0}</string>
   <string id="MENU_ITEM_TITLE_CHOOSE_STREAM_MANUALLY">Choose stream manually</string>
   <string id="CLIP_COUNT">{0} clips</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA">NRKBETA</string>
+  <string id="CONTEXTMENU_ITEM_MOST_WATCHED_FOR">Most watched {0}</string>
+  <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_WEEK">Last week</string>
+  <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_MONTH">Last month</string>
+  <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_TOTAL">All time</string>
   <string id="FOR_UNIT_TESTING">Engelsk</string>
 </strings>

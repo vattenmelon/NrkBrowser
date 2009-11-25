@@ -46,6 +46,21 @@ namespace Vattenmelon.Nrk.Browser.Translation
             
         }
 
+        [Test]
+        public void TestOversetningNorsk()
+        {
+            NrkTranslatableStrings.InitWithParam("no", LANGUAGE_PATH);
+            Assert.IsTrue((NrkTranslatableStrings.printNotTranslatedStrings()));
+
+        }
+        [Test]
+        public void TestOversetningEngelsk()
+        {
+            NrkTranslatableStrings.InitWithParam("en-US", LANGUAGE_PATH);
+            Assert.IsTrue((NrkTranslatableStrings.printNotTranslatedStrings()));
+
+        }
+
     }
 
 }

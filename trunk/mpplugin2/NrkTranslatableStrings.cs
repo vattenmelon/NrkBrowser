@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 
 namespace Vattenmelon.Nrk.Browser.Translation
 {
@@ -28,9 +29,32 @@ namespace Vattenmelon.Nrk.Browser.Translation
             trans = new TranslationService();
         }
 
+        public static bool printNotTranslatedStrings()
+        {
+            PropertyInfo[] propertyInfos = typeof(NrkTranslatableStrings).GetProperties();
+            bool first = true;
+            foreach (PropertyInfo info in propertyInfos)
+            {
+              if (!trans.Contains(info.Name))
+              {
+                  if (first)
+                  {
+                      Console.WriteLine("Translationfile doesnt contain the following keys:");
+                      first = false;
+                  }
+                  Console.WriteLine(info.Name +", default er: " + info.GetValue(typeof(NrkTranslatableStrings), new object[0]));
+              }  
+            }
+            if (first)
+            {
+                Console.WriteLine("All keys are translated for this language!");
+            }
+            return first;
+        }
+
         private static string getTranslatedFromKeyOrGetDefault(String key, String defaultString)
         {
-            String stringToReturn = String.Empty;
+            String stringToReturn;
             if (trans.Contains(key))
             {
                 stringToReturn = trans.Get(key);

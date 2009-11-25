@@ -23,7 +23,7 @@ namespace Vattenmelon.Nrk.Browser
         {
 
             String version = VersionChecker.GetNewestAvailableVersion();
-            Assert.AreEqual("1.3.2", version);
+            Assert.AreEqual("1.4.0", version);
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace Vattenmelon.Nrk.Browser
             //NB!! Denne testen er tvilsom, må endres på etter nye versjoner
             String v = String.Empty;
             bool version = VersionChecker.newVersionAvailable(ref v);
-            Assert.AreEqual("1.3.2", v);
+            Assert.AreEqual("1.4.0", v);
             Assert.IsFalse(version);
         }
     }

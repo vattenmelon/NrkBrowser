@@ -55,5 +55,10 @@
   <string id="DESCRIPTION_CLIP_ADDED">Klipp lagt ut {0}</string>
   <string id="MENU_ITEM_TITLE_CHOOSE_STREAM_MANUALLY">Velg strøm manuelt</string>
   <string id="CLIP_COUNT">{0} klipp</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA">NRKBETA</string>
+  <string id="CONTEXTMENU_ITEM_MOST_WATCHED_FOR">Mest sett for {0}</string>
+  <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_WEEK">Siste uke</string>
+  <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_MONTH">Siste måned</string>
+  <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_TOTAL">Totalt</string>
   <string id="FOR_UNIT_TESTING">Norsk</string>
 </strings>

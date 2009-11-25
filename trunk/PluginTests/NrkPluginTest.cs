@@ -9,7 +9,6 @@ using Vattenmelon.Nrk.Browser;
 using Vattenmelon.Nrk.Browser.Translation;
 using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
-using Vattenmelon.Nrk.Parser;
 
 namespace Vattenmelon.Nrk.Browser
 {
@@ -22,8 +21,6 @@ namespace Vattenmelon.Nrk.Browser
         [TestFixtureSetUp]
         public void setOpp()
         {
-
-            //nrkPlugin = new NrkPlugin("no", @"C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\languages");
             nrkPlugin = new NrkPlugin("no", @"..\..\..\languages");
         }
 

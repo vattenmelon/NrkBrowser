@@ -4,7 +4,6 @@ using System.IO;
 using System.Xml;
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
-using Vattenmelon.Nrk.Parser;
 
 namespace Vattenmelon.Nrk.Browser.Translation
 {
