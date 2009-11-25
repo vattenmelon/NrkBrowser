@@ -145,10 +145,10 @@ namespace Vattenmelon.Nrk.Parser
             }
         }
 
-        private static void isMMSVideoStream(String directLink)
-        {
-            Assert.IsTrue(directLink.ToLower().StartsWith("mms://"), "Videostreamer skal starte med mms://");
-        }
+//        private static void isMMSVideoStream(String directLink)
+//        {
+//            Assert.IsTrue(directLink.ToLower().StartsWith("mms://"), "Videostreamer skal starte med mms://");
+//        }
 
         [Test]
         public void TestGetMestSette()
