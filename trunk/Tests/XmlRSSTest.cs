@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
@@ -7,6 +6,7 @@ using Vattenmelon.Nrk.Parser.Http;
 namespace Vattenmelon.Nrk.Parser.Xml
 {
     [TestFixture]
+    [Category("Unit Tests")]
     public class XMLRSSTest
     {
 

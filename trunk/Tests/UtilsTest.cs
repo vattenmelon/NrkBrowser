@@ -9,6 +9,7 @@ using Vattenmelon.Nrk.Domain;
 namespace Vattenmelon.Nrk.Parser
 {
     [TestFixture]
+    [Category("Unit Tests")]
     public class UtilsTest
     {
         [Test]

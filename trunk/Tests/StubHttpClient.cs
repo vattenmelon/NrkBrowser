@@ -58,7 +58,6 @@ namespace Vattenmelon.Nrk.Parser
             TextReader textReader = new StreamReader(fileName);
             string s = textReader.ReadToEnd();
             textReader.Close();
-
             return s;
         }
 

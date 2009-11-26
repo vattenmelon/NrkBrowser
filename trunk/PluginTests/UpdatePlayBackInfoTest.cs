@@ -11,6 +11,7 @@ using NUnit.Framework;
 namespace Vattenmelon.Nrk.Browser
 {
     [TestFixture]
+    [Category("Unit Tests")]
     public class UpdatePlayBackInfoTest
     {
         [Test]

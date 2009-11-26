@@ -7,6 +7,7 @@ using NUnit.Framework;
 namespace Vattenmelon.Nrk.Parser
 {
     [TestFixture]
+    [Category("Integration Tests")]
     public class NrkParserIntegrationTest
     {
         private NrkParser nrkParser;

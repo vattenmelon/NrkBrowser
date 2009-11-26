@@ -4,6 +4,7 @@ using NUnit.Framework;
 namespace Vattenmelon.Nrk.Parser.Xml
 {
     [TestFixture]
+    [Category("Integration Tests")]
     public class XMLKlippIntegrationTest
     {
         const string ID = "569191";

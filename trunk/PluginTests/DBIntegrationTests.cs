@@ -12,6 +12,7 @@ using NUnit.Framework;
 namespace Vattenmelon.Nrk.Browser.Db
 {
     [TestFixture]
+    [Category("Integration Tests")]
     public class DBIntegrationTests
     {
         private NrkParser nrkParser;

@@ -11,6 +11,7 @@ using Vattenmelon.Nrk.Parser;
 namespace Vattenmelon.Nrk.Browser
 {
     [TestFixture]
+    [Category("Integration Tests")]
     public class VersionCheckerTest
     {
         [SetUp]
@@ -23,7 +24,7 @@ namespace Vattenmelon.Nrk.Browser
         {
 
             String version = VersionChecker.GetNewestAvailableVersion();
-            Assert.AreEqual("1.4.0", version);
+            Assert.AreEqual("1.5.0", version);
         }
 
         [Test]
@@ -32,7 +33,7 @@ namespace Vattenmelon.Nrk.Browser
             //NB!! Denne testen er tvilsom, må endres på etter nye versjoner
             String v = String.Empty;
             bool version = VersionChecker.newVersionAvailable(ref v);
-            Assert.AreEqual("1.4.0", v);
+            Assert.AreEqual("1.5.0", v);
             Assert.IsFalse(version);
         }
     }

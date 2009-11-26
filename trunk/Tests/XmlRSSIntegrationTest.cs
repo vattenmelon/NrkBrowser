@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Vattenmelon.Nrk.Parser.Xml
 {
     [TestFixture]
+    [Category("Integration Tests")]
     public class XMLRSSIntegrationTest
     {
 

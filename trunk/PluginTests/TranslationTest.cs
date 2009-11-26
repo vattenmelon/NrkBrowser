@@ -5,6 +5,7 @@ using NUnit.Framework;
 namespace Vattenmelon.Nrk.Browser.Translation
 {
     [TestFixture]
+    [Category("Unit Tests")]
     public class TranslationTest
     {
         private static string LANGUAGE_PATH = @"..\..\..\languages";
