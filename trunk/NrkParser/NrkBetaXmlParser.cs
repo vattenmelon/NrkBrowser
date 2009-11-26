@@ -10,6 +10,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
     public class NrkBetaXmlParser : XmlRSSParser
     {
 
+        private IHttpClient httpClient;
 
         public NrkBetaXmlParser(string siteurl, string section) : base(siteurl, section)
         {
@@ -42,9 +43,18 @@ namespace Vattenmelon.Nrk.Parser.Xml
         override protected void LoadXmlDocument()
         {
             doc = new XmlDocument();
-            IHttpClient httpClient = new HttpClient(new System.Net.CookieContainer());
+            httpClient = GetHttClient();
             String xmlAsString = httpClient.GetUrl(url);
             doc.LoadXml(xmlAsString);
+        }
+
+        private IHttpClient GetHttClient()
+        {
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient(new System.Net.CookieContainer());
+            }
+            return httpClient;
         }
         override protected string GetPicture(Clip clip)
         {
@@ -71,6 +81,12 @@ namespace Vattenmelon.Nrk.Parser.Xml
         override protected void PutSummaryOnItem(Clip clip, XmlNode node)
         {
             clip.Description = node.InnerText;
+        }
+
+        public IHttpClient HttpClient
+        {
+            get { return httpClient; }
+            set { httpClient = value; }
         }
     }
 }

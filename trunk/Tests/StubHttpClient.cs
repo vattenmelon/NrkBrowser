@@ -43,6 +43,7 @@ namespace Vattenmelon.Nrk.Parser
             getUrls.Add("http://www1.nrk.no/nett-tv/tema/2", "../../stubfiler/tema2.html");
             getUrls.Add("http://www1.nrk.no/nett-tv/DynamiskLaster.aspx?SearchResultList$search:Norge|sort:dato|page:1", "../../stubfiler/sokNorgeSide1.html");
             getUrls.Add("http://www1.nrk.no/nett-tv/DynamiskLaster.aspx?SearchResultList$search:Norge|sort:dato|page:2", "../../stubfiler/sokNorgeSide2.html");
+            getUrls.Add(string.Format("{0}{1}",NrkParserConstants.NRK_BETA_FEEDS_KATEGORI_URL,NrkParserConstants.NRK_BETA_SECTION_TV_SERIES), "../../stubfiler/nrkbeta_tv-serier.xml");
             postUrls.Add("http://www1.nrk.no/nett-tv/nyheter", "../../stubfiler/postGetMestSetteNyheter.html");
         }
 

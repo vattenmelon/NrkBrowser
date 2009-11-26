@@ -13,7 +13,6 @@ namespace Vattenmelon.Nrk.Parser.Xml
             doc = new XmlDocument();
             XmlTextReader reader = new XmlTextReader(url);
             doc.Load(reader);
-            doc.Save("natur.xml");
             reader.Close();
         }
 
