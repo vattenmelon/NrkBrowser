@@ -459,11 +459,29 @@ namespace Vattenmelon.Nrk.Browser
 
         public void search()
         {
+            search(GetSearchKeywordFromUser());
+        }
+
+        private string GetSearchKeywordFromUser()
+        {
             String keyword = String.Empty;
             GetUserInputString(ref keyword);
             keyword = keyword.ToLower();
             matchingItems.Clear();
-            search(keyword);
+            return keyword;
+        }
+
+        private void searchNrkBeta()
+        {
+            searchNrkBeta(GetSearchKeywordFromUser());
+        }
+
+        private void searchNrkBeta(String keyword)
+        {
+            NrkBetaXmlParser parser = new NrkBetaXmlParser();
+            parser.SearchFor(keyword);
+            matchingItems = parser.getClips();
+            UpdateList(matchingItems);
         }
 
         private void search(String keyword)
@@ -556,6 +574,10 @@ namespace Vattenmelon.Nrk.Browser
                 List<Item> tItems = nrkBetaParser.getClips();
                 UpdateListAndSetClipCount(tItems);
             }
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_SEARCH)
+            {
+                searchNrkBeta();
+            }
             else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_HD_KLIPP)
             {
                 List<Item> tItems = new NrkBetaXmlParser().FindHDClips().getClips();
@@ -627,6 +649,7 @@ namespace Vattenmelon.Nrk.Browser
             }
         }
 
+
         private string GetNrkBetaSection(string id)
         {
             if (id.Equals(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_TVSERIER))
@@ -663,13 +686,14 @@ namespace Vattenmelon.Nrk.Browser
         private List<Item> CreateNrkBetaListItems()
         {
             List<Item> items = new List<Item>(3);
-            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_SISTE_KLIPP, "Siste klipp"));
-            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_TVSERIER, "TV-serier"));
-            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_DIVERSE, "Diverse"));
-            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_PRESENTASJONER, "Presentasjoner"));
-            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_KONFERANSER_OG_MESSER, "Konferanser og messer"));
-            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_FRA_TV, "Fra TV"));
-            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_HD_KLIPP, "HD Klipp"));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_SISTE_KLIPP, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA_LATEST_CLIPS));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_TVSERIER, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA_TV_SERIES));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_DIVERSE, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA_OTHER));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_PRESENTASJONER, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA_PRESENTATIONS));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_KONFERANSER_OG_MESSER, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA_CONFERENCES));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_FRA_TV, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA_FROM_TV));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_HD_KLIPP, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA_HD_CLIPS));
+            items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_SEARCH, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA_SEARCH));
             return items;
         }
 
@@ -876,12 +900,22 @@ namespace Vattenmelon.Nrk.Browser
             pArgs.title = title;
             pArgs.startTime = startTime;
             pArgs.item = item;
+            pArgs.playBackOk = true;
             worker.DoWork += new DoWorkEventHandler(PlayMethodDelegate);
             worker.RunWorkerAsync(pArgs);
             //worker.IsBusy prøv å bruke denne istedetfor _workercompleted
             //while (_workerCompleted == false) GUIWindowManager.Process();
             while(worker.IsBusy) GUIWindowManager.Process();
             GUIWaitCursor.Hide();
+
+            if (!pArgs.playBackOk)
+            {
+                ifPlaybackFailed(pArgs);
+            }
+            else
+            {
+                ifPlayBackSucceded(GetPlayListType(pArgs), pArgs.item);
+            }
            
            
 
@@ -893,6 +927,7 @@ namespace Vattenmelon.Nrk.Browser
             public string title;
             public double startTime;
             public Item item;
+            public bool playBackOk;
         }
 
         private void PlayMethodDelegate(Object sender, DoWorkEventArgs e)
@@ -900,6 +935,21 @@ namespace Vattenmelon.Nrk.Browser
             Log.Info(string.Format("{0}: PlayMethodDelegate", NrkBrowserConstants.PLUGIN_NAME));
             PlayArgs pArgs = (PlayArgs) e.Argument;
 
+            PlayListType type;
+            type = GetPlayListType(pArgs);
+
+            if (useOsdPlayer)
+            {
+                pArgs.playBackOk = playWithOsd(pArgs.url, pArgs.title, type, pArgs.startTime);
+            }
+            else
+            {
+                pArgs.playBackOk = playWithoutOsd(pArgs.url, pArgs.title, type, pArgs.startTime);
+            }
+        }
+
+        private static PlayListType GetPlayListType(PlayArgs pArgs)
+        {
             PlayListType type;
             if (isWMVVideo(pArgs))
             {
@@ -918,25 +968,7 @@ namespace Vattenmelon.Nrk.Browser
                 Log.Info(string.Format("Couldn't determine playlist type for: {0}", pArgs.url));
                 type = PlayListType.PLAYLIST_VIDEO_TEMP;
             }
-            bool playOk = false;
-
-            if (useOsdPlayer)
-            {
-                playOk = playWithOsd(pArgs.url, pArgs.title, type, pArgs.startTime);
-            }
-            else
-            {
-                playOk = playWithoutOsd(pArgs.url, pArgs.title, type, pArgs.startTime);
-            }
-
-            if (!playOk)
-            {
-                ifPlaybackFailed(pArgs);
-            }
-            else
-            {
-                ifPlayBackSucceded(type, pArgs.item);
-            }
+            return type;
         }
 
         private void ifPlayBackSucceded(PlayListType type, Item item)
@@ -964,7 +996,7 @@ namespace Vattenmelon.Nrk.Browser
 
         private void ifPlaybackFailed(PlayArgs pArgs)
         {
-            string message = String.Empty;
+            string message;
             if (useOsdPlayer)
             {
                 message = NrkTranslatableStrings.PLAYBACK_FAILED_TRY_DISABLING_VMR9;
@@ -1199,13 +1231,14 @@ namespace Vattenmelon.Nrk.Browser
         private void CheckForNewVersionAndDisplayResultInMessageBox()
         {
             String nyVer = String.Empty;
+            String thisVersion = getVersion();
             if (VersionChecker.newVersionAvailable(ref nyVer))
             {
-                ShowMessageBox(string.Format(NrkTranslatableStrings.NEW_VERSION_IS_AVAILABLE, nyVer));
+                ShowMessageBox(string.Format(NrkTranslatableStrings.NEW_VERSION_IS_AVAILABLE, thisVersion, nyVer));
             }
             else
             {
-                ShowMessageBox(NrkTranslatableStrings.NEW_VERSION_IS_NOT_AVAILABLE);
+                ShowMessageBox(string.Format(NrkTranslatableStrings.NEW_VERSION_IS_NOT_AVAILABLE, thisVersion));
             }
         }
 

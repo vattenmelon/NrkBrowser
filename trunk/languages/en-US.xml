@@ -17,8 +17,8 @@
   <string id="SEARCH_NEXTPAGE_DESCRIPTION">See next 25 hits</string>
   <string id="SEARCH_NEXTPAGE_TITLE">Next page</string>
   <string id="CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION">Look for new version</string>
-  <string id="NEW_VERSION_IS_AVAILABLE">New version available (ver. {0}), download from www.team-mediaportal.com.</string>
-  <string id="NEW_VERSION_IS_NOT_AVAILABLE">No newer version available.</string>
+  <string id="NEW_VERSION_IS_AVAILABLE">You are using version {0}. A newer version is available (ver. {1}), download from www.team-mediaportal.com.</string>
+  <string id="NEW_VERSION_IS_NOT_AVAILABLE">You are using version {0}. No newer version is available.</string>
   <string id="QUALITY_MENU_HEADER">Choose quality</string>
   <string id="QUALITY_MENU_LOW_QUALITY">Low quality</string>
   <string id="QUALITY_MENU_MEDIUM_QUALITY">Medium quality</string>

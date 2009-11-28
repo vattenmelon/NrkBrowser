@@ -17,8 +17,8 @@
   <string id="SEARCH_NEXTPAGE_DESCRIPTION">Se de neste 25 treffene</string>
   <string id="SEARCH_NEXTPAGE_TITLE">Neste side</string>
   <string id="CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION">Se etter ny versjon</string>
-  <string id="NEW_VERSION_IS_AVAILABLE">Ny versjon er tilgjengelig (ver. {0}), last ned fra mediaportal forumet.</string>
-  <string id="NEW_VERSION_IS_NOT_AVAILABLE">Ingen nyere versjon tilgjengelig.</string>
+  <string id="NEW_VERSION_IS_AVAILABLE">Du bruker versjon {0}. En nyere versjon er tilgjengelig (ver. {1}), last ned fra mediaportal forumet.</string>
+  <string id="NEW_VERSION_IS_NOT_AVAILABLE">Du bruker versjon {0}. Ingen nyere versjon er tilgjengelig.</string>
   <string id="QUALITY_MENU_HEADER">Velg kvalitet</string>
   <string id="QUALITY_MENU_LOW_QUALITY">Lav kvalitet</string>
   <string id="QUALITY_MENU_MEDIUM_QUALITY">Middels kvalitet</string>

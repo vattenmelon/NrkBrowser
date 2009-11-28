@@ -149,12 +149,12 @@ namespace Vattenmelon.Nrk.Browser.Translation
 
         public static string NEW_VERSION_IS_AVAILABLE
         {
-            get { return getTranslatedFromKeyOrGetDefault("NEW_VERSION_IS_AVAILABLE", "New version available (ver. {0}), download from www.team-mediaportal.com."); }
+            get { return getTranslatedFromKeyOrGetDefault("NEW_VERSION_IS_AVAILABLE", "You are using version {0}. A newer version is available (ver. {1}), download from www.team-mediaportal.com."); }
         }
 
         public static string NEW_VERSION_IS_NOT_AVAILABLE
         {
-            get { return getTranslatedFromKeyOrGetDefault("NEW_VERSION_IS_NOT_AVAILABLE", "No newer version available."); }
+            get { return getTranslatedFromKeyOrGetDefault("NEW_VERSION_IS_NOT_AVAILABLE", "You are using version {0}. No newer version is available."); }
         }
 
         public static string QUALITY_MENU_HEADER
@@ -356,6 +356,45 @@ namespace Vattenmelon.Nrk.Browser.Translation
         {
             get { return getTranslatedFromKeyOrGetDefault("CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_TOTAL", "All time"); }
         }
-        
+
+        public static string MENU_ITEM_TITLE_NRKBETA_LATEST_CLIPS
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_NRKBETA_LATEST_CLIPS", "Latest clips"); }
+        }
+
+        public static string MENU_ITEM_TITLE_NRKBETA_TV_SERIES
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_NRKBETA_TV_SERIES", "TV-series"); }
+        }
+
+        public static string MENU_ITEM_TITLE_NRKBETA_OTHER
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_NRKBETA_OTHER", "Other"); }
+        }
+
+        public static string MENU_ITEM_TITLE_NRKBETA_PRESENTATIONS
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_NRKBETA_PRESENTATIONS", "Presentations"); }
+        }
+
+        public static string MENU_ITEM_TITLE_NRKBETA_CONFERENCES
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_NRKBETA_CONFERENCES", "Conferences"); }
+        }
+
+        public static string MENU_ITEM_TITLE_NRKBETA_FROM_TV
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_NRKBETA_FROM_TV", "From TV"); }
+        }
+
+        public static string MENU_ITEM_TITLE_NRKBETA_HD_CLIPS
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_NRKBETA_HD_CLIPS", "HD Clips"); }
+        }
+
+        public static string MENU_ITEM_TITLE_NRKBETA_SEARCH
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_NRKBETA_SEARCH", "Search"); }
+        }
     }
 }

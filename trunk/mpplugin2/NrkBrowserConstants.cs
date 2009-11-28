@@ -12,6 +12,11 @@ namespace Vattenmelon.Nrk.Browser
             get { return "nrkbeta"; }
         }
 
+        public static string MENU_ITEM_ID_NRKBETA_SEARCH
+        {
+            get { return "nrkbetasearch"; }
+        }
+
         public static string MENU_ITEM_ID_NRKBETA_SISTE_KLIPP
         {
             get { return "nrkbetasisteklipp"; }
