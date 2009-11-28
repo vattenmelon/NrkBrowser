@@ -50,17 +50,18 @@ namespace Vattenmelon.Nrk.Parser.Xml
 
         }
 
-        [Test]
-        public void GetStartTimeWhenItIsNotZero()
-        {
-            //Starttime verified to be 7 on the 11.11.2009
-            int hastighet = 500;
-            int clipId = 571135;
-            XmlKlippParser parser = new XmlKlippParser(string.Format(NrkParserConstants.URL_GET_MEDIAXML, clipId, hastighet));
-            int startTime = parser.GetStartTimeOfClip();
-            Assert.AreEqual(7, startTime);
-
-        }
+        //XXX: find a new test for this, current id doesnt exist anymore.
+//        [Test]
+//        public void GetStartTimeWhenItIsNotZero()
+//        {
+//            //Starttime verified to be 7 on the 11.11.2009
+//            int hastighet = 500;
+//            int clipId = 571135;
+//            XmlKlippParser parser = new XmlKlippParser(string.Format(NrkParserConstants.URL_GET_MEDIAXML, clipId, hastighet));
+//            int startTime = parser.GetStartTimeOfClip();
+//            Assert.AreEqual(7, startTime);
+//
+//        }
 
     }
 }
