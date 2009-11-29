@@ -20,5 +20,14 @@ namespace Vattenmelon.Nrk.Parser.Xml
             Assert.AreEqual(
                 "mms://straumod.nrk.no/disk05/Puls/2009-11-02/Puls_02_11_09_1000_569191_20091102_193000.wmv", url);
         }
+
+        [Test]
+        public void GetStartTimeWhenItIsNotZero()
+        {
+            XmlKlippParser parser = new XmlKlippParser("../../stubfiler/geturl571151.xml");
+            int startTime = parser.GetStartTimeOfClip();
+            Assert.AreEqual(480, startTime);
+
+        }
     }
 }

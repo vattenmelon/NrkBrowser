@@ -50,18 +50,18 @@ namespace Vattenmelon.Nrk.Parser.Xml
 
         }
 
-        //XXX: find a new test for this, current id doesnt exist anymore.
-//        [Test]
-//        public void GetStartTimeWhenItIsNotZero()
-//        {
-//            //Starttime verified to be 7 on the 11.11.2009
-//            int hastighet = 500;
-//            int clipId = 571135;
-//            XmlKlippParser parser = new XmlKlippParser(string.Format(NrkParserConstants.URL_GET_MEDIAXML, clipId, hastighet));
-//            int startTime = parser.GetStartTimeOfClip();
-//            Assert.AreEqual(7, startTime);
-//
-//        }
+        [Test]
+        public void GetStartTimeWhenItIsNotZero()
+        {
+            //Starttime verified to be 480 on the 29.11.2009
+            int hastighet = 500;
+            int clipId = 571151;
+            XmlKlippParser parser = new XmlKlippParser(string.Format(NrkParserConstants.URL_GET_MEDIAXML, clipId, hastighet));
+            int startTime = parser.GetStartTimeOfClip();
+            Assert.AreEqual(480, startTime);
+
+        }
+        //http://www1.nrk.no/nett-tv/silverlight/getmediaxml.ashx?id=571150, eksempel på en stream med kapitler
 
     }
 }
