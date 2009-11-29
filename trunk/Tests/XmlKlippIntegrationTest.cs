@@ -61,6 +61,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
             Assert.AreEqual(480, startTime);
 
         }
+
         //http://www1.nrk.no/nett-tv/silverlight/getmediaxml.ashx?id=571150, eksempel på en stream med kapitler
 
     }

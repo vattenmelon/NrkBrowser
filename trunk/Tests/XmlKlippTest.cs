@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Xml;
 using NUnit.Framework;
+using Vattenmelon.Nrk.Domain;
 
 namespace Vattenmelon.Nrk.Parser.Xml
 {
@@ -27,6 +29,21 @@ namespace Vattenmelon.Nrk.Parser.Xml
             XmlKlippParser parser = new XmlKlippParser("../../stubfiler/geturl571151.xml");
             int startTime = parser.GetStartTimeOfClip();
             Assert.AreEqual(480, startTime);
+
+        }
+
+        [Test]
+        public void GetChapters()
+        {
+            XmlKlippParser parser = new XmlKlippParser("../../stubfiler/getklippurlmedkapitler.xml");
+            List<Clip> chapters = parser.GetChapters();
+            Assert.AreEqual(3, chapters.Count);
+            foreach (Clip clip in chapters)
+            {
+                Console.WriteLine("id...: " + clip.ID);
+                Console.WriteLine("title: " + clip.Title);
+                Console.WriteLine("start: " + clip.StartTime);
+            }
 
         }
     }
