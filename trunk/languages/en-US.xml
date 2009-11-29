@@ -60,5 +60,13 @@
   <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_WEEK">Last week</string>
   <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_MONTH">Last month</string>
   <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_TOTAL">All time</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_LATEST_CLIPS">Latest clips</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_TV_SERIES">TV-series</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_OTHER">Other</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_PRESENTATIONS">Presentations</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_CONFERENCES">Conferences</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_FROM_TV">From TV</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_HD_CLIPS">HD Clips</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_SEARCH">Search</string>
   <string id="FOR_UNIT_TESTING">Engelsk</string>
 </strings>

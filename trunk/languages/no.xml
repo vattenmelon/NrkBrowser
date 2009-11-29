@@ -60,5 +60,13 @@
   <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_WEEK">Siste uke</string>
   <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_MONTH">Siste måned</string>
   <string id="CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_TOTAL">Totalt</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_LATEST_CLIPS">Siste klipp</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_TV_SERIES">TV-serier</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_OTHER">Diverse</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_PRESENTATIONS">Presentasjoner</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_CONFERENCES">Konferanser og messer</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_FROM_TV">Fra TV</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_HD_CLIPS">HD Klipp</string>
+  <string id="MENU_ITEM_TITLE_NRKBETA_SEARCH">Søk</string>
   <string id="FOR_UNIT_TESTING">Norsk</string>
 </strings>
