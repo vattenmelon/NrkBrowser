@@ -16,7 +16,8 @@ namespace Vattenmelon.Nrk.Domain
             RSS = 2,
             INDEX = 3,
             DIREKTE = 4,
-            NRKBETA = 5
+            NRKBETA = 5,
+            KLIPP_CHAPTER = 6
         }
 
         private string verdiLink = string.Empty;

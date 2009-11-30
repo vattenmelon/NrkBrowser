@@ -39,10 +39,25 @@ namespace Vattenmelon.Nrk.Parser.Xml
             {
                 Clip clip = new Clip(clipUrl, xmlNode["title"].InnerText);
                 clip.StartTime = Double.Parse(xmlNode["timeindex"].InnerText);
-                clip.Type = Clip.KlippType.NRKBETA; //XXX: ikke spesielt bra å bruke denne typen her..burde vært en generell klipptype for "ferdig-parsede" url'er.
+                PuttPaaBilde(clip, xmlNode);
+                clip.Type = Clip.KlippType.KLIPP_CHAPTER;
                 clips.Add(clip);
             }
             return clips;
+        }
+
+        private void PuttPaaBilde(Clip clip, XmlNode xmlNode)
+        {
+            string kapitelletsBilde = xmlNode["imageurl"].InnerText;
+            string klippetsBilde = doc.SelectSingleNode("//mediadefinition/mediaitems/mediaitem/imageurl").InnerText;
+            if (kapitelletsBilde == String.Empty && klippetsBilde != String.Empty)
+            {
+                clip.Bilde = klippetsBilde;
+            }
+            else if (kapitelletsBilde != String.Empty)
+            {
+                clip.Bilde = kapitelletsBilde;
+            }
         }
     }
 }

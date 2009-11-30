@@ -401,7 +401,7 @@ namespace Vattenmelon.Nrk.Parser
         {
             Log.Debug("{0}: GetClipUrl(Clip): {1}", NrkParserConstants.LIBRARY_NAME, clip);
 
-            if (clip.Type == Clip.KlippType.KLIPP)
+            if (clip.Type == Clip.KlippType.KLIPP || clip.Type == Clip.KlippType.KLIPP_CHAPTER)
             {
                 return GetClipUrlAndPutStartTimeForKlipp(clip);
             }
@@ -619,6 +619,12 @@ namespace Vattenmelon.Nrk.Parser
             Uke,
             Maned,
             Totalt
+        }
+
+        public List<Clip> getChapters(Clip item)
+        {
+            XmlKlippParser xmlKlippParser = new XmlKlippParser(string.Format(NrkParserConstants.URL_GET_MEDIAXML, item.ID, Speed));
+            return xmlKlippParser.GetChapters();
         }
     }
 

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
+using Vattenmelon.Nrk.Domain;
 
 namespace Vattenmelon.Nrk.Parser.Xml
 {
@@ -62,7 +64,27 @@ namespace Vattenmelon.Nrk.Parser.Xml
 
         }
 
-        //http://www1.nrk.no/nett-tv/silverlight/getmediaxml.ashx?id=571150, eksempel på en stream med kapitler
+        [Test]
+        public void GetChapters()
+        {
+            //http://www1.nrk.no/nett-tv/silverlight/getmediaxml.ashx?id=571150, eksempel på en stream med kapitler
+            int hastighet = 350;
+            int clipId = 571150;
+            XmlKlippParser parser = new XmlKlippParser(string.Format(NrkParserConstants.URL_GET_MEDIAXML, clipId, hastighet));
+            List<Clip> chapters = parser.GetChapters();
+            Assert.AreEqual(3, chapters.Count);
+            foreach (Clip clip in chapters)
+            {
+                Assert.IsNotEmpty(clip.ID, "Id skal ikke være blank");
+                Assert.IsNotEmpty(clip.Title, "Title skal ikke være blank");
+                Assert.IsNotEmpty(clip.Bilde);
+                //                Console.WriteLine("id...: " + clip.ID);
+                //                Console.WriteLine("title: " + clip.Title);
+                //                Console.WriteLine("start: " + clip.StartTime);
+                //                Console.WriteLine("desc.: " + clip.Description);
+                //                Console.WriteLine("bilde: " + clip.Bilde);
+            }
 
+        }
     }
 }

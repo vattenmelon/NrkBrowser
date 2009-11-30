@@ -40,9 +40,14 @@ namespace Vattenmelon.Nrk.Parser.Xml
             Assert.AreEqual(3, chapters.Count);
             foreach (Clip clip in chapters)
             {
-                Console.WriteLine("id...: " + clip.ID);
-                Console.WriteLine("title: " + clip.Title);
-                Console.WriteLine("start: " + clip.StartTime);
+                Assert.IsNotEmpty(clip.ID, "Id skal ikke være blank");
+                Assert.IsNotEmpty(clip.Title, "Title skal ikke være blank");
+                Assert.IsNotEmpty(clip.Bilde);
+//                Console.WriteLine("id...: " + clip.ID);
+//                Console.WriteLine("title: " + clip.Title);
+//                Console.WriteLine("start: " + clip.StartTime);
+//                Console.WriteLine("desc.: " + clip.Description);
+//                Console.WriteLine("bilde: " + clip.Bilde);
             }
 
         }

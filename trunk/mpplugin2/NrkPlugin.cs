@@ -402,10 +402,10 @@ namespace Vattenmelon.Nrk.Browser
             base.OnClicked(controlId, control, actionType);
         }
 
-        protected void UpdateList(List<Item> newitems)
+        protected void UpdateList<T>(List<T> newitems) where T:Item
         {
             this.facadeView.Clear();
-            foreach (Item item in newitems)
+            foreach (T item in newitems)
             {
                 GUIListItem listitem = new GUIListItem(item.Title);
 
@@ -868,6 +868,17 @@ namespace Vattenmelon.Nrk.Browser
         protected void PlayClip(Clip item)
         {
             Log.Info(string.Format("{0} PlayClip {1}", NrkBrowserConstants.PLUGIN_NAME, item));
+            if (item.Type == Clip.KlippType.KLIPP)
+            {
+                List<Clip> chapters = nrkParser.getChapters(item);
+                if (chapters.Count > 0)
+                {
+                    item.Type = Clip.KlippType.KLIPP_CHAPTER; //et stygt lite hakk for å unngå evig løkke når man klikker på klippet
+                    chapters.Insert(0, item);
+                    UpdateList(chapters);
+                    return;
+                }
+            }
             string url = nrkParser.GetClipUrl(item);
             if (url == null)
             {
