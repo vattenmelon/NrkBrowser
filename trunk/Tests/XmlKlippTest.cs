@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Xml;
 using NUnit.Framework;
 using Vattenmelon.Nrk.Domain;
 
