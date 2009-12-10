@@ -197,7 +197,7 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.IsNotNull(c.Title);
                 //                try
                 //                {
-                //                    Console.WriteLine(c.Type + "link: c " + c.ID + " " + nrkParser.GetClipUrl(c));
+                //                    Console.WriteLine(c.Type + "link: c " + c.ID + " " + nrkParser.GetClipUrlAndPutStartTime(c));
                 //                }
                 //                catch(Exception e)
                 //                {
@@ -274,7 +274,7 @@ namespace Vattenmelon.Nrk.Parser
             //                Console.WriteLine("Type...............: " + c.Type);
             //                Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
             //                Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
-            //String videoLink = nrkParser.GetClipUrl(c);
+            //String videoLink = nrkParser.GetClipUrlAndPutStartTime(c);
             //Console.WriteLine("Videostream........: " + videoLink);
             Assert.IsNotEmpty(c.Title);
             Assert.IsNotEmpty(c.ID);

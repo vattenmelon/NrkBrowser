@@ -397,13 +397,17 @@ namespace Vattenmelon.Nrk.Parser
             return clips;
         }
 
-        public string GetClipUrl(Clip clip)
+        public string GetClipUrlAndPutStartTime(Clip clip)
         {
-            Log.Debug("{0}: GetClipUrl(Clip): {1}", NrkParserConstants.LIBRARY_NAME, clip);
+            Log.Debug("{0}: GetClipUrlAndPutStartTime(Clip): {1}", NrkParserConstants.LIBRARY_NAME, clip);
 
-            if (clip.Type == Clip.KlippType.KLIPP || clip.Type == Clip.KlippType.KLIPP_CHAPTER)
+            if (clip.Type == Clip.KlippType.KLIPP)
             {
                 return GetClipUrlAndPutStartTimeForKlipp(clip);
+            }
+            else if (clip.Type == Clip.KlippType.KLIPP_CHAPTER)
+            {
+                return clip.ID;
             }
             else if (clip.Type == Clip.KlippType.DIREKTE)
             {
@@ -586,6 +590,7 @@ namespace Vattenmelon.Nrk.Parser
         {
             Log.Info(string.Format("{0}: GetMestSetteGeneric :{1}, {2}", NrkParserConstants.LIBRARY_NAME, url, dataToPost));
             String data = httpClient.PostUrl(url, dataToPost);
+            Console.WriteLine(data);
             Regex query =
                     new Regex(
                         "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?/></a></div><div class=\"active\"><h2><a href=\"(.*?)\">(.*?)</a></h2><p><a.*?><span.*?>(.*?) visninger</span><span>(.*?)</span></a>",

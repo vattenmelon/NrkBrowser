@@ -133,7 +133,7 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
-                //String directLink = nrkParser.GetClipUrl(c);
+                //String directLink = nrkParser.GetClipUrlAndPutStartTime(c);
                 //isMMSVideoStream(directLink);
                 Assert.IsNotEmpty(c.ID, "ID'en kan ikke være null");
                 Assert.IsNotNull(c.TilhoerendeProsjekt, "Tilhørende prosjekt skal være satt");
@@ -231,14 +231,14 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.IsNotNull(item.ID);
                 Assert.IsNotNull(item.Title);
             }
-            Assert.AreEqual(6, liste.Count, "Skal være seks oppførsler i lista"); 
+            Assert.AreEqual(5, liste.Count, "Skal være seks oppførsler i lista"); 
             //verifisert at "super" endret seg ca 31. oktober 09 og at den nye linken går til en flashbasert side, ala p3tv tabben.
 
         }
         [Test]
         public void TestGetTopTabs()
         {
-            List<Item> liste = nrkParser.GetTopTabContent("valg");
+            List<Item> liste = nrkParser.GetTopTabContent("natur");
             Assert.IsNotEmpty(liste);
 
             foreach (Item item in liste)
@@ -249,7 +249,7 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.IsNotNull(c.Title);
 //                try
 //                {
-//                    Console.WriteLine(c.Type + "link: c " + c.ID + " " + nrkParser.GetClipUrl(c));
+//                    Console.WriteLine(c.Type + "link: c " + c.ID + " " + nrkParser.GetClipUrlAndPutStartTime(c));
 //                }
 //                catch(Exception e)
 //                {
@@ -264,7 +264,7 @@ namespace Vattenmelon.Nrk.Parser
         {
             Clip c = new Clip("109378", "finnesikke");
             c.Type = Clip.KlippType.VERDI;
-            String klippUrl = nrkParser.GetClipUrl(c);
+            String klippUrl = nrkParser.GetClipUrlAndPutStartTime(c);
             Assert.IsNull(klippUrl, "Verifisert at Nrk ikke finner videoen 2009-11-16");
         }
         [Test]
@@ -274,7 +274,7 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
-                string clipUrl = nrkParser.GetClipUrl(c);
+                string clipUrl = nrkParser.GetClipUrlAndPutStartTime(c);
                 //Console.WriteLine(c.Title + ", " + c.ID);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
@@ -296,7 +296,7 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
-                string clipUrl = nrkParser.GetClipUrl(c);
+                string clipUrl = nrkParser.GetClipUrlAndPutStartTime(c);
                 //Console.WriteLine(c.Title + ", " + c.ID);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
@@ -311,7 +311,7 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Item item in liste)
             {
                 Clip c = (Clip) item;
-                string clipUrl = nrkParser.GetClipUrl(c);
+                string clipUrl = nrkParser.GetClipUrlAndPutStartTime(c);
                 Assert.IsNotEmpty(clipUrl, "Klipp-url kan ikke være empty");
                 Assert.IsNotNull(clipUrl, "Klipp-url kan ikke være null");
                 Assert.IsTrue(clipUrl.ToLower().StartsWith(NrkParserConstants.RSS_CLIPURL_PREFIX));
@@ -364,7 +364,7 @@ namespace Vattenmelon.Nrk.Parser
             List<Item> liste = nrkParser.GetSearchHits("Nytt liv for Commodore 64", 0);
             Assert.AreEqual(1, liste.Count);
             Clip c = (Clip) liste[0];
-            String klippUrl = nrkParser.GetClipUrl(c);
+            String klippUrl = nrkParser.GetClipUrlAndPutStartTime(c);
             string expectedUrl = "mms://straumod.nrk.no/disk03/Lydverket/2008-04-16/Lydverket_16_04_08_1000_358373_20080416_231000.wmv";
             Assert.AreEqual(
                 expectedUrl,
@@ -400,7 +400,7 @@ namespace Vattenmelon.Nrk.Parser
 //                Console.WriteLine("Type...............: " + c.Type);
 //                Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
 //                Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
-                //String videoLink = nrkParser.GetClipUrl(c);
+                //String videoLink = nrkParser.GetClipUrlAndPutStartTime(c);
                 //Console.WriteLine("Videostream........: " + videoLink);
                // Console.WriteLine("--------------------------------------------");
             Assert.IsNotEmpty(c.Title);

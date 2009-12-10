@@ -265,11 +265,12 @@ namespace Vattenmelon.Nrk.Browser
                     UpdateList(matchingItems);
                     return;
                 }
-                Item lAct = activeStack.Pop();
+                Item sisteAktiveKlipp = activeStack.Pop();
                 Activate(activeStack.Pop());
-                setItemAsSelectedItemInListView(lAct);
+                setItemAsSelectedItemInListView(sisteAktiveKlipp);
             }
         }
+
 
         protected override void OnPreviousWindow()
         {
@@ -289,7 +290,12 @@ namespace Vattenmelon.Nrk.Browser
                     UpdateList(matchingItems);
                     return;
                 }
-                Activate(activeStack.Pop());
+                lAct = activeStack.Pop();
+                if (lAct is Clip)
+                {
+                    lAct = activeStack.Pop();
+                }
+                Activate(lAct);
             }
             else
             {
@@ -874,12 +880,13 @@ namespace Vattenmelon.Nrk.Browser
                 if (chapters.Count > 0)
                 {
                     item.Type = Clip.KlippType.KLIPP_CHAPTER; //et stygt lite hakk for å unngå evig løkke når man klikker på klippet
+                    item.ID = chapters[0].ID; //også en ikke spesielt pen måte..url til "hovedklipp" vil være samme som til andre
                     chapters.Insert(0, item);
                     UpdateList(chapters);
                     return;
                 }
             }
-            string url = nrkParser.GetClipUrl(item);
+            string url = nrkParser.GetClipUrlAndPutStartTime(item);
             if (url == null)
             {
                 ShowMessageBox(NrkTranslatableStrings.PLAYBACK_FAILED_URL_WAS_NULL);
@@ -1059,7 +1066,7 @@ namespace Vattenmelon.Nrk.Browser
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
                 playOk = g_Player.PlayVideoStream(url, title);
-                if (startTime < NrkBrowserConstants.MINIMUM_TIME_BEFORE_SEEK)
+                if (startTime > NrkBrowserConstants.MINIMUM_TIME_BEFORE_SEEK)
                 {
                     g_Player.SeekAbsolute(startTime);
                 }
@@ -1067,7 +1074,7 @@ namespace Vattenmelon.Nrk.Browser
             else
             {
                 playOk = g_Player.PlayAudioStream(url, false);
-                if (startTime < NrkBrowserConstants.MINIMUM_TIME_BEFORE_SEEK)
+                if (startTime > NrkBrowserConstants.MINIMUM_TIME_BEFORE_SEEK)
                 {
                     g_Player.SeekAbsolute(startTime);
                 }

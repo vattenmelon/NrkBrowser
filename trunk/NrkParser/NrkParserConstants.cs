@@ -59,9 +59,10 @@ namespace Vattenmelon.Nrk.Parser
         {
             get { return "?=&__EVENTARGUMENT=&__EVENTTARGET=ctl00%24contentPlaceHolder%24asyncPBTrigger_loop_ms{0}&__VIEWSTATE={1}contentPlaceHolder%24asyncPBparent=&ctl00%24contentPlaceHolder%24asyncPBstory=&ctl00%24contentPlaceHolder%24asyncPBtitle=&ctl00%24contentPlaceHolder%24mainCat={2}&ctl00%24contentPlaceHolder%24nowPlaying=&ctl00%24contentPlaceHolder%24subCat=&ctl00%24scriptManager1=ctl00%24contentPlaceHolder%24loopPanel%7Cctl00%24contentPlaceHolder%24asyncPBTrigger_loop_ms{3}&ctl00%24ucTop%24userSearch="; }
         }
+       
         public static string MOST_WATCHED_VIEWSTATE
         {
-            get { return "%2FwEPDwULLTE1MzY4Nzg0MjgPZBYCZg9kFgICARBkZBYCAgcPZBYEAgUPZBYCAgIPZBYEAgEPFgIeB1Zpc2libGVnZAIDD2QWAgIBD2QWAmYPZBYCAgEPEGRkFgFmZAITDxYCHghJbnRlcnZhbAKg9zZkZK%2BW3BUTIoBRgR%2BZmbNcBkpGpGFk&ctl00%24"; }
+            get { return "%2FwEPDwULLTIxMzkzNTA3MjUPZBYCZg9kFgICARBkZBYCAgcPZBYEAgUPZBYCAgIPZBYEAgEPFgIeB1Zpc2libGVnZAIDD2QWAgIBD2QWAmYPZBYCAgEPEGRkFgFmZAIXDxYCHghJbnRlcnZhbAKg9zZkZEWTMLTSwpx%2B2iwZfWAa8UkN0Uml&ctl00%24"; }
         }
 
         public static string NRK_BETA_FEEDS_URL
