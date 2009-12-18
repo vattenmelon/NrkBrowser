@@ -97,18 +97,17 @@ namespace Vattenmelon.Nrk.Parser
 
             Regex query =
                 new Regex(
-                    "<div class=\"img-left\" style=\"width: 100px;\">.*?<a href=\".*?\" title=\".*?\"><img src=\"(.*?)\" width=\"100\" height=\"57\" alt=\".*?\" title=\".*?\".*?></a>.*?</div>.*?<div class=\"intro-element-content\"><h2><a href=\"/nett-tv/klipp/(.*?)\" title=\"(.*?)\">(.*?)</a></h2>.*?<a href=\"/nett-tv/prosjekt/(.*?)\">",
-                    RegexOptions.Singleline);
+                    "<div class=\"img-left\" style=\"width: 100px;\">.*?<a href=\"[^\"]*\" title=\".*?\"><img src=\"(?<imgsrc>[^\"]*)\" width=\"100\" height=\"57\" alt=\".*?\" title=\".*?\".*?></a>.*?</div>.*?<div class=\"intro-element-content\"><h2><a href=\"/nett-tv/klipp/(?<id>[^\"]*)\" title=\"(?<desc>[^\"]*)\">(?<title>[^<]*)</a></h2>.*?<a href=\"/nett-tv/prosjekt/(?<prosjekt>[^\"]*)\">",
+                    RegexOptions.Compiled | RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
-
             Log.Info(NrkParserConstants.LIBRARY_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
-                Clip c = new Clip(x.Groups[2].Value, x.Groups[4].Value);
-                c.TilhoerendeProsjekt = Int32.Parse(x.Groups[5].Value);
-                c.Description = x.Groups[3].Value;
-                c.Bilde = x.Groups[1].Value;
+                Clip c = new Clip(x.Groups["id"].Value, x.Groups["title"].Value);
+                c.TilhoerendeProsjekt = Int32.Parse(x.Groups["prosjekt"].Value);
+                c.Description = x.Groups["desc"].Value;
+                c.Bilde = x.Groups["imgsrc"].Value;
                 clips.Add(c);
             }
 

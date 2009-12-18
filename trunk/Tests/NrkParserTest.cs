@@ -92,7 +92,7 @@ namespace Vattenmelon.Nrk.Parser
         {
             List<Item> liste = nrkParser.GetAnbefaltePaaForsiden();
             Assert.IsNotNull(liste);
-            Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
+            Assert.AreEqual(45, liste.Count, "Skal være 45 oppførsler i lista");
             foreach (Item item in liste)
             {
                 Clip c = (Clip)item;
@@ -104,6 +104,8 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
                 Assert.AreEqual(Clip.KlippType.KLIPP, c.Type, "Skal være av typen KLIPP");
                 Assert.IsEmpty(c.VerdiLink, "Klipp fra forsiden er ikke verdilinker");
+                Console.WriteLine(c.ID);
+                Console.WriteLine(c.Title);
             }
         }
 
@@ -291,6 +293,7 @@ namespace Vattenmelon.Nrk.Parser
             //                erHttpLink(videoLink);
             //            }
         }
+
     }
 
 }

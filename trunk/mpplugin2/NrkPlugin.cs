@@ -410,7 +410,7 @@ namespace Vattenmelon.Nrk.Browser
 
         protected void UpdateList<T>(List<T> newitems) where T:Item
         {
-            this.facadeView.Clear();
+            facadeView.Clear();
             foreach (T item in newitems)
             {
                 GUIListItem listitem = new GUIListItem(item.Title);
@@ -426,7 +426,7 @@ namespace Vattenmelon.Nrk.Browser
                     listitem.IconImage = GUIGraphicsContext.Skin + @"\media\defaultFolder.png";
                     listitem.IconImageBig = GUIGraphicsContext.Skin + @"\media\DefaultFolderBig.png";
                 }
-                this.facadeView.Add(listitem);
+                facadeView.Add(listitem);
             }
         }
 
