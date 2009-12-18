@@ -79,12 +79,12 @@ namespace Vattenmelon.Nrk.Parser
         {
             List<Item> categories = new List<Item>();
             string data = FetchUrl(MAIN_URL);   
-            Regex query = new Regex("<a href=\"/nett-tv/tema/(\\w*).*?>(.*?)</a>");
+            Regex query = new Regex("<a href=\"/nett-tv/tema/(?<id>\\w*).*?>(?<kategori>[^<]*)</a>");
             MatchCollection result = query.Matches(data);
 
             foreach (Match x in result)
             {
-              categories.Add(new Category(x.Groups[1].Value, x.Groups[2].Value));
+              categories.Add(new Category(x.Groups["id"].Value, x.Groups["kategori"].Value));
             }
             return categories;
         }

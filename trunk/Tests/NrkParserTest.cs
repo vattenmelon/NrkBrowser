@@ -104,8 +104,20 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.IsTrue(c.Playable, "Klipp må være playable");
                 Assert.AreEqual(Clip.KlippType.KLIPP, c.Type, "Skal være av typen KLIPP");
                 Assert.IsEmpty(c.VerdiLink, "Klipp fra forsiden er ikke verdilinker");
-                Console.WriteLine(c.ID);
-                Console.WriteLine(c.Title);
+                Assert.IsTrue(erJpgFilBortsettFraDenEne(c));
+            }
+        }
+
+        /*Is only stubbed unit test */
+        private bool erJpgFilBortsettFraDenEne(Clip c)
+        {
+            if (c.Bilde.Equals("http://fil.nrk.no/contentfile/imagecrop/1.6180984.1219045814"))
+            {
+                return true;
+            }
+            else
+            {
+                return c.Bilde.EndsWith(".jpg");
             }
         }
 
