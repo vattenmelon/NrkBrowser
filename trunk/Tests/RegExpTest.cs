@@ -8,7 +8,7 @@ using Vattenmelon.Nrk.Parser;
 namespace Tests
 {
     [TestFixture]
-    [Category("Unit Tests")]
+    [Category("Test-Tests")]
     public class RegExpTest
     {
         [Test]
