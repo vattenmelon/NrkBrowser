@@ -141,6 +141,7 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.IsTrue(erEntenKlippEllerIndexType(c), "Klipp skal være enten av type Klipp eller Index");
                 Assert.IsNotEmpty(c.AntallGangerVist, "Antall ganger vist skal være satt");
                 Assert.IsEmpty(c.VerdiLink, "Klipp fra mest sette er ikke verdilinker");
+                Assert.AreEqual(Clip.KlippType.KLIPP, c.Type);
             }
         }
         //TODO: duplicate test code

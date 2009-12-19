@@ -291,10 +291,10 @@ namespace Vattenmelon.Nrk.Browser
                     return;
                 }
                 lAct = activeStack.Pop();
-                if (lAct is Clip)
+                /*if (lAct is Clip)
                 {
                     lAct = activeStack.Pop();
-                }
+                }*/
                 Activate(lAct);
             }
             else
@@ -520,8 +520,6 @@ namespace Vattenmelon.Nrk.Browser
                 return;
             }
 
-            activeStack.Push(item);
-
             if (item is Clip)
             {
                 PlayClip((Clip) item);
@@ -530,7 +528,10 @@ namespace Vattenmelon.Nrk.Browser
             {
                 PlayStream((Stream) item);
             }
-            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_FAVOURITES)
+
+            activeStack.Push(item);
+            
+            if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_FAVOURITES)
             {
                 FillStackWithFavourites();
             }

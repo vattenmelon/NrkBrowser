@@ -124,7 +124,7 @@ namespace Vattenmelon.Nrk.Parser
             //2009-11-23:  "<a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\">.*?</a></h2><keyword><a href=\".*?/nett-tv/(.*?)/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></keyword>",
             Regex query =
                 new Regex(
-                    "<a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\">.*?</a></h2><p><a href=\".*?/nett-tv/(.*?)/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></p>",
+                    "<a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\"><img src=\"(?<imgsrc>[^\"]*)\" .*? /></a></div><h2><a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\">.*?</a></h2><p><a href=\".*?/nett-tv/(?<type>[^/]*)/(?<id>[^\"]*)\" title=\"(?<title>[^\"]*)\">Vist (?<antallvist>[^ganger]*) ganger.</a></p>",
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
@@ -132,11 +132,11 @@ namespace Vattenmelon.Nrk.Parser
             Log.Info(NrkParserConstants.LIBRARY_NAME + ": Matches {0}", matches.Count);
             foreach (Match x in matches)
             {
-                Clip c = new Clip(x.Groups[3].Value, x.Groups[4].Value);
-                c.AntallGangerVist = x.Groups[5].Value;
+                Clip c = new Clip(x.Groups["id"].Value, x.Groups["title"].Value);
+                c.AntallGangerVist = x.Groups["antallvist"].Value;
                 c.Description = c.AntallGangerVist;
-                c.Bilde = x.Groups[1].Value;
-                if (x.Groups[2].Value.Trim().ToLower().Equals("indeks"))
+                c.Bilde = x.Groups["imgsrc"].Value;
+                if (x.Groups["type"].Value.Trim().ToLower().Equals("indeks"))
                 {
                     c.Type = Clip.KlippType.INDEX;
                 }
