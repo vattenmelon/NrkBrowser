@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-//using MediaPortal.ServiceImplementations;
 using Vattenmelon.Nrk.Domain;
 
 namespace Vattenmelon.Nrk.Parser
