@@ -268,33 +268,33 @@ namespace Vattenmelon.Nrk.Parser
 
             data = FetchUrl(CATEGORY_URL + category.ID);
             Regex queryBilder =
-                new Regex("<a href=\"/nett-tv/prosjekt/(.*?)\" id=\".*?\" title=\"(.*?)\".*?>\\s+<img src=\"(.*?)\" id=");
+                new Regex("<a href=\"/nett-tv/prosjekt/.*?\" id=\".*?\" title=\".*?\".*?>\\s+<img src=\"(?<imgsrc>[^\"]*)\" id=");
             MatchCollection matchesBilder = queryBilder.Matches(data);
             List<string> bilder = new List<string>();
             foreach (Match x in matchesBilder)
             {
-                bilder.Add(x.Groups[3].Value);
+                bilder.Add(x.Groups["imgsrc"].Value);
             }
 
             Regex query =
                 new Regex(
-                    "<a href=\"/nett-tv/prosjekt/(.*?)\" id=\".*ClipLink\" title=\"(.*?)\".*? onclick=\".*?\">(.*?)</a>");
+                    "<a href=\"/nett-tv/prosjekt/(?<id>[^\"]*)\" id=\".*ClipLink\" title=\".*?\".*? onclick=\".*?\">(?<title>[^<]*)</a>");
             MatchCollection matches = query.Matches(data);
             List<Item> programs = new List<Item>();
             int bildeTeller = 0;
             foreach (Match x in matches)
             {
-                programs.Add(new Program(x.Groups[1].Value, x.Groups[3].Value, "", bilder[bildeTeller]));
+                programs.Add(new Program(x.Groups["id"].Value, x.Groups["title"].Value, "", bilder[bildeTeller]));
                 bildeTeller++;
             }
 
             Regex query2 =
-                new Regex("<a href=\"/nett-tv/prosjekt/(.*?)\" id=\".*ClipTitle\" title=\"(.*?)\".*?>(.*?)</a>");
+                new Regex("<a href=\"/nett-tv/prosjekt/.*?\" id=\".*ClipTitle\" title=\".*?\".*?>(?<desc>[^<]*)</a>");
             MatchCollection matches2 = query2.Matches(data);
             int teller = 0;
             foreach (Match x in matches2)
             {
-                programs[teller].Description = x.Groups[3].Value;
+                programs[teller].Description = x.Groups["desc"].Value;
                 teller++;
             }
             return programs;
@@ -463,7 +463,7 @@ namespace Vattenmelon.Nrk.Parser
             //Usikker på en del av logikken for å hente ut url her. Ikke sikker på hvorfor
             //det var en try/catch
             //skip any advertisement
-            String urlToReturn = String.Empty;
+            String urlToReturn;
             try
             {
                 urlToReturn = movie_url[1].Groups[1].Value;

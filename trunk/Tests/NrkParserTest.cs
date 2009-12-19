@@ -242,6 +242,7 @@ namespace Vattenmelon.Nrk.Parser
                         Assert.IsNotNull(p.ID, "ID skal ikke være null på et program");
                         Assert.IsNotNull(p.Title, "Title skal ikke være null på et program");
                         Assert.IsNotNull(p.Bilde, "Bilde skal ikke være null på et program");
+                        Assert.IsTrue(p.Bilde.StartsWith("http://fil.nrk.no/contentfile"));
                         Assert.IsNotNull(p.Description, "Beskrivelse skal ikke være null på et program");
                         Assert.IsFalse(p.Playable, "Et program skal ikke være playable");
                     }

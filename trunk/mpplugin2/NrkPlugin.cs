@@ -19,6 +19,7 @@ using MediaPortal.Player;
 using MediaPortal.Playlists;
 using MediaPortal.Profile;
 using Vattenmelon.Nrk.Browser.Db;
+using Vattenmelon.Nrk.Browser.Domain;
 using Vattenmelon.Nrk.Browser.Translation;
 using Vattenmelon.Nrk.Parser;
 using Vattenmelon.Nrk.Domain;
@@ -265,9 +266,11 @@ namespace Vattenmelon.Nrk.Browser
                     UpdateList(matchingItems);
                     return;
                 }
-                Item sisteAktiveKlipp = activeStack.Pop();
-                Activate(activeStack.Pop());
-                setItemAsSelectedItemInListView(sisteAktiveKlipp);
+                
+                Item sisteAktiveItem = activeStack.Pop();
+                //Activate(activeStack.Pop());
+                Activate(sisteAktiveItem);
+                setItemAsSelectedItemInListView(sisteAktiveItem);
             }
         }
 
@@ -408,9 +411,16 @@ namespace Vattenmelon.Nrk.Browser
             base.OnClicked(controlId, control, actionType);
         }
 
-        protected void UpdateList<T>(List<T> newitems) where T:Item
+        protected void UpdateList<T>(List<T> newitems, Boolean addBackItem) where T : Item
         {
             facadeView.Clear();
+            if (addBackItem)
+            {
+                GUIListItem backItem = new GUIListItem("..");
+                BackMenuItem backMenuItem = new BackMenuItem("back", "..");
+                backItem.TVTag = backMenuItem;
+                facadeView.Add(backItem);
+            }
             foreach (T item in newitems)
             {
                 GUIListItem listitem = new GUIListItem(item.Title);
@@ -428,6 +438,11 @@ namespace Vattenmelon.Nrk.Browser
                 }
                 facadeView.Add(listitem);
             }
+        }
+
+        protected void UpdateList<T>(List<T> newitems) where T:Item
+        {
+            UpdateList(newitems, true);
         }
 
         protected void ItemSelected()
@@ -516,8 +531,13 @@ namespace Vattenmelon.Nrk.Browser
 
             if (item == null)
             {
-                UpdateList(CreateInitialMenuItems());
+                UpdateList(CreateInitialMenuItems(), false);
                 return;
+            }
+
+            if (!(item is Clip) && !(item is Stream) && !(item is BackMenuItem))
+            {
+                activeStack.Push(item);   
             }
 
             if (item is Clip)
@@ -528,10 +548,25 @@ namespace Vattenmelon.Nrk.Browser
             {
                 PlayStream((Stream) item);
             }
-
-            activeStack.Push(item);
-            
-            if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_FAVOURITES)
+            else if (item is BackMenuItem)
+            {
+                Log.Info("item is: " + item);
+                    
+                Item itemToPop = activeStack.Pop();
+                Log.Debug("poppa: " + itemToPop);
+                if (activeStack.Count > 0)
+                {
+                    Item itemToActivate = activeStack.Pop();
+                    Log.Debug("to activate: " + itemToActivate);
+                    Activate(itemToActivate);
+                    setItemAsSelectedItemInListView(itemToActivate);
+                }
+                else
+                {
+                    UpdateList(CreateInitialMenuItems(), false);
+                }
+            }
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_FAVOURITES)
             {
                 FillStackWithFavourites();
             }
