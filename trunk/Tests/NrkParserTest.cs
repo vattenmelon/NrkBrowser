@@ -190,6 +190,7 @@ namespace Vattenmelon.Nrk.Parser
             Assert.IsNotEmpty(liste);
             foreach (Item item in liste)
             {
+                Assert.IsTrue(item.Title.Equals("Direkte") || item.Title.Equals("Nyheter") || item.Title.Equals("Sport") || item.Title.Equals("Valget") || item.Title.Equals("Distrikt") || item.Title.Equals("Natur"));
                 Assert.IsNotNull(item.ID);
                 Assert.IsNotNull(item.Title);
             }
