@@ -775,6 +775,7 @@ namespace Vattenmelon.Nrk.Browser
             items.Add(mestSett);
 
             MenuItem nrkBeta = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA);
+            nrkBeta.Bilde = PICTURE_DIR + NrkBrowserConstants.MENU_ITEM_PICTURE_NRKBETA;
             items.Add(nrkBeta);
 
             MenuItem nyheter = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NYHETER, NrkTranslatableStrings.MENU_ITEM_TITLE_NEWS);

@@ -183,6 +183,11 @@ namespace Vattenmelon.Nrk.Browser
             get { return "nrklogo.jpg"; }
         }
 
+        public static string NRKBETA_LOGO_PICTURE
+        {
+            get { return "nrkbeta.png"; }
+        }
+
         public static string DEFAULT_PICTURE
         {
             get { return "http://fil.nrk.no/contentfile/web/bgimages/special/nettv/bakgrunn_nett_tv.jpg"; }

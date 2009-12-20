@@ -396,5 +396,10 @@ namespace Vattenmelon.Nrk.Browser.Translation
         {
             get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_NRKBETA_SEARCH", "Search"); }
         }
+
+        public static string MENU_ITEM_DESCRIPTON_NRKBETA
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_DESCRIPTON_NRKBETA", "NRKs sandbox for technology and new media"); }
+        }
     }
 }
