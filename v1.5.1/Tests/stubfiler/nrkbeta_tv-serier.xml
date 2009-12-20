@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="no">
+  <title>NRKbeta VIDEO kategorifeed</title>
+  <link href="http://video.nrkbeta.no/tv-serier/" rel="alternate">
+  </link>
+  <link href="http://video.nrkbeta.no/feeds/kategori/tv-serier/" rel="self">
+  </link>
+  <id>http://video.nrkbeta.no/tv-serier/</id>
+  <updated>2009-11-26T19:58:17Z</updated>
+  <subtitle>Nylige videoer fra kategorien TV-Serier</subtitle>
+  <entry>
+    <title>Tekno sesong 2 (3 av 6)</title>
+    <link href="http://video.nrkbeta.no/tv-serier/tekno-sesong-2-3-av-6/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/tv-serier/tekno-sesong-2-3-av-6/</id>
+    <summary type="html">Tekno sesong 2 (3 av 6)</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/tekno.s02e03.512x288.h264.NRK.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Tekno sesong 2 (2 av 6)</title>
+    <link href="http://video.nrkbeta.no/tv-serier/tekno-sesong-2-2-av-6/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/tv-serier/tekno-sesong-2-2-av-6/</id>
+    <summary type="html">Tekno sesong 2 (2 av 6)</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/tekno.s02e02.512x288.h264.NRK.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Tekno sesong 2 (1 av 6)</title>
+    <link href="http://video.nrkbeta.no/tv-serier/tekno-sesong-2-1-av-6/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/tv-serier/tekno-sesong-2-1-av-6/</id>
+    <summary type="html">Tekno sesong 2 (1 av 6)</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/tekno.s02e01.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Sveip om World of Warcraft</title>
+    <link href="http://video.nrkbeta.no/sveip/sveip-om-world-warcraft/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/sveip/sveip-om-world-warcraft/</id>
+    <summary type="html">Sveip om World of Warcraft</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/Sveip_WOW_Clip.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Sveip: YR-skolen del 1</title>
+    <link href="http://video.nrkbeta.no/sveip/sveip-yr-skolen/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/sveip/sveip-yr-skolen/</id>
+    <summary type="html">Sveip: YR-skolen del 1</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/Sveip_YRskolen.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Nordkalotten 365 Episode 5</title>
+    <link href="http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-5/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-5/</id>
+    <summary type="html">Nordkalotten 365 Episode 5</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/Nordkalotten365.E05.1024x576.H264.NRK.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Nordkalotten 365 Episode 4</title>
+    <link href="http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-4/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-4/</id>
+    <summary type="html">Nordkalotten 365 Episode 4</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/Nordkalotten365.E04.1024x576.H264.NRK.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Nordkalotten 365 Episode 3</title>
+    <link href="http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-3/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-3/</id>
+    <summary type="html">Nordkalotten 365 Episode 3</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/Nordkalotten365.E03.1024x576.H264.NRK.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Nordkalotten 365 Episode 2</title>
+    <link href="http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-2/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-2/</id>
+    <summary type="html">Nordkalotten 365 Episode 2</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/Nordkalotten365.E02.1024x576.H264.NRK.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Nordkalotten 365 Episode 1</title>
+    <link href="http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-1/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-1/</id>
+    <summary type="html">Nordkalotten 365 Episode 1</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/Nordkalotten365.E01.1024x576.H264.NRK.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Halvseint 2 - episode 4</title>
+    <link href="http://video.nrkbeta.no/halvseint/halvseint-sesong-2-episode-4/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/halvseint/halvseint-sesong-2-episode-4/</id>
+    <summary type="html">Halvseint 2 - episode 4</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/halvseint.s02e04.1024x576.h264.nrk.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Halvseint 2 - episode 3</title>
+    <link href="http://video.nrkbeta.no/halvseint/halvseint-sesong-2-episode-3/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/halvseint/halvseint-sesong-2-episode-3/</id>
+    <summary type="html">Halvseint 2 - episode 3</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/halvseint.s02e03.1024x576.h264.nrk.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Halvseint 2 - episode 2</title>
+    <link href="http://video.nrkbeta.no/halvseint/halvseint-sesong-2-episode-2/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/halvseint/halvseint-sesong-2-episode-2/</id>
+    <summary type="html">Halvseint 2 - episode 2</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/halvseint.s02e02.1024x576.h264.nrk.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Halvseint 2 - episode 1</title>
+    <link href="http://video.nrkbeta.no/halvseint/halvseint-sesong-2-episode-1/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/halvseint/halvseint-sesong-2-episode-1/</id>
+    <summary type="html">Halvseint 2 - episode 1</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/halvseint.s02e01.10224x576.h264.nrk.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Halvseintkavalkade</title>
+    <link href="http://video.nrkbeta.no/halvseint/halvseintkavalkade/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/halvseint/halvseintkavalkade/</id>
+    <summary type="html">Halvseintkavalkade</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/halvseintkavalkade.1024x576.H264.NRK.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Nordkalotten 365 Episode 6</title>
+    <link href="http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-6/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-6/</id>
+    <summary type="html">Nordkalotten 365 Episode 6</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/Nordkalotten365.E06.1024x576.H264.NRK.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Nordkalotten 365 Episode 7</title>
+    <link href="http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-7/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-7/</id>
+    <summary type="html">Nordkalotten 365 Episode 7</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/Nordkalotten365.E07.1024x576.H264.NRK.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Nordkalotten 365 Episode 8</title>
+    <link href="http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-8/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/nordkalotten-365/nordkalotten-365-episode-8/</id>
+    <summary type="html">Nordkalotten 365 Episode 8</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/Nordkalotten365.E08.1024x576.H264.NRK.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+  <entry>
+    <title>Sveip om IFA og TV-skjermer</title>
+    <link href="http://video.nrkbeta.no/sveip/sveip-om-ifa-og-tv-skjermer/" rel="alternate">
+    </link>
+    <id>http://video.nrkbeta.no/sveip/sveip-om-ifa-og-tv-skjermer/</id>
+    <summary type="html">Sveip om IFA og TV-skjermer</summary>
+    <link length="None" href="http://video.nrkbeta.no/media/filer/videofiler/Sveip_om_IFA2008.mp4" type="None" rel="enclosure">
+    </link>
+  </entry>
+</feed>
