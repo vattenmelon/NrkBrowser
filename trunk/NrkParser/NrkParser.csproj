@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PodkastXmlParser.cs" />
     <Compile Include="HttpClient.cs" />
     <Compile Include="IHttpClient.cs" />
     <Compile Include="NrkBetaXmlParser.cs" />

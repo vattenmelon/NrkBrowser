@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:nrk="http://podkast.nrk.no/podd-rss" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <nrk:url>http://podkast.nrk.no/program/bergensbanen_minutt_for_minutt.rss</nrk:url>
+    <atom:link href="http://podkast.nrk.no/program/bergensbanen_minutt_for_minutt.rss" rel="self" type="application/rss+xml" />
+    <title>NRK2 – Bergensbanen minutt for minutt</title>
+    <description>Bergensbanen minutt for minutt</description>
+    <itunes:summary>Bergensbanen minutt for minutt</itunes:summary>
+    <itunes:subtitle>Bergensbanen bokstavlig talt minutt for minutt.</itunes:subtitle>
+    <itunes:category text="News &amp; Politics" />
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="http://fil.nrk.no/contentfile/file/1.6896395!img6896395.jpg" />
+    <image>
+      <title>NRK2 – Bergensbanen minutt for minutt</title>
+      <url>http://fil.nrk.no/contentfile/file/1.6896395!img6896395.jpg</url>
+      <link>http://www.nrk.no/programmer/sider/bergensbanen_minutt_for_minutt/</link>
+      <width>300</width>
+      <height>300</height>
+    </image>
+    <link>http://www.nrk.no/programmer/sider/bergensbanen_minutt_for_minutt/</link>
+    <language>no</language>
+    <copyright>NRK © 2009</copyright>
+    <itunes:author>NRK2</itunes:author>
+    <itunes:owner>
+      <itunes:name>NRK2</itunes:name>
+      <itunes:email>info@nrk.no</itunes:email>
+    </itunes:owner>
+    <item>
+      <title>Bergensbanen minutt for minutt - del 5</title>
+      <description>Skotselv - Oslo. Ransfjordsbanen og Drammensbanen inn mot hovudstaden.</description>
+      <itunes:summary>Skotselv - Oslo. Ransfjordsbanen og Drammensbanen inn mot hovudstaden.</itunes:summary>
+      <itunes:subtitle>Bergensbanen minutt for minutt - del 5</itunes:subtitle>
+      <enclosure url="http://podkast.nrk.no/fil/bergensbanen_minutt_for_minutt/nrk_bergensbanen_minutt_for_minutt_2009-1130-0755_41652.mp4?stat=1&amp;pks=41652" length="471761112" type="video/mp4" />
+      <pubDate>Mon, 07 Dec 2009 14:46:00 GMT</pubDate>
+      <guid isPermaLink="false">nrk.no-poddkast-18461-41652-27.11.2009+19%3a55%3a00</guid>
+      <itunes:author>NRK2</itunes:author>
+      <itunes:duration>00:00:00</itunes:duration>
+      <itunes:keywords>NRK2,Bergensbanen minutt for minutt</itunes:keywords>
+    </item>
+    <item>
+      <title>Bergensbanen minutt for minutt - del 4</title>
+      <description>Austvoll til Skotselv. Startar med det gamle vasstårnet på Austvoll og går gjennom roleg skogkledd landskap.. Fleire intervju med dagens passasjerar. Gjensyn med den siste postekspedisjonsvogna på Bergensbanen.</description>
+      <itunes:summary>Austvoll til Skotselv. Startar med det gamle vasstårnet på Austvoll og går gjennom roleg skogkledd landskap.. Fleire intervju med dagens passasjerar. Gjensyn med den siste postekspedisjonsvogna på Bergensbanen.</itunes:summary>
+      <itunes:subtitle>Bergensbanen minutt for minutt - del 4</itunes:subtitle>
+      <enclosure url="http://podkast.nrk.no/fil/bergensbanen_minutt_for_minutt/nrk_bergensbanen_minutt_for_minutt_2009-1127-0755_41653.mp4?stat=1&amp;pks=41653" length="596762964" type="video/mp4" />
+      <pubDate>Mon, 07 Dec 2009 14:56:00 GMT</pubDate>
+      <guid isPermaLink="false">nrk.no-poddkast-18461-41653-27.11.2009+19%3a55%3a00</guid>
+      <itunes:author>NRK2</itunes:author>
+      <itunes:duration>00:00:00</itunes:duration>
+      <itunes:keywords>NRK2,Bergensbanen minutt for minutt</itunes:keywords>
+    </item>
+    <item>
+      <title>Bergensbanen minutt for minutt - del 3</title>
+      <description>Ustaoset til Austvoll. Bergensbanen passerer Ustaoset og Geilo , og køyrer gjennom heile Hallingdalen tilbakelagt. Vi forlet vinteren og køyrer nedover mot hausten att. Her dukka rein kortversjon av den gamle stumfilmen ”Bergenstoget plyndret i natt”. På Ål skifter vi lokomotivførar. </description>
+      <itunes:summary>Ustaoset til Austvoll. Bergensbanen passerer Ustaoset og Geilo , og køyrer gjennom heile Hallingdalen tilbakelagt. Vi forlet vinteren og køyrer nedover mot hausten att. Her dukka rein kortversjon av den gamle stumfilmen ”Bergenstoget plyndret i natt”. På Ål skifter vi lokomotivførar. </itunes:summary>
+      <itunes:subtitle>Bergensbanen minutt for minutt - del 3</itunes:subtitle>
+      <enclosure url="http://podkast.nrk.no/fil/bergensbanen_minutt_for_minutt/nrk_bergensbanen_minutt_for_minutt_2009-1127-0755_41654.mp4?stat=1&amp;pks=41654" length="596280863" type="video/mp4" />
+      <pubDate>Mon, 07 Dec 2009 14:59:00 GMT</pubDate>
+      <guid isPermaLink="false">nrk.no-poddkast-18461-41654-27.11.2009+19%3a55%3a00</guid>
+      <itunes:author>NRK2</itunes:author>
+      <itunes:duration>00:00:00</itunes:duration>
+      <itunes:keywords>NRK2,Bergensbanen minutt for minutt</itunes:keywords>
+    </item>
+    <item>
+      <title>Bergensbanen minutt for minutt - del 2</title>
+      <description>Urdland til Ustaoset. Sjølvaste høgfjellsstrekninga på Bergensbanen. Haustlandskapet blir gradvis meir og meir vinterleg. Her kjem utsikta ned Flåmsdalen! Vi ser m.a.klipp frå snørydding i gamle dagar, høyrer intervju med gammal rallar.</description>
+      <itunes:summary>Urdland til Ustaoset. Sjølvaste høgfjellsstrekninga på Bergensbanen. Haustlandskapet blir gradvis meir og meir vinterleg. Her kjem utsikta ned Flåmsdalen! Vi ser m.a.klipp frå snørydding i gamle dagar, høyrer intervju med gammal rallar.</itunes:summary>
+      <itunes:subtitle>Bergensbanen minutt for minutt - del 2</itunes:subtitle>
+      <enclosure url="http://podkast.nrk.no/fil/bergensbanen_minutt_for_minutt/nrk_bergensbanen_minutt_for_minutt_2009-1127-0755_41655.mp4?stat=1&amp;pks=41655" length="596792279" type="video/mp4" />
+      <pubDate>Mon, 07 Dec 2009 15:05:00 GMT</pubDate>
+      <guid isPermaLink="false">nrk.no-poddkast-18461-41655-27.11.2009+19%3a55%3a00</guid>
+      <itunes:author>NRK2</itunes:author>
+      <itunes:duration>00:00:00</itunes:duration>
+      <itunes:keywords>NRK2,Bergensbanen minutt for minutt</itunes:keywords>
+    </item>
+    <item>
+      <title>Bergensbanen minutt for minutt - del 1</title>
+      <description>Bergen til Urdland. Bergensbanen gjennom fjordlandskapet til Voss. Mange tunneler  og dermed mange arkivklipp, m.a frå togavsporing i 1948.</description>
+      <itunes:summary>Bergen til Urdland. Bergensbanen gjennom fjordlandskapet til Voss. Mange tunneler  og dermed mange arkivklipp, m.a frå togavsporing i 1948.</itunes:summary>
+      <itunes:subtitle>Bergensbanen minutt for minutt - del 1</itunes:subtitle>
+      <enclosure url="http://podkast.nrk.no/fil/bergensbanen_minutt_for_minutt/nrk_bergensbanen_minutt_for_minutt_2009-1127-0755_41656.mp4?stat=1&amp;pks=41656" length="596769468" type="video/mp4" />
+      <pubDate>Mon, 07 Dec 2009 15:13:00 GMT</pubDate>
+      <guid isPermaLink="false">nrk.no-poddkast-18461-41656-27.11.2009+19%3a55%3a00</guid>
+      <itunes:author>NRK2</itunes:author>
+      <itunes:duration>00:00:00</itunes:duration>
+      <itunes:keywords>NRK2,Bergensbanen minutt for minutt</itunes:keywords>
+    </item>
+  </channel>
+  <!--18461-->
+  <!--20.12.2009 22:24:00-->
+  <!--0-->
+</rss>

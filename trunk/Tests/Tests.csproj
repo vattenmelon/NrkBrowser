@@ -39,6 +39,7 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="PodkastXmlRSSTest.cs" />
     <Compile Include="RegExpTest.cs" />
     <Compile Include="XmlRSSTest.cs" />
     <Compile Include="XmlKlippTest.cs" />

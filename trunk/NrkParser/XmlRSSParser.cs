@@ -41,6 +41,11 @@ namespace Vattenmelon.Nrk.Parser.Xml
             return clips;
         }
 
+        virtual protected  void LoadXmlDocument()
+        {
+            InternalLoadXmlDocument();
+        }
+
         virtual protected Clip.KlippType GetClipType()
         {
             return Clip.KlippType.RSS;
@@ -84,10 +89,10 @@ namespace Vattenmelon.Nrk.Parser.Xml
                         PutLinkOnItem(loRssItem, n);
                         break;
                     case "guid":
-                        loRssItem.ID = n.InnerText;
+                        PutGuidOnItem(loRssItem, n);
                         break;
                     case "pubDate":
-
+                        PutPublicationDateOnItem(loRssItem, n);
                         break;
                     case "description":
                         loRssItem.Description = n.InnerText;
@@ -155,13 +160,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
                         //                            loRssItem.mediaTitle = n.InnerText;
                         break;
                     case "enclosure":
-                        // loRssItem.ID = n.InnerText;
-                        //loRssItem.ID = n.Attributes["url"].Value;
-                        //                            if (n.Attributes["duration"] != null)
-                        //                            {
-                        //                                loRssItem.enclosureDuration = n.Attributes["duration"].Value;
-                        //                            }
-
+                        PutEnclosureOnItem(loRssItem, n);
                         break;
                     case "media:category":
                         //  loRssItem.mediaCategory = n.InnerText;
@@ -173,5 +172,19 @@ namespace Vattenmelon.Nrk.Parser.Xml
             return loRssItem;
         }
 
+        protected virtual void PutPublicationDateOnItem(Clip item, XmlNode n)
+        {
+            
+        }
+
+        virtual protected void PutEnclosureOnItem(Clip item, XmlNode n)
+        {
+            
+        }
+
+        virtual protected void PutGuidOnItem(Clip loRssItem, XmlNode n)
+        {
+            loRssItem.ID = n.InnerText;
+        }
     }
 }

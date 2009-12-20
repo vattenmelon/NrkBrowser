@@ -10,7 +10,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
         public XmlKlippParser(String url)
         {
             base.url = url;
-            LoadXmlDocument();
+            InternalLoadXmlDocument();
         }
         
         public String GetUrl()
