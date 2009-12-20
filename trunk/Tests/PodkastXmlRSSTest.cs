@@ -49,22 +49,16 @@ namespace Vattenmelon.Nrk.Parser.Xml
         [Test]
         public void TestPodKastBergensbanen()
         {
-            List<Item> natur = podkastParser.getClips();
-            String podKastPictureUrl = podkastParser.getPodkastPicture();
-            Assert.AreEqual("http://fil.nrk.no/contentfile/file/1.6896395!img6896395.jpg", podKastPictureUrl);
-            //Assert.AreEqual();
+            List<Item> clips = podkastParser.getClips();
+            Assert.AreEqual(5, clips.Count);
             
-            foreach (Item item in natur)
+            foreach (Item item in clips)
             {
                 Clip c = (Clip)item;
-                            Console.WriteLine("Tittel.............: " + c.Title);
-                            Console.WriteLine("ID.................: " + c.ID);
-                            Console.WriteLine("Beskrivelse........: " + c.Description);
-                            Console.WriteLine("Bilde..............: " + c.Bilde);
-                            Console.WriteLine("Type...............: " + c.Type);
-                            Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
-                            Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
-                            Console.WriteLine("-----------------------------------------");
+                Assert.IsNotNull(c.Title);
+                Assert.IsNotNull(c.ID);
+                Assert.IsNotNull(c.Klokkeslett);
+                Assert.AreEqual(Clip.KlippType.RSS, c.Type);
             }
 
         }

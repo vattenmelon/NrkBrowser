@@ -41,7 +41,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
             return clips;
         }
 
-        virtual protected  void LoadXmlDocument()
+        virtual protected void LoadXmlDocument()
         {
             InternalLoadXmlDocument();
         }
