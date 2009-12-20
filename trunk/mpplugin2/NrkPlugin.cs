@@ -293,12 +293,12 @@ namespace Vattenmelon.Nrk.Browser
                     UpdateList(matchingItems);
                     return;
                 }
-                lAct = activeStack.Pop();
+                Item itemToActivate = activeStack.Pop();
                 /*if (lAct is Clip)
                 {
                     lAct = activeStack.Pop();
                 }*/
-                Activate(lAct);
+                Activate(itemToActivate);
             }
             else
             {
@@ -528,7 +528,7 @@ namespace Vattenmelon.Nrk.Browser
         protected void Activate(Item item)
         {
             GUIPropertyManager.SetProperty(NrkBrowserConstants.GUI_PROPERTY_CLIP_COUNT, " ");
-
+            Log.Debug("Activate(Item): " + item);
             if (item == null)
             {
                 UpdateList(CreateInitialMenuItems(), false);
@@ -549,21 +549,18 @@ namespace Vattenmelon.Nrk.Browser
                 PlayStream((Stream) item);
             }
             else if (item is BackMenuItem)
-            {
-                Log.Info("item is: " + item);
-                    
-                Item itemToPop = activeStack.Pop();
-                Log.Debug("poppa: " + itemToPop);
+            {      
+                Item poppedItem = activeStack.Pop();
                 if (activeStack.Count > 0)
                 {
                     Item itemToActivate = activeStack.Pop();
-                    Log.Debug("to activate: " + itemToActivate);
                     Activate(itemToActivate);
-                    setItemAsSelectedItemInListView(itemToActivate);
+                    setItemAsSelectedItemInListView(poppedItem);
                 }
                 else
                 {
                     UpdateList(CreateInitialMenuItems(), false);
+                    setItemAsSelectedItemInListView(poppedItem);
                 }
             }
             else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_FAVOURITES)
