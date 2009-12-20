@@ -80,6 +80,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
         protected override void PutEnclosureOnItem(Clip item, XmlNode n)
         {
             item.ID = n.Attributes["url"].Value;
+            item.MediaType = n.Attributes["type"].Value;
         }
 
         public string getPodkastPicture()

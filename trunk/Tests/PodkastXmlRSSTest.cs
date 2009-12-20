@@ -58,6 +58,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
                 Assert.IsNotNull(c.Title);
                 Assert.IsNotNull(c.ID);
                 Assert.IsNotNull(c.Klokkeslett);
+                Assert.AreEqual("video/mp4", c.MediaType);
                 Assert.AreEqual(Clip.KlippType.RSS, c.Type);
             }
 
