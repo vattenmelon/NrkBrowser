@@ -183,7 +183,7 @@ namespace Vattenmelon.Nrk.Browser
             get { return "nrklogo.jpg"; }
         }
 
-        public static string NRKBETA_LOGO_PICTURE
+        public static string MENU_ITEM_PICTURE_NRKBETA
         {
             get { return "nrkbeta.png"; }
         }
