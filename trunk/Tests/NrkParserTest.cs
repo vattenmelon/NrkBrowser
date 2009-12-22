@@ -297,6 +297,26 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(24, items.Count); //22/12-09: det er 27, men bare fireogtyve har rss feed.
             
         }
+
+        [Test]
+        public void TestGetLydPodkaster()
+        {
+            IList<PodKast> items = nrkParser.GetLydPodkaster();
+            Assert.IsNotEmpty(items as List<PodKast>);
+            Boolean funnetRadioResepsjonenutenmusikk = false;
+            foreach (PodKast podKast in items)
+            {
+                if (podKast.ID.Equals("http://podkast.nrk.no/program/radioresepsjonen.rss"))
+                {
+                    Assert.AreEqual("Radioresepsjonen uten musikk (NRK P3)", podKast.Title);
+                    Assert.AreEqual("En feit, en lang og en gammel mann prøver å lage program på P3.", podKast.Description);
+                    funnetRadioResepsjonenutenmusikk = true;
+                }
+            }
+            Assert.IsTrue(funnetRadioResepsjonenutenmusikk);
+            Assert.AreEqual(77, items.Count); //22/12-09: det er 27, men bare fireogtyve har rss feed.
+
+        }
         //TODO: duplicate code
         /// <summary>
         /// Vanskelig å asserte på videostreamen siden det hender at klipp ikke er tilgjengelige hos nrk.
