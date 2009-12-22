@@ -69,5 +69,7 @@
   <string id="MENU_ITEM_TITLE_NRKBETA_HD_CLIPS">HD Clips</string>
   <string id="MENU_ITEM_TITLE_NRKBETA_SEARCH">Search</string>
   <string id="MENU_ITEM_DESCRIPTON_NRKBETA">NRKs sandbox for technology and new media</string>
+  <string id="MENU_ITEM_TITLE_PODCASTS">Podcasts</string>
+  <string id="MENU_ITEM_DESCRIPTION_PODCASTS">Audio and video podcasts from NRK</string>
   <string id="FOR_UNIT_TESTING">Engelsk</string>
 </strings>

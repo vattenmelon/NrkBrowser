@@ -69,5 +69,7 @@
   <string id="MENU_ITEM_TITLE_NRKBETA_HD_CLIPS">HD Klipp</string>
   <string id="MENU_ITEM_TITLE_NRKBETA_SEARCH">Søk</string>
   <string id="MENU_ITEM_DESCRIPTON_NRKBETA">NRKs sandkasse for teknologi og nye medier</string>
+  <string id="MENU_ITEM_TITLE_PODCASTS">Podkast</string>
+  <string id="MENU_ITEM_DESCRIPTION_PODCASTS">Lyd- og bildepodkaster fra NRK</string>
   <string id="FOR_UNIT_TESTING">Norsk</string>
 </strings>

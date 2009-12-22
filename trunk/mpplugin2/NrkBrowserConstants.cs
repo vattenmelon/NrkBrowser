@@ -318,6 +318,11 @@ namespace Vattenmelon.Nrk.Browser
             get { return 99; }
         }
 
+        public static string MENU_ITEM_ID_PODCASTS
+        {
+            get { return "menuItemPodcasts"; }
+        }
+
         public const string PLUGIN_NAME = "NRK Browser";
 
         public const string MENU_ITEM_ID_NYHETER = "nyheter";

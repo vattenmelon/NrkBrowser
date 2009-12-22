@@ -806,6 +806,10 @@ namespace Vattenmelon.Nrk.Browser
             sok.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_SEARCH;
             items.Add(sok);
 
+            MenuItem podCasts = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_PODCASTS, NrkTranslatableStrings.MENU_ITEM_TITLE_PODCASTS);
+            podCasts.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_PODCASTS;
+            items.Add(podCasts);
+
             favoritter = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_FAVOURITES, NrkTranslatableStrings.MENU_ITEM_TITLE_FAVOURITES);
             favoritter.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_FAVOURITES;
             items.Add(favoritter);

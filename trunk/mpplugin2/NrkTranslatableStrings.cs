@@ -401,5 +401,15 @@ namespace Vattenmelon.Nrk.Browser.Translation
         {
             get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_DESCRIPTON_NRKBETA", "NRKs sandbox for technology and new media"); }
         }
+
+        public static string MENU_ITEM_TITLE_PODCASTS
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_PODCASTS", "Podcasts"); }
+        }
+
+        public static string MENU_ITEM_DESCRIPTION_PODCASTS
+        {
+            get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_DESCRIPTION_PODCASTS", "Audio and video podcasts from NRK"); }
+        }
     }
 }
