@@ -642,14 +642,13 @@ namespace Vattenmelon.Nrk.Parser
                 "<tbody>.*?<tr class=\"pod-row\">.*?<th>(?<title>[^</]*)</th>.*?<td class=\"pod-rss\">.*?</td>.*?</tr>.*?<tr class=\"pod-desc\">.*?<td colspan=\"3\">.*?<p>(?<description>[^</]*)<a href=\".*?\" title=\".*?\">.*?</a></p>.*?</td>.*?</tr>.*?<tr class=\"pod-rss-url\">.*?<td colspan=\"3\">.*?<a href=\"(?<url>[^\"]*)\" title=\".*?\">.*?</a>.*?</td>.*?</tr>.*?</tbody>";
             Regex queryVideokasts = new Regex(urlExpressionString, RegexOptions.Singleline);
             MatchCollection matches = queryVideokasts.Matches(videokastsSectionAsString);
-            Console.Out.WriteLine("c: " + matches.Count);
             foreach (Match x in matches)
             {
                 PodKast item = new PodKast(x.Groups["url"].Value, x.Groups["title"].Value);
                 item.Description = x.Groups["description"].Value;
                 items.Add(item);
-
             }
+            
             return items;
         }
 

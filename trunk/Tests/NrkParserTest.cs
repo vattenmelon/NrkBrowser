@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Xml;
 using NrkBrowser.Domain;
 using Vattenmelon.Nrk.Parser;
 using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
+using Vattenmelon.Nrk.Parser.Xml;
 
 namespace Vattenmelon.Nrk.Parser
 {
@@ -288,6 +290,7 @@ namespace Vattenmelon.Nrk.Parser
                 {
                     Assert.AreEqual("Bokprogrammet (NRK1)", podKast.Title);
                     Assert.AreEqual("Hans Olav Brenner møter forfattere.", podKast.Description);
+                    Assert.AreEqual("http://fil.nrk.no/contentfile/file/1.6534395!img6534395.jpg", podKast.Bilde);
                     funnetBokprogrammet = true;
                 }
             }
@@ -330,5 +333,4 @@ namespace Vattenmelon.Nrk.Parser
         }
 
     }
-
 }
