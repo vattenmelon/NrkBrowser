@@ -71,5 +71,7 @@
   <string id="MENU_ITEM_DESCRIPTON_NRKBETA">NRKs sandbox for technology and new media</string>
   <string id="MENU_ITEM_TITLE_PODCASTS">Podcasts</string>
   <string id="MENU_ITEM_DESCRIPTION_PODCASTS">Audio and video podcasts from NRK</string>
+  <string id="MENU_ITEM_TITLE_PODCASTS_AUDIO">Audio</string>
+  <string id="MENU_ITEM_TITLE_PODCASTS_VIDEO">Video</string>
   <string id="FOR_UNIT_TESTING">Engelsk</string>
 </strings>
