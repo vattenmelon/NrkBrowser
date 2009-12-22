@@ -290,7 +290,6 @@ namespace Vattenmelon.Nrk.Parser
                 {
                     Assert.AreEqual("Bokprogrammet (NRK1)", podKast.Title);
                     Assert.AreEqual("Hans Olav Brenner møter forfattere.", podKast.Description);
-                    Assert.AreEqual("http://fil.nrk.no/contentfile/file/1.6534395!img6534395.jpg", podKast.Bilde);
                     funnetBokprogrammet = true;
                 }
             }
