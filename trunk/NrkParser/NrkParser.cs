@@ -14,6 +14,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using NrkBrowser.Domain;
 using Vattenmelon.Nrk.Parser;
 using Vattenmelon.Nrk.Domain;
 using Vattenmelon.Nrk.Parser.Http;
@@ -631,20 +632,21 @@ namespace Vattenmelon.Nrk.Parser
             return xmlKlippParser.GetChapters();
         }
 
-        public IList<Item> GetVideoPodkaster()
+        public IList<PodKast> GetVideoPodkaster()
         {
 
-            IList<Item> items = new List<Item>();
+            IList<PodKast> items = new List<PodKast>();
             string videokastsSectionAsString = GetVideokastsSectionAsString();
 
             string urlExpressionString =
-                "<tr class=\"pod-rss-url\">.*?<td colspan=\"3\">.*?<a href=\"(?<url>[^\"]*)\" title=\".*?\">.*?</a>.*?</td>.*?</tr>";
+                "<tbody>.*?<tr class=\"pod-row\">.*?<th>(?<title>[^</]*)</th>.*?<td class=\"pod-rss\">.*?</td>.*?</tr>.*?<tr class=\"pod-desc\">.*?<td colspan=\"3\">.*?<p>(?<description>[^</]*)<a href=\".*?\" title=\".*?\">.*?</a></p>.*?</td>.*?</tr>.*?<tr class=\"pod-rss-url\">.*?<td colspan=\"3\">.*?<a href=\"(?<url>[^\"]*)\" title=\".*?\">.*?</a>.*?</td>.*?</tr>.*?</tbody>";
             Regex queryVideokasts = new Regex(urlExpressionString, RegexOptions.Singleline);
             MatchCollection matches = queryVideokasts.Matches(videokastsSectionAsString);
             Console.Out.WriteLine("c: " + matches.Count);
             foreach (Match x in matches)
             {
-                Folder item = new Folder(x.Groups["url"].Value, x.Groups["url"].Value);
+                PodKast item = new PodKast(x.Groups["url"].Value, x.Groups["title"].Value);
+                item.Description = x.Groups["description"].Value;
                 items.Add(item);
 
             }

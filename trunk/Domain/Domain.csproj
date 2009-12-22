@@ -40,6 +40,7 @@
     <Compile Include="ILog.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="NullLogger.cs" />
+    <Compile Include="PodKast.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchItem.cs" />

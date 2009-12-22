@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NrkBrowser.Domain;
 using Vattenmelon.Nrk.Parser;
 using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
@@ -278,12 +279,19 @@ namespace Vattenmelon.Nrk.Parser
         [Test]
         public void TestGetVideoPodkaster()
         {
-            IList<Item> items = nrkParser.GetVideoPodkaster();
-            Assert.IsNotEmpty(items as List<Item>);
-            foreach (Item item in items)
+            IList<PodKast> items = nrkParser.GetVideoPodkaster();
+            Assert.IsNotEmpty(items as List<PodKast>);
+            Boolean funnetBokprogrammet = false;
+            foreach (PodKast podKast in items)
             {
-                Console.Out.WriteLine(item.Title);
+                if (podKast.ID.Equals("http://podkast.nrk.no/program/bokprogrammet.rss"))
+                {
+                    Assert.AreEqual("Bokprogrammet (NRK1)", podKast.Title);
+                    Assert.AreEqual("Hans Olav Brenner møter forfattere.", podKast.Description);
+                    funnetBokprogrammet = true;
+                }
             }
+            Assert.IsTrue(funnetBokprogrammet);
             Assert.AreEqual(24, items.Count); //22/12-09: det er 27, men bare fireogtyve har rss feed.
             
         }
