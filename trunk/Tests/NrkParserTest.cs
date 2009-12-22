@@ -314,7 +314,7 @@ namespace Vattenmelon.Nrk.Parser
                 }
             }
             Assert.IsTrue(funnetRadioResepsjonenutenmusikk);
-            Assert.AreEqual(77, items.Count); //22/12-09: det er 27, men bare fireogtyve har rss feed.
+            Assert.AreEqual(77, items.Count);
 
         }
         //TODO: duplicate code

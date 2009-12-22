@@ -590,7 +590,6 @@ namespace Vattenmelon.Nrk.Parser
         {
             Log.Info(string.Format("{0}: GetMestSetteGeneric :{1}, {2}", NrkParserConstants.LIBRARY_NAME, url, dataToPost));
             String data = httpClient.PostUrl(url, dataToPost);
-            Console.WriteLine(data);
             Regex query =
                     new Regex(
                         "<div class=\"img-left\" style=\"width: 120px;\">.*?<a href=\".*?\"><img src=\"(.*?)\" alt=\".*?\" title=\".*?\" width=\"120\" height=\"68\".*?/></a></div><div class=\"active\"><h2><a href=\"(.*?)\">(.*?)</a></h2><p><a.*?><span.*?>(.*?) visninger</span><span>(.*?)</span></a>",
@@ -635,60 +634,59 @@ namespace Vattenmelon.Nrk.Parser
         public IList<PodKast> GetVideoPodkaster()
         {
 
-            IList<PodKast> items = new List<PodKast>();
+            
             string videokastsSectionAsString = GetVideokastsSectionAsString();
 
             string urlExpressionString =
                 "<tbody>.*?<tr class=\"pod-row\">.*?<th>(?<title>[^</]*)</th>.*?<td class=\"pod-rss\">.*?</td>.*?</tr>.*?<tr class=\"pod-desc\">.*?<td colspan=\"3\">.*?<p>(?<description>[^</]*)<a href=\".*?\" title=\".*?\">.*?</a></p>.*?</td>.*?</tr>.*?<tr class=\"pod-rss-url\">.*?<td colspan=\"3\">.*?<a href=\"(?<url>[^\"]*)\" title=\".*?\">.*?</a>.*?</td>.*?</tr>.*?</tbody>";
+            IList<PodKast> items = CreatePodkastItems(urlExpressionString, videokastsSectionAsString);
+
+            return items;
+        }
+
+        private static IList<PodKast> CreatePodkastItems(string urlExpressionString, string videokastsSectionAsString)
+        {
             Regex queryVideokasts = new Regex(urlExpressionString, RegexOptions.Singleline);
             MatchCollection matches = queryVideokasts.Matches(videokastsSectionAsString);
+            IList<PodKast> items = new List<PodKast>();
             foreach (Match x in matches)
             {
                 PodKast item = new PodKast(x.Groups["url"].Value, x.Groups["title"].Value);
                 item.Description = x.Groups["description"].Value;
                 items.Add(item);
             }
-            
             return items;
         }
 
         private string GetVideokastsSectionAsString()
         {
-            String pageAsString = FetchUrl("http://www.nrk.no/podkast/");
-
             string videokastsExpression =
-                "<table summary=\"Liste over videopodkaster fra NRK\">(?<video>[^</table>].*)</table>.*?</div>.*?<div class=\"pod\">.*?<table summary=\"Liste over lydpodkaster fra NRK\">";
+                "<table summary=\"Liste over videopodkaster fra NRK\">(?<media>[^</table>].*)</table>.*?</div>.*?<div class=\"pod\">.*?<table summary=\"Liste over lydpodkaster fra NRK\">";
+            return GetMediaSection(videokastsExpression);
+        }
+
+        private string GetMediaSection(string videokastsExpression)
+        {
+            String pageAsString = FetchUrl("http://www.nrk.no/podkast/");           
             Regex queryVideokastsSection = new Regex(videokastsExpression, RegexOptions.Singleline);
             MatchCollection matches = queryVideokastsSection.Matches(pageAsString);
-            return matches[0].Groups["video"].Value;
+            return matches[0].Groups["media"].Value;
         }
 
         private string GetLydkastsSectionAsString()
         {
-            String pageAsString = FetchUrl("http://www.nrk.no/podkast/");
-
             string videokastsExpression =
-                "<table summary=\"Liste over lydpodkaster fra NRK\">(?<lyd>[^</table>].*)</table>.*?</div>";
-            Regex queryVideokastsSection = new Regex(videokastsExpression, RegexOptions.Singleline);
-            MatchCollection matches = queryVideokastsSection.Matches(pageAsString);
-            return matches[0].Groups["lyd"].Value;
+                "<table summary=\"Liste over lydpodkaster fra NRK\">(?<media>[^</table>].*)</table>.*?</div>";
+            return GetMediaSection(videokastsExpression);
         }
 
         public IList<PodKast> GetLydPodkaster()
         {
-            IList<PodKast> items = new List<PodKast>();
-            string videokastsSectionAsString = GetLydkastsSectionAsString();
+            string lydkastSectionAsString = GetLydkastsSectionAsString();
 
             string urlExpressionString =
                 "<tbody>.*?<tr class=\"pod-row\">.*?<th>(?<title>[^</]*)</th>.*?<td class=\"pod-rss\">.*?</td>.*?</tr>.*?<tr class=\"pod-desc\">.*?<td colspan=\"3\">.*?<p>(?<description>[^</]*)<a href=\".*?\" title=\".*?\">.*?</a></p>.*?</td>.*?</tr>.*?<tr class=\"pod-rss-url\">.*?<td colspan=\"3\">.*?<a href=\"(?<url>[^\"]*)\" title=\".*?\">.*?</a>.*?</td>.*?</tr>.*?</tbody>";
-            Regex queryVideokasts = new Regex(urlExpressionString, RegexOptions.Singleline);
-            MatchCollection matches = queryVideokasts.Matches(videokastsSectionAsString);
-            foreach (Match x in matches)
-            {
-                PodKast item = new PodKast(x.Groups["url"].Value, x.Groups["title"].Value);
-                item.Description = x.Groups["description"].Value;
-                items.Add(item);
-            }
+            IList<PodKast> items = CreatePodkastItems(urlExpressionString, lydkastSectionAsString);
 
             return items;
         }
