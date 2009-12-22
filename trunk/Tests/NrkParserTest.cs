@@ -275,6 +275,18 @@ namespace Vattenmelon.Nrk.Parser
             }
         }
 
+        [Test]
+        public void TestGetVideoPodkaster()
+        {
+            IList<Item> items = nrkParser.GetVideoPodkaster();
+            Assert.IsNotEmpty(items as List<Item>);
+            foreach (Item item in items)
+            {
+                Console.Out.WriteLine(item.Title);
+            }
+            Assert.AreEqual(24, items.Count); //22/12-09: det er 27, men bare fireogtyve har rss feed.
+            
+        }
         //TODO: duplicate code
         /// <summary>
         /// Vanskelig å asserte på videostreamen siden det hender at klipp ikke er tilgjengelige hos nrk.

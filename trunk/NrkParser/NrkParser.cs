@@ -630,6 +630,37 @@ namespace Vattenmelon.Nrk.Parser
             XmlKlippParser xmlKlippParser = new XmlKlippParser(string.Format(NrkParserConstants.URL_GET_MEDIAXML, item.ID, Speed));
             return xmlKlippParser.GetChapters();
         }
+
+        public IList<Item> GetVideoPodkaster()
+        {
+
+            IList<Item> items = new List<Item>();
+            string videokastsSectionAsString = GetVideokastsSectionAsString();
+
+            string urlExpressionString =
+                "<tr class=\"pod-rss-url\">.*?<td colspan=\"3\">.*?<a href=\"(?<url>[^\"]*)\" title=\".*?\">.*?</a>.*?</td>.*?</tr>";
+            Regex queryVideokasts = new Regex(urlExpressionString, RegexOptions.Singleline);
+            MatchCollection matches = queryVideokasts.Matches(videokastsSectionAsString);
+            Console.Out.WriteLine("c: " + matches.Count);
+            foreach (Match x in matches)
+            {
+                Folder item = new Folder(x.Groups["url"].Value, x.Groups["url"].Value);
+                items.Add(item);
+
+            }
+            return items;
+        }
+
+        private string GetVideokastsSectionAsString()
+        {
+            String pageAsString = FetchUrl("http://www.nrk.no/podkast/");
+
+            string videokastsExpression =
+                "<table summary=\"Liste over videopodkaster fra NRK\">(?<video>[^</table>].*)</table>.*?</div>.*?<div class=\"pod\">.*?<table summary=\"Liste over lydpodkaster fra NRK\">";
+            Regex queryVideokastsSection = new Regex(videokastsExpression, RegexOptions.Singleline);
+            MatchCollection matches = queryVideokastsSection.Matches(pageAsString);
+            return matches[0].Groups["video"].Value;
+        }
     }
 
 
