@@ -149,7 +149,9 @@ namespace Vattenmelon.Nrk.Parser.Xml
                             }
                         }
                         break;
-
+                    case "itunes:duration":
+                        PutDurationOnItem(loRssItem, n);
+                        break;
                     case "media:description":
                         //                            loRssItem.mediaDescription = n.InnerText;
                         break;
@@ -170,6 +172,11 @@ namespace Vattenmelon.Nrk.Parser.Xml
                 }
             }
             return loRssItem;
+        }
+
+        protected virtual void PutDurationOnItem(Clip item, XmlNode n)
+        {
+            
         }
 
         protected virtual void PutPublicationDateOnItem(Clip item, XmlNode n)

@@ -10,6 +10,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
 {
     public class PodkastXmlParser : XmlRSSParser
     {
+        private XmlNamespaceManager manager;
 
 //        public PodkastXmlParser(string siteurl, string section)
 //            : base(siteurl, section)
@@ -64,11 +65,18 @@ namespace Vattenmelon.Nrk.Parser.Xml
             item.Klokkeslett = n.InnerText;
         }
 
+        protected override void PutDurationOnItem(Clip item, XmlNode n)
+        {
+            item.Duration = n.InnerText;
+        }
         protected override void LoadXmlDocument()
         {
             if (doc == null)
             {
                 InternalLoadXmlDocument();
+                XPathNavigator xPathNavigator = doc.CreateNavigator();
+                manager = new XmlNamespaceManager(xPathNavigator.NameTable);
+                manager.AddNamespace("itunes", "http://www.itunes.com/dtds/podcast-1.0.dtd");
             }
         }
 
@@ -101,9 +109,6 @@ namespace Vattenmelon.Nrk.Parser.Xml
         public string getPodkastAuthor()
         {
             LoadXmlDocument();
-            XPathNavigator xPathNavigator = doc.CreateNavigator();
-            XmlNamespaceManager manager = new XmlNamespaceManager(xPathNavigator.NameTable);
-            manager.AddNamespace("itunes", "http://www.itunes.com/dtds/podcast-1.0.dtd");
             return doc.SelectSingleNode("//rss/channel/itunes:author", manager).FirstChild.Value;
         }
 

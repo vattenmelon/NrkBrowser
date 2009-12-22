@@ -25,6 +25,7 @@ namespace Vattenmelon.Nrk.Domain
         private string klokkeslett = string.Empty;
         private Double startTime;
         private string mediaType = string.Empty;
+        private String duration;
         // sier noe om hvilken måte man finner klipplinken
         private KlippType type = KlippType.KLIPP;
         private int tilhoerendeProsjekt;
@@ -80,5 +81,11 @@ namespace Vattenmelon.Nrk.Domain
             get { return mediaType; }
             set { this.mediaType = value; }
         }
+        public string Duration
+        {
+            get { return duration; }
+            set { duration = value; }
+        }
+
     }
 }
