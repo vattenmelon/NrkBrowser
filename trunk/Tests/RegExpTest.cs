@@ -75,7 +75,6 @@ namespace Tests
         [Test]
         public void DateFormatTest()
         {
-            Console.Out.WriteLine("oppelatingsystem: " + System.Environment.OSVersion);
             String klokkeslett = "Mon, 07 Dec 2009 14:46:00 GMT";
             DateTime dt = DateTime.Parse(klokkeslett);
 
@@ -118,7 +117,7 @@ namespace Tests
             //because of different formatting in mono and .net
             if (System.Environment.OSVersion.ToString().ToLower().Contains("unix"))
             {
-                Assert.AreEqual("07.12.2009 15:46:00 + 1", dtSomString);
+                Assert.AreEqual("07.12.09 15:46:00 + 1", dtSomString);
             }
             else
             {
