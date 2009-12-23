@@ -134,26 +134,5 @@ namespace Vattenmelon.Nrk.Parser.Xml
             Assert.AreEqual(Clip.KlippType.NRKBETA, c.Type);
         }
        
-        [Test]
-        public void TestPodKastBergensbanen()
-        {
-            
-            XmlRSSParser parser2 = new XmlRSSParser("http://podkast.nrk.no/program/bergensbanen_minutt_for_minutt.rss", "");
-            List<Item> natur = parser2.getClips();
-            
-            foreach (Item item in natur)
-            {
-                Clip c = (Clip)item;
-                            Console.WriteLine("Tittel.............: " + c.Title);
-                            Console.WriteLine("ID.................: " + c.ID);
-                            Console.WriteLine("Beskrivelse........: " + c.Description);
-                            Console.WriteLine("Bilde..............: " + c.Bilde);
-                            Console.WriteLine("Type...............: " + c.Type);
-                            Console.WriteLine("Antall ganger vist.: " + c.AntallGangerVist);
-                            Console.WriteLine("Klokkeslett........: " + c.Klokkeslett);
-                            Console.WriteLine("-----------------------------------------");
-            }
-
-        }
     }
 }
