@@ -75,6 +75,7 @@ namespace Tests
         [Test]
         public void DateFormatTest()
         {
+            Console.Out.WriteLine("Current locale: " + CultureInfo.CurrentCulture.ToString());
             String klokkeslett = "Mon, 07 Dec 2009 14:46:00 GMT";
             DateTime dt = DateTime.Parse(klokkeslett);
 
