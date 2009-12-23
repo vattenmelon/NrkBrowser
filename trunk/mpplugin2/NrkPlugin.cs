@@ -772,6 +772,10 @@ namespace Vattenmelon.Nrk.Browser
             items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_FRA_TV, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA_FROM_TV));
             items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_HD_KLIPP, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA_HD_CLIPS));
             items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NRKBETA_SEARCH, NrkTranslatableStrings.MENU_ITEM_TITLE_NRKBETA_SEARCH));
+            items.ForEach(delegate(Item item)
+                              {
+                                  item.Bilde = PICTURE_DIR + NrkBrowserConstants.MENU_ITEM_PICTURE_NRKBETA;
+                              });
             return items;
         }
 
