@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NrkParser")]
-[assembly: AssemblyDescription(".NET Library for browsing www.nrk.no videocontent")]
+[assembly: AssemblyDescription(".NET Library for browsing content from www.nrk.no")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("NrkParser")]
-[assembly: AssemblyCopyright("Copyright ©  2009")]
+[assembly: AssemblyCopyright("Copyright © 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,5 +30,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.1.0.*")]
-[assembly: AssemblyFileVersion("1.1.0")]
+[assembly: AssemblyVersion("1.2.0.*")]
+[assembly: AssemblyFileVersion("1.2.0")]

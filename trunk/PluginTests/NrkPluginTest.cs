@@ -105,6 +105,28 @@ namespace Vattenmelon.Nrk.Browser
             Assert.AreEqual(NrkBrowserConstants.DEFAULT_PICTURE, bildeUrl);
 
         }
+        [Test]
+        public void GetPodKastMenuItems()
+        {
+            List<Item> podkastItems = nrkPlugin.CreatePodcastMenuItems();
+            Assert.AreEqual(2, podkastItems.Count);
+            bool funnetAudio = false;
+            bool funnetVideo = false;
+            foreach (Item item in podkastItems)
+            {
+                Assert.AreEqual(NrkBrowserConstants.NRK_LOGO_PICTURE, item.Bilde);
+                if (item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_PODCASTS_AUDIO))
+                {
+                    funnetAudio = true;
+                }
+                else if (item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_PODCASTS_VIDEO))
+                {
+                    funnetVideo = true;
+                }
+            }
+            Assert.IsTrue(funnetAudio);
+            Assert.IsTrue(funnetVideo);
+        }
 /*
         [Test]
         public void testGetTopTabs()
