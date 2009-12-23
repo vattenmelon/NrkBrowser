@@ -117,7 +117,8 @@ namespace Tests
             //because of different formatting in mono and .net
             if (System.Environment.OSVersion.ToString().ToLower().Contains("unix"))
             {
-                Assert.AreEqual("07.12.09 15:46:00 +1", dtSomString);
+                Console.WriteLine("cu: " + CultureInfo.CurrentCulture.ToString());
+                Assert.AreEqual("07.12.09 15.46.00 +1", dtSomString);
             }
             else
             {
