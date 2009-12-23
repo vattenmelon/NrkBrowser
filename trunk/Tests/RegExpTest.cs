@@ -139,7 +139,7 @@ namespace Tests
             if (System.Environment.OSVersion.ToString().ToLower().Contains("unix"))
             {
                 Console.WriteLine("cu: " + CultureInfo.CurrentCulture.ToString());
-                Assert.AreEqual("7. desember 2009 15:46", dtSomString);
+                Assert.AreEqual("7. desember 2009 15.46", dtSomString);
             }
             else
             {
