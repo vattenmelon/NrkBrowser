@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
-using Vattenmelon.Nrk.Parser;
 
 namespace Tests
 {
@@ -78,13 +77,12 @@ namespace Tests
             String klokkeslett = "Mon, 07 Dec 2009 14:46:00 GMT";
             DateTime dt = DateTime.Parse(klokkeslett);
 
-            CultureInfo current = CultureInfo.CurrentCulture;
             String dtSomString = dt.ToString();
-            if (current.ToString().Equals("en-US"))
+            if (CultureInfo.CurrentCulture.ToString().Equals("en-US"))
             {
                 Assert.AreEqual("12/7/2009 3:46:00 PM", dtSomString); 
             }
-            else if (current.ToString().Equals("nb-NO"))
+            else if (CultureInfo.CurrentCulture.ToString().Equals("nb-NO"))
             {
                 Assert.AreEqual("07.12.2009 15:46:00", dtSomString); 
             }
@@ -94,11 +92,11 @@ namespace Tests
             }
  
             dtSomString = dt.ToShortDateString();
-            if (current.ToString().Equals("en-US"))
+            if (CultureInfo.CurrentCulture.ToString().Equals("en-US"))
             {
                 Assert.AreEqual("12/7/2009", dtSomString);
             }
-            else if (current.ToString().Equals("nb-NO"))
+            else if (CultureInfo.CurrentCulture.ToString().Equals("nb-NO"))
             {
                 Assert.AreEqual("07.12.2009", dtSomString);
             }
@@ -125,7 +123,7 @@ namespace Tests
             cu = new CultureInfo("nn-NO");
             dtSomString = dt.ToString(cu);
             //because of different formatting in mono and .net
-            if (System.Environment.OSVersion.ToString().ToLower().Contains("unix"))
+            if (Environment.OSVersion.ToString().ToLower().Contains("unix"))
             {
                 Assert.AreEqual("07.12.09 15.46.00 +1", dtSomString);
             }
@@ -136,9 +134,8 @@ namespace Tests
             
             cu = new CultureInfo("nb-NO");
             dtSomString = dt.ToString("f", cu);
-            if (System.Environment.OSVersion.ToString().ToLower().Contains("unix"))
+            if (Environment.OSVersion.ToString().ToLower().Contains("unix"))
             {
-                Console.WriteLine("cu: " + CultureInfo.CurrentCulture.ToString());
                 Assert.AreEqual("7. desember 2009 15.46", dtSomString);
             }
             else
