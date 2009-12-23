@@ -107,8 +107,6 @@ namespace Tests
                 Assert.Fail(string.Format("Skal ikke komme hit, var ingen av cultureinfoene, current cultureinfo er: {0}", CultureInfo.CurrentCulture.ToString()));
             }
             
-            
-            
             CultureInfo cu = new CultureInfo("en-US");
             dtSomString = dt.ToString(cu);
             Assert.AreEqual("12/7/2009 3:46:00 PM", dtSomString);
@@ -117,7 +115,6 @@ namespace Tests
             //because of different formatting in mono and .net
             if (System.Environment.OSVersion.ToString().ToLower().Contains("unix"))
             {
-                Console.WriteLine("cu: " + CultureInfo.CurrentCulture.ToString());
                 Assert.AreEqual("07.12.09 15.46.00 +1", dtSomString);
             }
             else
@@ -130,7 +127,6 @@ namespace Tests
             //because of different formatting in mono and .net
             if (System.Environment.OSVersion.ToString().ToLower().Contains("unix"))
             {
-                Console.WriteLine("cu: " + CultureInfo.CurrentCulture.ToString());
                 Assert.AreEqual("07.12.09 15.46.00 +1", dtSomString);
             }
             else
@@ -140,7 +136,15 @@ namespace Tests
             
             cu = new CultureInfo("nb-NO");
             dtSomString = dt.ToString("f", cu);
-            Assert.AreEqual("7. desember 2009 15:46", dtSomString);
+            if (System.Environment.OSVersion.ToString().ToLower().Contains("unix"))
+            {
+                Console.WriteLine("cu: " + CultureInfo.CurrentCulture.ToString());
+                Assert.AreEqual("7. desember 2009 15:46", dtSomString);
+            }
+            else
+            {
+                Assert.AreEqual("7. desember 2009 15:46", dtSomString);
+            }
             
         }
     }
