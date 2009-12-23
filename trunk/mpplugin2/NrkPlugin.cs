@@ -712,16 +712,16 @@ namespace Vattenmelon.Nrk.Browser
 
         private void setNrkLogoPictureOnItem(Item item)
         {
-            item.Bilde = NrkBrowserConstants.NRK_LOGO_PICTURE;
+            item.Bilde = PICTURE_DIR + NrkBrowserConstants.NRK_LOGO_PICTURE;
         }
 
         public List<Item> CreatePodcastMenuItems()
         {
             List<Item> items = new List<Item>(2);
             MenuItem item1 = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_PODCASTS_AUDIO, NrkTranslatableStrings.MENU_ITEM_TITLE_PODCASTS_AUDIO);
-            item1.Bilde = NrkBrowserConstants.NRK_LOGO_PICTURE;
+            item1.Bilde = PICTURE_DIR + NrkBrowserConstants.NRK_LOGO_PICTURE;
             MenuItem item2 = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_PODCASTS_VIDEO, NrkTranslatableStrings.MENU_ITEM_TITLE_PODCASTS_VIDEO);
-            item2.Bilde = NrkBrowserConstants.NRK_LOGO_PICTURE;
+            item2.Bilde = PICTURE_DIR + NrkBrowserConstants.NRK_LOGO_PICTURE;
             items.Add(item1);
             items.Add(item2);
             return items;

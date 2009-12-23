@@ -114,7 +114,7 @@ namespace Vattenmelon.Nrk.Browser
             bool funnetVideo = false;
             foreach (Item item in podkastItems)
             {
-                Assert.AreEqual(NrkBrowserConstants.NRK_LOGO_PICTURE, item.Bilde);
+                Assert.AreEqual(NrkPlugin.PICTURE_DIR + NrkBrowserConstants.NRK_LOGO_PICTURE, item.Bilde);
                 if (item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_PODCASTS_AUDIO))
                 {
                     funnetAudio = true;
