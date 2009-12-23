@@ -95,7 +95,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
                     }
                     else
                     {
-                        Assert.AreEqual("Monday, December 07, 2009 4:13 PM", c.Klokkeslett);
+                        Assert.AreEqual("Monday, December 07, 2009 4:05 PM", c.Klokkeslett);
                     }
                     
                     Assert.AreEqual("00:00:00", c.Duration);
