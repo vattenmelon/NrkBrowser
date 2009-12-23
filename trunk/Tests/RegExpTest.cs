@@ -75,7 +75,6 @@ namespace Tests
         [Test]
         public void DateFormatTest()
         {
-            Console.Out.WriteLine("Current locale: " + CultureInfo.CurrentCulture.ToString());
             String klokkeslett = "Mon, 07 Dec 2009 14:46:00 GMT";
             DateTime dt = DateTime.Parse(klokkeslett);
 
@@ -91,11 +90,25 @@ namespace Tests
             }
             else
             {
-                Assert.Fail("Skal ikke komme hit, var ingen av cultureinfoene");
+                Assert.Fail(string.Format("Skal ikke komme hit, var ingen av cultureinfoene, current cultureinfo er: {0}", CultureInfo.CurrentCulture.ToString()));
             }
  
             dtSomString = dt.ToShortDateString();
-            Assert.AreEqual("07.12.2009", dtSomString);
+            if (current.ToString().Equals("en-US"))
+            {
+                Assert.AreEqual("12/7/2009", dtSomString);
+            }
+            else if (current.ToString().Equals("nb-NO"))
+            {
+                Assert.AreEqual("07.12.2009", dtSomString);
+            }
+            else
+            {
+                Assert.Fail(string.Format("Skal ikke komme hit, var ingen av cultureinfoene, current cultureinfo er: {0}", CultureInfo.CurrentCulture.ToString()));
+            }
+            
+            
+            
             CultureInfo cu = new CultureInfo("en-US");
             dtSomString = dt.ToString(cu);
             Assert.AreEqual("12/7/2009 3:46:00 PM", dtSomString);
