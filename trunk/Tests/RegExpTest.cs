@@ -115,7 +115,16 @@ namespace Tests
             Assert.AreEqual("12/7/2009 3:46:00 PM", dtSomString);
             cu = new CultureInfo("nb-NO");
             dtSomString = dt.ToString(cu);
-            Assert.AreEqual("07.12.2009 15:46:00", dtSomString);
+            //because of different formatting in mono and .net
+            if (System.Environment.OSVersion.ToString().ToLower().Contains("unix"))
+            {
+                Assert.AreEqual("07.12.2009 15:46:00 + 1", dtSomString);
+            }
+            else
+            {
+                Assert.AreEqual("07.12.2009 15:46:00", dtSomString);
+            }
+            
             cu = new CultureInfo("nn-NO");
             dtSomString = dt.ToString(cu);
             Assert.AreEqual("07.12.2009 15:46:00", dtSomString);
