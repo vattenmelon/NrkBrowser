@@ -85,9 +85,15 @@ namespace Vattenmelon.Nrk.Parser.Xml
             
         }
 
+        protected override string GetPicture(Clip clip)
+        {
+            return getPodkastPicture();
+        }
+
         protected override void PutEnclosureOnItem(Clip item, XmlNode n)
         {
-            item.ID = n.Attributes["url"].Value;
+            string tmpId = n.Attributes["url"].Value;
+            item.ID = tmpId.Substring(0, tmpId.LastIndexOf("?"));
             item.MediaType = n.Attributes["type"].Value;
         }
 

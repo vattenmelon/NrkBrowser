@@ -665,6 +665,7 @@ namespace Vattenmelon.Nrk.Parser
             {
                 PodKast item = new PodKast(matches[0].Groups["url"].Value, matches[0].Groups["title"].Value);
                 item.Description = matches[0].Groups["description"].Value;
+                item.Bilde = String.Empty;
                 return item;
             }
             return null;

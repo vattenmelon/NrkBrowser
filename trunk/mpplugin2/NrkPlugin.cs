@@ -699,6 +699,13 @@ namespace Vattenmelon.Nrk.Browser
                 items.AddRange(nrkParser.GetFolders((Folder)item));
                 UpdateList(items);
             }
+            else if (item is PodKast)
+            {
+                PodkastXmlParser pxp = new PodkastXmlParser(item.ID);
+                List<Item> items = pxp.getClips();
+                setClipCount(items);
+                UpdateList(items);
+            }
         }
 
         private List<Item> CreatePodcastMenuItems()
