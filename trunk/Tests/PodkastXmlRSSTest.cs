@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Vattenmelon.Nrk.Domain;
 using NUnit.Framework;
 
@@ -71,7 +72,14 @@ namespace Vattenmelon.Nrk.Parser.Xml
                 {
                     Assert.AreEqual("Bergensbanen minutt for minutt - del 1", c.Title);
                     Assert.AreEqual("Bergen til Urdland. Bergensbanen gjennom fjordlandskapet til Voss. Mange tunneler  og dermed mange arkivklipp, m.a frå togavsporing i 1948.", c.Description);
-                    Assert.AreEqual("7. desember 2009 16:13", c.Klokkeslett);
+                    if (CultureInfo.CurrentCulture.ToString().Equals("nb-NO"))
+                    {
+                        Assert.AreEqual("7. desember 2009 16:13", c.Klokkeslett);
+                    }
+                    else
+                    {
+                        Assert.AreEqual("Monday, December 07, 2009 3:13 PM", c.Klokkeslett);
+                    }
                     Assert.AreEqual("00:00:00", c.Duration);
                     Assert.AreEqual("http://fil.nrk.no/contentfile/file/1.6896395!img6896395.jpg", c.Bilde);
                     Assert.AreEqual(Clip.KlippType.PODCAST, c.Type);
@@ -81,7 +89,15 @@ namespace Vattenmelon.Nrk.Parser.Xml
                 {
                     Assert.AreEqual("Bergensbanen minutt for minutt - del 2", c.Title);
                     Assert.AreEqual("Urdland til Ustaoset. Sjølvaste høgfjellsstrekninga på Bergensbanen. Haustlandskapet blir gradvis meir og meir vinterleg. Her kjem utsikta ned Flåmsdalen! Vi ser m.a.klipp frå snørydding i gamle dagar, høyrer intervju med gammal rallar.", c.Description);
-                    Assert.AreEqual("7. desember 2009 16:05", c.Klokkeslett);
+                    if (CultureInfo.CurrentCulture.ToString().Equals("nb-NO"))
+                    {
+                        Assert.AreEqual("7. desember 2009 16:05", c.Klokkeslett);
+                    }
+                    else
+                    {
+                        Assert.AreEqual("Monday, December 07, 2009 3:13 PM", c.Klokkeslett);
+                    }
+                    
                     Assert.AreEqual("00:00:00", c.Duration);
                     Assert.AreEqual("http://fil.nrk.no/contentfile/file/1.6896395!img6896395.jpg", c.Bilde);
                     Assert.AreEqual(Clip.KlippType.PODCAST, c.Type);
@@ -91,7 +107,15 @@ namespace Vattenmelon.Nrk.Parser.Xml
                 {
                     Assert.AreEqual("Bergensbanen minutt for minutt - del 3", c.Title);
                     Assert.AreEqual("Ustaoset til Austvoll. Bergensbanen passerer Ustaoset og Geilo , og køyrer gjennom heile Hallingdalen tilbakelagt. Vi forlet vinteren og køyrer nedover mot hausten att. Her dukka rein kortversjon av den gamle stumfilmen ”Bergenstoget plyndret i natt”. På Ål skifter vi lokomotivførar. ", c.Description);
-                    Assert.AreEqual("7. desember 2009 15:59", c.Klokkeslett);
+                    if (CultureInfo.CurrentCulture.ToString().Equals("nb-NO"))
+                    {
+                        Assert.AreEqual("7. desember 2009 15:59", c.Klokkeslett);
+                    }
+                    else
+                    {
+                        Assert.AreEqual("Monday, December 07, 2009 2:59 PM", c.Klokkeslett);
+                    }
+                    
                     Assert.AreEqual("00:00:00", c.Duration);
                     Assert.AreEqual("http://fil.nrk.no/contentfile/file/1.6896395!img6896395.jpg", c.Bilde);
                     Assert.AreEqual(Clip.KlippType.PODCAST, c.Type);
@@ -101,7 +125,15 @@ namespace Vattenmelon.Nrk.Parser.Xml
                 {
                     Assert.AreEqual("Bergensbanen minutt for minutt - del 4", c.Title);
                     Assert.AreEqual("Austvoll til Skotselv. Startar med det gamle vasstårnet på Austvoll og går gjennom roleg skogkledd landskap.. Fleire intervju med dagens passasjerar. Gjensyn med den siste postekspedisjonsvogna på Bergensbanen.", c.Description);
-                    Assert.AreEqual("7. desember 2009 15:56", c.Klokkeslett);
+                    if (CultureInfo.CurrentCulture.ToString().Equals("nb-NO"))
+                    {
+                        Assert.AreEqual("7. desember 2009 15:56", c.Klokkeslett);
+                    }
+                    else
+                    {
+                        Assert.AreEqual("Monday, December 07, 2009 2:56 PM", c.Klokkeslett);
+                    }
+                    
                     Assert.AreEqual("00:00:00", c.Duration);
                     Assert.AreEqual("http://fil.nrk.no/contentfile/file/1.6896395!img6896395.jpg", c.Bilde);
                     Assert.AreEqual(Clip.KlippType.PODCAST, c.Type);
@@ -111,7 +143,15 @@ namespace Vattenmelon.Nrk.Parser.Xml
                 {
                     Assert.AreEqual("Bergensbanen minutt for minutt - del 5", c.Title);
                     Assert.AreEqual("Skotselv - Oslo. Ransfjordsbanen og Drammensbanen inn mot hovudstaden.", c.Description);
-                    Assert.AreEqual("7. desember 2009 15:46", c.Klokkeslett);
+                    if (CultureInfo.CurrentCulture.ToString().Equals("nb-NO"))
+                    {
+                        Assert.AreEqual("7. desember 2009 15:46", c.Klokkeslett);
+                    }
+                    else
+                    {
+                        Assert.AreEqual("Monday, December 07, 2009 2:46 PM", c.Klokkeslett);
+                    }
+                    
                     Assert.AreEqual("00:00:00", c.Duration);
                     Assert.AreEqual("http://fil.nrk.no/contentfile/file/1.6896395!img6896395.jpg", c.Bilde);
                     Assert.AreEqual(Clip.KlippType.PODCAST, c.Type);
