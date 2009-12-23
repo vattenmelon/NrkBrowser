@@ -284,6 +284,7 @@ namespace Vattenmelon.Nrk.Parser
             IList<PodKast> items = nrkParser.GetVideoPodkaster();
             Assert.IsNotEmpty(items as List<PodKast>);
             Boolean funnetBokprogrammet = false;
+            Boolean funnetBergensbanen = false;
             foreach (PodKast podKast in items)
             {
                 if (podKast.ID.Equals("http://podkast.nrk.no/program/bokprogrammet.rss"))
@@ -292,9 +293,16 @@ namespace Vattenmelon.Nrk.Parser
                     Assert.AreEqual("Hans Olav Brenner møter forfattere.", podKast.Description);
                     funnetBokprogrammet = true;
                 }
+                else if (podKast.ID.Equals("http://podkast.nrk.no/program/bergensbanen_minutt_for_minutt.rss"))
+                {
+                    Assert.AreEqual("Bergensbanen minutt for minutt (NRK)", podKast.Title);
+                    Assert.AreEqual("Bergensbanen bokstavlig talt minutt for minutt.", podKast.Description);
+                    funnetBergensbanen = true;
+                }
             }
-            Assert.IsTrue(funnetBokprogrammet);
             Assert.AreEqual(24, items.Count); //22/12-09: det er 27, men bare fireogtyve har rss feed.
+            Assert.IsTrue(funnetBokprogrammet);
+            Assert.IsTrue(funnetBergensbanen);
             
         }
 
@@ -304,6 +312,8 @@ namespace Vattenmelon.Nrk.Parser
             IList<PodKast> items = nrkParser.GetLydPodkaster();
             Assert.IsNotEmpty(items as List<PodKast>);
             Boolean funnetRadioResepsjonenutenmusikk = false;
+            Boolean funnetmorketsOpplevelser = false;
+            Boolean funnetTelemarkssendinga = false;
             foreach (PodKast podKast in items)
             {
                 if (podKast.ID.Equals("http://podkast.nrk.no/program/radioresepsjonen.rss"))
@@ -312,8 +322,22 @@ namespace Vattenmelon.Nrk.Parser
                     Assert.AreEqual("En feit, en lang og en gammel mann prøver å lage program på P3.", podKast.Description);
                     funnetRadioResepsjonenutenmusikk = true;
                 }
+                else if (podKast.ID.Equals("http://podkast.nrk.no/program/moerkets_opplevelser.rss"))
+                {
+                    Assert.AreEqual("Mørkets opplevelser (NRK P2)", podKast.Title);
+                    Assert.AreEqual("Et bredt filmprogram som er opptatt av smale filmer. Som skiller mellom gull og glitter og beundrer stjerner uten å la seg blende. Ny podkast hver torsdag.", podKast.Description);
+                    funnetmorketsOpplevelser = true; 
+                }
+                else if (podKast.ID.Equals("http://podkast.nrk.no/program/telemarksendinga.rss"))
+                {
+                    Assert.AreEqual("Telemarksendinga (NRK P1)", podKast.Title);
+                    Assert.AreEqual("Lokal nyhetshalvtime fra 1630. Ny podkast alle hverdager.", podKast.Description);
+                    funnetTelemarkssendinga = true;
+                }
             }
             Assert.IsTrue(funnetRadioResepsjonenutenmusikk);
+            Assert.IsTrue(funnetmorketsOpplevelser);
+            Assert.IsTrue(funnetTelemarkssendinga);
             Assert.AreEqual(77, items.Count);
 
         }
