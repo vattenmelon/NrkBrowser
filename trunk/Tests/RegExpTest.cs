@@ -77,8 +77,22 @@ namespace Tests
         {
             String klokkeslett = "Mon, 07 Dec 2009 14:46:00 GMT";
             DateTime dt = DateTime.Parse(klokkeslett);
+
+            CultureInfo current = CultureInfo.CurrentCulture;
             String dtSomString = dt.ToString();
-            Assert.AreEqual("07.12.2009 15:46:00", dtSomString);
+            if (current.ToString().Equals("en-US"))
+            {
+                Assert.AreEqual("12/7/2009 3:46:00 PM", dtSomString); 
+            }
+            else if (current.ToString().Equals("nb-NO"))
+            {
+                Assert.AreEqual("07.12.2009 15:46:00", dtSomString); 
+            }
+            else
+            {
+                Assert.Fail("Skal ikke komme hit, var ingen av cultureinfoene");
+            }
+ 
             dtSomString = dt.ToShortDateString();
             Assert.AreEqual("07.12.2009", dtSomString);
             CultureInfo cu = new CultureInfo("en-US");

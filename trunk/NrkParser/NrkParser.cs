@@ -421,7 +421,7 @@ namespace Vattenmelon.Nrk.Parser
             {
                 return GetClipUrlForIndex(clip);
             }
-            else if (clip.Type == Clip.KlippType.NRKBETA)
+            else if (clip.Type == Clip.KlippType.NRKBETA || clip.Type == Clip.KlippType.PODCAST)
             {
                 return clip.ID;
             }
