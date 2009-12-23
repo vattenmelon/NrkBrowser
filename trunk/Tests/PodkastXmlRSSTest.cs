@@ -78,7 +78,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
                     }
                     else
                     {
-                        Assert.AreEqual("Monday, December 07, 2009 3:13 PM", c.Klokkeslett);
+                        Assert.AreEqual("Monday, December 07, 2009 4:13 PM", c.Klokkeslett);
                     }
                     Assert.AreEqual("00:00:00", c.Duration);
                     Assert.AreEqual("http://fil.nrk.no/contentfile/file/1.6896395!img6896395.jpg", c.Bilde);
@@ -95,7 +95,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
                     }
                     else
                     {
-                        Assert.AreEqual("Monday, December 07, 2009 3:13 PM", c.Klokkeslett);
+                        Assert.AreEqual("Monday, December 07, 2009 4:13 PM", c.Klokkeslett);
                     }
                     
                     Assert.AreEqual("00:00:00", c.Duration);
@@ -113,7 +113,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
                     }
                     else
                     {
-                        Assert.AreEqual("Monday, December 07, 2009 2:59 PM", c.Klokkeslett);
+                        Assert.AreEqual("Monday, December 07, 2009 3:59 PM", c.Klokkeslett);
                     }
                     
                     Assert.AreEqual("00:00:00", c.Duration);
@@ -131,7 +131,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
                     }
                     else
                     {
-                        Assert.AreEqual("Monday, December 07, 2009 2:56 PM", c.Klokkeslett);
+                        Assert.AreEqual("Monday, December 07, 2009 3:56 PM", c.Klokkeslett);
                     }
                     
                     Assert.AreEqual("00:00:00", c.Duration);
@@ -149,7 +149,7 @@ namespace Vattenmelon.Nrk.Parser.Xml
                     }
                     else
                     {
-                        Assert.AreEqual("Monday, December 07, 2009 2:46 PM", c.Klokkeslett);
+                        Assert.AreEqual("Monday, December 07, 2009 3:46 PM", c.Klokkeslett);
                     }
                     
                     Assert.AreEqual("00:00:00", c.Duration);
