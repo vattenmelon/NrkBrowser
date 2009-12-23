@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
@@ -70,6 +71,29 @@ namespace Tests
             }
             Assert.AreEqual("abba", s);
 
+        }
+        [Test]
+        public void DateFormatTest()
+        {
+            String klokkeslett = "Mon, 07 Dec 2009 14:46:00 GMT";
+            DateTime dt = DateTime.Parse(klokkeslett);
+            String dtSomString = dt.ToString();
+            Assert.AreEqual("07.12.2009 15:46:00", dtSomString);
+            dtSomString = dt.ToShortDateString();
+            Assert.AreEqual("07.12.2009", dtSomString);
+            CultureInfo cu = new CultureInfo("en-US");
+            dtSomString = dt.ToString(cu);
+            Assert.AreEqual("12/7/2009 3:46:00 PM", dtSomString);
+            cu = new CultureInfo("nb-NO");
+            dtSomString = dt.ToString(cu);
+            Assert.AreEqual("07.12.2009 15:46:00", dtSomString);
+            cu = new CultureInfo("nn-NO");
+            dtSomString = dt.ToString(cu);
+            Assert.AreEqual("07.12.2009 15:46:00", dtSomString);
+            cu = new CultureInfo("nb-NO");
+            dtSomString = dt.ToString("f", cu);
+            Assert.AreEqual("7. desember 2009 15:46", dtSomString);
+            
         }
     }
 }

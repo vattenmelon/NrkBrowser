@@ -24,45 +24,15 @@ namespace Vattenmelon.Nrk.Parser.Xml
             url = urltopodkast;
         }
 
+        override protected Clip.KlippType GetClipType()
+        {
+            return Clip.KlippType.PODCAST;
+        }
 
-//        override protected void LoadXmlDocument()
-//        {
-//            doc = new XmlDocument();
-//            httpClient = GetHttClient();
-//            String xmlAsString = httpClient.GetUrl(url);
-//            doc.LoadXml(xmlAsString);
-//        }
-
-//        override protected string GetPicture(Clip clip)
-//        {
-//            String bilde = NrkParserConstants.NRK_BETA_THUMBNAIL_URL;
-//            String videoFileName = clip.ID.Substring(clip.ID.LastIndexOf("/") + 1);
-//            return string.Format(bilde, videoFileName);
-//        }
-//
-//        override protected Clip.KlippType GetClipType()
-//        {
-//            return Clip.KlippType.NRKBETA;
-//        }
-//
-//        override protected XmlNodeList GetNodeList()
-//        {
-//            return doc.GetElementsByTagName("entry");
-//        }
-//
-//        override protected void PutLinkOnItem(Clip clip, XmlNode node)
-//        {
-//            clip.ID = node.Attributes["href"].Value;
-//        }
-//
-//        override protected void PutSummaryOnItem(Clip clip, XmlNode node)
-//        {
-//            clip.Description = node.InnerText;
-//        }
 
         protected override void PutPublicationDateOnItem(Clip item, XmlNode n)
         {
-            item.Klokkeslett = n.InnerText;
+            item.Klokkeslett = DateTime.Parse(n.InnerText).ToString("f");
         }
 
         protected override void PutDurationOnItem(Clip item, XmlNode n)
