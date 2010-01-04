@@ -679,7 +679,7 @@ namespace Vattenmelon.Nrk.Parser
 
         private string GetMediaSection(string videokastsExpression)
         {
-            String pageAsString = FetchUrl("http://www.nrk.no/podkast/");           
+            String pageAsString = FetchUrl("http://www.nrk.no/podkast/");       
             Regex queryVideokastsSection = new Regex(videokastsExpression, RegexOptions.Singleline);
             MatchCollection matches = queryVideokastsSection.Matches(pageAsString);
             return matches[0].Groups["media"].Value;
