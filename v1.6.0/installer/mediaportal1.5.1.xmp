@@ -1,0 +1,295 @@
+﻿<MPinstaler>
+	<ver>1.00.000</ver>
+	<FileList>
+		<File>
+			<FileName>en-US.xml</FileName>
+			<Type>Other</Type>
+			<SubType>%Language%</SubType>
+			<Source>nrkbrowser\languages\en-US.xml</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\en-US.xml|DefaultFile=False|</Option>
+			<Guid>9cddc3be-5ff8-4b62-8f6a-f6302c7fa691</Guid>
+		</File>
+		<File>
+			<FileName>no.xml</FileName>
+			<Type>Other</Type>
+			<SubType>%Language%</SubType>
+			<Source>nrkbrowser\languages\no.xml</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\no.xml|DefaultFile=False|</Option>
+			<Guid>ad20c549-6246-478f-b53a-94d005e7502b</Guid>
+		</File>
+		<File>
+			<FileName>NrkBrowser.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>nrkbrowser\mpplugin2\bin\Release\NrkBrowser.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>4e748b76-1622-44bc-aed9-424dbdf35306</Guid>
+		</File>
+		<File>
+			<FileName>NrkBrowser.xml</FileName>
+			<Type>Skin</Type>
+			<SubType>StreamedMP</SubType>
+			<Source>nrkbrowser\skins\streamedmp\NrkBrowser.xml</Source>
+			<Id>02010</Id>
+			<Option />
+			<Guid>fac1e978-4241-4c27-8f66-bde10e5b4a3a</Guid>
+		</File>
+		<File>
+			<FileName>NrkBrowser.xml</FileName>
+			<Type>Skin</Type>
+			<SubType>Monochrome</SubType>
+			<Source>nrkbrowser\skins\monochrome\NrkBrowser.xml</Source>
+			<Id>02010</Id>
+			<Option />
+			<Guid>eff1c413-4f6f-4d8d-bd2b-f5756acc3434</Guid>
+		</File>
+		<File>
+			<FileName>NrkBrowser.xml</FileName>
+			<Type>Skin</Type>
+			<SubType>Blue3wide</SubType>
+			<Source>nrkbrowser\skins\bluetwowide\NrkBrowser.xml</Source>
+			<Id>02010</Id>
+			<Option />
+			<Guid>01841b12-95d1-49a9-8e45-f3feb109cdd2</Guid>
+		</File>
+		<File>
+			<FileName>NrkBrowser.xml</FileName>
+			<Type>Skin</Type>
+			<SubType>Blue3</SubType>
+			<Source>nrkbrowser\skins\bluetwo\NrkBrowser.xml</Source>
+			<Id>02010</Id>
+			<Option />
+			<Guid>fcf5c391-34a7-47a3-b149-32d828f7f138</Guid>
+		</File>
+		<File>
+			<FileName>NrkDomain.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>nrkbrowser\mpplugin2\bin\Release\NrkDomain.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>8eaaa6ec-a315-471d-876f-2dfc619fbc15</Guid>
+		</File>
+		<File>
+			<FileName>nrklogo.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>StreamedMP</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\StreamedMP\Media\nrkbrowser\nrklogo.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrklogo.jpg|</Option>
+			<Guid>47825221-9e27-488b-abfa-3aea9fb32ece</Guid>
+		</File>
+		<File>
+			<FileName>nrklogo.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Monochrome</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Monochrome\Media\nrkbrowser\nrklogo.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrklogo.jpg|</Option>
+			<Guid>7c067349-a456-418b-89cf-fb1a057c2ac9</Guid>
+		</File>
+		<File>
+			<FileName>nrklogo.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Blue3wide</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Blue3wide\Media\nrkbrowser\nrklogo.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrklogo.jpg|</Option>
+			<Guid>2955966f-fcae-4d9b-9cd2-9552185d44d1</Guid>
+		</File>
+		<File>
+			<FileName>nrklogo.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Blue3</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Blue3\Media\nrkbrowser\nrklogo.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrklogo.jpg|</Option>
+			<Guid>5c039d53-207b-4012-9a79-09c11ed9626e</Guid>
+		</File>
+		<File>
+			<FileName>nrknatur.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>StreamedMP</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\StreamedMP\Media\nrkbrowser\nrknatur.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrknatur.jpg|</Option>
+			<Guid>91656af5-57bc-45c6-b976-66f8f290d381</Guid>
+		</File>
+		<File>
+			<FileName>nrknatur.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Monochrome</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Monochrome\Media\nrkbrowser\nrknatur.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrknatur.jpg|</Option>
+			<Guid>07c7f0b5-fc5b-4513-b856-106ee27f67ae</Guid>
+		</File>
+		<File>
+			<FileName>nrknatur.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Blue3wide</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Blue3wide\Media\nrkbrowser\nrknatur.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrknatur.jpg|</Option>
+			<Guid>ea422448-8bc7-4512-8cb0-3c6740ab3ae8</Guid>
+		</File>
+		<File>
+			<FileName>nrknatur.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Blue3</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Blue3\Media\nrkbrowser\nrknatur.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrknatur.jpg|</Option>
+			<Guid>096bc9ef-d894-4db3-8bf2-71eb981b310f</Guid>
+		</File>
+		<File>
+			<FileName>nrknyheter.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>StreamedMP</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\StreamedMP\Media\nrkbrowser\nrknyheter.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrknyheter.jpg|</Option>
+			<Guid>ae43e5e7-50b3-4268-a23d-e4d95cfa4636</Guid>
+		</File>
+		<File>
+			<FileName>nrknyheter.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Monochrome</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Monochrome\Media\nrkbrowser\nrknyheter.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrknyheter.jpg|</Option>
+			<Guid>463ba0f6-0a36-4455-9dd4-a3a2b5251ba2</Guid>
+		</File>
+		<File>
+			<FileName>nrknyheter.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Blue3wide</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Blue3wide\Media\nrkbrowser\nrknyheter.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrknyheter.jpg|</Option>
+			<Guid>7de7fec8-73fe-456a-8f33-af179b19dd9e</Guid>
+		</File>
+		<File>
+			<FileName>nrknyheter.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Blue3</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Blue3\Media\nrkbrowser\nrknyheter.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrknyheter.jpg|</Option>
+			<Guid>d688b18b-8fad-4768-8098-bb8f61c0e1c7</Guid>
+		</File>
+		<File>
+			<FileName>NrkParser.dll</FileName>
+			<Type>Plugin</Type>
+			<SubType>Window</SubType>
+			<Source>nrkbrowser\mpplugin2\bin\Release\NrkParser.dll</Source>
+			<Id>01010</Id>
+			<Option />
+			<Guid>aa32f6ed-e0fe-47e1-8c3d-651f8bc0b306</Guid>
+		</File>
+		<File>
+			<FileName>nrksport.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>StreamedMP</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\StreamedMP\Media\nrkbrowser\nrksport.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrksport.jpg|</Option>
+			<Guid>433ec626-5842-4551-a476-5a5397673652</Guid>
+		</File>
+		<File>
+			<FileName>nrksport.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Monochrome</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Monochrome\Media\nrkbrowser\nrksport.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrksport.jpg|</Option>
+			<Guid>a1b33e2a-ce4f-4e65-86ce-5980a6345c3b</Guid>
+		</File>
+		<File>
+			<FileName>nrksport.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Blue3wide</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Blue3wide\Media\nrkbrowser\nrksport.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrksport.jpg|</Option>
+			<Guid>29bf99f4-8a12-444a-8168-5a209dabcfc3</Guid>
+		</File>
+		<File>
+			<FileName>nrksport.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Blue3</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Blue3\Media\nrkbrowser\nrksport.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrksport.jpg|</Option>
+			<Guid>701c621b-0938-43a6-a201-81eed8ef2508</Guid>
+		</File>
+		<File>
+			<FileName>nrksuper.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>StreamedMP</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\StreamedMP\Media\nrkbrowser\nrksuper.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrksuper.jpg|</Option>
+			<Guid>87e9bd77-f2f5-44f2-97e7-efacf40a52d9</Guid>
+		</File>
+		<File>
+			<FileName>nrksuper.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Monochrome</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Monochrome\Media\nrkbrowser\nrksuper.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrksuper.jpg|</Option>
+			<Guid>6fcfd8eb-6100-4ce3-b757-fd1f3c6105d2</Guid>
+		</File>
+		<File>
+			<FileName>nrksuper.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Blue3wide</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Blue3wide\Media\nrkbrowser\nrksuper.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrksuper.jpg|</Option>
+			<Guid>8ae521f2-2d88-42e5-9c5f-c1c57b8be41b</Guid>
+		</File>
+		<File>
+			<FileName>nrksuper.jpg</FileName>
+			<Type>Media</Type>
+			<SubType>Blue3</SubType>
+			<Source>C:\Documents and Settings\All Users\Application Data\Team MediaPortal\MediaPortal\skin\Blue3\Media\nrkbrowser\nrksuper.jpg</Source>
+			<Id>02010</Id>
+			<Option>OutputFileName=\nrkbrowser\nrksuper.jpg|</Option>
+			<Guid>a839b057-fe11-4dc6-a501-86f828af7a64</Guid>
+		</File>
+	</FileList>
+	<StringList />
+	<Actions />
+	<SetupGroups />
+	<SetupGroupMappings />
+	<Option>
+		<BuildFileName>C:\Documents and Settings\Erling\My Documents\Visual Studio 2008\nrkbrowser\mpe1\NrkBrowser-1.4.0.MPE1</BuildFileName>
+		<ProiectFileName>C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\mediaportal1.5.0.xmp</ProiectFileName>
+		<ProiectName>NrkBrowser</ProiectName>
+		<Author>Vattenmelon</Author>
+		<UpdateURL>http://www.team-mediaportal.com</UpdateURL>
+		<Version>1.5.1</Version>
+		<Description>Plugin to browse online content from Norwegian Public Broadcasting, NRK.</Description>
+		<Group>Video/Movies</Group>
+		<Release>Stable </Release>
+		<Script />
+	</Option>
+	<Properties>
+		<MPMaxVersion>0.00.00.00</MPMaxVersion>
+		<MPMinVersion>0.00.00.00</MPMinVersion>
+		<MinExtensionVersion />
+		<MaxExtensionVersion />
+		<ForumURL />
+		<WebURL />
+		<WikiURL />
+		<CreationDate>14-11-09</CreationDate>
+		<SingleGroupSelect>False</SingleGroupSelect>
+		<ClearSkinCache>False</ClearSkinCache>
+		<UseRealPathInPackage>False</UseRealPathInPackage>
+	</Properties>
+</MPinstaler>
