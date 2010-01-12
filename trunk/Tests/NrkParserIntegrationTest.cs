@@ -87,13 +87,13 @@ namespace Vattenmelon.Nrk.Parser
         [Test]
         public void TestGetClipsTilhoerendeSammeProgram()
         {
-            int prosjektId = 1194;
-            string clipId = "567540";
-            Clip clip = new Clip(clipId, "True Blood");
+            int prosjektId = 66;
+            string clipId = "596780";
+            Clip clip = new Clip(clipId, "Et eller annet pulsprogram");
             clip.TilhoerendeProsjekt = prosjektId;
-            List<Item> itemsTilHoerendeTrueBlood = nrkParser.GetClipsTilhoerendeSammeProgram(clip);
-            Assert.IsNotEmpty(itemsTilHoerendeTrueBlood);
-            foreach (Item item in itemsTilHoerendeTrueBlood)
+            List<Item> itemsTilhoerendePuls = nrkParser.GetClipsTilhoerendeSammeProgram(clip);
+            Assert.IsNotEmpty(itemsTilhoerendePuls);
+            foreach (Item item in itemsTilhoerendePuls)
             {
                 Assert.IsTrue(ItemErEntenClipEllerFolder(item));
             }
