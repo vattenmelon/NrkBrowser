@@ -19,6 +19,7 @@ using MediaPortal.Player;
 using MediaPortal.Playlists;
 using MediaPortal.Profile;
 using NrkBrowser.Domain;
+using OnlineVideos.Player;
 using Vattenmelon.Nrk.Browser.Db;
 using Vattenmelon.Nrk.Browser.Domain;
 using Vattenmelon.Nrk.Browser.Translation;
@@ -1023,7 +1024,7 @@ namespace Vattenmelon.Nrk.Browser
             //while (_workerCompleted == false) GUIWindowManager.Process();
             while(worker.IsBusy) GUIWindowManager.Process();
             GUIWaitCursor.Hide();
-
+           // PlayMethodDelegate(pArgs);
             if (!pArgs.playBackOk)
             {
                 ifPlaybackFailed(pArgs);
@@ -1047,6 +1048,7 @@ namespace Vattenmelon.Nrk.Browser
         }
 
         private void PlayMethodDelegate(Object sender, DoWorkEventArgs e)
+        //private void PlayMethodDelegate(PlayArgs pArgs)
         {
             Log.Info(string.Format("{0}: PlayMethodDelegate", NrkBrowserConstants.PLUGIN_NAME));
             PlayArgs pArgs = (PlayArgs) e.Argument;
@@ -1093,10 +1095,11 @@ namespace Vattenmelon.Nrk.Browser
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
                 Log.Info(NrkBrowserConstants.PLUGIN_NAME + " Playing OK, switching to fullscreen");
-                g_Player.ShowFullScreenWindow();
-                g_Player.FullScreen = true;
-                
-             
+//                g_Player.ShowFullScreenWindow();
+//                g_Player.FullScreen = true;
+
+                GUIGraphicsContext.IsFullScreenVideo = true;
+                GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
                 // Update OSD (delayed). RSS/Flash-based need shorter time to load than wmv-based
                 Clip clip = (Clip) item;
                 if(clip.Type == Clip.KlippType.RSS){
@@ -1160,10 +1163,37 @@ namespace Vattenmelon.Nrk.Browser
             Log.Debug("Title is: " + title);
             Log.Debug("Type of clip is: " + type);
             Log.Debug("Starttime of clip is: " + startTime);
-            bool playOk;
+            bool playOk = false;
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
-                playOk = g_Player.PlayVideoStream(url, title);
+                if (url.ToLower().EndsWith(".wmv"))
+                {
+                    Log.Debug("jaddada");
+//                    GUIWaitCursor.Init();
+//                    GUIWaitCursor.Show();
+//                    BackgroundWorker worker = new BackgroundWorker();
+//                    worker.DoWork += new DoWorkEventHandler(delegate(object o, DoWorkEventArgs e)
+//                    {
+                        IPlayerFactory savedFactory = g_Player.Factory;
+                        g_Player.Factory = new OnlineVideos.Player.PlayerFactory(PlayerType.Internal);
+                        playOk = g_Player.Play(url, g_Player.MediaType.Video);
+                        // restore the factory
+                        g_Player.Factory = savedFactory;
+//                    });
+//                    worker.RunWorkerAsync();
+//                    while (worker.IsBusy) GUIWindowManager.Process();   
+
+                    
+                    
+                }
+                else
+                {
+                    playOk = g_Player.PlayVideoStream(url, title);
+                }
+
+
+//                playOk = g_Player.PlayVideoStream(url, title);
+                 
                 if (startTime > NrkBrowserConstants.MINIMUM_TIME_BEFORE_SEEK)
                 {
                     g_Player.SeekAbsolute(startTime);

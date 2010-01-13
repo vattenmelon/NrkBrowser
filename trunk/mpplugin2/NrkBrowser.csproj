@@ -28,6 +28,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxInterop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Team MediaPortal\MediaPortal\AxInterop.WMPLib.dll</HintPath>
+    </Reference>
     <Reference Include="Core, Version=1.0.4.17407, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Core.dll</HintPath>
@@ -39,6 +43,14 @@
     <Reference Include="Dialogs, Version=1.0.4.17412, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Dialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="DirectShowLib, Version=2.0.0.23491, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Team MediaPortal\MediaPortal\DirectShowLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Team MediaPortal\MediaPortal\Interop.WMPLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -57,6 +69,8 @@
     <Compile Include="MPLogger.cs" />
     <Compile Include="NrkBrowserConstants.cs" />
     <Compile Include="NrkTranslatableStrings.cs" />
+    <Compile Include="OnlineVideosPlayer.cs" />
+    <Compile Include="PlayerFactory.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -74,6 +88,7 @@
     <Compile Include="SettingsForm.designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WMPVideoPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
