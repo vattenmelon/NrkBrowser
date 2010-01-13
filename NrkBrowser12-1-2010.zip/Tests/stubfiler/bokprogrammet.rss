@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:nrk="http://podkast.nrk.no/podd-rss" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <nrk:url>http://podkast.nrk.no/program/bokprogrammet.rss</nrk:url>
+    <atom:link href="http://podkast.nrk.no/program/bokprogrammet.rss" rel="self" type="application/rss+xml" />
+    <title>NRK – Bokprogrammet</title>
+    <description>NRKs ukentlige litteraturmagasin. Programleder Hans Olav Brenner møter forfattere i samtale om bøker og aktuelle litterære tema.</description>
+    <itunes:summary>NRKs ukentlige litteraturmagasin. Programleder Hans Olav Brenner møter forfattere i samtale om bøker og aktuelle litterære tema.</itunes:summary>
+    <itunes:subtitle>Hans Olav Brenner møter forfattere.</itunes:subtitle>
+    <itunes:category text="Arts" />
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="http://fil.nrk.no/contentfile/file/1.6534395!img6534395.jpg" />
+    <image>
+      <title>NRK – Bokprogrammet</title>
+      <url>http://fil.nrk.no/contentfile/file/1.6534395!img6534395.jpg</url>
+      <link>http://www.nrk.no/programmer/sider/bokprogrammet/</link>
+      <width>300</width>
+      <height>300</height>
+    </image>
+    <link>http://www.nrk.no/programmer/sider/bokprogrammet/</link>
+    <language>no</language>
+    <copyright>NRK © 2009</copyright>
+    <itunes:author>NRK</itunes:author>
+    <itunes:owner>
+      <itunes:name>NRK</itunes:name>
+      <itunes:email>bokprogrammet@nrk.no</itunes:email>
+    </itunes:owner>
+  </channel>
+  <!--10951-->
+  <!--22.12.2009 21:58:52-->
+  <!--31,2506-->
+</rss>

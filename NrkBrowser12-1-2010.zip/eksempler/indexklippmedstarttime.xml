@@ -1,0 +1,19 @@
+<param name="Encoding" value="utf-8" />
+  <abstract>NRK Nett-TV</abstract>
+  <title>NRK Nett-TV</title>
+  <author>NRK - Norsk Rikskringkasting</author>
+  <copyright>  </copyright>
+  <entry>
+    <starttime value="00:27:38" />
+    <duration value="00:13:28" />
+    <ref href="mms://straumOD.nrk.no/n/Lydverket/2008-04-16/Lydverket_16_04_08_1000_358373_20080416_231000.wmv" />
+    <ref href="mms://straumOD.nrk.no/n/Lydverket/2008-04-16/Lydverket_16_04_08_1000_358373_20080416_231000.wmv" />
+    <ref href="http://straumOD.nrk.no/n/Lydverket/2008-04-16/Lydverket_16_04_08_1000_358373_20080416_231000.wmv" />
+    <ref href="http://www1.nrk.no/nett-tv/asxerror.aspx?number=3&url=mms://straumOD.nrk.no/n/Lydverket/2008-04-16/Lydverket_16_04_08_1000_358373_20080416_231000.wmv" />
+    <title>Nytt liv for Commodore 64</title>
+		 <author>NRK - Norsk Rikskringkasting</author>
+    <abstract></abstract>
+    <copyright>  </copyright>
+  </entry>
+</asx>
+
