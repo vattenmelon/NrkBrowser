@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Version>2.0</Version>
+  <Groups>
+    <Items>
+      <GroupItem Name="Default">
+        <ParentGroup />
+        <DisplayName>Default</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>Default</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\bilder\nrkbrowser\nrkbeijing.jpg</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{213c612c-95d0-4173-ab94-5f7029a984b7}-nrkbeijing.jpg</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrkbeijing.jpg</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\bilder\nrkbrowser\nrkbeta.png</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{30cdb5f0-bb20-4bc9-93d4-d3f059f5ae67}-nrkbeta.png</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrkbeta.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\bilder\nrkbrowser\nrklogo.jpg</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{e94cf774-39aa-408f-bf04-034ca4787df0}-nrklogo.jpg</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrklogo.jpg</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\bilder\nrkbrowser\nrknatur.jpg</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{5151b481-80ab-45fb-ad0b-9376f9428c4e}-nrknatur.jpg</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrknatur.jpg</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\bilder\nrkbrowser\nrknyheter.jpg</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{57df6e93-6d14-4859-af96-46c16af19af7}-nrknyheter.jpg</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrknyheter.jpg</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\bilder\nrkbrowser\nrksport.jpg</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{f74a7027-57be-4906-9413-f4eb5a9f607c}-nrksport.jpg</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrksport.jpg</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\bilder\nrkbrowser\nrksuper.jpg</LocalFileName>
+              <ZipFileName>Installer{GenericSkinFile}\{e2f3b54d-3311-4c0f-81a9-644c0eef444d}-nrksuper.jpg</ZipFileName>
+              <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrksuper.jpg</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\languages\nrkbrowser\en-US.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{6c48f8d5-6abd-4596-b868-402df383357d}-en-US.xml</ZipFileName>
+              <DestinationFilename>%Language%\nrkbrowser\en-US.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\languages\nrkbrowser\no.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{da79c380-efdb-4a24-b196-bcce89b5e519}-no.xml</ZipFileName>
+              <DestinationFilename>%Language%\nrkbrowser\no.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\mpplugin2\bin\Release\NrkBrowser.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{e972db3f-f840-41d2-ae29-b3dae32b40cd}-NrkBrowser.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\NrkBrowser.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\mpplugin2\bin\Release\NrkDomain.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{3bec47d6-49b1-42c8-8a8e-b60d4541e209}-NrkDomain.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\NrkDomain.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\mpplugin2\bin\Release\NrkParser.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{ae76db1d-6bf5-450e-8772-684ea0e612d9}-NrkParser.dll</ZipFileName>
+              <DestinationFilename>%Plugins%\Windows\NrkParser.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\config\NrkBrowserSettings.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{645492de-0857-4160-9d8e-ebc301a9103d}-NrkBrowserSettings.xml</ZipFileName>
+              <DestinationFilename>%Config%\NrkBrowserSettings.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\skins\monochrome\NrkBrowser.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{ded1d007-c9dc-4189-a917-5c7577dd43e2}-NrkBrowser.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Monochrome\NrkBrowser.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\skins\streamedmp\NrkBrowser.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{37b4cdb7-f8c0-45c1-9f13-d4ec7ddaabfe}-NrkBrowser.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\NrkBrowser.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\skins\bluetwowide\NrkBrowser.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{20618938-dffb-45cb-b81b-2c8fa41c1b1a}-NrkBrowser.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Blue3Wide\NrkBrowser.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\skins\bluetwo\NrkBrowser.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{c3ec8e45-efd0-4352-b709-979d89eb5416}-NrkBrowser.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Blue3\NrkBrowser.xml</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
+    </Items>
+  </Groups>
+  <Sections>
+    <Items>
+      <SectionItem Guid="773f6aed-55f4-4abd-999f-f2e7b02c1b04" Name="Welcome Screen" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header text">
+              <Value>Welcome to the Extension Installer for [Name]</Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Description">
+              <Value>This will install [Name] version [Version] on your computer.
+It is recommended that you close all other applications before continuing.
+Click Next to continue or Cancel to exit Setup.</Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Left part image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Welcome Screen</PanelName>
+        <WizardButtonsEnum>NextCancel</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="7d6dde3f-edc5-46fa-aef6-7bde896507eb" Name="Install Section" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header Title">
+              <Value />
+              <ValueType>String</ValueType>
+              <Description>Header title</Description>
+            </SectionParam>
+            <SectionParam Name="Header description">
+              <Value />
+              <ValueType>String</ValueType>
+              <Description>Description of section, shown in under section title</Description>
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items>
+            <ActionItem Name="InstallFiles" ActionType="InstallFiles" ConditionGroup="">
+              <Params>
+                <Items />
+              </Params>
+              <ExecuteLocation>AfterPanelShow</ExecuteLocation>
+            </ActionItem>
+          </Items>
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Install Section</PanelName>
+        <WizardButtonsEnum>Next</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="0392fb29-39fb-432c-86eb-ee4f848c69ab" Name="Setup Complete" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header text">
+              <Value>The Extension Installer Wizard has successfully installed [Name].</Value>
+              <ValueType>String</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Left part image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description />
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups />
+        <PanelName>Setup Complete</PanelName>
+        <WizardButtonsEnum>Finish</WizardButtonsEnum>
+      </SectionItem>
+    </Items>
+  </Sections>
+  <Dependencies>
+    <Items />
+  </Dependencies>
+  <GeneralInfo>
+    <Name>NrkBrowser</Name>
+    <Id>da3cd832-7067-4d11-aae5-39889147d731</Id>
+    <Author>Vattenmelon</Author>
+    <HomePage>http://www.team-mediaportal.com/files/Download/Plugins/Webstreams/NrkBrowser/</HomePage>
+    <ForumPage>http://forum.team-mediaportal.com/plugins-47/nrk-browser-vattenmelon-edition-45089/</ForumPage>
+    <UpdateUrl />
+    <Version>
+      <Major>1</Major>
+      <Minor>6</Minor>
+      <Build>1</Build>
+      <Revision>0</Revision>
+    </Version>
+    <ExtensionDescription>Mediaportal plugin to browse online content from www.nrk.no</ExtensionDescription>
+    <VersionDescription>Better support for Vista and Windows 7.</VersionDescription>
+    <DevelopmentStatus>Stable</DevelopmentStatus>
+    <OnlineLocation />
+    <ReleaseDate>2010-01-16T21:33:39.0662+01:00</ReleaseDate>
+    <Tags />
+    <Location>C:\Users\Erling Reizer\Documents\Visual Studio 2005\Projects\NRKBrowser\mpe1\NrkBrowser-1.6.1.MPE1</Location>
+    <Params>
+      <Items>
+        <SectionParam Name="Icon">
+          <Value />
+          <ValueType>File</ValueType>
+          <Description>The icon file of the package (jpg,png,bmp)</Description>
+        </SectionParam>
+        <SectionParam Name="Online Icon">
+          <Value />
+          <ValueType>String</ValueType>
+          <Description>The icon file of the package stored online (jpg,png,bmp)</Description>
+        </SectionParam>
+        <SectionParam Name="Configuration file">
+          <Value />
+          <ValueType>Template</ValueType>
+          <Description>The file used to configure the extension.
+ If have .exe extension the will be executed
+ If have .dll extension used like MP plugin configuration</Description>
+        </SectionParam>
+      </Items>
+    </Params>
+  </GeneralInfo>
+  <UniqueFileList>
+    <Items>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\bilder\nrkbrowser\nrkbeijing.jpg</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{213c612c-95d0-4173-ab94-5f7029a984b7}-nrkbeijing.jpg</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrkbeijing.jpg</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\bilder\nrkbrowser\nrkbeta.png</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{30cdb5f0-bb20-4bc9-93d4-d3f059f5ae67}-nrkbeta.png</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrkbeta.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\bilder\nrkbrowser\nrklogo.jpg</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{e94cf774-39aa-408f-bf04-034ca4787df0}-nrklogo.jpg</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrklogo.jpg</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\bilder\nrkbrowser\nrknatur.jpg</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{5151b481-80ab-45fb-ad0b-9376f9428c4e}-nrknatur.jpg</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrknatur.jpg</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\bilder\nrkbrowser\nrknyheter.jpg</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{57df6e93-6d14-4859-af96-46c16af19af7}-nrknyheter.jpg</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrknyheter.jpg</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\bilder\nrkbrowser\nrksport.jpg</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{f74a7027-57be-4906-9413-f4eb5a9f607c}-nrksport.jpg</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrksport.jpg</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="GenericSkinFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\bilder\nrkbrowser\nrksuper.jpg</LocalFileName>
+        <ZipFileName>Installer{GenericSkinFile}\{e2f3b54d-3311-4c0f-81a9-644c0eef444d}-nrksuper.jpg</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\nrksuper.jpg</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\languages\nrkbrowser\en-US.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{6c48f8d5-6abd-4596-b868-402df383357d}-en-US.xml</ZipFileName>
+        <DestinationFilename>%Language%\nrkbrowser\en-US.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\languages\nrkbrowser\no.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{da79c380-efdb-4a24-b196-bcce89b5e519}-no.xml</ZipFileName>
+        <DestinationFilename>%Language%\nrkbrowser\no.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\mpplugin2\bin\Release\NrkBrowser.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{e972db3f-f840-41d2-ae29-b3dae32b40cd}-NrkBrowser.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\NrkBrowser.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\mpplugin2\bin\Release\NrkDomain.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{3bec47d6-49b1-42c8-8a8e-b60d4541e209}-NrkDomain.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\NrkDomain.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\mpplugin2\bin\Release\NrkParser.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{ae76db1d-6bf5-450e-8772-684ea0e612d9}-NrkParser.dll</ZipFileName>
+        <DestinationFilename>%Plugins%\Windows\NrkParser.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\config\NrkBrowserSettings.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{645492de-0857-4160-9d8e-ebc301a9103d}-NrkBrowserSettings.xml</ZipFileName>
+        <DestinationFilename>%Config%\NrkBrowserSettings.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\skins\monochrome\NrkBrowser.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{ded1d007-c9dc-4189-a917-5c7577dd43e2}-NrkBrowser.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Monochrome\NrkBrowser.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\skins\streamedmp\NrkBrowser.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{37b4cdb7-f8c0-45c1-9f13-d4ec7ddaabfe}-NrkBrowser.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\NrkBrowser.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\skins\bluetwowide\NrkBrowser.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{20618938-dffb-45cb-b81b-2c8fa41c1b1a}-NrkBrowser.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Blue3Wide\NrkBrowser.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\skins\bluetwo\NrkBrowser.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{c3ec8e45-efd0-4352-b709-979d89eb5416}-NrkBrowser.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Blue3\NrkBrowser.xml</DestinationFilename>
+      </FileItem>
+    </Items>
+  </UniqueFileList>
+  <ProjectSettings>
+    <FolderGroups>
+      <FolderGroup InstallType="GenericSkinFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName />
+        <ZipFileName>Installer{GenericSkinFile}\{eacdbecd-5ee2-4695-82f3-03c80bfd8c06}-</ZipFileName>
+        <DestinationFilename>%Skin%\[DEFAULT]\Media\nrkbrowser\</DestinationFilename>
+        <Folder>..\bilder\nrkbrowser</Folder>
+        <Group>Default</Group>
+        <Recursive>false</Recursive>
+      </FolderGroup>
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName />
+        <ZipFileName>Installer{CopyFile}\{18fc4a8c-c831-4137-ac16-6b06224822d5}-</ZipFileName>
+        <DestinationFilename>%Language%\nrkbrowser</DestinationFilename>
+        <Folder>..\languages\nrkbrowser</Folder>
+        <Group>Default</Group>
+        <Recursive>true</Recursive>
+      </FolderGroup>
+    </FolderGroups>
+  </ProjectSettings>
+</PackageClass>

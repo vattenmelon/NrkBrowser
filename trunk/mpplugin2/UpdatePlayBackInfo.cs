@@ -44,7 +44,7 @@ namespace Vattenmelon.Nrk.Browser
             finished = true;
         }
 
-        private static string GetBildeUrl(Item item)
+        public static string GetBildeUrl(Item item)
         {
             String bildeUrl;
             if (item.Bilde.Equals(String.Empty))

@@ -34,6 +34,7 @@ namespace OnlineVideos.Player
 
         bool BuildGraphForRTSP()
         {
+            Log.Debug("BuildGraphForRTSP()");
             base.graphBuilder = (IGraphBuilder)new FilterGraph();
 
             // add video renderer
@@ -96,6 +97,7 @@ namespace OnlineVideos.Player
 
         bool BuildGraphForMMS()
         {
+            Log.Debug("BuildGraphForMMS()");
             base.graphBuilder = (IGraphBuilder)new FilterGraph();
 
             Log.Info("VideoPlayerVMR9: Enabling DX9 exclusive mode", new object[0]);
@@ -164,7 +166,8 @@ namespace OnlineVideos.Player
         }
 
         bool BuildGraphWithFileSourceUrl()
-        {            
+        {
+            Log.Debug("BuildGraphWithFileSourceUrl()");
             try
             {
                 graphBuilder = (IGraphBuilder)new FilterGraph();

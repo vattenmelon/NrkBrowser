@@ -1104,7 +1104,7 @@ namespace Vattenmelon.Nrk.Browser
                 //if audio
                 GUIPropertyManager.SetProperty("#Play.Current.Title", item.Title);
                 GUIPropertyManager.SetProperty("#Play.Current.Plot", item.Description);
-                GUIPropertyManager.SetProperty("#Play.Current.Thumb", PICTURE_DIR + NrkBrowserConstants.NRK_LOGO_PICTURE);
+                GUIPropertyManager.SetProperty("#Play.Current.Thumb", UpdatePlayBackInfo.GetBildeUrl(item));
 
             }
         }
