@@ -4,12 +4,11 @@
  * Loosely based on an anonymous (and slightly outdated) NRK parser in python for Myth-tv, 
  * please email me if you are the author :)
  * 
- * 2008 - 2009 Vattenmelon
+ * 2008 - 2010 Vattenmelon
  * 
  * */
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Forms;
 using MediaPortal.Configuration;
@@ -335,7 +334,7 @@ namespace Vattenmelon.Nrk.Browser
 
         public override bool OnMessage(GUIMessage message)
         {
-            Log.Debug(string.Format("{0}: onMessage()", NrkBrowserConstants.PLUGIN_NAME));
+            //Log.Debug(string.Format("{0}: onMessage()", NrkBrowserConstants.PLUGIN_NAME));
             switch (message.Message)
             {
                 case GUIMessage.MessageType.GUI_MSG_WINDOW_INIT:
@@ -1009,22 +1008,13 @@ namespace Vattenmelon.Nrk.Browser
         /// <param name="startTime"></param>
         protected void PlayUrl(string url, string title, double startTime, Item item)
         {
-            GUIWaitCursor.Init();
-            GUIWaitCursor.Show();
-            BackgroundWorker worker = new BackgroundWorker();
             PlayArgs pArgs = new PlayArgs();
             pArgs.url = url;
             pArgs.title = title;
             pArgs.startTime = startTime;
             pArgs.item = item;
             pArgs.playBackOk = true;
-            worker.DoWork += new DoWorkEventHandler(PlayMethodDelegate);
-            worker.RunWorkerAsync(pArgs);
-            //worker.IsBusy prøv å bruke denne istedetfor _workercompleted
-            //while (_workerCompleted == false) GUIWindowManager.Process();
-            while(worker.IsBusy) GUIWindowManager.Process();
-            GUIWaitCursor.Hide();
-           // PlayMethodDelegate(pArgs);
+            PlayMethodDelegate(pArgs);
             if (!pArgs.playBackOk)
             {
                 ifPlaybackFailed(pArgs);
@@ -1047,11 +1037,11 @@ namespace Vattenmelon.Nrk.Browser
             public bool playBackOk;
         }
 
-        private void PlayMethodDelegate(Object sender, DoWorkEventArgs e)
-        //private void PlayMethodDelegate(PlayArgs pArgs)
+        //private void PlayMethodDelegate(Object sender, DoWorkEventArgs e)
+        private void PlayMethodDelegate(PlayArgs pArgs)
         {
             Log.Info(string.Format("{0}: PlayMethodDelegate", NrkBrowserConstants.PLUGIN_NAME));
-            PlayArgs pArgs = (PlayArgs) e.Argument;
+            //PlayArgs pArgs = (PlayArgs) e.Argument;
 
             PlayListType type;
             type = GetPlayListType(pArgs);
@@ -1074,7 +1064,7 @@ namespace Vattenmelon.Nrk.Browser
                 type = PlayListType.PLAYLIST_VIDEO_TEMP;
             }
             else if (isWMAorMP3Audio(pArgs))
-            {
+            { 
                 type = PlayListType.PLAYLIST_RADIO_STREAMS;
             }
             else if (isLiveStream(pArgs))
@@ -1091,12 +1081,10 @@ namespace Vattenmelon.Nrk.Browser
 
         private void ifPlayBackSucceded(PlayListType type, Item item)
         {
-            
+            Log.Debug(string.Format("ifPlayBackSucceded(PlayListType type, Item item): {0}, {1}", type, item));
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
                 Log.Info(NrkBrowserConstants.PLUGIN_NAME + " Playing OK, switching to fullscreen");
-//                g_Player.ShowFullScreenWindow();
-//                g_Player.FullScreen = true;
 
                 GUIGraphicsContext.IsFullScreenVideo = true;
                 GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
@@ -1111,19 +1099,26 @@ namespace Vattenmelon.Nrk.Browser
                 }
                  
             }
+            else
+            {
+                //if audio
+                GUIPropertyManager.SetProperty("#Play.Current.Title", item.Title);
+                GUIPropertyManager.SetProperty("#Play.Current.Plot", item.Description);
+                GUIPropertyManager.SetProperty("#Play.Current.Thumb", PICTURE_DIR + NrkBrowserConstants.NRK_LOGO_PICTURE);
+
+            }
         }
 
         private void ifPlaybackFailed(PlayArgs pArgs)
         {
             string message;
-            if (useOsdPlayer)
-            {
-                message = NrkTranslatableStrings.PLAYBACK_FAILED_TRY_DISABLING_VMR9;
-            }
-            else
-            {
-                message = NrkTranslatableStrings.PLAYBACK_FAILED_GENERIC;
-            }
+//            if (useOsdPlayer)
+//            {
+//                message = NrkTranslatableStrings.PLAYBACK_FAILED_TRY_DISABLING_VMR9;
+//            }
+            
+            message = NrkTranslatableStrings.PLAYBACK_FAILED_GENERIC;
+            
             if (pArgs.url.Contains(NrkParserConstants.GEOBLOCK_URL_PART))
             {
                 message = NrkTranslatableStrings.PLAYBACK_FAILED_GENERIC;
@@ -1166,33 +1161,12 @@ namespace Vattenmelon.Nrk.Browser
             bool playOk = false;
             if (type == PlayListType.PLAYLIST_VIDEO_TEMP)
             {
-                if (url.ToLower().EndsWith(".wmv"))
-                {
-                    Log.Debug("jaddada");
-//                    GUIWaitCursor.Init();
-//                    GUIWaitCursor.Show();
-//                    BackgroundWorker worker = new BackgroundWorker();
-//                    worker.DoWork += new DoWorkEventHandler(delegate(object o, DoWorkEventArgs e)
-//                    {
-                        IPlayerFactory savedFactory = g_Player.Factory;
-                        g_Player.Factory = new OnlineVideos.Player.PlayerFactory(PlayerType.Internal);
-                        playOk = g_Player.Play(url, g_Player.MediaType.Video);
-                        // restore the factory
-                        g_Player.Factory = savedFactory;
-//                    });
-//                    worker.RunWorkerAsync();
-//                    while (worker.IsBusy) GUIWindowManager.Process();   
+                IPlayerFactory savedFactory = g_Player.Factory;
+                g_Player.Factory = new OnlineVideos.Player.PlayerFactory(PlayerType.Internal);
+                playOk = g_Player.Play(url, g_Player.MediaType.Video);
+                // restore the factory
+                g_Player.Factory = savedFactory;
 
-                    
-                    
-                }
-                else
-                {
-                    playOk = g_Player.PlayVideoStream(url, title);
-                }
-
-
-//                playOk = g_Player.PlayVideoStream(url, title);
                  
                 if (startTime > NrkBrowserConstants.MINIMUM_TIME_BEFORE_SEEK)
                 {

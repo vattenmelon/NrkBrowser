@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using DirectShowLib;
 using DShowNET.Helper;
 using MediaPortal.Configuration;
 using MediaPortal.Player;
 using MediaPortal.GUI.Library;
 using MediaPortal.Profile;
-using System.Runtime.InteropServices;
-using System.Drawing;
 
 namespace OnlineVideos.Player
 {
@@ -247,7 +242,7 @@ namespace OnlineVideos.Player
         private VMR9Util Vmr9
         {
             get
-            {
+            { 
                 if (vmr9Field == null) vmr9Field = typeof(VideoPlayerVMR9).GetField("Vmr9", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                 return (VMR9Util)vmr9Field.GetValue(this);
             }

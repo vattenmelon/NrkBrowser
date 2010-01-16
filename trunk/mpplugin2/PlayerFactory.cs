@@ -34,7 +34,7 @@ namespace OnlineVideos.Player
             switch (playerType)
             {
                 case PlayerType.Internal:
-                    Log.Debug("returnerer OnlineVideosPlayer");
+                    Log.Debug("returns customplayer");
                     return new OnlineVideosPlayer();
                 case PlayerType.WMP:
                     Log.Debug("returnerer WMPVideoPlayer");
@@ -44,7 +44,7 @@ namespace OnlineVideos.Player
                     
                     if (uri.Scheme == "rtsp" || uri.Scheme == "mms" || uri.PathAndQuery.Contains(".asf"))
                     {
-                        Log.Debug("returnerer onlinevideosplayer");
+                        Log.Debug("returns customplayer");
                         return new OnlineVideosPlayer();
                     }
                     else if (uri.PathAndQuery.Contains(".asx"))
@@ -76,7 +76,7 @@ namespace OnlineVideos.Player
                                 }
                                 else
                                 {
-                                    Log.Debug("returnerer OnlineVideosPlayer");
+                                    Log.Debug("returns customplayer");
                                     return new OnlineVideosPlayer();
                                 }
                     }
