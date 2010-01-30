@@ -548,7 +548,7 @@ namespace Vattenmelon.Nrk.Parser
             Assert.IsTrue(funnetRadioResepsjonenutenmusikk);
             Assert.IsTrue(funnetmorketsOpplevelser);
             Assert.IsTrue(funnetTelemarkssendinga);
-            Assert.AreEqual(78, items.Count);
+            Assert.AreEqual(77, items.Count);
 
         }
         [Test]
