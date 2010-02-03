@@ -503,16 +503,9 @@ namespace Vattenmelon.Nrk.Parser
                     Assert.AreEqual("Hans Olav Brenner møter forfattere.", podKast.Description);
                     funnetBokprogrammet = true;
                 }
-                else if (podKast.ID.Equals("http://podkast.nrk.no/program/bergensbanen_minutt_for_minutt.rss"))
-                {
-                    Assert.AreEqual("Bergensbanen minutt for minutt (NRK)", podKast.Title);
-                    Assert.AreEqual("Bergensbanen bokstavlig talt minutt for minutt.", podKast.Description);
-                    funnetBergensbanen = true;
-                }
             }
             Assert.AreEqual(24, items.Count); //12/1-10 bare femogtyve har rss feed.
             Assert.IsTrue(funnetBokprogrammet);
-            Assert.IsTrue(funnetBergensbanen);
 
         }
 
