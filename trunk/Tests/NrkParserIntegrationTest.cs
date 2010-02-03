@@ -494,7 +494,6 @@ namespace Vattenmelon.Nrk.Parser
             IList<PodKast> items = nrkParser.GetVideoPodkaster();
             Assert.IsNotEmpty(items as List<PodKast>);
             Boolean funnetBokprogrammet = false;
-            Boolean funnetBergensbanen = false;
             foreach (PodKast podKast in items)
             {
                 if (podKast.ID.Equals("http://podkast.nrk.no/program/bokprogrammet.rss"))
