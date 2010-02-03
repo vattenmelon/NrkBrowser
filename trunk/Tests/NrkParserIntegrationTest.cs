@@ -510,7 +510,7 @@ namespace Vattenmelon.Nrk.Parser
                     funnetBergensbanen = true;
                 }
             }
-            Assert.AreEqual(25, items.Count); //12/1-10 bare femogtyve har rss feed.
+            Assert.AreEqual(24, items.Count); //12/1-10 bare femogtyve har rss feed.
             Assert.IsTrue(funnetBokprogrammet);
             Assert.IsTrue(funnetBergensbanen);
 
