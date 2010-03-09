@@ -499,7 +499,7 @@ namespace Vattenmelon.Nrk.Parser
                     funnetBokprogrammet = true;
                 }
             }
-            Assert.AreEqual(23, items.Count); //6 mars 2010, bare 23 har rss feed.
+            Assert.AreEqual(20, items.Count); //9 mars 2010, bare 20 har rss feed.
             Assert.IsTrue(funnetBokprogrammet);
 
         }
