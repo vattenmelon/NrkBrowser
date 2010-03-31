@@ -170,48 +170,6 @@ namespace Vattenmelon.Nrk.Parser
                 Assert.IsNotNull(clip.Bilde);
             }
         }
-/*
-        [Test]
-        public void TestGetTopTabber()
-        {
-            List<Item> liste = nrkParser.GetTopTabber();
-            Assert.IsNotNull(liste);
-            Assert.IsNotEmpty(liste);
-            foreach (Item item in liste)
-            {
-                Assert.IsTrue(item.Title.Equals("Direkte") || item.Title.Equals("Nyheter") || item.Title.Equals("Sport") || item.Title.Equals("Valget") || item.Title.Equals("Distrikt") || item.Title.Equals("Natur"));
-                Assert.IsNotNull(item.ID);
-                Assert.IsNotNull(item.Title);
-            }
-            Assert.AreEqual(6, liste.Count, "Skal være seks oppførsler i lista");
-            //verifisert at "super" endret seg ca 31. oktober 09 og at den nye linken går til en flashbasert side, ala p3tv tabben.
-
-        }
-        */
-//        [Test]
-//        public void TestGetTopTabs()
-//        {
-//            List<Item> liste = nrkParser.GetTopTabContent("valg");
-//            Assert.IsNotEmpty(liste);
-//
-//            foreach (Item item in liste)
-//            {
-//                Clip c = (Clip)item;
-//                Assert.IsNotNull(c.ID);
-//                Assert.AreEqual(Clip.KlippType.VERDI, c.Type);
-//                Assert.IsNotNull(c.Title);
-//                //                try
-//                //                {
-//                //                    Console.WriteLine(c.Type + "link: c " + c.ID + " " + nrkParser.GetClipUrlAndPutStartTime(c));
-//                //                }
-//                //                catch(Exception e)
-//                //                {
-//                //                    Console.WriteLine("Kunne ikke finne url: "+ e.GetBaseException());
-//                //                }
-//                Assert.IsNotNull(c.Bilde);
-//
-//            }
-//        }
 
         [Test]
         public void TestHentProgrammer()
@@ -314,6 +272,20 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(77, items.Count);
 
         }
+        [Test]
+        public void TestHentAnbefalte()
+        {
+            IList<Clip> anbefalte = nrkParser.getAnbefalte();
+            Assert.AreEqual(26, anbefalte.Count);
+            foreach (Clip c in anbefalte)
+            {
+                Assert.IsNotEmpty(c.Title);
+                Assert.IsNotEmpty(c.ID);
+                Assert.IsNotEmpty(c.Description);
+                Assert.IsNotEmpty(c.Bilde);
+            }
+        }
+
         //TODO: duplicate code
         /// <summary>
         /// Vanskelig å asserte på videostreamen siden det hender at klipp ikke er tilgjengelige hos nrk.

@@ -223,7 +223,7 @@ namespace Vattenmelon.Nrk.Browser
             get { return "live"; }
         }
 
-        public static string MENU_ITEM_ID_RECOMMENDED
+        public static string MENU_ITEM_ID_RECOMMENDED_PROGRAMS
         {
             get { return "anbefalte"; }
         }

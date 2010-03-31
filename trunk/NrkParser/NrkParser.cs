@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Text.RegularExpressions;
 using NrkBrowser.Domain;
@@ -564,6 +565,36 @@ namespace Vattenmelon.Nrk.Parser
         {
             string lydkastSectionAsString = GetLydkastsSectionAsString();
             return CreatePodkasts(lydkastSectionAsString);
+        }
+
+        public IList<Clip> getAnbefalte()
+        {
+            String data = FetchUrl(MAIN_URL);
+            IList<Clip> clips = new List<Clip>();
+            String strQuery =
+                "<div><a href=\".*?/nett-tv/(?<type>[^/]*)/(?<id>[^\"]*)\".*?><img src=\"(?<imgsrc>[^\"]*)\" alt=\".*?\" width=\"150\" height=\"85\" /></a><h3><a href=\".*?\" title=\".*?\">(?<title>[^<]*)</a></h3><div class=\"summary\"><p>(?<desc>[^<]*)</p></div>.*?</div>";
+            Regex query =
+                new Regex(strQuery);
+            MatchCollection matches = query.Matches(data);
+            foreach (Match x in matches)
+            {
+                String id = x.Groups["id"].Value;
+                id = id.Replace('/', ' ').Trim();
+                Clip c = new Clip(id, x.Groups["title"].Value);
+                c.Description = x.Groups["desc"].Value;
+                c.Bilde = x.Groups["imgsrc"].Value;
+                if ("klipp".Equals(x.Groups["type"].Value))
+                {
+                    c.Type = Clip.KlippType.KLIPP;
+                }
+                else
+                {
+                    c.Type = Clip.KlippType.INDEX;
+                }
+                clips.Add(c);
+            }
+
+            return clips;
         }
     }
 

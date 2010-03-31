@@ -463,6 +463,14 @@ namespace Vattenmelon.Nrk.Parser
             Assert.AreEqual(78, items.Count);
 
         }
+
+        [Test]
+        public void TestHentAnbefalte()
+        {
+            IList<Clip> anbefalte = nrkParser.getAnbefalte();
+            Assert.AreEqual(26, anbefalte.Count);
+        }
+
         [Test]
         public void TestPredicate1()
         {

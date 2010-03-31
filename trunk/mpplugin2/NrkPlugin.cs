@@ -412,7 +412,7 @@ namespace Vattenmelon.Nrk.Browser
             base.OnClicked(controlId, control, actionType);
         }
 
-        protected void UpdateList<T>(List<T> newitems, Boolean addBackItem) where T : Item
+        protected void UpdateList<T>(IList<T> newitems, Boolean addBackItem) where T : Item
         {
             facadeView.Clear();
             if (addBackItem)
@@ -441,7 +441,7 @@ namespace Vattenmelon.Nrk.Browser
             }
         }
 
-        protected void UpdateList<T>(List<T> newitems) where T:Item
+        protected void UpdateList<T>(IList<T> newitems) where T:Item
         {
             UpdateList(newitems, true);
         }
@@ -584,6 +584,10 @@ namespace Vattenmelon.Nrk.Browser
             else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_MOST_WATCHED)
             {
                 UpdateList(CreateMestSetteListItems());
+            }
+            else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_RECOMMENDED_PROGRAMS)
+            {
+                UpdateList(nrkParser.getAnbefalte());
             }
             else if (item.ID == NrkBrowserConstants.MENU_ITEM_ID_MEST_SETTE_UKE)
             {
@@ -829,6 +833,11 @@ namespace Vattenmelon.Nrk.Browser
             sisteKlipp.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_LATEST_CLIPS;
             items.Add(sisteKlipp);
 
+            MenuItem anbefalte = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_RECOMMENDED_PROGRAMS, NrkTranslatableStrings.MENU_ITEM_TITLE_RECOMMENDED_PROGRAMS);
+            anbefalte.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_RECOMMENDED_PROGRAMS;
+            setNrkLogoPictureOnItem(anbefalte);
+            items.Add(anbefalte);
+
             MenuItem mestSett = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_MOST_WATCHED, NrkTranslatableStrings.MENU_ITEM_TITLE_MOST_WATCHED);
             mestSett.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_MOST_WATCHED;
             items.Add(mestSett);
@@ -837,29 +846,6 @@ namespace Vattenmelon.Nrk.Browser
             nrkBeta.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTON_NRKBETA;
             nrkBeta.Bilde = PICTURE_DIR + NrkBrowserConstants.MENU_ITEM_PICTURE_NRKBETA;
             items.Add(nrkBeta);
-
-//            MenuItem nyheter = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NYHETER, NrkTranslatableStrings.MENU_ITEM_TITLE_NEWS);
-//            nyheter.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_NEWS;
-//            nyheter.Bilde = PICTURE_DIR + NrkBrowserConstants.MENU_ITEM_PICTURE_NYHETER;
-//            items.Add(nyheter);
-//
-//            MenuItem sport = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_SPORT, NrkTranslatableStrings.MENU_ITEM_TITLE_SPORT);
-//            sport.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_SPORT;
-//            sport.Bilde = PICTURE_DIR + NrkBrowserConstants.MENU_ITEM_PICTURE_SPORT;
-//            items.Add(sport);
-//
-//            MenuItem natur = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_NATUR, NrkTranslatableStrings.MENU_ITEM_TITLE_NATURE);
-//            natur.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_NATURE;
-//            natur.Bilde = PICTURE_DIR + NrkBrowserConstants.MENU_ITEM_PICTURE_NATURE;
-//            items.Add(natur);
-//
-//            MenuItem super = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_SUPER, NrkTranslatableStrings.MENU_ITEM_TITLE_SUPER);
-//            super.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_SUPER;
-//            super.Bilde = PICTURE_DIR + NrkBrowserConstants.MENU_ITEM_PICTURE_SUPER;
-//            items.Add(super);
-
-          //  List<Item> tabItems = GetTabItems();
-          //  items.AddRange(tabItems);
 
             MenuItem sok = new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_SEARCH, NrkTranslatableStrings.MENU_ITEM_TITLE_SEARCH);
             sok.Description = NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_SEARCH;
@@ -902,25 +888,7 @@ namespace Vattenmelon.Nrk.Browser
             items.Add(new MenuItem(NrkBrowserConstants.MENU_ITEM_ID_CHOOSE_STREAM_MANUALLY, NrkTranslatableStrings.MENU_ITEM_TITLE_CHOOSE_STREAM_MANUALLY));
             return items;
         }
-/*
-        public List<Item> GetTabItems()
-        {
-            List<Item> menuItems = nrkParser.GetTopTabber();
-            menuItems.ForEach(delegate (Item item)
-                                  {
-                                      item.Description = string.Format(NrkTranslatableStrings.MENU_ITEM_DESCRIPTION_NEWEST_CLIPS_FROM_GENERIC, item.Title);
-                                      item.Bilde = NrkBrowserConstants.DEFAULT_PICTURE;
-                                  });
-            menuItems.RemoveAll(delegate(Item item)
-                                    {
-                                        return
-                                            item.ID == "direkte" || item.ID == "nyheter" ||
-                                            item.ID == "sport" || item.ID == "distrikt" ||
-                                            item.ID == "natur" || item.ID == "super";
-                                    });
-            return menuItems;
-        }
-        */
+
         public static List<Item> CreateMestSetteListItems()
         {
             List<Item> items = new List<Item>(3);
