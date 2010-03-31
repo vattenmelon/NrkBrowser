@@ -73,5 +73,7 @@
   <string id="MENU_ITEM_DESCRIPTION_PODCASTS">Lyd- og bildepodkaster fra NRK</string>
   <string id="MENU_ITEM_TITLE_PODCASTS_AUDIO">Lyd</string>
   <string id="MENU_ITEM_TITLE_PODCASTS_VIDEO">Bilde</string>
+  <string id="MENU_ITEM_DESCRIPTION_LATEST_CLIPS">Siste program fra forsiden på NRK</string>
+  <string id="MENU_ITEM_TITLE_LATEST_CLIPS">Siste program</string>
   <string id="FOR_UNIT_TESTING">Norsk</string>
 </strings>

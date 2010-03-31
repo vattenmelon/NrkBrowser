@@ -77,7 +77,7 @@ namespace Vattenmelon.Nrk.Parser
         public List<Item> GetCategories()
         {
             List<Item> categories = new List<Item>();
-            string data = FetchUrl(MAIN_URL);   
+            string data = FetchUrl(MAIN_URL);
             Regex query = new Regex("<a href=\"/nett-tv/tema/(?<id>\\w*).*?>(?<kategori>[^<]*)</a>");
             MatchCollection result = query.Matches(data);
 
@@ -88,15 +88,15 @@ namespace Vattenmelon.Nrk.Parser
             return categories;
         }
 
-        public List<Item> GetAnbefaltePaaForsiden()
+        public List<Item> GetSistePaaForsiden()
         {
-            Log.Info(NrkParserConstants.LIBRARY_NAME + ": GetAnbefaltePaaForsiden()");
+            Log.Info(NrkParserConstants.LIBRARY_NAME + ": GetSistePaaForsiden()");
             string data;
             data = FetchUrl(MAIN_URL);
-
+            Console.WriteLine(data);
             Regex query =
                 new Regex(
-                    "<div class=\"img-left\" style=\"width: 100px;\">.*?<a href=\"[^\"]*\" title=\".*?\"><img src=\"(?<imgsrc>[^\"]*)\" width=\"100\" height=\"57\" alt=\".*?\" title=\".*?\".*?></a>.*?</div>.*?<div class=\"intro-element-content\"><h2><a href=\"/nett-tv/klipp/(?<id>[^\"]*)\" title=\"(?<desc>[^\"]*)\">(?<title>[^<]*)</a></h2>.*?<a href=\"/nett-tv/prosjekt/(?<prosjekt>[^\"]*)\">",
+                    "<li><div><a href=\"/nett-tv/klipp/(?<id>[^\"]*)\" title=\"[^\"]*\"><img src=\"(?<imgsrc>[^\"]*)\" alt=\".*?\" width=\"100\" height=\"57\" /></a><h3><a href=\".*?\" title=\"(?<desc>[^\"]*)\">(?<title>[^<]*)</a></h3></div></li>",
                     RegexOptions.Compiled | RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
@@ -104,7 +104,7 @@ namespace Vattenmelon.Nrk.Parser
             foreach (Match x in matches)
             {
                 Clip c = new Clip(x.Groups["id"].Value, x.Groups["title"].Value);
-                c.TilhoerendeProsjekt = Int32.Parse(x.Groups["prosjekt"].Value);
+                //c.TilhoerendeProsjekt = Int32.Parse(x.Groups["prosjekt"].Value);
                 c.Description = x.Groups["desc"].Value;
                 c.Bilde = x.Groups["imgsrc"].Value;
                 clips.Add(c);
@@ -119,11 +119,9 @@ namespace Vattenmelon.Nrk.Parser
             string data;
             String url = String.Format(MEST_SETTE_URL, dager);
             data = FetchUrl(url);
-            //"<a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/klipp/.*?\" title=\".*?\">.*?</a></h2><keyword><a href=\".*?/nett-tv/klipp/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></keyword>",
-            //2009-11-23:  "<a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\"><img src=\"(.*?)\" .*? /></a></div><h2><a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\">.*?</a></h2><keyword><a href=\".*?/nett-tv/(.*?)/(.*?)\" title=\"(.*?)\">Vist (.*?) ganger.</a></keyword>",
             Regex query =
                 new Regex(
-                    "<a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\"><img src=\"(?<imgsrc>[^\"]*)\" .*? /></a></div><h2><a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\">.*?</a></h2><p><a href=\".*?/nett-tv/(?<type>[^/]*)/(?<id>[^\"]*)\" title=\"(?<title>[^\"]*)\">Vist (?<antallvist>[^ganger]*) ganger.</a></p>",
+                    "<li.*?><div><a href=\".*?/nett-tv/.*?/.*?\" title=\".*?\"><img src=\"(?<imgsrc>[^\"]*)\" .*? /></a><h3><a href=\".*?/nett-tv/(?<type>[^/]*)/(?<id>[^\"]*)\" title=\".*?\">(?<title>[^<]*)</a></h3><div class=\"summary\"><p>Vist (?<antallvist>[^ganger]*) ganger.</p></div></div></li>",
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
@@ -146,7 +144,7 @@ namespace Vattenmelon.Nrk.Parser
         }
 
 
-
+/*
         public List<Item> GetTopTabber()
         {
             Log.Info(NrkParserConstants.LIBRARY_NAME + ": GetTopTabber()");
@@ -175,7 +173,7 @@ namespace Vattenmelon.Nrk.Parser
             
             return items;
         }
-
+*/
         public List<Item> GetTopTabRSS(string site)
         {
             XmlRSSParser parser = new XmlRSSParser(NrkParserConstants.RSS_URL, site);
@@ -201,10 +199,9 @@ namespace Vattenmelon.Nrk.Parser
             data = FetchUrl(MAIN_URL + tab + "/");
             Regex query =
                 new Regex(
-                    "<div class=\"img-left\">.*?<a href=\"/nett-tv/direkte/(.*?)\" title=\"(.*?)\"><img class=\"info\" src=\".*?\" alt=\"Direkte\" /><img src=\"(.*?)\" .*? /></a>.*?</div>",
+                    "<li><div><a href=\"/nett-tv/direkte/(.*?)\" title=\"(.*?)\"><img src=\"(.*?)\" .*?/></a><h3><a href=\".*?\" title=\".*?\">.*?</a></h3></div></li>",
                     RegexOptions.Singleline);
             
-
             MatchCollection matches = query.Matches(data);
             List<Item> clips = new List<Item>();
             Log.Info(NrkParserConstants.LIBRARY_NAME + ": Matches {0}", matches.Count);
@@ -221,97 +218,77 @@ namespace Vattenmelon.Nrk.Parser
             return clips;
         }
 
-        public List<Item> GetTopTabContent(String tab)
-        {
-            Log.Info(NrkParserConstants.LIBRARY_NAME + ": GetTopTabContent(String)", tab);
-            string data;
-            data = FetchUrl(MAIN_URL + tab + "/");
-            Regex query =
-                new Regex(
-                    "<div class=\"img-left\" style=\"width: 120px;\"><a href=\".*?/nett-tv/" + tab + "/spill/verdi/(.*?)\" .*?><img src=\"(.*?)\" alt=\".*?\" title=\"(.*?)\" .*? />.*?</a>.*?</div>",
-                    RegexOptions.Singleline);
-
-
-            MatchCollection matches = query.Matches(data);
-            List<Item> clips = new List<Item>();
-            Log.Info(NrkParserConstants.LIBRARY_NAME + ": Matches {0}", matches.Count);
-            foreach (Match x in matches)
-            {
-                Clip c = new Clip(x.Groups[1].Value, x.Groups[3].Value);
-                String bildeUrl = x.Groups[2].Value;
-                c.Bilde = bildeUrl;
-                if (c.Title.StartsWith("–"))
-                {
-                    c.Title = c.Title.Replace("–", "-"); //den første er en raring av en minusstrek..
-                }
-                c.Type = Clip.KlippType.VERDI;
-                try
-                {
-                    c.Description = NrkUtils.parseKlokkeSlettFraBilde(bildeUrl);
-                }
-                catch(Exception e)
-                {
-                    
-                    Log.Warn(string.Format("Parsing time out of picture file failed, but this is ok... File: {0}. Error: {1}", bildeUrl, e.Message));
-                }
-                c.VerdiLink = tab;
-                clips.Add(c);
-            }
-
-            return clips;
-        }
+//        public List<Item> GetTopTabContent(String tab)
+//        {
+//            Log.Info(NrkParserConstants.LIBRARY_NAME + ": GetTopTabContent(String)", tab);
+//            string data;
+//            data = FetchUrl(MAIN_URL + tab + "/");
+//            Regex query =
+//                new Regex(
+//                    "<div class=\"img-left\" style=\"width: 120px;\"><a href=\".*?/nett-tv/" + tab + "/spill/verdi/(.*?)\" .*?><img src=\"(.*?)\" alt=\".*?\" title=\"(.*?)\" .*? />.*?</a>.*?</div>",
+//                    RegexOptions.Singleline);
+//
+//
+//            MatchCollection matches = query.Matches(data);
+//            List<Item> clips = new List<Item>();
+//            Log.Info(NrkParserConstants.LIBRARY_NAME + ": Matches {0}", matches.Count);
+//            foreach (Match x in matches)
+//            {
+//                Clip c = new Clip(x.Groups[1].Value, x.Groups[3].Value);
+//                String bildeUrl = x.Groups[2].Value;
+//                c.Bilde = bildeUrl;
+//                if (c.Title.StartsWith("–"))
+//                {
+//                    c.Title = c.Title.Replace("–", "-"); //den første er en raring av en minusstrek..
+//                }
+//                c.Type = Clip.KlippType.VERDI;
+//                try
+//                {
+//                    c.Description = NrkUtils.parseKlokkeSlettFraBilde(bildeUrl);
+//                }
+//                catch(Exception e)
+//                {
+//                    
+//                    Log.Warn(string.Format("Parsing time out of picture file failed, but this is ok... File: {0}. Error: {1}", bildeUrl, e.Message));
+//                }
+//                c.VerdiLink = tab;
+//                clips.Add(c);
+//            }
+//
+//            return clips;
+//        }
 
         public List<Item> GetPrograms(Category category)
         {
-            string data;
-
-            data = FetchUrl(CATEGORY_URL + category.ID);
+            string data = FetchUrl(CATEGORY_URL + category.ID);
             Regex queryBilder =
-                new Regex("<a href=\"/nett-tv/prosjekt/.*?\" id=\".*?\" title=\".*?\".*?>\\s+<img src=\"(?<imgsrc>[^\"]*)\" id=");
-            MatchCollection matchesBilder = queryBilder.Matches(data);
+                new Regex("<li><div><a href=\"/nett-tv/prosjekt/.*?\" title=\".*?\"><img src=\"(?<imgsrc>[^\"]*)\".*?/></a><h3><a href=\"/nett-tv/prosjekt/(?<id>[^\"]*)\" title=\".*?\">(?<title>[^<]*)</a></h3><div class=\"summary\"><p>(?<desc>[^<]*)</p></div></div></li>");
+            MatchCollection matches = queryBilder.Matches(data);
             List<string> bilder = new List<string>();
-            foreach (Match x in matchesBilder)
-            {
-                bilder.Add(x.Groups["imgsrc"].Value);
-            }
-
-            Regex query =
-                new Regex(
-                    "<a href=\"/nett-tv/prosjekt/(?<id>[^\"]*)\" id=\".*ClipLink\" title=\".*?\".*? onclick=\".*?\">(?<title>[^<]*)</a>");
-            MatchCollection matches = query.Matches(data);
             List<Item> programs = new List<Item>();
-            int bildeTeller = 0;
             foreach (Match x in matches)
             {
-                programs.Add(new Program(x.Groups["id"].Value, x.Groups["title"].Value, "", bilder[bildeTeller]));
-                bildeTeller++;
+                programs.Add(new Program(x.Groups["id"].Value, x.Groups["title"].Value, x.Groups["desc"].Value, x.Groups["imgsrc"].Value));
             }
 
-            Regex query2 =
-                new Regex("<a href=\"/nett-tv/prosjekt/.*?\" id=\".*ClipTitle\" title=\".*?\".*?>(?<desc>[^<]*)</a>");
-            MatchCollection matches2 = query2.Matches(data);
-            int teller = 0;
-            foreach (Match x in matches2)
-            {
-                programs[teller].Description = x.Groups["desc"].Value;
-                teller++;
-            }
             return programs;
         }
 
         public List<Item> GetAllPrograms() //all programs
         {
             string data = FetchUrl(MAIN_URL + "bokstav/@");
+            Console.WriteLine(data);
             //2009-11-23: "<div class=\"intro-element intro-element-small\">.*?<div.*?>.*?<a href=\"/nett-tv/prosjekt/(.*?)\" id=\".*?\" title=\"(.*?)\".*?>.*?<img src=\"(.*?)\".*?>.*?</a>.*?</div>.*?<h2>.*?<a href=\".*?\" id=\".*?\" title=\".*?\" onclick=\".*?\">(.*?)</a>.*?</h2>.*?<keyword>.*?</keyword>.*?</div>"
+            //"<div class=\"intro-element intro-element-small\">.*?<div.*?>.*?<a href=\"/nett-tv/prosjekt/(.*?)\" id=\".*?\" title=\"(.*?)\".*?>.*?<img src=\"(.*?)\".*?>.*?</a>.*?</div>.*?<h2>.*?<a href=\".*?\" id=\".*?\" title=\".*?\" onclick=\".*?\">(.*?)</a>.*?</h2>.*?</div>"
             Regex query =
                 new Regex(
-                    "<div class=\"intro-element intro-element-small\">.*?<div.*?>.*?<a href=\"/nett-tv/prosjekt/(.*?)\" id=\".*?\" title=\"(.*?)\".*?>.*?<img src=\"(.*?)\".*?>.*?</a>.*?</div>.*?<h2>.*?<a href=\".*?\" id=\".*?\" title=\".*?\" onclick=\".*?\">(.*?)</a>.*?</h2>.*?</div>",
+                    "<li><div><a href=\"/nett-tv/prosjekt/(.*?)\" title=\"(.*?)\"><img src=\"(.*?)\".*?></a><h3><a href=\".*?\" title=\".*?\">.*?</a></h3><div class=\"summary\"><p>(.*?)</p></div></div></li>",
                     RegexOptions.Singleline);
             MatchCollection matches = query.Matches(data);
             List<Item> programs = new List<Item>();
             foreach (Match x in matches)
             {
-                programs.Add(new Program(x.Groups[1].Value, x.Groups[4].Value, x.Groups[2].Value, x.Groups[3].Value));
+                programs.Add(new Program(x.Groups[1].Value, x.Groups[2].Value, x.Groups[4].Value, x.Groups[3].Value));
             }
             return programs;
         }

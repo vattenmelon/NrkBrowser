@@ -61,7 +61,7 @@ namespace Vattenmelon.Nrk.Parser
         private static void printRecommendedAndExit()
         {
             NrkParser parser = new NrkParser(2000, new NullLogger());
-            List<Item> anbefalte = parser.GetAnbefaltePaaForsiden();
+            List<Item> anbefalte = parser.GetSistePaaForsiden();
             Console.WriteLine("Recommended:");
             foreach (Item item in anbefalte)
             {

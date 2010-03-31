@@ -16,10 +16,7 @@ namespace Vattenmelon.Nrk.Parser
 
         public Search(String htmlData)
         {
-            string regexQuery = "<li id=\"ctl00.*?\">.*?";
-            regexQuery += "<a href=\"(.*?)\" id=\".*?\" style=\".*?\" title=\".*?\" class=\"(.*?)\">(.*?)</a>.*?";
-            regexQuery += "<div.*?>(.*?)</div>.*?";
-            regexQuery += "</li>";
+            string regexQuery = "<li>.*?<a href=\"(?<link>[^\"]*)\" id=\"ctl00.*?\" title=\"(?<type>[^:]*).*?\">(?<title>[^<]*)</a>.*?<p id=\"ctl00.*?\">(?<desc>[^<]*)</p>.*?</li>";
 
             Regex query = new Regex(regexQuery, RegexOptions.Singleline);
             MatchCollection result = query.Matches(htmlData);
@@ -39,29 +36,29 @@ namespace Vattenmelon.Nrk.Parser
 
         private static void addItemFromSearchHitToList(List<Item> items, Match x)
         {
-            String link = x.Groups[1].Value;
-            String type = x.Groups[2].Value;
+            String link = x.Groups["link"].Value;
+            String type = x.Groups["type"].Value;
             String title = string.Format("{0}", x.Groups[3].Value);
-            String description = x.Groups[4].Value;
+            String description = x.Groups["desc"].Value;
 
-            String id = link.Substring(x.Groups[1].Value.LastIndexOf("/", x.Groups[1].Value.Length) + 1);
+            String id = link.Substring(x.Groups["link"].Value.LastIndexOf("/", x.Groups["link"].Value.Length) + 1);
 
-            if (type.Equals("video-index") || type.Equals("audio-index"))
+            if (type.Equals("Videoindeks") || type.Equals("Audioindeks"))
             {
                 Clip c = CreateIndexClip(id, title, x);
                 items.Add(c);
             }
-            else if (type.Equals("video") || type.Equals("audio"))
+            else if (type.Equals("Video") || type.Equals("Audio"))
             {
                 Clip c = CreateClip(id, title, x);
                 items.Add(c);
             }
-            else if (type.Equals("project"))
+            else if (type.Equals("Program"))
             {
                 Program p = new Program(id, title, description, "");
                 items.Add(p);
             }
-            else if (type.Equals("folder"))
+            else if (type.Equals("Folder"))
             {
                 Folder f = new Folder(id, title);
                 f.Description = x.Groups[4].Value;
