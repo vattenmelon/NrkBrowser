@@ -1318,26 +1318,6 @@ namespace Vattenmelon.Nrk.Browser
             dlgMenu.Add(sisteManed);
             dlgMenu.Add(totalt);
             dlgMenu.DoModal(GetWindowId());
-            if (dlgMenu.SelectedId == sisteUke.ItemId)
-            {
-                AddMostWatchedForPeriodToList(NrkParser.Periode.Uke, item);
-            }
-            else if (dlgMenu.SelectedId == sisteManed.ItemId)
-            {
-                AddMostWatchedForPeriodToList(NrkParser.Periode.Maned, item);
-            }
-            else if (dlgMenu.SelectedId == totalt.ItemId)
-            {
-                AddMostWatchedForPeriodToList(NrkParser.Periode.Totalt, item);
-            }
-        }
-
-        private void AddMostWatchedForPeriodToList(NrkParser.Periode periode, Item item)
-        {
-            List<Item> tItems = nrkParser.GetMestSetteForKategoriOgPeriode(periode, item.ID);
-            tItems.ForEach(AddDescriptionToMostWatched);
-            activeStack.Push(item);
-            UpdateList(tItems);
         }
 
         private static void AddDescriptionToMostWatched(Item titem)

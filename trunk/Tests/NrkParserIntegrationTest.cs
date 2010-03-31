@@ -374,18 +374,6 @@ namespace Vattenmelon.Nrk.Parser
         }
 
 
-        [Test]
-        public void TestGetMestSetteNyheterSistUke()
-        {
-            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Uke, "Nyheter");
-            Assert.IsNotEmpty(items);
-            Assert.AreEqual(20, items.Count);
-            foreach (Item item in items)
-            {
-                AssertValidMestSette(item);
-            }
-        }
-
         /// <summary>
         /// Vanskelig å asserte på videostreamen siden det hender at klipp ikke er tilgjengelige hos nrk.
         /// </summary>
@@ -418,74 +406,6 @@ namespace Vattenmelon.Nrk.Parser
             //            {
             //                erHttpLink(videoLink);
             //            }
-        }
-
-        [Test]
-        public void TestGetMestSetteNyheterSistMaaned()
-        {
-            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Maned, "Nyheter");
-            Assert.IsNotEmpty(items);
-            Assert.AreEqual(20, items.Count);
-            foreach (Item item in items)
-            {
-                AssertValidMestSette(item);
-            }
-        }
-
-        [Test]
-        public void TestGetMestSetteNyheterTotalt()
-        {
-            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Totalt, "Nyheter");
-            Assert.IsNotEmpty(items);
-            Assert.AreEqual(20, items.Count);
-            foreach (Item item in items)
-            {
-                AssertValidMestSette(item);
-            }
-        }
-
-        [Test]
-        public void TestGetMestSetteSportSistUke()
-        {
-            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Uke, "Sport");
-            Assert.IsNotEmpty(items);
-            Assert.AreEqual(20, items.Count);
-            foreach (Item item in items)
-            {
-                AssertValidMestSette(item);
-            }
-        }
-
-        [Test]
-        public void TestGetMestSetteSportSistMaaned()
-        {
-            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Maned, "Sport");
-            Assert.IsNotEmpty(items);
-            Assert.AreEqual(20, items.Count);
-            foreach (Item item in items)
-            {
-                AssertValidMestSette(item);
-            }
-        }
-
-        [Test]
-        public void TestGetMestSetteSportTotalt()
-        {
-            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Totalt, "Sport");
-            Assert.IsNotEmpty(items);
-            Assert.AreEqual(20, items.Count);
-            foreach (Item item in items)
-            {
-                AssertValidMestSette(item);
-            }
-        }
-
-        [Test]
-        [ExpectedException(typeof(Exception))]
-        public void TestGetMestSetteForInvalidCategory()
-        {
-            nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Totalt, "heythizdoesnoetexists");
-
         }
 
         [Test]

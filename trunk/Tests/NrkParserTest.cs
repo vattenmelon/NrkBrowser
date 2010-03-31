@@ -252,18 +252,6 @@ namespace Vattenmelon.Nrk.Parser
         }
 
         [Test]
-        public void TestGetMestSetteNyheterSistUke()
-        {
-            List<Item> items = nrkParser.GetMestSetteForKategoriOgPeriode(NrkParser.Periode.Uke, "Nyheter");
-            Assert.IsNotEmpty(items);
-            Assert.AreEqual(20, items.Count);
-            foreach (Item item in items)
-            {
-                AssertValidMestSette(item);
-            }
-        }
-
-        [Test]
         public void TestGetVideoPodkaster()
         {
             IList<PodKast> items = nrkParser.GetVideoPodkaster();
