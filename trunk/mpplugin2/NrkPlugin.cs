@@ -1244,14 +1244,6 @@ namespace Vattenmelon.Nrk.Browser
                     dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_SE_TIDLIGERE_PROGRAMMER);
                 }
             }
-            if (item is MenuItem)
-            {
-                if (erMestSetteEnabled(item))
-                {
-                    GUIListItem mostWatched = new GUIListItem(String.Format(NrkTranslatableStrings.CONTEXTMENU_ITEM_MOST_WATCHED_FOR, item.Title));
-                    dlgMenu.Add(mostWatched);
-                }
-            }
             if (!activeStack.Contains(favoritter))
             {
                 dlgMenu.Add(NrkTranslatableStrings.CONTEXTMENU_ITEM_LEGG_TIL_I_FAVORITTER);
@@ -1294,30 +1286,10 @@ namespace Vattenmelon.Nrk.Browser
             {
                 openQualityMenu(dlgMenu);
             }
-            else if (dlgMenu.SelectedLabelText == String.Format(NrkTranslatableStrings.CONTEXTMENU_ITEM_MOST_WATCHED_FOR, item.Title))
-            {
-                openMostWatchedMenu(dlgMenu, item);
-            }
             else if (dlgMenu.SelectedLabelText == NrkTranslatableStrings.CONTEXTMENU_ITEM_CHECK_FOR_NEW_VERSION)
             {
                 CheckForNewVersionAndDisplayResultInMessageBox();
             }
-        }
-
-        private void openMostWatchedMenu(GUIDialogMenu dlgMenu, Item item)
-        {
-            dlgMenu.Reset();
-            dlgMenu.SetHeading(string.Format(NrkTranslatableStrings.CONTEXTMENU_ITEM_MOST_WATCHED_FOR, item.Title));
-            GUIListItem sisteUke = new GUIListItem(NrkTranslatableStrings.CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_WEEK);
-            sisteUke.ItemId = 1;
-            GUIListItem sisteManed = new GUIListItem(NrkTranslatableStrings.CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_MONTH);
-            sisteManed.ItemId = 2;
-            GUIListItem totalt = new GUIListItem(NrkTranslatableStrings.CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_TOTAL);
-            totalt.ItemId = 3;
-            dlgMenu.Add(sisteUke);
-            dlgMenu.Add(sisteManed);
-            dlgMenu.Add(totalt);
-            dlgMenu.DoModal(GetWindowId());
         }
 
         private static void AddDescriptionToMostWatched(Item titem)
@@ -1340,14 +1312,6 @@ namespace Vattenmelon.Nrk.Browser
             {
                 ShowMessageBox(string.Format(NrkTranslatableStrings.NEW_VERSION_IS_NOT_AVAILABLE, thisVersion));
             }
-        }
-
-
-
-        private bool erMestSetteEnabled(Item item)
-        {
-            return
-                item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_NYHETER) || item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_SPORT) || item.ID.Equals(NrkBrowserConstants.MENU_ITEM_ID_NATUR);
         }
 
         protected void openQualityMenu(GUIDialogMenu dlgMenu)

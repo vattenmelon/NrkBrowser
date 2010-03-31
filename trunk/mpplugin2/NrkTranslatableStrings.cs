@@ -340,23 +340,6 @@ namespace Vattenmelon.Nrk.Browser.Translation
             get { return getTranslatedFromKeyOrGetDefault("CLIP_COUNT", "{0} clips"); }
         }
 
-        public static string CONTEXTMENU_ITEM_MOST_WATCHED_FOR
-        {
-            get { return getTranslatedFromKeyOrGetDefault("CONTEXTMENU_ITEM_MOST_WATCHED_FOR", "Most watched for {0}"); }
-        }
-        public static string CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_WEEK
-        {
-            get { return getTranslatedFromKeyOrGetDefault("CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_WEEK", "Last week"); }
-        }
-        public static string CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_MONTH
-        {
-            get { return getTranslatedFromKeyOrGetDefault("CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_LAST_MONTH", "Last month"); }
-        }
-        public static string CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_TOTAL
-        {
-            get { return getTranslatedFromKeyOrGetDefault("CONTEXT_MENU_ITEM_MOST_WATCHED_FOR_TOTAL", "All time"); }
-        }
-
         public static string MENU_ITEM_TITLE_NRKBETA_LATEST_CLIPS
         {
             get { return getTranslatedFromKeyOrGetDefault("MENU_ITEM_TITLE_NRKBETA_LATEST_CLIPS", "Latest clips"); }

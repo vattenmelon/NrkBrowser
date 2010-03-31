@@ -4,7 +4,7 @@
  * Loosely based on an anonymous (and slightly outdated) NRK parser in python for Myth-tv, 
  * please email me if you are the author :)
  * 
- * 2008-2009 by Vattenmelon
+ * 2008-2009-2010 by Vattenmelon
  * 
  * */
 
@@ -93,7 +93,6 @@ namespace Vattenmelon.Nrk.Parser
             Log.Info(NrkParserConstants.LIBRARY_NAME + ": GetSistePaaForsiden()");
             string data;
             data = FetchUrl(MAIN_URL);
-            Console.WriteLine(data);
             Regex query =
                 new Regex(
                     "<li><div><a href=\"/nett-tv/klipp/(?<id>[^\"]*)\" title=\"[^\"]*\"><img src=\"(?<imgsrc>[^\"]*)\" alt=\".*?\" width=\"100\" height=\"57\" /></a><h3><a href=\".*?\" title=\"(?<desc>[^\"]*)\">(?<title>[^<]*)</a></h3></div></li>",
@@ -354,7 +353,7 @@ namespace Vattenmelon.Nrk.Parser
             }
             catch (Exception e)
             {
-                Console.WriteLine("feilet: " + e.Message);
+                Log.Info("feilet: " + e.Message);
                 return null;
             }
             string urldata = FetchUrl(urlToFetch);

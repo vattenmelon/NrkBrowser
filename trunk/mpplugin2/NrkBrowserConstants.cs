@@ -313,11 +313,6 @@ namespace Vattenmelon.Nrk.Browser
             get { return 10000; }
         }
 
-        public static int CONTEXT_MENU_ITEM_MOST_WATCHED_FOR
-        {
-            get { return 99; }
-        }
-
         public static string MENU_ITEM_ID_PODCASTS
         {
             get { return "menuItemPodcasts"; }
