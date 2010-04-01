@@ -127,7 +127,6 @@ namespace Vattenmelon.Nrk.Parser
             List<Item> liste = nrkParser.GetSistePaaForsiden();
             Assert.IsNotNull(liste);
             Assert.Greater(liste.Count, 0, "Listen skal være større enn 0");
-            Assert.AreEqual(32, liste.Count);
             foreach (Item item in liste)
             {
                 Clip c = (Clip)item;
