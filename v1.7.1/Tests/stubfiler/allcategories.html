@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nb">
+<head>
+    <title id="ctl00_pageTitle">NRK Nett-TV </title>
+    
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="verify-v1" content="xLLj/La5Ai/H2iEVHy83UHvYkYX0fTCHMJV1QXvvAhE=" />
+    
+    
+    <script type="text/javascript" src="http://fil.nrk.no/nett-tv/data/skript/jquery.min.1.4.2.js"></script>
+    <script type="text/javascript" src="http://fil.nrk.no/nett-tv/data/v3/js/spring.js"></script>
+	<script type="text/javascript" src="http://fil.nrk.no/nett-tv/data/v3/js/springstreams.js"></script>
+
+    <script type="text/javascript" src="http://fil.nrk.no/nett-tv/data/skript/dynamicscript_new.js"></script>
+    <script type="text/javascript" src="http://fil.nrk.no/nett-tv/data/skript/dynamicloadingscript.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="screen, projection" title="Standard" href="http://fil.nrk.no/nett-tv/data/stil/ag.css" />
+
+    <script type="text/javascript" src="http://www.nrk.no/contentfile/file/1.13577!tmv11.js"></script>
+    <script type="text/javascript" src="http://fil.nrk.no/nett-tv/data/skript/Silverlight.js"></script>
+	<script type="text/javascript" src="http://fil.nrk.no/nett-tv/data/skript/ads.js"></script>
+	
+
+    <!-- OAS SETUP start --><script type="text/javascript">
+<!-- 
+var OAS_url = 'http://ad.nrk.no/RealMedia/ads/';var OAS_listpos = 'Right,Frame1,Frame2';var OAS_sitepage = 'www.nrk.no/nett_tv/11';var OAS_version = 10;var OAS_rn = new String (Math.random());var OAS_rns = OAS_rn.substring (2, 11);function OAS_RICH(pos) { 	 document.write('<a href="' + OAS_url + 'click_nx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '" target="_top">');
+	 document.write('<img src="' + OAS_url + 'adstream_nx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '" border="0" alt=""><\/a>');
+}OAS_version = 11;if (navigator.userAgent.indexOf('Mozilla/3') != -1){	OAS_version = 10;}if (OAS_version >= 11){	document.write('<script type="text/javascript" src="' + OAS_url + 'adstream_mjx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '"><\/script>');}
+//-->
+</script><!-- OAS SETUP end -->
+    
+
+    <link rel="stylesheet" type="text/css" href="http://fil.nrk.no/nett-tv/data/stil/reset.css" />
+	<link rel="stylesheet" type="text/css" href="http://fil.nrk.no/contentfile/file/1.6899303!globalnavigation.css" />
+	<link rel="stylesheet" type="text/css" href="http://fil.nrk.no/contentfile/file/1.6899335!icons.css" />
+	<link rel="stylesheet" type="text/css" href="http://fil.nrk.no/contentfile/file/1.6899330!ads.css" />
+	<link rel="stylesheet" type="text/css" href="http://fil.nrk.no/contentfile/file/1.6899619!globalfooter.css" />
+	<link rel="stylesheet" type="text/css" href="http://fil.nrk.no/nett-tv/data/stil/nett-tv.2.7.style.css" />
+
+</head>
+<body onunload="unload();">
+
+    <div><div class="nrk-globalnavigation clearfix"><ul><li class="toplevel clearfix"><div class="nrk-logo" title="NRK"><a href="http://www.nrk.no/" title="NRK">NRK</a></div><form id="sitesearch" action="http://www.nrk.no/sok/index.php" method="get" title="Søk på NRK.no"><div><label>Søk på NRK.no</label><input type="hidden" name="site" value="default_collection"/><input type="hidden" name="client" value="default_frontend"/><input type="hidden" name="output" value="xml_no_dtd"/><input type="hidden" name="filter" value="1"/><input type="hidden" name="num" value="10"/><input type="hidden" name="type" value="html"/><input class="textinput" type="text" name="q"/><input class="buttoninput" type="submit" value="Søk" name="btnG"/></div></form></li><li class="sublevel clearfix hidden"><ul><li><h4>Nyheter</h4><ul><li><ul><li><a href="http://www.nrk.no/" title="Forsiden på NRK.no">Forsiden</a></li><li><a href="http://www.nrk.no/norge/" title="Norge">Norge</a></li><li><a href="http://www.nrk.no/verden/" title="Verden">Verden</a></li></ul></li><li><ul><li><a href="http://www.nrk.no/okonomi/" title="Økonomi">Økonomi</a></li><li><a href="http://www.nrksport.no/" title="NRK Sport">Sport</a></li><li><a href="http://www.nrk.no/kultur/" title="Kultur og underholdning">Kultur og underholdning</a></li></ul></li><li class="separator-right"><ul><li><a href="http://www.nrk.no/puls/" title="Helse og livsstil">Helse og livsstil</a></li><li><a href="http://www.nrk.no/viten/" title="Teknologi og viten">Teknologi og viten</a></li><li><a href="http://www.yr.no/" title="Vær (yr.no)">Vær (yr.no)</a></li></ul></li><li class="separator-right"><h5>Distriktsnyheter</h5><ul><li class="chooser"><form action=""><div><label>Velg fylke</label><select name="location" class="js-location"><option>Velg fylke</option><option value="http://www.nrk.no/ostlandssendingen/">Akershus</option><option value="http://www.nrk.no/sorlandet/">Aust-Agder</option><option value="http://www.nrk.no/ostafjells/">Buskerud</option><option value="http://www.nrk.no/nordnytt/">Finnmark</option><option value="http://www.nrk.no/ho/">Hedmark</option><option value="http://www.nrk.no/hordaland/">Hordaland</option><option value="http://www.nrk.no/mr/">Møre og Romsdal</option><option value="http://www.nrk.no/trondelag/">Nord-Trøndelag</option><option value="http://www.nrk.no/nordland/">Nordland</option><option value="http://www.nrk.no/ho/">Oppland</option><option value="http://www.nrk.no/ostlandssendingen/">Oslo</option><option value="http://www.nrk.no/rogaland/">Rogaland</option><option value="http://www.nrk.no/sfj/">Sogn og Fjordane</option><option value="http://www.nrk.no/trondelag/">Sør-Trøndelag</option><option value="http://www.nrk.no/ostafjells/">Telemark</option><option value="http://www.nrk.no/nordnytt/">Troms</option><option value="http://www.nrk.no/sorlandet/">Vest-Agder</option><option value="http://www.nrk.no/ostafjells/">Vestfold</option><option value="http://www.nrk.no/ostfold/">Østfold</option></select></div></form></li><li><a href="http://www.nrk.no/sami/" title="NRK Sámi Radio">Sámi Radio</a></li></ul></li><li><ul><li><a href="http://www.nrk.no/nett-tv/prosjekt/31" title="Dagsrevyen" class="icon-video-16-negative">Dagsrevyen</a></li><li><a href="http://www.nrk.no/radio/?kanal=an" title="NRK Alltid Nyheter" class="icon-audio-16-negative js-audio">NRK Alltid Nyheter</a></li></ul></li></ul></li></ul></li><li class="sublevel clearfix hidden"><ul><li><h4>TV</h4><ul><li class="separator-right"><h5>Nett-TV</h5><ul><li><a href="http://www.nrk.no/nett-tv/" title="TV-programmer" class="icon-video-16-negative">TV-programmer</a></li></ul></li><li><h5>Nett-TV direkte</h5><ul><li><a href="http://www.nrk.no/nett-tv/direkte/nrk1/" title="NRK1" class="icon-video-16-negative">NRK1</a></li><li><a href="http://www.nrk.no/nett-tv/direkte/nrk2/" title="NRK2" class="icon-video-16-negative">NRK2</a></li></ul></li><li class="padded separator-right"><ul><li><a href="http://www.nrk.no/nett-tv/direkte/nrk3/" title="NRK3" class="icon-video-16-negative">NRK3</a></li><li><a href="http://www.nrksuper.no/super/tv/" title="NRK Super" class="icon-video-16-negative">NRK Super</a></li></ul></li><li class="separator-right"><h5>Oversikt</h5><ul><li><a href="http://www.nrk.no/tv/" title="TV-guide (tider &amp; kanaler)">TV-guide (tider &amp; kanaler)</a></li><li><a href="http://www.nrk.no/tv/#active-programs" title="Hjemmesider for alle TV-programmer A-Å">Alle programmer A-Å</a></li></ul></li><li><ul><li><a href="http://www.nrk.no/teksttv/" title="NRK Tekst-TV">Tekst-TV</a></li><li><a href="http://www.nrk.no/podkast/" title="Podkast">Podkast</a></li></ul></li></ul></li></ul></li><li class="sublevel clearfix hidden"><ul><li><h4>Radio</h4><ul><li><h5>Nettradio</h5><ul><li><a href="http://www.nrk.no/radio/?kanal=p1" title="NRK P1" class="icon-audio-16-negative js-audio">NRK P1</a></li><li><a href="http://www.nrk.no/radio/?kanal=p2" title="NRK P2" class="icon-audio-16-negative js-audio">NRK P2</a></li><li><a href="http://www.nrk.no/radio/?kanal=p3" title="NRK P3" class="icon-audio-16-negative js-audio">NRK P3</a></li></ul></li><li class="padded separator-right"><ul><li><a href="http://www.nrk.no/radio/?kanal=mpetre" title="NRK mP3" class="icon-audio-16-negative js-audio">NRK mP3</a></li><li><a href="http://www.nrksuper.no/super/radio/" title="NRK Super (Superradio)" class="icon-audio-16-negative js-audio">NRK Super (Superradio)</a></li><li class="chooser"><form action="http://www.nrk.no/radio/"><div><label>Flere kanaler</label><select name="kanal" class="js-audio"><option>Flere kanaler</option><option value="an">NRK Alltid Nyheter</option><option value="ak">NRK Klassisk</option><option value="jazz">NRK Jazz</option><option value="fmk">NRK Folkemusikk</option><option value="sport">NRK Sport</option><option value="gull">NRK Gull</option><option value="nrk51">NRK 5.1</option><option value="p3urort">NRK P3 Urørt</option><option value="sami">NRK Sámi Radio</option></select></div></form></li></ul></li><li class="separator-right"><h5>Oversikt</h5><ul><li><a href="http://www.nrk.no/radio/" title="Radioguide (tider &amp; kanaler)">Radioguide (tider &amp; kanaler)</a></li><li><a href="http://www.nrk.no/radio/#active-programs" title="Hjemmesider for alle radioprogrammer A-Å">Alle programmer A-Å</a></li></ul></li><li><ul><li><a href="http://www.nrk.no/spillelister/" title="Spillelister på radio">Spillelister på radio</a></li><li><a href="http://www.nrk.no/podkast/" title="Podkast">Podkast</a></li></ul></li></ul></li></ul></li><li class="sublevel clearfix hidden"><ul><li><h4>Snarveier</h4><ul><li class="separator-right"><ul><li><strong><a href="http://www.nrksuper.no/" title="NRK Super (barn)">NRK Super (barn)</a></strong></li><li><strong><a href="http://www.nrksuper.no/super/tv/" title="Barne-TV">Barne-TV</a></strong></li><li><strong><a href="http://www.nrk.no/skole/" title="NRK Skole inneholder klipp fra NRKs innholdsrike TV- og radioarkiv. Alle klipp er knyttet opp mot læreplanen og Grep.">NRK Skole</a></strong></li><li><strong><a href="http://www.nrkp3.no/" title="NRK P3">NRK P3</a></strong></li><li><strong><a href="http://www.nrksport.no/" title="Sport">Sport</a></strong></li><li><strong><a href="http://www.yr.no/" title="Yr.no (vær)">Yr.no (vær)</a></strong></li><li><strong><a href="http://www.ut.no/" title="UT.no (turguide)">UT.no (turguide)</a></strong></li></ul></li><li><ul><li><a href="http://blogg.nrk.no/" title="Blogger">Blogger</a></li><li><a href="http://www.nrkbutikken.no/" title="NRK Butikken">Butikken</a></li><li><a href="http://www.nrk.no/debatt/" title="Debattforum">Debattforum</a></li><li><a href="http://www.nrk.no/distrikt/" title="Distrikt">Distrikt</a></li><li><a href="http://www.nrksport.no/fotball/" title="Fotball">Fotball</a></li><li><a href="http://www.nrk.no/puls/" title="Helse &amp; livsstil">Helse &amp; livsstil</a></li><li><a href="http://www.juntafil.no/" title="Juntafil (sex &amp; tenåringsliv)">Juntafil (sex &amp; tenåringsliv)</a></li><li><a href="http://www.nrk.no/kork/" title="Kringkastingsorkestret (KORK)">Kringkastingsorkestret (KORK)</a></li><li><a href="http://www.nrk.no/kultur/" title="Kultur &amp; underholdning">Kultur &amp; underholdning</a></li><li><a href="http://www.nrk.no/kultur/litteratur/" title="Litteratur">Litteratur</a></li><li><a href="http://www.nrk.no/mat/" title="Matoppskrifter">Mat</a></li></ul></li><li><ul><li><a href="http://www.nrk.no/musikk/" title="Musikk">Musikk</a></li><li><a href="http://www.nrk.no/natur/" title="Natur">Natur</a></li><li><a href="http://www.nrk.no/radio/?kanal=p1" title="Nettradio" class="icon-audio-16-negative js-audio">Nettradio</a></li><li><a href="http://www.nrk.no/nett-tv/" title="Nett-TV" class="icon-video-16-negative">Nett-TV</a></li><li><a href="http://www.nrk.no/norge/" title="Norge">Norge</a></li><li><a href="http://www.nrkbeta.no/" title="NRKbeta (teknologi)">NRKbeta (teknologi)</a></li><li><a href="http://www.nrk.no/podkast/" title="Podkast">Podkast</a></li><li><a href="http://www.nrk.no/program/" title="Hjemmesider for alle TV- og radioprogrammer A-Å">Programmer A-Å</a></li><li><a href="http://www.nrk.no/radio/" title="Radioguide (tider &amp; kanaler)">Radioguide (tider &amp; kanaler)</a></li><li><a href="http://www.nrk.no/rss/" title="RSS">RSS</a></li><li><a href="http://www.nrk.no/sami/" title="NRK Sámi Radio">Sámi Radio</a></li></ul></li><li class="separator-right"><ul><li><a href="http://www.nrk.no/spiller/" title="Spiller (dataspill)">Spiller (dataspill)</a></li><li><a href="http://www.nrk.no/spillelister/" title="Spillelister på radio">Spillelister på radio</a></li><li><a href="http://www.nrk.no/sok/" title="Søk etter innhold fra NRK">Søk</a></li><li><a href="http://www.nrk.no/teksttv/" title="NRK Tekst-TV">Tekst-TV</a></li><li><a href="http://www.nrk.no/trafikk/" title="Trafikk">Trafikk</a></li><li><a href="http://www.nrk.no/tv/" title="TV-guide (tider &amp; kanaler)">TV-guide (tider &amp; kanaler)</a></li><li><a href="http://www11.nrk.no/urort/default.aspx" title="Urørt (uetablert musikk)">Urørt (uetablert musikk)</a></li><li><a href="http://www.nrk.no/verden/" title="Verden">Verden</a></li><li><a href="http://www.nrk.no/viten/" title="Viten &amp; teknologi">Viten &amp; teknologi</a></li><li><a href="http://www.nrk.no/okonomi/" title="Økonomi">Økonomi</a></li></ul></li><li><h5>Om NRK</h5><ul><li><a href="http://www.nrk.no/tips/" title="Tips NRK">Tips NRK</a></li><li><a href="http://www.nrk.no/kontakt/" title="Kontakt (Publikumsservice)">Kontakt (Publikumsservice)</a></li><li><a href="http://www.nrk.no/info/" title="Om NRK">Om NRK</a></li><li><a href="http://www.nrk.no/hjelp/" title="Hjelp">Hjelp</a></li><li><a href="http://www.nrk.no/lisens/" title="Lisens">Lisens</a></li><li><a href="http://www.nrk.no/stilling/" title="Ledige stillinger">Ledige stillinger</a></li><li><a href="http://www.nrkaktivum.no/" title="NRK Aktivum">NRK Aktivum</a></li><li><a href="http://www.nrkaktivum.no/publikum/" title="Vil du være publikum i studio?">Publikum (billetter)</a></li><li><a href="http://www.nrk.no/informasjon/presse/" title="Pressetjenesten">Presse</a></li></ul></li></ul></li></ul></li></ul></div></div>
+
+    
+    
+    <form id="aspnetForm" action="/nett-tv/" method="post">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUENTM4MWRkb/rZgJK0QTzfrLuLi1foUSqTt6k=" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+    
+    	<div class="nettv-container clearfix">
+    
+			
+			<div class="nettv-header clearfix">
+				<!-- LOGO -->
+<div class="nettv-logo">
+	<a href="/nett-tv" title="NRK Nett-TV">Nett-TV</a>
+</div>
+
+<!-- TABS -->
+<div class="nettv-navigation">
+	<ul id="ctl00_ucTop_tabs"><li><a class=" selected" href="/nett-tv" title="Nett-TV Hjem">Hjem</a></li><li><a class="toggle-sub" href="#alphabet" title="Nett-TV A-Å">A-Å</a></li><li><a class="toggle-sub" href="#categories" title="Nett-TV Kategorier">Kategorier</a></li><li><a class="" href="/nett-tv/direkte" title="Nett-TV Kanaler">Kanaler</a></li></ul>
+
+	<div class="nettv-search">
+		<input name="ctl00$ucTop$userSearch" type="text" id="ctl00_ucTop_userSearch" class="text" onkeydown="if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('ctl00_ucTop_userBtn').click();return false;}} else {return true}; " />
+		<input onclick="__doPostBack('ctl00$ucTop$userBtn','')" name="ctl00$ucTop$userBtn" type="button" id="ctl00_ucTop_userBtn" class="button" value="Søk i Nett-TV" />
+	</div>
+</div>
+
+<div class="nettv-subnavigation">
+	<ul id="alphabet" style="display: none"><li><a href="/nett-tv/bokstav/1" title="Program på '1'">1</a></li><li><a href="/nett-tv/bokstav/2" title="Program på '2'">2</a></li><li><a href="/nett-tv/bokstav/3" title="Program på '3'">3</a></li><li><a href="/nett-tv/bokstav/5" title="Program på '5'">5</a></li><li><a href="/nett-tv/bokstav/7" title="Program på '7'">7</a></li><li><a href="/nett-tv/bokstav/a" title="Program på 'A'">A</a></li><li><a href="/nett-tv/bokstav/á" title="Program på 'Á'">Á</a></li><li><a href="/nett-tv/bokstav/b" title="Program på 'B'">B</a></li><li><a href="/nett-tv/bokstav/c" title="Program på 'C'">C</a></li><li><a href="/nett-tv/bokstav/d" title="Program på 'D'">D</a></li><li><a href="/nett-tv/bokstav/e" title="Program på 'E'">E</a></li><li><a href="/nett-tv/bokstav/f" title="Program på 'F'">F</a></li><li><a href="/nett-tv/bokstav/g" title="Program på 'G'">G</a></li><li><a href="/nett-tv/bokstav/h" title="Program på 'H'">H</a></li><li><a href="/nett-tv/bokstav/i" title="Program på 'I'">I</a></li><li><a href="/nett-tv/bokstav/í" title="Program på 'Í'">Í</a></li><li><a href="/nett-tv/bokstav/j" title="Program på 'J'">J</a></li><li><a href="/nett-tv/bokstav/k" title="Program på 'K'">K</a></li><li><a href="/nett-tv/bokstav/l" title="Program på 'L'">L</a></li><li><a href="/nett-tv/bokstav/m" title="Program på 'M'">M</a></li><li><a href="/nett-tv/bokstav/n" title="Program på 'N'">N</a></li><li><a href="/nett-tv/bokstav/o" title="Program på 'O'">O</a></li><li><a href="/nett-tv/bokstav/p" title="Program på 'P'">P</a></li><li><a href="/nett-tv/bokstav/q" title="Program på 'Q'">Q</a></li><li><a href="/nett-tv/bokstav/r" title="Program på 'R'">R</a></li><li><a href="/nett-tv/bokstav/s" title="Program på 'S'">S</a></li><li><a href="/nett-tv/bokstav/t" title="Program på 'T'">T</a></li><li><a href="/nett-tv/bokstav/u" title="Program på 'U'">U</a></li><li><a href="/nett-tv/bokstav/v" title="Program på 'V'">V</a></li><li><a href="/nett-tv/bokstav/w" title="Program på 'W'">W</a></li><li><a href="/nett-tv/bokstav/y" title="Program på 'Y'">Y</a></li><li><a href="/nett-tv/bokstav/z" title="Program på 'Z'">Z</a></li><li><a href="/nett-tv/bokstav/æ" title="Program på 'Æ'">Æ</a></li><li><a href="/nett-tv/bokstav/ø" title="Program på 'Ø'">Ø</a></li><li><a href="/nett-tv/bokstav/å" title="Program på 'Å'">Å</a></li></ul><ul id="categories" class="categories" style="display: none"><li><a href="/nett-tv/tema/2" title="Program i kategori 'Barn'">Barn</a></li><li><a href="/nett-tv/tema/13" title="Program i kategori 'Distrikt'">Distrikt</a></li><li><a href="/nett-tv/tema/20" title="Program i kategori 'Dokumentar'">Dokumentar</a></li><li><a href="/nett-tv/tema/3" title="Program i kategori 'Drama'">Drama</a></li><li><a href="/nett-tv/tema/4" title="Program i kategori 'Fakta'">Fakta</a></li><li><a href="/nett-tv/tema/5" title="Program i kategori 'Kultur'">Kultur</a></li><li><a href="/nett-tv/tema/9" title="Program i kategori 'Livssyn'">Livssyn</a></li><li><a href="/nett-tv/tema/17" title="Program i kategori 'Mat'">Mat</a></li><li><a href="/nett-tv/tema/6" title="Program i kategori 'Musikk'">Musikk</a></li><li><a href="/nett-tv/tema/7" title="Program i kategori 'Natur'">Natur</a></li><li><a href="/nett-tv/tema/8" title="Program i kategori 'Nyheter'">Nyheter</a></li><li><a href="/nett-tv/tema/19" title="Program i kategori 'På samisk'">På samisk</a></li><li><a href="/nett-tv/tema/22" title="Program i kategori 'På tegnspråk'">På tegnspråk</a></li><li><a href="/nett-tv/tema/10" title="Program i kategori 'Sport'">Sport</a></li><li><a href="/nett-tv/tema/11" title="Program i kategori 'Underholdning'">Underholdning</a></li><li><a href="/nett-tv/tema/21" title="Program i kategori 'Ung'">Ung</a></li></ul>
+</div>
+
+<div class="nettv-tools">
+	<ul>
+		<li><a class="toggle-settings" title="inntillinger" href="#">Innstillinger</a></li>
+		<li><a href="http://nrk.no/informasjon/hjelp/1.2614661" title="Hjelp i Nett-TV">Hjelp</a></li>
+	</ul>
+</div>    
+			</div>
+
+			<div class="nettv-content clearfix">
+				<div class="nettv-main-section clearfix">
+	
+					
+					<div class="nettv-main-column clearfix">
+					
+						<div id="ctl00_player" class="nettv-player">
+							<div class="promo-element"><a href="http://www1.nrk.no/nett-tv/klipp/625472" title="Jentene på Toten"><img src="http://www.nrk.no/contentfile/imagecrop/1.7063258?cropid=f169w650" alt="Jentene på Toten" title="Jentene på Toten" longdesc="" height="289" width="512" /></a><div class="black-overlay"><em>Jentene på Toten</em><h2><a href="http://www1.nrk.no/nett-tv/klipp/625472" title="Jentene på Toten - Får Marianne innvilget operasjonen?">Får Marianne innvilget operasjonen?</a></h2></div></div>
+							
+							
+							
+							
+							
+							
+							
+						</div>
+
+						<!--googleoff: index-->
+						<div class="nettv-topviewed">
+
+	<div class="tabs-navigation">
+		<h2>Mest sett:</h2>
+		<ul id="ctl00_ucTopViewed_topViewedTabs"><li><a href="/nett-tv/ml/topp12.aspx?dager=7" title="Denne uken">Denne uken</a></li><li><a href="/nett-tv/ml/topp12.aspx?dager=30" title="Denne måneden">Denne måneden</a></li><li><a href="/nett-tv/ml/topp12.aspx?dager=3650" title="Totalt">Totalt</a></li></ul>
+	</div>
+	
+	<div class="tabs-content">
+		
+	</div>
+</div>
+						<div class="nettv-recommended"><h2>Vi anbefaler</h2><ul><li><div><a href="http://www.nrk.no/nett-tv/indeks/207432" title="Hjemmebrygget øl"><img src="http://www.nrk.no/contentfile/imagecrop/1.7063104?cropid=f169w650" alt="Hjemmebrygget øl" width="150" height="85" /></a><h3><a href="http://www.nrk.no/nett-tv/indeks/207432" title="Hjemmebrygget øl">Hjemmebrygget øl</a></h3><div class="summary"><p>Vet du hva forskjellen på pils og ale er?</p></div><ol><li><a href="http://www.nrk.no/nett-tv/indeks/207432" title="Førkveld " class="icon-video-archive">Førkveld </a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/klipp/624692" title="Påskenøtter"><img src="http://www.nrk.no/contentfile/imagecrop/1.2095439?cropid=f169w650" alt="Påskenøtter" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624692" title="Påskenøtter">Påskenøtter</a></h3><div class="summary"><p>Klarer du å finne løsningsordet?</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624692" title="Påskenøtter" class="icon-video-archive">Påskenøtter</a></li><li><a href="http://www1.nrk.no/nett-tv/klipp/624705" title="Løsningen" class="icon-video-archive">Løsningen</a></li></ol></div></li><li class="last"><div><a href="http://www1.nrk.no/nett-tv/klipp/624172" title="Blodig alvor"><img src="http://www.nrk.no/contentfile/imagecrop/1.7021140?cropid=f169w650" alt="Blodig alvor" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624172" title="Blodig alvor">Blodig alvor</a></h3><div class="summary"><p>Sookie tar en farlig beslutning som kan løse mysteriet med Godric – eller få henne drept.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624172" title="True Blood 5:12" class="icon-video-archive">True Blood 5:12</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/klipp/624744" title="Fruer på bordelljakt"><img src="http://www.nrk.no/contentfile/imagecrop/1.6457652?cropid=f169w650" alt="Fruer på bordelljakt" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624744" title="Fruer på bordelljakt">Fruer på bordelljakt</a></h3><div class="summary"><p>To eldre britiske damer reiser ut i verden for å finne det perfekte bordell.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624744" title="Fruer anbefaler bordell" class="icon-video-archive">Fruer anbefaler bordell</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/klipp/625162" title="Et vakkert liv"><img src="http://www.nrk.no/contentfile/imagecrop/1.7062394?cropid=f169w650" alt="Et vakkert liv" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/625162" title="Et vakkert liv">Et vakkert liv</a></h3><div class="summary"><p>Vi følger Espens kamp mot den uhelbredelige sykdommen.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/625162" title="Et vakkert liv" class="icon-video-archive">Et vakkert liv</a></li></ol></div></li><li class="last"><div><a href="http://www1.nrk.no/nett-tv/indeks/207481" title="Sol i påsken?"><img src="http://www.nrk.no/contentfile/imagecrop/1.7063111?cropid=f169w650" alt="Sol i påsken?" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/indeks/207481" title="Sol i påsken?">Sol i påsken?</a></h3><div class="summary"><p>Sjekk værmeldingen for de kommende dagene.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/indeks/207481" title="Værmeldingen" class="icon-video-archive">Værmeldingen</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/klipp/624834" title="Sterke inntrykk"><img src="http://www.nrk.no/contentfile/imagecrop/1.7061566?cropid=f169w650" alt="Sterke inntrykk" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624834" title="Sterke inntrykk">Sterke inntrykk</a></h3><div class="summary"><p>Oddgeir Bruaset møter igjen familien som så tragisk mistet et barn.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624834" title="En sterk historie" class="icon-video-archive">En sterk historie</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/indeks/207363" title="Spektakulært"><img src="http://www.nrk.no/contentfile/imagecrop/1.7061775?cropid=f169w650" alt="Spektakulært" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/indeks/207363" title="Spektakulært">Spektakulært</a></h3><div class="summary"><p>La deg imponere av dansegruppa Quick!</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/indeks/207363" title="Virtuos 2010" class="icon-video-archive">Virtuos 2010</a></li></ol></div></li><li class="last"><div><a href="http://www1.nrk.no/nett-tv/klipp/624212" title="Forfulgt av ulykker"><img src="http://www.nrk.no/contentfile/imagecrop/1.7059779?cropid=f169w650" alt="Forfulgt av ulykker" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624212" title="Forfulgt av ulykker">Forfulgt av ulykker</a></h3><div class="summary"><p>Elin vil ikke gi opp, men smertene tar overhånd.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624212" title="Ingen grenser 4:6" class="icon-video-archive">Ingen grenser 4:6</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/klipp/624424" title="Hoppende glad"><img src="http://www.nrk.no/contentfile/imagecrop/1.7057420?cropid=f169w650" alt="Hoppende glad" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624424" title="Hoppende glad">Hoppende glad</a></h3><div class="summary"><p>Endelig får Roy en grunn til å juble!</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624424" title="Himmelblå" class="icon-video-archive">Himmelblå</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/klipp/623810" title="Newton"><img src="http://www.nrk.no/contentfile/imagecrop/1.7060101?cropid=f169w650" alt="Newton" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/623810" title="Newton">Newton</a></h3><div class="summary"><p>Hvorfor ramler ikke husene sammen?</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/623810" title="Newton" class="icon-video-archive">Newton</a></li></ol></div></li><li class="last"><div><a href="http://www1.nrk.no/nett-tv/klipp/624460" title="Lille Dorrit"><img src="http://www.nrk.no/contentfile/imagecrop/1.7059825?cropid=f169w650" alt="Lille Dorrit" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624460" title="Lille Dorrit">Lille Dorrit</a></h3><div class="summary"><p>Amy skjuler fortvilelsen når Arthur forteller om sin tapte kjærlighet.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624460" title="Lille Dorrit " class="icon-video-archive">Lille Dorrit </a></li></ol></div></li><li><div><a href="http://www.nrk.no/nett-tv/klipp/624416/" title="Snakket ut"><img src="http://www.nrk.no/contentfile/imagecrop/1.7058751?cropid=f169w650" alt="Snakket ut" width="150" height="85" /></a><h3><a href="http://www.nrk.no/nett-tv/klipp/624416/" title="Snakket ut">Snakket ut</a></h3><div class="summary"><p>- Kjolen var tekkelig nok, sa Inger Lise Hansen.</p></div><ol><li><a href="http://www.nrk.no/nett-tv/klipp/624416/" title="Viggo på lørdag" class="icon-video-archive">Viggo på lørdag</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/indeks/207170" title="Hanna fra Tana"><img src="http://www.nrk.no/contentfile/imagecrop/1.7058795?cropid=f169w650" alt="Hanna fra Tana" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/indeks/207170" title="Hanna fra Tana">Hanna fra Tana</a></h3><div class="summary"><p>Se aller siste episode om popstjerna fra nord!</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/indeks/207170" title="Krem Nasjonal" class="icon-video-archive">Krem Nasjonal</a></li></ol></div></li><li class="last"><div><a href="http://www1.nrk.no/nett-tv/klipp/624433" title="Ny serie: Corleone"><img src="http://www.nrk.no/contentfile/imagecrop/1.7057556?cropid=f169w650" alt="Ny serie: Corleone" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624433" title="Ny serie: Corleone">Ny serie: Corleone</a></h3><div class="summary"><p>Vi følger mafiaens vei mot toppen av Cosa Nostra.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624433" title="Corleone 1:6" class="icon-video-archive">Corleone 1:6</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/klipp/624414" title="Mesternes mester"><img src="http://www.nrk.no/contentfile/imagecrop/1.7058673?cropid=f169w650" alt="Mesternes mester" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624414" title="Mesternes mester">Mesternes mester</a></h3><div class="summary"><p>Lagkonkurranse er uvant for sterke individualister.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624414" title="Mesternes mester" class="icon-video-archive">Mesternes mester</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/klipp/624180" title="Vikaren"><img src="http://www.nrk.no/contentfile/imagecrop/1.6734879?cropid=f169w650" alt="Vikaren" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624180" title="Vikaren">Vikaren</a></h3><div class="summary"><p>Et sterkt møte mellom kulturer og generasjoner - og dagens læreryrke.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624180" title="Vikaren" class="icon-video-archive">Vikaren</a></li></ol></div></li><li class="last"><div><a href="http://www.nrk.no/nett-tv/indeks/207133/" title="Marionett?"><img src="http://www.nrk.no/contentfile/imagecrop/1.7058309?cropid=f169w650" alt="Marionett?" width="150" height="85" /></a><h3><a href="http://www.nrk.no/nett-tv/indeks/207133/" title="Marionett?">Marionett?</a></h3><div class="summary"><p>Det er Bjerkaas som trekker i Jons tråder.</p></div><ol><li><a href="http://www.nrk.no/nett-tv/indeks/207133/" title="Nytt på nytt" class="icon-video-archive">Nytt på nytt</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/indeks/207132" title="Noomi Rapace hos Skavlan"><img src="http://www.nrk.no/contentfile/imagecrop/1.7056427?cropid=f169w650" alt="Noomi Rapace hos Skavlan" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/indeks/207132" title="Noomi Rapace hos Skavlan">Noomi Rapace hos Skavlan</a></h3><div class="summary"><p>– Jeg trodde jeg skulle leve i evig ensomhet.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/indeks/207132" title="Skavlan " class="icon-video-archive">Skavlan </a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/klipp/624286" title="Tro det eller ei"><img src="http://www.nrk.no/contentfile/imagecrop/1.7045907?cropid=f169w650" alt="Tro det eller ei" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624286" title="Tro det eller ei">Tro det eller ei</a></h3><div class="summary"><p>Har Anne-Kat. eller Dagfinn de sterkeste synske evnene?</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624286" title="Lyngbø og Hærlands Big Bang" class="icon-video-archive">Lyngbø og Hærlands Big Bang</a></li></ol></div></li><li class="last"><div><a href="http://www1.nrk.no/nett-tv/klipp/624368" title="Katt og mus"><img src="http://www.nrk.no/contentfile/imagecrop/1.7058199?cropid=f169w650" alt="Katt og mus" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624368" title="Katt og mus">Katt og mus</a></h3><div class="summary"><p>Abby og gjengen leter desperat etter Tom og Greg.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624368" title="Etter katastrofen 4:6" class="icon-video-archive">Etter katastrofen 4:6</a></li></ol></div></li><li><div><a href="http://www.nrk.no/mat/1.6925654" title="Skikkelig turmat"><img src="http://www.nrk.no/contentfile/imagecrop/1.7049443?cropid=f169w650" alt="Skikkelig turmat" width="150" height="85" /></a><h3><a href="http://www.nrk.no/mat/1.6925654" title="Skikkelig turmat">Skikkelig turmat</a></h3><div class="summary"><p>Lag pytt i panne med speilegg på bålet i påsken.</p></div><ol><li><a href="http://www.nrk.no/mat/1.6925654" title="nrk.no/mat" class="icon-video-archive">nrk.no/mat</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/klipp/624147" title="Pave mot dronning"><img src="http://www.nrk.no/contentfile/imagecrop/1.7056572?cropid=f169w650" alt="Pave mot dronning" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624147" title="Pave mot dronning">Pave mot dronning</a></h3><div class="summary"><p>Kampen mellom Celtic og Rangers handler om mye mer enn fotball.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624147" title="Fotballkrigen" class="icon-video-archive">Fotballkrigen</a></li></ol></div></li><li class="last"><div><a href="http://www1.nrk.no/nett-tv/klipp/623933" title="Fet diett"><img src="http://www.nrk.no/contentfile/imagecrop/1.4165915?cropid=f169w650" alt="Fet diett" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/623933" title="Fet diett">Fet diett</a></h3><div class="summary"><p>Claire gjennomgår et eksperiment med egen kropp.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/623933" title="Kroppsfiksert" class="icon-video-archive">Kroppsfiksert</a></li></ol></div></li><li><div><a href="http://www.nrk.no/nett-tv/klipp/624155" title="Tampongeske?"><img src="http://www.nrk.no/contentfile/imagecrop/1.7056971?cropid=f169w650" alt="Tampongeske?" width="150" height="85" /></a><h3><a href="http://www.nrk.no/nett-tv/klipp/624155" title="Tampongeske?">Tampongeske?</a></h3><div class="summary"><p>Ukens utfordring er å lage noe som ganger menneskeheten.</p></div><ol><li><a href="http://www.nrk.no/nett-tv/klipp/624155" title="Designkampen 2:6" class="icon-video-archive">Designkampen 2:6</a></li></ol></div></li><li><div><a href="http://www1.nrk.no/nett-tv/klipp/624150" title="Menneskehandel?"><img src="http://www.nrk.no/contentfile/imagecrop/1.6172040?cropid=f169w650" alt="Menneskehandel?" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624150" title="Menneskehandel?">Menneskehandel?</a></h3><div class="summary"><p>Bruken av surrogatmødre er gjenstand for debatt.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624150" title="Debatten" class="icon-video-archive">Debatten</a></li></ol></div></li><li class="last"><div><a href="http://www1.nrk.no/nett-tv/klipp/624151" title="Hva feiler Grace?"><img src="http://www.nrk.no/contentfile/imagecrop/1.7056892?cropid=f169w650" alt="Hva feiler Grace?" width="150" height="85" /></a><h3><a href="http://www1.nrk.no/nett-tv/klipp/624151" title="Hva feiler Grace?">Hva feiler Grace?</a></h3><div class="summary"><p>Forslaget om å sette datteren på medikamenter får Jackie til å se svart.</p></div><ol><li><a href="http://www1.nrk.no/nett-tv/klipp/624151" title="Nurse Jackie 4:12" class="icon-video-archive">Nurse Jackie 4:12</a></li></ol></div></li></ul></div>
+						<!--googleon: index-->
+
+					</div> 
+					
+					
+					
+					
+					<div class="nettv-side-column clearfix">
+						<!--googleoff: index-->
+						
+						<div class="nettv-latest">
+	<h2>Siste program</h2>
+      <ul><li><div><a href="/nett-tv/klipp/625472" title="Jentene på Toten 30.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.7017606?cropid=f169w100" alt="Jentene på Toten 30.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/625472" title="Jentene på Toten 30.03.2010">Jentene på Toten 30.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/624744" title="Fruer anbefaler bordell"><img src="http://www.nrk.no/contentfile/imagecrop/1.6675136?cropid=f169w100" alt="Fruer anbefaler bordell" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624744" title="Fruer anbefaler bordell">Fruer anbefaler bordell</a></h3></div></li><li><div><a href="/nett-tv/klipp/625464" title="Uteliggernes sang"><img src="http://www.nrk.no/contentfile/imagecrop/1.7060340?cropid=f169w100" alt="Uteliggernes sang" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/625464" title="Uteliggernes sang">Uteliggernes sang</a></h3></div></li><li><div><a href="/nett-tv/klipp/624692" title="Påskenøtter 30.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.7060331?cropid=f169w100" alt="Påskenøtter 30.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624692" title="Påskenøtter 30.03.2010">Påskenøtter 30.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/624705" title="Påskenøtter - løsning 30.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.7060331?cropid=f169w100" alt="Påskenøtter - løsning 30.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624705" title="Påskenøtter - løsning 30.03.2010">Påskenøtter - løsning 30.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/624172" title="True Blood - Sesong 2 - 5:12"><img src="http://www.nrk.no/contentfile/imagecrop/1.6797755?cropid=f169w100" alt="True Blood - Sesong 2 - 5:12" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624172" title="True Blood - Sesong 2 - 5:12">True Blood - Sesong 2 - 5:12</a></h3></div></li><li><div><a href="/nett-tv/klipp/624742" title="Skøytehistorier fra Hamar"><img src="http://www.nrk.no/contentfile/imagecrop/1.7060380?cropid=f169w100" alt="Skøytehistorier fra Hamar" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624742" title="Skøytehistorier fra Hamar">Skøytehistorier fra Hamar</a></h3></div></li><li><div><a href="/nett-tv/klipp/625241" title="Ekstremfiske 30.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.7042566?cropid=f169w100" alt="Ekstremfiske 30.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/625241" title="Ekstremfiske 30.03.2010">Ekstremfiske 30.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/625244" title="Desken 30.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.6827772?cropid=f169w100" alt="Desken 30.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/625244" title="Desken 30.03.2010">Desken 30.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/625162" title="Et vakkert liv"><img src="http://www.nrk.no/contentfile/imagecrop/1.7062394?cropid=f169w100" alt="Et vakkert liv" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/625162" title="Et vakkert liv">Et vakkert liv</a></h3></div></li><li><div><a href="/nett-tv/klipp/624834" title="En sterk historie: Oddgeir Bruaset i Telemark 29.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.7032046?cropid=f169w100" alt="En sterk historie: Oddgeir Bruaset i Telemark 29.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624834" title="En sterk historie: Oddgeir Bruaset i Telemark 29.03.2010">En sterk historie: Oddgeir Bruaset i Telemark 29.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/624424" title="Himmelblå 28.03.10"><img src="http://www.nrk.no/contentfile/imagecrop/1.7028992?cropid=f169w100" alt="Himmelblå 28.03.10" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624424" title="Himmelblå 28.03.10">Himmelblå 28.03.10</a></h3></div></li><li><div><a href="/nett-tv/klipp/624460" title="Lille Dorrit 28.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.7024531?cropid=f169w100" alt="Lille Dorrit 28.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624460" title="Lille Dorrit 28.03.2010">Lille Dorrit 28.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/623810" title="Newton - hus"><img src="http://www.nrk.no/contentfile/imagecrop/1.6625329?cropid=f169w100" alt="Newton - hus" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/623810" title="Newton - hus">Newton - hus</a></h3></div></li><li><div><a href="/nett-tv/klipp/624180" title="Vikaren"><img src="http://www.nrk.no/contentfile/imagecrop/1.6734879?cropid=f169w100" alt="Vikaren" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624180" title="Vikaren">Vikaren</a></h3></div></li><li><div><a href="/nett-tv/klipp/624212" title="Ingen grenser 4:6 (tekstet versjon)"><img src="http://www.nrk.no/contentfile/imagecrop/1.7023136?cropid=f169w100" alt="Ingen grenser 4:6 (tekstet versjon)" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624212" title="Ingen grenser 4:6 (tekstet versjon)">Ingen grenser 4:6 (tekstet versjon)</a></h3></div></li><li><div><a href="/nett-tv/klipp/624173" title="Sangskatter med Tonje Unstad"><img src="http://www.nrk.no/contentfile/imagecrop/1.7056787?cropid=f169w100" alt="Sangskatter med Tonje Unstad" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624173" title="Sangskatter med Tonje Unstad">Sangskatter med Tonje Unstad</a></h3></div></li><li><div><a href="/nett-tv/klipp/624362" title="Krem Nasjonal 27.03.10"><img src="http://www.nrk.no/contentfile/imagecrop/1.6829181?cropid=f169w100" alt="Krem Nasjonal 27.03.10" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624362" title="Krem Nasjonal 27.03.10">Krem Nasjonal 27.03.10</a></h3></div></li><li><div><a href="/nett-tv/klipp/624433" title="Corleone (1:6)"><img src="http://www.nrk.no/contentfile/imagecrop/1.7056492?cropid=f169w100" alt="Corleone (1:6)" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624433" title="Corleone (1:6)">Corleone (1:6)</a></h3></div></li><li><div><a href="/nett-tv/klipp/624415" title="Monty Pythons verden (1:6)"><img src="http://www.nrk.no/contentfile/imagecrop/1.7056504?cropid=f169w100" alt="Monty Pythons verden (1:6)" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624415" title="Monty Pythons verden (1:6)">Monty Pythons verden (1:6)</a></h3></div></li><li><div><a href="/nett-tv/klipp/624416" title="Viggo på lørdag 27.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.6786341?cropid=f169w100" alt="Viggo på lørdag 27.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624416" title="Viggo på lørdag 27.03.2010">Viggo på lørdag 27.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/624438" title="Helt på kanten 4:6"><img src="http://www.nrk.no/contentfile/imagecrop/1.6990469?cropid=f169w100" alt="Helt på kanten 4:6" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624438" title="Helt på kanten 4:6">Helt på kanten 4:6</a></h3></div></li><li><div><a href="/nett-tv/klipp/624289" title="Skavlan 26.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.6770637?cropid=f169w100" alt="Skavlan 26.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624289" title="Skavlan 26.03.2010">Skavlan 26.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/624286" title="Lyngbø og Hærlands Big Bang 26.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.7023201?cropid=f169w100" alt="Lyngbø og Hærlands Big Bang 26.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624286" title="Lyngbø og Hærlands Big Bang 26.03.2010">Lyngbø og Hærlands Big Bang 26.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/624287" title="Nytt på nytt 26.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.6781958?cropid=f169w100" alt="Nytt på nytt 26.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624287" title="Nytt på nytt 26.03.2010">Nytt på nytt 26.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/624368" title="Etter katastrofen 26.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.6712161?cropid=f169w100" alt="Etter katastrofen 26.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624368" title="Etter katastrofen 26.03.2010">Etter katastrofen 26.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/624414" title="Mesternes mester 4:10"><img src="http://www.nrk.no/contentfile/imagecrop/1.7024522?cropid=f169w100" alt="Mesternes mester 4:10" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624414" title="Mesternes mester 4:10">Mesternes mester 4:10</a></h3></div></li><li><div><a href="/nett-tv/klipp/624147" title="Fotballkrigen 4:6 - Celtic - Rangers"><img src="http://www.nrk.no/contentfile/imagecrop/1.7023093?cropid=f169w100" alt="Fotballkrigen 4:6 - Celtic - Rangers" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624147" title="Fotballkrigen 4:6 - Celtic - Rangers">Fotballkrigen 4:6 - Celtic - Rangers</a></h3></div></li><li><div><a href="/nett-tv/klipp/624041" title="Norge rundt 26.03.10"><img src="http://www.nrk.no/contentfile/imagecrop/1.6954270?cropid=f169w100" alt="Norge rundt 26.03.10" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624041" title="Norge rundt 26.03.10">Norge rundt 26.03.10</a></h3></div></li><li><div><a href="/nett-tv/klipp/624151" title="Nurse Jackie 25.03.2010"><img src="http://www.nrk.no/contentfile/imagecrop/1.7028178?cropid=f169w100" alt="Nurse Jackie 25.03.2010" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/624151" title="Nurse Jackie 25.03.2010">Nurse Jackie 25.03.2010</a></h3></div></li><li><div><a href="/nett-tv/klipp/622674" title="Barn i krig"><img src="http://www.nrk.no/contentfile/imagecrop/1.6862223?cropid=f169w100" alt="Barn i krig" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/622674" title="Barn i krig">Barn i krig</a></h3></div></li><li><div><a href="/nett-tv/klipp/622217" title="Hjernevask 4:7"><img src="http://www.nrk.no/contentfile/imagecrop/1.7017169?cropid=f169w100" alt="Hjernevask 4:7" width="100" height="57" /></a><h3><a href="/nett-tv/klipp/622217" title="Hjernevask 4:7">Hjernevask 4:7</a></h3></div></li></ul>		
+</div>
+						
+						
+						<!--googleon: index-->						
+						<div id="ctl00_bl">
+							
+						</div>
+			        </div> 
+					
+
+				</div> 
+		
+				
+				
+				<div class="nettv-side-section">
+						<!--googleoff: index-->
+						<div class="ad"><div class="ad-content"><script type="text/javascript">
+<!--
+OAS_RICH('Right');
+-->
+</script></div></div>
+
+						
+						
+
+<h3>Siste: nrk.no</h3>
+<div class="list-light">
+	<ul>
+		<li class="first-list-link">
+<a href="http://www.nrk.no/nyheter/distrikt/hordaland/1.7063319" title="TV 2 i Bergen skaper nyhetsmangfold"><img src="http://www.nrk.no/contentfile/imagecrop/1.6605264?cropid=f169w225" alt="TV 2 i Bergen skaper nyhetsmangfold" title="TV 2 i Bergen skaper nyhetsmangfold" width="174" height="99"/><em>TV 2 i Bergen skaper nyhetsmangfold</em></a>
+</li>
+<li><a href="http://www.nrk.no/nyheter/distrikt/nrk_trondelag/1.7063324" title="Knipset bjørn rett ved E6">Knipset bjørn rett ved E6</a></li><li><a href="http://www.nrk.no/nyheter/verden/1.7063438" title="75 land lover CO2-kutt">75 land lover CO2-kutt</a></li><li><a href="http://www.nrk.no/nyheter/distrikt/nrk_sogn_og_fjordane/1.7063143" title="Frikjent etter å ha banka mann">Frikjent etter å ha banka mann</a></li><li><a href="http://www.nrk.no/nyheter/distrikt/ostafjells/telemark/1.7063363" title="Nødplakat på hyttene">Nødplakat på hyttene</a></li><li><a href="http://www.nrk.no/nyheter/distrikt/sorlandet/1.7063399" title="Vil dele Cultiva i to">Vil dele Cultiva i to</a></li><li><a href="http://www.nrk.no/nyheter/distrikt/sorlandet/1.7063320" title="Erklært sinnsyk etter sms">Erklært sinnsyk etter sms</a></li><li><a href="http://www.nrk.no/nyheter/distrikt/hordaland/1.7063333" title="Storbrannalarm i Bergen">Storbrannalarm i Bergen</a></li><li><a href="http://www.nrk.no/nyheter/distrikt/more_og_romsdal/1.7063309" title="Her var det våtest">Her var det våtest</a></li><li><a href="http://www.nrk.no/nyheter/klima/1.7063341" title="Samarbeid om CO2-håndtering">Samarbeid om CO2-håndtering</a></li><li><a href="http://www.nrk.no/nyheter/norge/1.7063275" title="Nekter å ha truet TV-journalist">Nekter å ha truet TV-journalist</a></li>
+	</ul>
+</div>	
+						<!--googleon: index-->
+				</div> 
+				
+		
+		
+			</div> 
+			
+			
+			
+			<div class="nettv-footer clearfix">
+				<div class="nettv-settings">
+
+	<h2>Innstillinger</h2>
+
+	<div class="nettv-settings-main">
+
+		<fieldset class="player-settings">		
+			<legend>Velg avspiller</legend>			
+			<div>
+				<span id="ctl00_ucUserSettings_chooseplayer"><input id="ctl00_ucUserSettings_chooseplayer_0" type="radio" name="ctl00$ucUserSettings$chooseplayer" value="ag" /><label for="ctl00_ucUserSettings_chooseplayer_0"> Silverlight <em>(anbefalt for macbrukere)</em> </label><input id="ctl00_ucUserSettings_chooseplayer_1" type="radio" name="ctl00$ucUserSettings$chooseplayer" value="wmp" checked="checked" /><label for="ctl00_ucUserSettings_chooseplayer_1"> Windows Media Player </label></span>
+			</div>
+		</fieldset>
+	
+		<fieldset class="speed-settings">
+			<legend>Velg kvalitet</legend>
+
+			<div class="speed-test">
+				<label>Test båndbredden din</label>
+				<input type="text" id="speedtext" class="input-text" name="speedtext" onchange="this.value = validatedSpeed(this.value);" value="10000"/><span>Kb/s</span>
+				<input type="submit" class="input-button" name="Test" value="Start testen" onclick="return synchronousSpeedDetector('ctl00_ucUserSettings_choosespeed_0', 'ctl00_ucUserSettings_choosespeed_1', 'ctl00_ucUserSettings_choosespeed_2');" />
+				<p>Hastigheten blir lagret i din nettleser når du trykker på <strong>Lagre innstillinger</strong>. Den vil bli brukt som grunnlag for å avgjøre hvilken kvalitet du vil få på multimediafilene i Nett-TV.</p>
+			</div>
+			
+			<div class="speed-info">
+				<p>Internetthastigheten din avgjør hvilken kvalitet du får i Nett-TV.</p>
+				<p>Med en god bredbåndsforbindelse (over 1200 kbps) får du den beste kvaliteten. Dersom du opplever hakking, kan du selv velge en lavere kvalitet.</p>
+			</div><!-- speed-info -->
+			<div class="speed-select">
+				<span id="ctl00_ucUserSettings_choosespeed"><input id="ctl00_ucUserSettings_choosespeed_0" type="radio" name="ctl00$ucUserSettings$choosespeed" value="450" /><label for="ctl00_ucUserSettings_choosespeed_0"> Lav <em>(300)</em> </label><input id="ctl00_ucUserSettings_choosespeed_1" type="radio" name="ctl00$ucUserSettings$choosespeed" value="750" /><label for="ctl00_ucUserSettings_choosespeed_1"> Middels <em>(600)</em> </label><input id="ctl00_ucUserSettings_choosespeed_2" type="radio" name="ctl00$ucUserSettings$choosespeed" value="1200" checked="checked" /><label for="ctl00_ucUserSettings_choosespeed_2"> Høy <em>(1000)</em> </label></span>
+			</div>
+		</fieldset><!-- player-settings -->
+		
+		<input type="submit" name="ctl00$ucUserSettings$savesettings" value="Lagre innstillinger" id="ctl00_ucUserSettings_savesettings" class="input-button save-settings" />
+	</div><!-- nettv-settings-main -->
+	
+	<div class="nettv-settings-side">
+		<div class="abroad-users">
+			<img src="http://fil.nrk.no/nett-tv/data/bilder/worldmap.png" alt="Verdenskart" />
+			<h4>Nett-TV fra utlandet?</h4>
+			<p>Ved stor pågang kan brukere i utlandet få problemer med NRK Nett-TV. Årsaken kan være begrensninger i linjekapasiteten. <br /><a href="http://nrk.no/informasjon/hjelp/1.2614661" title="Hjelp i Nett-TV">Les mer her.</a></p>
+		</div><!-- abroad-settings -->
+	</div><!-- nettv-settings-side -->
+
+</div><!-- nettv-settings -->
+			</div>
+			
+			
+		</div> 
+
+    
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCwL/javeAwK51tbHAQL69YajCwLipsmICAL+qKOLBALdycfnBALRl4fGAgLUl4fGAgLel7v4CQL3uf7/CQLaxZvXAx+1QnDjrJe6d7p31FX6kEjgulS9" />
+</div></form>
+
+	<div class="nrk-globalfooter"><div><ul><li><a title="Opphavsrett NRK © 2010" href="http://www.nrk.no/informasjon/1497561.html">Opphavsrett NRK © 2010</a></li><li>Nettsjef: <a title="Sindre Østgård" href="http://www.nrk.no/informasjon/1.2843526">Sindre Østgård</a></li><li>Ansvarlig redaktør: <a title="Hans-Tore Bjerkaas" href="http://www.nrk.no/informasjon/1.2843526">Hans-Tore Bjerkaas</a></li></ul><ul><li><a title="Tips NRK" href="http://www.nrk.no/tips/">Tips NRK</a></li><li><a title="Kontakt NRK" href="http://www.nrk.no/kontakt/">Kontakt NRK</a></li><li><a title="Om NRK" href="http://www.nrk.no/info/">Om NRK</a></li><li><a title="Hjelp" href="http://www.nrk.no/hjelp/">Hjelp</a></li></ul></div></div>
+
+
+    <div id="imgContent" style="display: none;"></div>
+        
+    
+
+    <script type="text/javascript" src="http://fil.nrk.no/nett-tv/data/skript/Felles2.7.js"></script>
+    <script type="text/javascript" src="http://fil.nrk.no/nett-tv/data/skript/innstillinger2.7.js"></script>
+
+	<script type="text/javascript" src="http://fil.nrk.no/contentfile/file/1.6899315!globalnavigation.js"></script>
+	<script type="text/javascript" src="http://fil.nrk.no/nett-tv/data/skript/jquery.bigtarget.1.0.1.js"></script>
+	<script type="text/javascript" src="http://fil.nrk.no/nett-tv/data/skript/nett-tv.2.7.script.js"></script>
+
+    <div id="agTest" style="display: none;"></div>
+    <script type="text/javascript">
+    <!--
+        if (readCookie('agtest') == null) {
+            try {
+                if (Silverlight.isInstalled)
+                    document.getElementById('agTest').innerHTML = '<img src="http://fil.nrk.no/nett-tv/data/bilder/silverlightinstalled.jpg" alt="" />';
+                else
+                    document.getElementById('agTest').innerHTML = '<img src="http://fil.nrk.no/nett-tv/data/bilder/silverlightnotinstalled.jpg" alt="" />'
+            } catch (e) {
+                document.getElementById('agTest').innerHTML = '<img src="http://fil.nrk.no/nett-tv/data/bilder/silverlightnotinstalled.jpg" alt="" />'
+            }
+            createCookie('agtest', 'tested', 1);
+        }   
+	//-->
+    </script>
+
+	
+    <script type="text/javascript" src="http://fil.nrk.no/contentfile/file/1.5467129.1208937413!ga.js"></script>
+    <script type="text/javascript" src="http://fil.nrk.no/contentfile/file/1.6580459.1240557464!nett-tv.ga.js"></script>
+
+	
+    <script type="text/javascript">
+    	function unload() { sensors.unload(); }
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,31 @@
+<mediadefinition>
+  <mediaitems>
+    <mediaitem>
+      <title>Beat for beat 06.11.09</title>
+      <description />
+      <broadcasttype>odm</broadcasttype>
+      <mediaurl>mms://straumod.nrk.no/disk05/Beat_for_beat/2009-11-06/Beat_for_beat_06_11_09_300_571150_20091106_195500.wmv</mediaurl>
+      <imageurl>http://fil.nrk.no/contentfile/file/1.6786874.1253630687!f169CropList/img100x57.jpg</imageurl>
+      <subtitleurl />
+      <supringurl />
+      <timeindex>0</timeindex>
+      <chapters>
+        <chapteritem>
+          <title>Lene Alexandra synger «My funny valentine»</title>
+          <timeindex>364</timeindex>
+          <imageurl />
+        </chapteritem>
+        <chapteritem>
+          <title>Lene Alexandra synger «Vem vet»</title>
+          <timeindex>940</timeindex>
+          <imageurl />
+        </chapteritem>
+        <chapteritem>
+          <title>Lene Alexandra synger «Barbie Girl»</title>
+          <timeindex>2270</timeindex>
+          <imageurl />
+        </chapteritem>
+      </chapters>
+    </mediaitem>
+  </mediaitems>
+</mediadefinition>

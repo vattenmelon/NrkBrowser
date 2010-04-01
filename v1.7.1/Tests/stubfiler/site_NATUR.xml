@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:nrk="http://www.nrk.no/nett-tv">
+  <channel>
+    <title>NRK Nett-TV</title>
+    <image>
+      <url>http://fil.nrk.no/contentfile/web/bgimages/special/nettv/bakgrunn_nett_tv.jpg</url>
+    </image>
+    <item>
+      <title>Super startvignett</title>
+      <guid>381992</guid>
+      <description>Super startvignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381992&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381992&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>AF1  i Spektrum</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>548317</guid>
+      <description>AF1 fra MGPjr i Oslo Spektrum</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=548317&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=548317&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(75116)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Jørgen i Pling Plong</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>546433</guid>
+      <description>Bjørnar fikk på lørdag besøk av MGPjr vinneren</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=546433&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=546433&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(108864)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>"Edwin" i Fin Fredag</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>547082</guid>
+      <description>The BlackSheeps fremfører deres nye låt "Edwin"</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=547082&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=547082&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(108865)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Tegneby</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>544895</guid>
+      <description>Tegneby ser du i Barne-TV hver tirsdag fra 29. september</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=544895&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=544895&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(108438)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Kometkameratene: Søppel</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>454868</guid>
+      <description>Enda nyere musikkvideo fra Kometkameratene!</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=454868&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=454868&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(88420)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Alexander Rybak kysser Marthe!</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>492072</guid>
+      <description>Se klippet fra Fin Fredag her!</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=492072&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=492072&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(99075)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Agent 25 Vitser</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>485203</guid>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=485203&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=485203&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(97066)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Pirater til PlingPlong</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>484367</guid>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=484367&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=484367&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(96781)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Venner</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>469758</guid>
+      <description>En vennesang fra Barne-tv!</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=469758&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=469758&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(92566)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Gratulerer med dagen!</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>456139</guid>
+      <description>Gratulerer med dagen fra Barne-TV!</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=456139&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=456139&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(92564)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Agent 25 synger</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>482863</guid>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=482863&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=482863&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(96344)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Pling Plong</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>478255</guid>
+      <description>Se Jon Almås i ny kjole</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=478255&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=478255&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(95186)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>God natt!</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>456145</guid>
+      <description>Godnatt fra Barne-TV.</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=456145&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=456145&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(92565)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>AF1</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>435495</guid>
+      <description>Musikkvideo</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=435495&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=435495&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(82122)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Kometkameratene: Penger</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>454851</guid>
+      <description>Hvordan ser dette med penger ut fra verdensrommet?</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=454851&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=454851&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(88422)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Sara</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>431638</guid>
+      <description>Følg Saras videodagbok her! nrksuper.no/sara</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=431638&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=431638&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(77244)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Jordsangen</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>422965</guid>
+      <description>Musikkvideo kometkameratene</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=422965&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=422965&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(78487)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Spionasjetabbe</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>485272</guid>
+      <description>Agent 25 spionerer</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=485272&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=485272&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(97094)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>AF1</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>435492</guid>
+      <description>HIPHOPSKOLEN</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=435492&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=435492&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(82118)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Pling Plong</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>476217</guid>
+      <description>Gammel sang blir som ny: "Mikkel Rev"</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=476217&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=476217&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(94574)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Superia!</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>392678</guid>
+      <description>Promo</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=392678&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=392678&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(66659)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Boxer musikkvideo</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>466075</guid>
+      <description>Video fra dramaserien Boxer som kommer på NRK Super til høsten!</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=466075&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=466075&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(92562)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Pling Plong</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>476216</guid>
+      <description>Gammel sang blir som ny: "Lillebrors vise"</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=476216&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=476216&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(76375)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Tips mot dårlig oppførsel</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>485586</guid>
+      <description>Agent 25 viser tips til hvordan du takler dårlig oppførsel</description>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=485586&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=485586&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(97187)" loop="1" />
+    </item>
+    <item>
+      <title>Super vignett</title>
+      <guid>381994</guid>
+      <description>Super vignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381994&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+    <item>
+      <title>Kuraffen-kanon!</title>
+      <link>http://www1.nrk.no/nett-tv/</link>
+      <guid>545827</guid>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=545827&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=545827&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback javascriptEvent="currentH264ItemChange(108683)" loop="1" />
+    </item>
+    <item>
+      <title>Super sluttvignett</title>
+      <guid>381992</guid>
+      <description>Super sluttvignett</description>
+      <author>NRK</author>
+      <enclosure>http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381992&amp;app=nett-tv</enclosure>
+      <media:group>
+        <media:content url="http://pd.nrk.no/nett-tv-stream/stream.ashx?id=381992&amp;app=nett-tv" />
+      </media:group>
+      <nrk:playback loop="1" />
+    </item>
+  </channel>
+</rss>

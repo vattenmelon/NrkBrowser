@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<profile>
+  <section name="NrkBrowser">
+    <entry name="speed">2048</entry>
+    <entry name="liveStreamQuality">Low</entry>
+    <entry name="pluginName">My Nrk</entry>
+  </section>
+</profile>
