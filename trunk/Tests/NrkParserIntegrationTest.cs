@@ -467,7 +467,7 @@ namespace Vattenmelon.Nrk.Parser
         public void TestHentAnbefalte()
         {
             IList<Clip> anbefalte = nrkParser.getAnbefalte();
-            Assert.AreEqual(26, anbefalte.Count);
+            Assert.Greater(anbefalte.Count, 0);
         }
 
         [Test]
